@@ -1,0 +1,56 @@
+[
+  {
+    "State": "Karnataka",
+    "Place": "Coorg",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "State": "Tamil Nadu",
+    "Place": "Yercaud",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "State": "Tamil Nadu",
+    "Place": "Kodaikanal",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "State": "Kerala",
+    "Place": "Palakkad",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "State": "Tamil Nadu",
+    "Place": "Ooty",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "State": "Kerala",
+    "Place": "Munnar",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "State": "Tamil Nadu",
+    "Place": "Kotagiri",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "State": "Tamil Nadu",
+    "Place": "Coonoor",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "State": "Kerala",
+    "Place": "Wayanad",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  }
+]

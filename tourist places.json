@@ -1,0 +1,728 @@
+[
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Kappimala",
+    "lat": 9.984216577,
+    "lng": 76.2672086
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Kappukadu",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Kavvayi Backwaters",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Kizhunna Beach",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Kolavi Palam Beach",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Adavi",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Agastya Mala",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Alappuzha Backwaters",
+    "lat": 9.958278621,
+    "lng": 76.25935348
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Kottappuram Boat Jetty",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Kovalam Beach",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Place Name": "Kozhikode Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Aqua tourism",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Aralam Wildlife Sanctuary",
+    "lat": 9.958278621,
+    "lng": 76.25935348
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Arippa Ecotourism Village",
+    "lat": 9.983780521,
+    "lng": 76.27394792
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Arpookara",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Ashtamudi",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Attappadi Hills",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Barren Hills",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Kumarakom Bird Sanctuary",
+    "lat": 9.958278621,
+    "lng": 76.25935348
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Mamalakandam",
+    "lat": 9.983780521,
+    "lng": 76.27394792
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Munnar",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kollam",
+    "Place Name": "Begur Wildlife Sanctuary",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Bekal Beach",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Periyar Wildlife Sanctuary",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Varkala",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Beypore Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Cherai Beach",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Chimminy Wildlife Sanctuary",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Chinnar Wildlife Sanctuary",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Chithari backwaters",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Chithari island",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Pathanamthitta",
+    "Place Name": "Chokramudi Peak",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Alappuzha",
+    "Place Name": "Choolannur Pea Fowl Sanctuary",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "District": "Alappuzha",
+    "Place Name": "Chowara Beach",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Alappuzha",
+    "Place Name": "Elembalai Hill",
+    "lat": 9.958278621,
+    "lng": 76.25935348
+  },
+  {
+    "District": "Alappuzha",
+    "Place Name": "Enamavu Backwaters",
+    "lat": 9.983780521,
+    "lng": 76.27394792
+  },
+  {
+    "District": "Alappuzha",
+    "Place Name": "Eravikulam National Park",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "District": "Alappuzha",
+    "Place Name": "Hornbill Paradise",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Alappuzha",
+    "Place Name": "Idukki Wildlife Sanctuary",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "District": "Alappuzha",
+    "Place Name": "Ilaveezhapoonchira",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Kottayam",
+    "Place Name": "Illikkal Kallu",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Kottayam",
+    "Place Name": "Kadalundi Bird Sanctuary",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Kottayam",
+    "Place Name": "Kadamakkudy",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Kottayam",
+    "Place Name": "Kailasappara View Point",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "District": "Kottayam",
+    "Place Name": "Kakkathuruthu",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "District": "Kottayam",
+    "Place Name": "Kalvari Mount",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Kottayam",
+    "Place Name": "Kalyanathandu Hills",
+    "lat": 9.958278621,
+    "lng": 76.25935348
+  },
+  {
+    "District": "Kottayam",
+    "Place Name": "Kannadipara",
+    "lat": 9.983780521,
+    "lng": 76.27394792
+  },
+  {
+    "District": "Idukki",
+    "Place Name": "Kanwatheertha Beach",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Idukki",
+    "Place Name": "Kappad Beach",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Idukki",
+    "Place Name": "Kappil backwaters",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "District": "Idukki",
+    "Place Name": "Kappil Beach",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "District": "Idukki",
+    "Place Name": "Kumarakom",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Idukki",
+    "Place Name": "Kurumbalakotta",
+    "lat": 9.958278621,
+    "lng": 76.25935348
+  },
+  {
+    "District": "Idukki",
+    "Place Name": "Kuttanad",
+    "lat": 9.983780521,
+    "lng": 76.27394792
+  },
+  {
+    "District": "Idukki",
+    "Place Name": "Kuzhupilly Beach",
+    "lat": 9.975217079,
+    "lng": 76.27728522
+  },
+  {
+    "District": "Ernakulam",
+    "Place Name": "Mayiladi Para",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "District": "Ernakulam",
+    "Place Name": "Meenkunnu Beach",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "District": "Ernakulam",
+    "Place Name": "Meenuliyan Para",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Ernakulam",
+    "Place Name": "Meesapulimala",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Ernakulam",
+    "Place Name": "Munroe Island",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Ernakulam",
+    "Place Name": "Muthanga Wildlife Sanctuary",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Ernakulam",
+    "Place Name": "Muzhappilangad",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Ernakulam",
+    "Place Name": "Neendakara Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Thrissur",
+    "Place Name": "Nelliyampathy Hills",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Thrissur",
+    "Place Name": "Neyyar Wildlife Sanctuary",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Thrissur",
+    "Place Name": "Ottakathala Medu Mountain Range",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Thrissur",
+    "Place Name": "Padanna Backwaters",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Thrissur",
+    "Place Name": "Padinjarekkara Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Thrissur",
+    "Place Name": "Palakkayam Thattu",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Thrissur",
+    "Place Name": "Pampadum Shola National Park",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Thrissur",
+    "Place Name": "Panchalimedu",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Palakkad",
+    "Place Name": "Pandiyan Kallu Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Palakkad",
+    "Place Name": "Papanasam Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Palakkad",
+    "Place Name": "Parambikulam Tiger Reserve",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Palakkad",
+    "Place Name": "Pathiramanal",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Palakkad",
+    "Place Name": "Payyambalam Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Palakkad",
+    "Place Name": "Peechi-Vazhani Wildlife Sanctuary",
+    "lat": 9.984216577,
+    "lng": 76.2672086
+  },
+  {
+    "District": "Palakkad",
+    "Place Name": "Peppara Wildlife Sanctuary",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Palakkad",
+    "Place Name": "Periyar Tiger Reserve",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Malappuram",
+    "Place Name": "Perumbalam island",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Malappuram",
+    "Place Name": "Ponnumthuruthu",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Malappuram",
+    "Place Name": "Poovar Backwaters",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Malappuram",
+    "Place Name": "Poovar Beach",
+    "lat": 9.984216577,
+    "lng": 76.2672086
+  },
+  {
+    "District": "Malappuram",
+    "Place Name": "Q, S, T & R Block Kayals",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Malappuram",
+    "Place Name": "Raja's Cliff (Mampara Peak)",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Malappuram",
+    "Place Name": "Samudra Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Malappuram",
+    "Place Name": "Sasthamkotta",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kozhikode",
+    "Place Name": "Shankhumugham Beach",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Kozhikode",
+    "Place Name": "Shendurney Wildlife Sanctuary",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  },
+  {
+    "District": "Kozhikode",
+    "Place Name": "Silent Valley National Park",
+    "lat": 9.983321546,
+    "lng": 76.273393
+  },
+  {
+    "District": "Kozhikode",
+    "Place Name": "Swiftlet Cave",
+    "lat": 9.987735704,
+    "lng": 76.2729179
+  },
+  {
+    "District": "Kozhikode",
+    "Place Name": "Thangal Hill",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kozhikode",
+    "Place Name": "Thattekkad Bird Sanctuary",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kozhikode",
+    "Place Name": "Thikkoti Lighthouse",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kozhikode",
+    "Place Name": "Thirumullavaram Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Wayanad",
+    "Place Name": "Thiruvambady Beach",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Wayanad",
+    "Place Name": "Tholpetty Wildlife Sanctuary",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Wayanad",
+    "Place Name": "Thrissanku Hills",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Wayanad",
+    "Place Name": "Urumbikkara",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Wayanad",
+    "Place Name": "Vadakara Sand Banks Beach",
+    "lat": 9.984216577,
+    "lng": 76.2672086
+  },
+  {
+    "District": "Wayanad",
+    "Place Name": "Vakkad Beach",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Wayanad",
+    "Place Name": "Valanthakad",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Wayanad",
+    "Place Name": "Valiyaparamba Backwaters",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Kannur",
+    "Place Name": "Valiyathura",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Kannur",
+    "Place Name": "Vallikunnu Beach",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Kannur",
+    "Place Name": "Varkala Beach",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kannur",
+    "Place Name": "Vattakkayal",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kannur",
+    "Place Name": "Vayalada View Point",
+    "lat": 9.984216577,
+    "lng": 76.2672086
+  },
+  {
+    "District": "Kannur",
+    "Place Name": "Vellari Mala",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Kannur",
+    "Place Name": "Vellayani Kayal",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Kannur",
+    "Place Name": "Velliyamkallu Beach",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Vembanad Lake",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Wayanad Wildlife Sanctuary",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Alappuzha",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Anamudi",
+    "lat": 9.998507738,
+    "lng": 76.21816438
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Banasura Sagar Dam",
+    "lat": 9.984216577,
+    "lng": 76.2672086
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Chembra Peak",
+    "lat": 9.971515871,
+    "lng": 76.27940896
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Fort kochi",
+    "lat": 9.973857063,
+    "lng": 76.27777614
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Kollam Beach",
+    "lat": 9.967748721,
+    "lng": 76.2413264
+  },
+  {
+    "District": "Kasaragod",
+    "Place Name": "Kottappuram Backwaters",
+    "lat": 9.979913362,
+    "lng": 76.2750369
+  }
+]

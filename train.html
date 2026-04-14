@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yathra Map</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- BASE STYLES --- */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}:root{--gap:14px;--nav-height:70px;--side-space:28px;}body{background:#fff;padding-top:var(--gap);overflow-x:hidden;}@media (max-width: 600px) { :root { --gap: 10px; --side-space: 12px; } body { padding-top: 8px; } .hero { height: 420px !important; } }.navbar{height:var(--nav-height);display:flex;align-items:center;justify-content:center;background:#fff;position:fixed;top:0;left:0;width:100%;z-index:1000;}.nav-inner{width:100%;max-width:1400px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--side-space);}.logo img{height:50px;}.nav-center{display:flex;gap:28px;justify-content:center;flex:1;}.nav-center span{font-size:14px;cursor:pointer;}.search-icon{cursor:pointer;font-size:18px;}.hero{margin-top:calc(var(--nav-height) + 1px);border-radius:20px;overflow:hidden;position:relative;height:450px;margin-left:var(--side-space);margin-right:var(--side-space);}.hero-track{display:flex;height:100%;transition:transform 0.8s ease-in-out;}.hero-slide{min-width:100%;height:100%;}.hero-slide img{width:100%;height:100%;object-fit:cover;}.hero-text{position:absolute;bottom:20px;left:20px;color:#fff;font-size:22px;font-weight:600;}.hero-btn{position:absolute;bottom:20px;right:20px;background:#fff;border:none;padding:10px 16px;border-radius:20px;font-size:12px;cursor:pointer;}.category{margin-top:30px;padding:0 var(--side-space);}.card-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-bottom:var(--gap);position:relative;}.card-row::-webkit-scrollbar{display:none;}.card-row{-ms-overflow-style:none;scrollbar-width:none;}.card-row::after{content:'';position:absolute;right:0;top:0;height:100%;width:40px;background:linear-gradient(to left, #fff, transparent);pointer-events:none;z-index:2;transition: opacity 0.3s ease;}.scroll-indicator{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:18px;color:#999;pointer-events:none;z-index:3;transition: opacity 0.3s ease;}.card-row.scrolled::after, .card-row.scrolled .scroll-indicator { opacity: 0 !important; visibility: hidden; }.card-btn{border-radius:16px;border:1px solid #e5e5e5;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;scroll-snap-align:start;transition:0.2s;flex:0 0 auto;width:85px;height:85px;cursor:pointer;padding:8px;}.card-btn img{width:26px;height:26px;margin-bottom:6px;transition:transform 0.25s ease;}.card-btn p{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}.card-btn:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(0,0,0,0.08);}.card-btn:hover img{transform:scale(1.2) rotate(5deg);}@media(max-width:400px){ .card-row { gap: 8px; } .card-btn { flex: 0 0 calc((100% / 4) - 9px); width: auto; aspect-ratio: 1/1; height: auto; padding: 5px; border-radius: 12px; } .card-btn img { width: 22px; height: 22px; margin-bottom: 4px; } .card-btn p { font-size: 9px; letter-spacing: -0.2px; }}@media(min-width:700px){ .card-row { display: grid; grid-template-columns: repeat(7, 1fr); overflow: visible; } .card-row::after, .scroll-indicator { display: none; } .card-btn { flex: none; width: 100%; aspect-ratio: auto; padding: 15px 5px; }}
+        .popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);z-index:2000;}.popup-box{background:#fff;width:90%;max-width:360px;border-radius:16px;padding:25px 20px;text-align:center;animation:fadeIn 0.25s ease;display:flex;flex-direction:column;gap:20px;box-shadow:0 10px 25px rgba(0,0,0,0.15);}@keyframes fadeIn{from{transform:scale(0.9);opacity:0;}to{transform:scale(1);opacity:1;}}.popup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}.popup-item{background:#f9f9f9;border-radius:12px;padding:15px;cursor:pointer;transition:0.3s;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid transparent;}.popup-item img{width:35px;margin-bottom:8px;transition:transform 0.25s ease;}.popup-item p{font-size:13px;font-weight:500;transition:0.2s;}.popup-item:hover{transform:translateY(-3px);}.popup-item:hover img{transform:scale(1.25) rotate(5deg);}.popup-close{margin-top:10px;padding:10px 18px;border:none;border-radius:12px;background:#007b7f;color:#fff;font-weight:600;cursor:pointer;transition:0.3s;}.popup-close:hover{background:#005f61;transform:scale(1.05);}
+        .transport-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.transport-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.transport-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;overflow-y:auto;max-height:60vh;padding:10px 0;scrollbar-width:none;}.transport-grid::-webkit-scrollbar{display:none;}.transport-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s; display:flex; flex-direction:column; align-items:center; justify-content:center;}.transport-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.transport-item p{font-size:9px;font-weight:600;color:#333;line-height:1.1;}@media(max-width:480px){ .transport-grid { gap: 8px; } .transport-item { aspect-ratio: 1/1; padding: 5px; border-radius: 12px; } .transport-item img { width: 24px; height: 24px; } .transport-item p { font-size: 8px; } }.transport-item:hover img{transform:scale(1.25) rotate(5deg);}.transport-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
+        .provider-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);z-index:10000;}.provider-card{width:85%;max-width:320px;background:#fff;border-radius:28px;padding:30px 20px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation:popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);}@keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}.provider-options{display:flex;flex-direction:column;gap:15px;margin-top:25px;}.btn-uber{background:#000;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-uber:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.2);}.btn-rapido{background:#f5c400;color:#000;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-rapido:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(245,196,0,0.3);}.btn-local{background:#007b7f;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-local:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,123,127,0.2);}.btn-map{background:#444;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-map:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.3);}.close-link{margin-top:20px;display:inline-block;color:#000;font-weight:400;font-size:14px;text-decoration:none;cursor:pointer;}
+        .help-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.help-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;overflow-y:auto;max-height:60vh;padding:10px 0;scrollbar-width:none;}.help-grid::-webkit-scrollbar{display:none;}.help-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s;}.help-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.help-item p{font-size:10px;font-weight:600;color:#333;line-height:1.2;}.help-item:hover img{transform:scale(1.25) rotate(5deg);}.help-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
+
+        /* --- RAILWAY POPUP CSS --- */
+        .railway-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:10001;}.railway-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.railway-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;overflow-y:auto;max-height:65vh;padding:10px 0;scrollbar-width:none;}.railway-grid::-webkit-scrollbar{display:none;}.railway-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s; display:flex; flex-direction:column; align-items:center; justify-content:center;}.railway-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.railway-item p{font-size:8.5px;font-weight:600;color:#333;line-height:1.1;}
+        @media(max-width:480px){ 
+          .railway-grid { gap: 8px; } 
+          .railway-item { aspect-ratio: 1/1; padding: 5px; border-radius: 12px; } 
+          .railway-item img { width: 24px; height: 24px; } 
+          .railway-item p { font-size: 8px; } 
+        }
+        .railway-item:hover img{transform:scale(1.2) rotate(5deg);}.railway-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
+
+        .emergency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.emergency-box{width:100%;max-width:600px;height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;}@media(max-width:600px){.emergency-box{width:94%;margin-bottom:10px;border-radius:18px;}}.drag-bar{width:45px;height:5px;background:#ccc;border-radius:10px;margin:0 auto;}.popup-content{overflow-y:auto;scrollbar-width:none;}.popup-content::-webkit-scrollbar{display:none;}.popup-content::after{content:'';position:sticky;bottom:0;height:40px;display:block;background:linear-gradient(to top,#fff,transparent);}.emergency-grid{display:grid;gap:12px;}@media(max-width:480px){.emergency-grid{grid-template-columns:repeat(2,1fr);}}@media(min-width:481px){.emergency-grid{grid-template-columns:repeat(3,1fr);}}@media(min-width:900px){.emergency-grid{grid-template-columns:repeat(4,1fr);}}.emergency-item{background:#f7f7f7;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;}.emergency-item img{width:30px;margin-bottom:6px;transition:transform 0.25s ease;}.emergency-item:hover img{transform:scale(1.25) rotate(5deg);}.emergency-item p{font-size:12px;font-weight:500;}.tips-slider{overflow:hidden;}.tips-track{display:flex;transition:transform 0.6s ease-in-out;}.tip-card{min-width:100%;padding:10px;}.tip-inner{background:#f9f9f9;border-radius:14px;padding:14px;}.tip-inner h4{font-size:13px;margin-bottom:6px;}.tip-inner p{font-size:11px;line-height:1.6;}.close-btn{background:#007b7f;color:#fff;border:none;padding:12px;border-radius:12px;font-size:13px;margin-top:8px;cursor:pointer;transition:all 0.3s ease;}.close-btn:hover{background:#005f61;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,0.15);}
+        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}
+        .handpicked{margin:40px var(--side-space) 30px;}
+        /* card wrapper for Hidden Gems */
+        .handpicked-inner{background:#fff;border-radius:22px;box-shadow:0 4px 24px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.06);padding:16px 16px 16px;overflow:hidden;}
+        .handpicked-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+        .handpicked-header-left h2{font-size:16px;font-weight:700;color:#111;letter-spacing:-0.3px;margin:0;}
+        .handpicked-header-left p{font-size:10px;color:#aaa;margin:3px 0 0;}
+        .handpicked-see-all{font-size:11px;font-weight:600;color:#007b7f;cursor:pointer;white-space:nowrap;padding-top:3px;text-decoration:none;}
+        .handpicked-see-all:hover{text-decoration:underline;}
+        /* See All popup */
+        .hp-seeall-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12000;}
+        .hp-seeall-box{width:94%;max-width:600px;background:#fff;border-radius:24px 24px 0 0;padding:20px 16px 30px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;max-height:80vh;}
+        .hp-seeall-header{display:flex;justify-content:space-between;align-items:center;}
+        .hp-seeall-header h3{font-size:17px;font-weight:700;color:#111;}
+        .hp-seeall-close{font-size:22px;color:#aaa;cursor:pointer;line-height:1;background:none;border:none;padding:0;}
+        .hp-seeall-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;overflow-y:auto;scrollbar-width:none;flex:1;}
+        .hp-seeall-grid::-webkit-scrollbar{display:none;}
+        .hp-place-item{background:#f8f9fa;border-radius:14px;padding:12px 14px;cursor:pointer;border:1px solid #eee;transition:0.2s;}
+        .hp-place-item:hover{background:#e8f6f6;border-color:#007b7f;}
+        .hp-place-item h4{font-size:13px;font-weight:600;color:#222;margin:0 0 2px;}
+        .hp-place-item p{font-size:10px;color:#888;margin:0;}
+        @media(min-width:480px){.hp-seeall-grid{grid-template-columns:repeat(3,1fr);}}
+        .handpicked-slider-wrap{overflow:hidden;width:100%;}
+        .handpicked-cards{display:flex;gap:12px;transition:transform 0.5s ease;will-change:transform;}
+        .handpicked-card{flex:0 0 140px;height:200px;position:relative;border-radius:12px;}.handpicked-card img{width:100%;height:100%;object-fit:cover;border-radius:12px;}.handpicked-card p{position:absolute;bottom:8px;left:8px;color:#fff;font-weight:600;font-size:13px;text-shadow:0 0 5px rgba(0,0,0,0.6);margin:0;}
+        .internal-popup { position:fixed; inset:0; display:none; justify-content:center; align-items:center; background:rgba(0,0,0,0.7); backdrop-filter:blur(10px); z-index:11000; }
+        .internal-box { width:92%; max-width:420px; background:#f8f9fa; border-radius:28px; padding:0; max-height:82vh; overflow-y:auto; scrollbar-width:none; position:relative; box-shadow:0 15px 35px rgba(0,0,0,0.3); }
+        .internal-box::-webkit-scrollbar { display:none; }
+        .internal-header { position:sticky; top:0; background:#fff; padding:20px 16px; border-bottom:1px solid #eee; text-align:center; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.03); }
+        .internal-header h3 { font-size:19px; color:#111; font-weight:600; }
+        .internal-header p { font-size:12px; color:#666; margin-top:4px; }
+        .internal-footer { position:sticky; bottom:0; background:#fff; padding:15px; border-top:1px solid #eee; z-index:100; }
+        .timing-container { padding:18px; display:flex; flex-direction:column; gap:18px; }
+        .timing-card { background:#fff; border-radius:18px; padding:16px; border:1px solid #eaeaea; box-shadow:0 4px 12px rgba(0,0,0,0.02); }
+        .timing-card h4 { color:#007b7f; font-size:14px; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+        .timing-card h4::before { content:''; width:4px; height:14px; background:#007b7f; border-radius:2px; }
+        .timing-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed #eee; }
+        .timing-row:last-child { border-bottom:none; }
+        .timing-label { font-size:12px; color:#777; font-weight:400; }
+        .timing-value { font-size:13px; color:#222; font-weight:600; }
+        .station-list { list-style:none; padding:12px; background:#fff; }
+        .station-item { padding:16px 14px; border-bottom:1px solid #f5f5f5; display:flex; align-items:center; gap:14px; font-size:14px; font-weight:500; cursor:pointer; transition:0.2s; border-radius:12px; margin-bottom:4px; }
+        .station-item:hover { background:#f0f9f9; transform: translateX(5px); }
+        .station-item.key { background:#f1f8f8; border-left:4px solid #007b7f; }
+        .station-item.key p { font-size:11px; color:#007b7f; font-weight:400; margin-top:3px; }
+        .station-dot { width:8px; height:8px; border-radius:50%; background:#007b7f; outline: 3px solid rgba(0,123,127,0.1); flex-shrink:0; }
+
+        /* --- DYNAMIC PRO DESIGN UPDATES --- */
+        .dynamic-list-box { width: 92%; max-width: 440px; background: #fff; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; max-height: 82vh; animation: slideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border: 1px solid #eee; }
+        .dynamic-list-header { padding: 25px 20px; background: #fff; border-bottom: 1px solid #f1f1f1; text-align: center; }
+        .dynamic-list-header h3 { font-size: 21px; font-weight: 600; color: #1a1a1a; letter-spacing: -0.5px; }
+        .dynamic-list-header p { font-size: 12px; color: #777; margin-top: 5px; }
+        .dynamic-content { padding: 8px 16px; overflow-y: auto; background: #fff; scrollbar-width: none; -ms-overflow-style: none; }
+        .dynamic-content::-webkit-scrollbar { display: none; }
+        
+        .station-card-pro { display: flex; align-items: center; justify-content: space-between; background: transparent; padding: 16px 0; border-bottom: 1px solid #f1f1f1; transition: all 0.2s ease; cursor: pointer; }
+        .station-card-pro:last-child { border-bottom: none; }
+        .station-card-pro:active { opacity: 0.7; }
+        
+        .station-info { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .station-icon { font-size: 20px; width: 30px; text-align: center; }
+        .station-details h4 { font-size: 15px; font-weight: 600; color: #222; }
+        .station-details p { font-size: 11px; color: #777; margin-top: 1px; }
+        .station-code-text { color: #007b7f; font-weight: 600; font-size: 11px; text-transform: uppercase; margin-right: 4px; }
+        
+        .station-action-group { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .station-distance { font-size: 12px; font-weight: 700; color: #007b7f; display: inline-block; }
+        .direction-arrow-pro { width: 14px; height: 14px; display: inline-block; vertical-align: middle; opacity: 0.6; }
+
+        .district-btn-pro { padding: 20px 15px; background: #fff; border-radius: 18px; border: 1px solid #eee; text-align: center; font-size: 13px; font-weight: 600; transition: 0.25s; cursor: pointer; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .district-btn-pro:hover { border-color: #007b7f; color: #007b7f; background: #f0f9f9; }
+        .dynamic-footer { padding: 18px; background: #fff; border-top: 1px solid #f1f1f1; }
+
+        .district-grid-wrapper { display: grid; gap: 12px; grid-template-columns: 1fr; }
+        @media (min-width: 480px) { .district-grid-wrapper { grid-template-columns: repeat(2, 1fr); } }
+
+        /* --- UPDATED TOOLBAR SECTION (GAP LOGIC) --- */
+        .toolbar-section { margin: 0 var(--side-space) 16px; position: relative; }
+        .toolbar-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: nowrap; }
+        .toolbar-header h2 { font-size: 15px; font-weight: 600; white-space: nowrap; }
+        .toolbar-header .arrows { display: flex; gap: 4px; margin-left: auto; }
+        .toolbar-header .arrows button { border: none; background: #fff; cursor: pointer; font-size: 18px; }
+        .toolbar-row { display: flex; gap: 8px; overflow-x: auto; padding: 6px 0; scrollbar-width: none; -ms-overflow-style: none; flex: 1; }
+        .toolbar-row::-webkit-scrollbar { display: none; }
+
+        .tool-btn { flex: 0 0 auto; background: #f8f9fa; border: 1px solid #eee; border-radius: 50px; display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; scroll-snap-align: start; }
+        .tool-btn img { width: 18px; height: 18px; }
+        .tool-btn p { font-size: 11px; font-weight: 500; color: #333; white-space: nowrap; }
+        
+        @media (max-width: 600px) {
+            .tool-btn { padding: 5px 10px; }
+            .tool-btn p { font-size: 10px; }
+            .tool-btn img { width: 16px; height: 16px; }
+        }
+
+        /* --- ACTIVITIES SECTION --- */
+        .activities-section { margin: 0 var(--side-space) 40px; }
+        .activities-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .activities-header h2 { font-size: 18px; font-weight: 600; }
+        .activities-slider-wrap { overflow: hidden; width: 100%; }
+        .activities-cards { display: flex; gap: 12px; transition: transform 0.5s ease; will-change: transform; }
+        .activity-card { flex: 0 0 220px; height: 110px; position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; }
+        .activity-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+        .activity-card:hover img { transform: scale(1.06); }
+        .activity-card .act-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.62) 40%, transparent 100%); border-radius: 14px; }
+        .activity-card p { position: absolute; bottom: 9px; left: 10px; color: #fff; font-weight: 600; font-size: 13px; text-shadow: 0 1px 4px rgba(0,0,0,0.7); margin: 0; }
+        @media (max-width: 480px) {
+            .activity-card { flex: 0 0 175px; height: 95px; }
+        }
+
+        /* --- NEARBY ESCAPES SECTION (CARD WRAP) --- */
+        .escapes-section { margin: 0 var(--side-space) 80px; }
+        .escapes-card-wrap { background: #fff; border-radius: 22px; box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06); padding: 16px; }
+        /* header row: shown only on <700px at top, hidden on ≥700px (right col handles it) */
+        .escapes-header { display: none; }
+        .escapes-arrows { display: flex; gap: 6px; align-items: center; padding-top: 2px; }
+        .escapes-arrows button { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e5e5e5; background: #fff; cursor: pointer; font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center; color: #555; transition: background 0.2s, border-color 0.2s, color 0.2s; padding: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+        .escapes-arrows button:hover { background: #007b7f; border-color: #007b7f; color: #fff; }
+        /* layout row */
+        .escapes-layout { display: flex; gap: 10px; align-items: flex-start; }
+        /* LEFT — big featured image */
+        .esc-main { flex: 0 0 54%; position: relative; border-radius: 14px; overflow: hidden; background: #1a1a1a; cursor: pointer; height: 270px; }
+        .esc-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
+        /* two-layer crossfade: back img stays, front img fades in on top */
+        .esc-main-img-back { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 0; }
+        .esc-main-img-front { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 1; opacity: 1; transition: opacity 0.35s ease; }
+        .esc-main-img-front.esc-xfade { opacity: 0; }
+        .esc-main:hover .esc-main-img-front { transform: scale(1.03); transition: transform 0.55s ease, opacity 0.35s ease; }
+        .esc-main-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.06) 55%, transparent 100%); pointer-events: none; z-index: 2; }
+        .esc-main-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px 13px; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; z-index: 3; }
+        .esc-main-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+        .esc-main-name { font-size: 14px; font-weight: 700; color: #fff; text-shadow: 0 1px 5px rgba(0,0,0,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .esc-main-district { font-size: 10px; color: rgba(255,255,255,0.75); font-weight: 400; white-space: nowrap; }
+        .esc-main-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+        .esc-main-km { font-size: 10px; color: rgba(255,255,255,0.75); font-weight: 600; }
+        .esc-dir-btn { font-size: 9px; font-weight: 600; color: #fff; border: 1px solid rgba(255,255,255,0.65); border-radius: 20px; padding: 2px 10px; cursor: pointer; background: transparent; transition: background 0.2s, border-color 0.2s; white-space: nowrap; }
+        .esc-dir-btn:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+        /* RIGHT column — 3×2 grid, height matches main image on ≥700px */
+        .esc-right { flex: 1; display: flex; flex-direction: column; gap: 0; min-width: 0; }
+        /* gap between subheading row and grid */
+        .esc-right-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; flex-shrink: 0; }
+        .esc-right-header-text h2 { font-size: 15px; font-weight: 700; color: #111; letter-spacing: -0.2px; margin: 0; line-height: 1.2; }
+        .esc-right-header-text p { font-size: 9.5px; color: #aaa; margin: 2px 0 0; }
+        .esc-grid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 6px; overflow: hidden; }
+        .esc-thumb { border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; background: transparent; transition: opacity 0.25s, box-shadow 0.25s; }
+        /* two-layer crossfade for thumbs too */
+        .esc-thumb-img-back { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 0; }
+        .esc-thumb-img-front { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; transition: transform 0.4s ease, opacity 0.3s ease; }
+        .esc-thumb:hover .esc-thumb-img-front { transform: scale(1.08); }
+        .esc-thumb-img-front.esc-xfade { opacity: 0; }
+        .esc-thumb.esc-thumb-active { box-shadow: inset 0 0 0 0 transparent; opacity: 1; }
+        .esc-thumb:not(.esc-thumb-active) { opacity: 0.72; }
+        .esc-thumb:not(.esc-thumb-active):hover { opacity: 1; }
+        .esc-thumb-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 3px 5px 4px; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%); z-index: 2; }
+        .esc-thumb-label span { font-size: 8px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        /* legacy fade classes (kept for safety, unused) */
+        .esc-main img.esc-fade-out { opacity: 0; }
+        .esc-main img.esc-fade-in  { opacity: 1; }
+        /* ≥700px: right col stretches to match main image height */
+        @media (min-width: 700px) {
+          .escapes-layout { align-items: stretch; }
+          .esc-right { max-height: 270px; }
+          .esc-grid { overflow: hidden; }
+        }
+        /* ≥700px: show right column, hide mobile-header */
+        .esc-mobile-header { display: none; }
+        /* <700px: full-width main only, heading at top */
+        @media (max-width: 699px) {
+          .escapes-header { display: none; }
+          .esc-mobile-header { display: block; margin-bottom: 12px; }
+          .esc-mobile-header h2 { font-size: 16px; font-weight: 700; color: #111; letter-spacing: -0.3px; margin: 0; }
+          .esc-mobile-header p { font-size: 10px; color: #aaa; margin: 3px 0 0; }
+          .esc-right { display: none; }
+          .esc-main { flex: none; width: 100%; height: 220px; border-radius: 14px; }
+          .escapes-layout { flex-direction: column; }
+        }
+
+        /* --- NEAR YOU SECTION --- */
+        .nearyou-section { margin: 20px var(--side-space) 20px; }
+        .nearyou-card-wrap { background: #fff; border-radius: 22px; box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06); padding: 16px 16px 16px; }
+        .nearyou-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+        .nearyou-header-left h2 { font-size: 16px; font-weight: 700; color: #111; letter-spacing: -0.3px; }
+        .nearyou-subtext-row { display: flex; align-items: center; gap: 0; margin-top: 3px; flex-wrap: nowrap; overflow: hidden; }
+        .nearyou-subtext-row p { font-size: 10px; color: #aaa; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+        .nearyou-header-right { display: flex; align-items: center; gap: 14px; padding-top: 2px; }
+        .nearyou-loc-label { font-size: 10px; font-weight: 600; color: #007b7f; cursor: pointer; white-space: nowrap; max-width: 120px; overflow: hidden; text-overflow: ellipsis; line-height: 1; }
+        .nearyou-loc-label.is-granted { color: #aaa; cursor: default; font-weight: 500; }
+        .nearyou-loc-label-inline { display: none; font-size: 10px; font-weight: 600; color: #007b7f; cursor: pointer; white-space: nowrap; flex-shrink: 0; padding-left: 6px; }
+        .nearyou-loc-label-inline.is-granted { color: #aaa; cursor: default; font-weight: 500; }
+        .nearyou-loc-label-inline::before { content: '·'; color: #ccc; margin-right: 6px; font-weight: 400; }
+        @media (max-width: 699px) {
+          .nearyou-loc-label { display: none; }
+          .nearyou-loc-label-inline { display: inline; }
+          .nearyou-header-right { gap: 8px; }
+        }
+        .nearyou-arrows { display: flex; gap: 6px; align-items: center; }
+        .nearyou-arrows button { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e5e5e5; background: #fff; cursor: pointer; font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center; color: #555; transition: background 0.2s, border-color 0.2s, color 0.2s; padding: 0; }
+        .nearyou-arrows button:hover { background: #007b7f; border-color: #007b7f; color: #fff; }
+        .nearyou-track { display: flex; gap: 9px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
+        .nearyou-track::-webkit-scrollbar { display: none; }
+        .ny-card { flex: 0 0 calc((100% - 9px*6) / 7); min-width: 82px; max-width: 115px; border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; scroll-snap-align: start; background: #ccc; aspect-ratio: 3/4; box-shadow: 0 2px 8px rgba(0,0,0,0.13); transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), box-shadow 0.28s ease; }
+        .ny-card:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 10px 22px rgba(0,0,0,0.18); }
+        .ny-card:active { transform: scale(0.97); }
+        .ny-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
+        .ny-card:hover img { transform: scale(1.1); }
+        .ny-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%); pointer-events: none; }
+        .ny-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 7px 8px 8px; display: flex; flex-direction: column; gap: 4px; }
+        .ny-top-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+        .ny-name { font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0,0,0,0.6); flex: 1; min-width: 0; }
+        .ny-dir { width: 19px; height: 19px; border-radius: 50%; background: rgba(255,255,255,0.22); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s ease; }
+        .ny-card:hover .ny-dir { background: #007b7f; border-color: transparent; }
+        .ny-dir svg { width: 10px; height: 10px; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+        .ny-bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+        .ny-dist-label { font-size: 8.5px; color: rgba(255,255,255,0.75); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
+        .ny-km { font-size: 8.5px; color: rgba(255,255,255,0.65); font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+        .ny-shimmer { flex: 0 0 calc((100% - 9px*6) / 7); min-width: 82px; max-width: 115px; border-radius: 14px; aspect-ratio: 3/4; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: nyShimmer 1.4s infinite; flex-shrink: 0; }
+        @keyframes nyShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+        @keyframes nyFadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+        .ny-card { animation: nyFadeUp 0.38s ease both; }
+        .ny-card:nth-child(1){animation-delay:.04s} .ny-card:nth-child(2){animation-delay:.08s}
+        .ny-card:nth-child(3){animation-delay:.12s} .ny-card:nth-child(4){animation-delay:.16s}
+        .ny-card:nth-child(5){animation-delay:.20s} .ny-card:nth-child(6){animation-delay:.24s}
+        .ny-card:nth-child(7){animation-delay:.28s} .ny-card:nth-child(n+8){animation-delay:.32s}
+        @media (max-width: 400px) { .ny-card { min-width: 74px; } .ny-shimmer { min-width: 74px; } .ny-name { font-size: 10px; } }
+        @media (min-width: 700px) { .ny-card { min-width: 100px; max-width: 140px; } .ny-shimmer { min-width: 100px; max-width: 140px; } }
+
+        /* --- KERALA TOURIST PLACES SECTION --- */
+        .ktp-section { margin: 30px var(--side-space) 30px; }
+        .ktp-header { margin-bottom: 14px; }
+        .ktp-header h2 { font-size: 18px; font-weight: 700; color: #111; letter-spacing: -0.3px; margin: 0 0 2px; }
+        .ktp-header p { font-size: 10px; color: #aaa; margin: 0; }
+        .ktp-filter-wrap { position: relative; display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+        .ktp-filter-arrow { background: none; border: none; cursor: pointer; font-size: 20px; color: #555; flex-shrink: 0; padding: 0 2px; line-height: 1; }
+        .ktp-filter-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; flex: 1; padding: 4px 0; }
+        .ktp-filter-scroll::-webkit-scrollbar { display: none; }
+        .ktp-filter-btn { flex: 0 0 auto; padding: 6px 14px; border-radius: 50px; border: 1.5px solid #000; background: transparent; font-size: 11px; font-weight: 600; color: #111; cursor: pointer; white-space: nowrap; transition: background 0.2s, color 0.2s; }
+        .ktp-filter-btn.active { background: #111; color: #fff; }
+        .ktp-masonry { columns: 2; column-gap: 10px; }
+        @media (min-width: 600px) { .ktp-masonry { columns: 3; } }
+        @media (min-width: 900px) { .ktp-masonry { columns: 4; } }
+        .ktp-card { break-inside: avoid; margin-bottom: 10px; position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; display: block; background: #e0e0e0; }
+        .ktp-card img { width: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
+        .ktp-card:hover img { transform: scale(1.06); }
+        .ktp-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.1) 55%, transparent 100%); pointer-events: none; }
+        .ktp-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px 10px; display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; }
+        .ktp-card-left { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
+        .ktp-card-name { font-size: 11px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
+        .ktp-card-district { font-size: 9px; color: rgba(255,255,255,0.75); font-weight: 400; white-space: nowrap; }
+        .ktp-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+        .ktp-card-km { font-size: 9px; color: rgba(255,255,255,0.75); font-weight: 600; white-space: nowrap; }
+        .ktp-dir-btn { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.12); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+        .ktp-card:hover .ktp-dir-btn { background: #007b7f; border-color: transparent; }
+        .ktp-dir-btn svg { width: 11px; height: 11px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+        @keyframes ktpFadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .ktp-card { animation: ktpFadeUp 0.35s ease both; }
+    </style>
+</head>
+<body>
+
+<div class="navbar"><div class="nav-inner"><div class="logo"><img src="img/logo/Yathra Map Logo PNG.png"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span>About</span></div><div class="search-icon">🔍</div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg"></div>    <div class="hero-slide"><img src="img/hero6.jpg"></div>    <div class="hero-slide"><img src="img/hero7.png"></div>    <div class="hero-slide"><img src="img/hero9.jpg"></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img src="https://img.icons8.com/color/96/beach.png"><p>Beaches</p></div>    <div class="card-btn"><img src="https://img.icons8.com/color/96/national-park.png"><p>Mountains</p></div>    <div class="card-btn"><img src="https://img.icons8.com/color/96/water-sport-skin-type-2.png"><p>Backwater</p></div>    <div class="card-btn"><img src="https://img.icons8.com/emoji/48/fox-emoji.png"><p>Wildlife</p></div>    <div class="card-btn"><img src="https://img.icons8.com/color/96/bouldering.png"><p>Adventure</p></div>    <div class="card-btn"><img src="https://img.icons8.com/color/96/waterfall.png"><p>Waterfalls</p></div>    <div class="card-btn"><img src="https://img.icons8.com/color/96/paradise.png"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img src="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/external-gas-station-town-xnimrodx-lineal-color-xnimrodx.png"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img src="https://img.icons8.com/fluency/48/ambulance.png"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img src="https://img.icons8.com/color/48/relax.png"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img src="https://img.icons8.com/fluency/48/restaurant.png"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img src="https://img.icons8.com/color/96/house-with-a-garden.png"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img src="https://img.icons8.com/color/48/maintenance.png"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img src="https://img.icons8.com/color/96/garage.png"><p>Transport</p></div>  </div></div>
+
+<div class="internal-popup" id="metroTimingPopup" onclick="this.style.display='none'">
+    <div class="internal-box" onclick="event.stopPropagation()">
+        <div class="internal-header"><h3>Metro Timings</h3><p>Operational Frequency & Hours</p></div>
+        <div class="timing-container">
+            <div class="timing-card">
+                <h4>Monday to Saturday</h4>
+                <div class="timing-row"><span class="timing-label">Peak Hours</span><span class="timing-value">07 min 13 sec</span></div>
+                <div class="timing-row"><span class="timing-label">Non-Peak</span><span class="timing-value">08 min 30 sec</span></div>
+                <div class="timing-row"><span class="timing-label">Duration</span><span class="timing-value">06:00 AM - 11:00 PM</span></div>
+            </div>
+            <div class="timing-card">
+                <h4>Sunday</h4>
+                <div class="timing-row"><span class="timing-label">Morning Peak</span><span class="timing-value">09 min 05 sec</span></div>
+                <div class="timing-row"><span class="timing-label">Evening Peak</span><span class="timing-value">09 min 05 sec</span></div>
+                <div class="timing-row"><span class="timing-label">Duration</span><span class="timing-value">07:30 AM - 11:00 PM</span></div>
+            </div>
+            <div class="timing-card" style="margin-bottom:10px;">
+                <h4>Public Holidays</h4>
+                <div class="timing-row"><span class="timing-label">08:00 - 20:00</span><span class="timing-value">09 min 45 sec</span></div>
+                <div class="timing-row"><span class="timing-label">Other Hours</span><span class="timing-value">11 min 00 sec</span></div>
+            </div>
+        </div>
+        <div class="internal-footer"><button class="close-btn" style="width:100%" onclick="document.getElementById('metroTimingPopup').style.display='none'">Close</button></div>
+    </div>
+</div>
+
+<div class="internal-popup" id="metroStationPopup" onclick="this.style.display='none'">
+    <div class="internal-box" onclick="event.stopPropagation()">
+        <div class="internal-header"><h3>Kochi Metro Stations</h3><p>Select a station to get directions</p></div>
+        <div class="station-list">
+            <div class="station-item key" onclick="getDirections('Aluva Metro Station')"><div><div class="station-dot"></div></div><div>Aluva<p>Airport feeder bus nearby</p></div></div>
+            <div class="station-item" onclick="getDirections('Pulinchodu Metro Station')"><div><div class="station-dot"></div></div>Pulinchodu</div>
+            <div class="station-item" onclick="getDirections('Companypady Metro Station')"><div><div class="station-dot"></div></div>Companypady</div>
+            <div class="station-item" onclick="getDirections('Ambattukavu Metro Station')"><div><div class="station-dot"></div></div>Ambattukavu</div>
+            <div class="station-item" onclick="getDirections('Muttom Metro Station')"><div><div class="station-dot"></div></div>Muttom</div>
+            <div class="station-item" onclick="getDirections('Kalamassery Town Metro Station')"><div><div class="station-dot"></div></div>Kalamassery Town</div>
+            <div class="station-item" onclick="getDirections('Cochin University Metro Station')"><div><div class="station-dot"></div></div>Cochin University</div>
+            <div class="station-item" onclick="getDirections('Pathadipalam Metro Station')"><div><div class="station-dot"></div></div>Pathadipalam</div>
+            <div class="station-item" onclick="getDirections('Edappally Metro Station')"><div><div class="station-dot"></div></div>Edappally</div>
+            <div class="station-item" onclick="getDirections('Changampuzha Park Metro Station')"><div><div class="station-dot"></div></div>Changampuzha Park</div>
+            <div class="station-item" onclick="getDirections('Palarivattom Metro Station')"><div><div class="station-dot"></div></div>Palarivattom</div>
+            <div class="station-item" onclick="getDirections('JLN Stadium Metro Station')"><div><div class="station-dot"></div></div>JLN Stadium</div>
+            <div class="station-item" onclick="getDirections('Kaloor Metro Station')"><div><div class="station-dot"></div></div>Kaloor</div>
+            <div class="station-item key" onclick="getDirections('Town Hall Metro Station Ernakulam')"><div><div class="station-dot"></div></div><div>Town Hall<p>Ernakulam North Rly Station</p></div></div>
+            <div class="station-item" onclick="getDirections('MG Road Metro Station Kochi')"><div><div class="station-dot"></div></div>MG Road</div>
+            <div class="station-item" onclick="getDirections('Maharajas College Metro Station')"><div><div class="station-dot"></div></div>Maharaja’s College</div>
+            <div class="station-item key" onclick="getDirections('Ernakulam South Metro Station')"><div><div class="station-dot"></div></div><div>Ernakulam South<p>Ernakulam Junction Rly Station</p></div></div>
+            <div class="station-item" onclick="getDirections('Kadavanthra Metro Station')"><div><div class="station-dot"></div></div>Kadavanthra</div>
+            <div class="station-item" onclick="getDirections('Elamkulam Metro Station')"><div><div class="station-dot"></div></div>Elamkulam</div>
+            <div class="station-item key" onclick="getDirections('Vyttila Metro Station')"><div><div class="station-dot"></div></div><div>Vyttila<p>Major Mobility Hub</p></div></div>
+            <div class="station-item" onclick="getDirections('Thaikoodam Metro Station')"><div><div class="station-dot"></div></div>Thaikoodam</div>
+            <div class="station-item" onclick="getDirections('Petta Metro Station')"><div><div class="station-dot"></div></div>Petta</div>
+            <div class="station-item" onclick="getDirections('Vadakkekotta Metro Station')"><div><div class="station-dot"></div></div>Vadakkekotta</div>
+            <div class="station-item" onclick="getDirections('SN Junction Metro Station')"><div><div class="station-dot"></div></div>SN Junction</div>
+            <div class="station-item" onclick="getDirections('Tripunithura Metro Station')"><div><div class="station-dot"></div></div>Tripunithura</div>
+        </div>
+        <div class="internal-footer"><button class="close-btn" style="width:100%" onclick="document.getElementById('metroStationPopup').style.display='none'">Close</button></div>
+    </div>
+</div>
+
+<div class="transport-popup" id="transportPopup" onclick="closeTransportPopup()">    <div class="transport-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Transport & Parking</h3>        <div class="transport-grid">            <div class="transport-item" onclick="openBikeProvider()"><img src="https://img.icons8.com/color/96/motorcycle.png"><p>Bike Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Car Taxi')"><img src="https://img.icons8.com/color/96/taxi.png"><p>Car Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Auto')"><img src="https://img.icons8.com/color/96/auto-rickshaw.png"><p>Auto</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Drivers', 'hire driver service')"><img src="https://img.icons8.com/color/96/driver.png"><p>Drivers</p></div>
+	<div class="transport-item" onclick="findNearby('bus stop')"><img src="https://img.icons8.com/emoji/48/bus-stop-emoji.png"><p>Bus Stops</p></div>
+	<div class="transport-item" onclick="findNearby('bus stand')"><img src="https://img.icons8.com/color/96/get-on-bus.png"><p>Bus Stand</p></div>
+	<div class="transport-item" onclick="openMetroPopup('Metro')"><img src="https://img.icons8.com/color/96/subway.png"><p>Metro</p></div>
+	<div class="transport-item" onclick="openMetroPopup('Water Metro')"><img src="https://img.icons8.com/color/96/yacht.png"><p>Water Metro</p></div>
+	<div class="transport-item" onclick="openRailwayPopup()"><img src="https://img.icons8.com/color/96/train.png"><p>Train</p></div>
+	<div class="transport-item" onclick="findNearby('airport')"><img src="https://img.icons8.com/color/96/airport.png"><p>Airport</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Helicopter', 'helicopter service')"><img src="https://img.icons8.com/color/96/helicopter.png"><p>Helicopter</p></div>
+	<div class="transport-item" onclick="findNearby('ferry boat service')"><img src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-boat-vacation-planning-guys-trip-flaticons-flat-flat-icons-2.png"><p>Ferry/Boat</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Tourist Bus', 'tourist bus service')"><img src="https://img.icons8.com/color/96/bus.png"><p>Tourist Bus</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Traveller', 'tempo traveller rental')"><img src="https://img.icons8.com/color/96/van.png"><p>Traveller</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Mini Bus', 'mini bus rental')"><img src="https://img.icons8.com/fluency/48/bus.png"><p>Mini Bus</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Mini Goods', 'mini goods truck')"><img src="https://img.icons8.com/color/96/truck.png"><p>Mini Goods</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img src="https://img.icons8.com/color/96/scooter.png"><p>Bike Rental</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img src="https://img.icons8.com/color/96/car-rental.png"><p>Car Rental</p></div>
+    <div class="transport-item" onclick="openGenericProvider('Luggage', 'luggage courier service')"><img src="https://img.icons8.com/color/96/package.png"><p>Luggage</p></div>
+    <div class="transport-item" onclick="openGenericProvider('Baggage', 'baggage transfer service')"><img src="https://img.icons8.com/color/96/suitcases.png"><p>Baggage</p></div>
+	
+	<div class="transport-item" onclick="openGenericProvider('Backwater', 'shikara backwater transport')"><img src="https://img.icons8.com/color/96/rowboat.png"><p>Backwater</p></div>
+	
+	<div class="transport-item" onclick="openDriverPopup()"><img src="https://img.icons8.com/color/96/chauffeur.png"><p>Car Driver</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img src="https://img.icons8.com/color/96/railway-station.png"><p>Railway</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img src="https://img.icons8.com/color/96/parking.png"><p>Parking</p></div>        </div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
+
+<div class="provider-popup" id="bikeProviderPopup" onclick="closeBikeProvider()">    <div class="provider-card" onclick="event.stopPropagation()">        <h3 id="provTitle" style="font-size:20px;">Book Ride</h3>        <div class="provider-options">            <button id="uberBtn" class="btn-uber"><span>Uber</span></button>            <button id="rapidoBtn" class="btn-rapido"><span>Rapido</span></button>            <button id="localBtn" class="btn-local"><span>Local Cabs</span></button>            <button id="mapBtn" class="btn-map" style="display:none;"><span>Search with Map</span></button>        </div>        <span class="close-link" onclick="closeBikeProvider()">Maybe Later</span>    </div></div>
+
+<div class="railway-popup" id="railwayPopup" onclick="closeRailwayPopup()">
+    <div class="railway-box" onclick="event.stopPropagation()">
+        <div class="drag-bar"></div>
+        <h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Indian Railway Services</h3>
+        <div class="railway-grid">
+            <div class="railway-item" onclick="handleDynamicTrain('nearby')"><img src="https://img.icons8.com/color/96/railway-station.png"><p>Nearby Station</p></div>
+            <div class="railway-item" onclick="handleDynamicTrain('district')"><img src="https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/66/external-Railway-Station-urban-life-smashingstocks-flat-smashing-stocks.png"><p>By District</p></div>
+            <div class="railway-item" onclick="openTrainService('book')"><img src="https://img.icons8.com/color/96/ticket.png"><p>Book Ticket</p></div>
+            <div class="railway-item" onclick="openTrainService('uts')"><img src="https://img.icons8.com/color/96/smartphone.png"><p>UTS Booking</p></div>
+            <div class="railway-item" onclick="openTrainService('platform_tkt')"><img src="https://img.icons8.com/color/96/ticket-purchase.png"><p>Platform Ticket</p></div>
+            <div class="railway-item" onclick="openTrainService('seat')"><img src="https://img.icons8.com/color/96/sleeping-in-bed.png"><p>Seat Avail.</p></div>
+            <div class="railway-item" onclick="openTrainService('fare')"><img src="https://img.icons8.com/color/96/rupee.png"><p>Fare Estimate</p></div>
+            <div class="railway-item" onclick="openTrainService('schedule')"><img src="https://img.icons8.com/color/96/calendar--v1.png"><p>Schedule</p></div>
+            <div class="railway-item" onclick="openTrainService('pnr')"><img src="https://img.icons8.com/color/96/search-property.png"><p>PNR Check</p></div>
+            <div class="railway-item" onclick="openTrainService('live')"><img src="https://img.icons8.com/color/96/clock--v1.png"><p>Live Status</p></div>
+            <div class="railway-item" onclick="openTrainService('cancel')"><img src="https://img.icons8.com/color/96/expired.png"><p>Reschedule</p></div>
+            <div class="railway-item" onclick="openTrainService('platform_info')"><img src="https://img.icons8.com/color/96/info.png"><p>Platform Info</p></div>
+            <div class="railway-item" onclick="openTrainService('map')"><img src="https://img.icons8.com/color/96/map-marker--v1.png"><p>Live Map</p></div>
+            <div class="railway-item" onclick="openTrainService('food')"><img src="https://img.icons8.com/color/96/food-receiver.png"><p>Order Food</p></div>
+            <div class="railway-item" onclick="openTrainService('luggage')"><img src="https://img.icons8.com/color/96/suitcases.png"><p>Luggage Svcs</p></div>
+            <div class="railway-item" onclick="openTrainService('helpline')"><img src="https://img.icons8.com/color/96/customer-support.png"><p>Helpline</p></div>
+            <div class="railway-item" onclick="openTrainService('madad')"><img src="https://img.icons8.com/color/96/complaint.png"><p>Rail Madad</p></div>
+            <div class="railway-item" onclick="openTrainService('police')"><img src="https://img.icons8.com/color/96/police-skin-type-1.png"><p>Railway Police</p></div>
+            <div class="railway-item" onclick="openTrainService('medical')"><img src="https://img.icons8.com/color/96/doctors-bag.png"><p>Medical Help</p></div>
+            <div class="railway-item" onclick="openTrainService('lost')"><img src="https://img.icons8.com/color/96/lost-and-found.png"><p>Lost & Found</p></div>
+        </div>
+        <button class="close-btn" onclick="closeRailwayPopup()">Close</button>    </div>
+</div>
+
+<div class="internal-popup" id="dynamicStationPopup" onclick="this.style.display='none'">
+    <div class="dynamic-list-box" onclick="event.stopPropagation()">
+        <div class="dynamic-list-header">
+            <h3 id="dynamicTitle">Stations</h3>
+            <p id="dynamicSub">Loading live data...</p>
+        </div>
+        <div class="dynamic-content" id="dynamicContent">
+        </div>
+        <div class="dynamic-footer">
+            <button class="close-btn" style="width:100%" onclick="document.getElementById('dynamicStationPopup').style.display='none'">Back</button>
+        </div>
+    </div>
+</div>
+
+<div class="help-popup" id="helpPopup" onclick="closeHelpPopup()">    <div class="help-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Vehicle Support</h3>        <div class="help-grid">            <div class="help-item" onclick="openGenericProvider('2-Wheeler Repair', '2 wheeler repair workshop')"><img src="https://img.icons8.com/color/96/motorcycle.png"><p>2-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('3-Wheeler Repair', 'auto rickshaw 3 wheeler repair workshop')"><img src="https://img.icons8.com/color/96/auto-rickshaw.png"><p>3-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('4-Wheeler Repair', 'car repair workshop')"><img src="https://img.icons8.com/color/96/convertible--v1.png"><p>4-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('Tyre & Puncture', 'tyre puncture shop')"><img src="https://img.icons8.com/color/96/flat-tire.png"><p>Tyre & Puncture</p></div>            <div class="help-item" onclick="openGenericProvider('Fuel Delivery', 'fuel delivery service')"><img src="https://img.icons8.com/color/96/gasoline-refill.png"><p>Fuel Delivery</p></div>            <div class="help-item" onclick="openGenericProvider('Wheel Alignment', 'wheel alignment center')"><img src="https://img.icons8.com/color/96/tire.png"><p>Wheel Alignment</p></div>            <div class="help-item" onclick="openGenericProvider('Tow Truck', 'tow truck service')"><img src="https://img.icons8.com/color/96/tow-truck.png"><p>Tow Truck</p></div>            <div class="help-item" onclick="openGenericProvider('Crane Service', 'crane service')"><img src="https://img.icons8.com/color/96/crane.png"><p>Crane Service</p></div>            <div class="help-item" onclick="openGenericProvider('Vehicle Carrying', 'vehicle carrying service')"><img src="https://img.icons8.com/color/96/trailer.png"><p>Vehicle Carrying</p></div>            <div class="help-item" onclick="openGenericProvider('Accident Recovery', 'accident recovery support')"><img src="https://img.icons8.com/color/96/car-crash.png"><p>Accident Recovery</p></div>            <div class="help-item" onclick="openGenericProvider('Water Services', 'car wash water service')"><img src="https://img.icons8.com/color/96/automatic-car-wash.png"><p>Water Services</p></div>            <div class="help-item" onclick="openGenericProvider('Spare Parts', 'vehicle spare parts accessories shop')"><img src="https://img.icons8.com/color/96/gear.png"><p>Spare Parts</p></div>        </div>        <button class="close-btn" onclick="closeHelpPopup()">Close</button>    </div></div>
+
+<div class="popup-overlay" id="popup" onclick="closePopup()">  <div class="popup-box" onclick="event.stopPropagation()">    <h3>Find Nearby</h3>    <div class="popup-grid">      <div class="popup-item" onclick="findNearby('petrol pumps')"><img src="https://img.icons8.com/color/96/gasoline-refill.png"><p>Petrol</p></div>      <div class="popup-item" onclick="findNearby('EV charging')"><img src="https://img.icons8.com/color/96/car-charger.png"><p>EV</p></div>      <div class="popup-item" onclick="findNearby('CNG stations')"><img src="https://img.icons8.com/color/96/gas-station.png"><p>CNG</p></div>    </div>    <button class="popup-close" onclick="closePopup()">Close</button>  </div></div>
+
+<div class="emergency-popup" id="emergencyPopup" onclick="closeEmergencyPopup()">  <div class="emergency-box" onclick="event.stopPropagation()">    <div class="drag-bar"></div><h3 style="text-align:center;">Emergency Help</h3>    <div class="popup-content">      <div class="emergency-grid">        <div class="emergency-item" onclick="callNumber('102')"><img src="https://img.icons8.com/color/96/ambulance.png"><p>Ambulance</p></div>        <div class="emergency-item" onclick="findNearbyHospital()"><img src="https://img.icons8.com/color/96/hospital-3.png"><p>Hospital</p></div>        <div class="emergency-item" onclick="callNumber('100')"><img src="https://img.icons8.com/color/96/police-skin-type-1.png"><p>Police</p></div>        <div class="emergency-item" onclick="callNumber('101')"><img src="https://img.icons8.com/color/96/fire-truck.png"><p>Fire</p></div>        <div class="emergency-item" onclick="callNumber('1091')"><img src="https://img.icons8.com/color/96/lady-skin-type-1.png"><p>Women Helpline</p></div>        <div class="emergency-item" onclick="callNumber('1098')"><img src="https://img.icons8.com/fluency/48/children.png"><p>Child Helpline</p></div>        <div class="emergency-item" onclick="callNumber('108')"><img src="https://img.icons8.com/color/96/earthquakes.png"><p>Disaster Mgmt</p></div>        <div class="emergency-item" onclick="callNumber('112')"><img src="https://img.icons8.com/external-flat-wichaiwi/64/external-airport-jobs-and-occupations-flat-wichaiwi.png"><p>Tourist Police</p></div>        <div class="emergency-item" onclick="callNumber('1363')"><img src="https://img.icons8.com/color/96/man-on-phone.png"><p>Tourism Helpline</p></div>        <div class="emergency-item" onclick="callNumber('0471-2518255')"><img src="https://img.icons8.com/color/96/doctors-bag.png"><p>Health Helpline</p></div>        <div class="emergency-item" onclick="callNumber('91 8589 0404 94')"><img src="https://img.icons8.com/color/96/trust--v1.png"><p>Blood Donors</p></div>        <div class="emergency-item" onclick="callNumber('98461 00100')"><img src="https://img.icons8.com/color/96/highway.png"><p>Highway Alert</p></div>      </div>      <div class="tips-slider">        <div class="tips-track" id="tipsTrack">          <div class="tip-card"><div class="tip-inner"><h4>🩺 Health Tips</h4><p>Drink bottled or purified water. Carry ORS and essential medicines. Use mosquito repellent in monsoon. Wear light cotton clothing. Ensure travel insurance coverage.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>🚗 Travel Safety</h4><p>Use ride apps or prepaid taxis. Always wear helmets and seatbelts. Avoid isolated places at night. Check weather alerts during monsoon. Follow beach & backwater safety rules.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>🌿 Natural Safety</h4><p>Swim only in lifeguard zones. Beware of strong currents in rivers and backwaters. Avoid trekking during heavy rain. Stay away from cliff edges. Carry flashlight during forest or night trips.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>💊 Pharmacies & First Aid</h4><p>Locate nearest pharmacies using maps. Carry basic first aid kit. Store medicines properly. Keep contact of local doctors & hospitals. Check expiry dates before use.</p></div></div>        </div>      </div>    </div>    <button class="close-btn" onclick="closeEmergencyPopup()">Close</button>  </div></div>
+
+<div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img src="img/handpicked/varkala.jpg"><p>Varkala</p></div>    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg"><p>Fort Kochi</p></div>  </div>  </div>  </div></div>
+
+<!-- SEE ALL POPUP -->
+<div class="hp-seeall-popup" id="hpSeeAllPopup" onclick="closeHpSeeAll()">
+  <div class="hp-seeall-box" onclick="event.stopPropagation()">
+    <div class="hp-seeall-header">
+      <h3>All Popular Places</h3>
+      <button class="hp-seeall-close" onclick="closeHpSeeAll()">×</button>
+    </div>
+    <div class="hp-seeall-grid">
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Munnar+Kerala','_blank')"><h4>Munnar</h4><p>Idukki</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Periyar+Wildlife+Sanctuary','_blank')"><h4>Periyar Wildlife</h4><p>Idukki</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Chembra+Peak+Wayanad','_blank')"><h4>Chembra Peak</h4><p>Wayanad</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Alappuzha+Kerala','_blank')"><h4>Alappuzha</h4><p>Alappuzha</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Fort+Kochi','_blank')"><h4>Fort Kochi</h4><p>Ernakulam</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Varkala+Beach+Kerala','_blank')"><h4>Varkala</h4><p>Thiruvananthapuram</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Thekkady+Kerala','_blank')"><h4>Thekkady</h4><p>Idukki</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Kovalam+Beach+Kerala','_blank')"><h4>Kovalam Beach</h4><p>Thiruvananthapuram</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Bekal+Fort+Kerala','_blank')"><h4>Bekal Fort</h4><p>Kasaragod</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Kumarakom+Kerala','_blank')"><h4>Kumarakom</h4><p>Kottayam</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Athirappilly+Waterfalls','_blank')"><h4>Athirappilly</h4><p>Thrissur</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Silent+Valley+National+Park','_blank')"><h4>Silent Valley</h4><p>Palakkad</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Vagamon+Kerala','_blank')"><h4>Vagamon</h4><p>Idukki</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Ponmudi+Kerala','_blank')"><h4>Ponmudi</h4><p>Thiruvananthapuram</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Kannur+Beach+Kerala','_blank')"><h4>Kannur</h4><p>Kannur</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Kozhikode+Beach','_blank')"><h4>Kozhikode</h4><p>Kozhikode</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Poovar+Island+Kerala','_blank')"><h4>Poovar Island</h4><p>Thiruvananthapuram</p></div>
+      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Neliyampathy+Kerala','_blank')"><h4>Neliyampathy</h4><p>Palakkad</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="toolbar-section">
+    <div class="toolbar-header">
+        <h2>Travel Tools & Activities</h2>
+        <div class="arrows">
+            <button onclick="scrollToolbar(-1)">‹</button>
+            <button onclick="scrollToolbar(1)">›</button>
+        </div>
+    </div>
+    <div class="toolbar-wrapper">
+        <div class="toolbar-row" id="toolbarRow">
+            <div class="tool-btn" onclick="findNearby('weather today')"><img src="https://img.icons8.com/color/96/partly-cloudy-day--v1.png"><p>Weather</p></div>
+            <div class="tool-btn" onclick="findNearby('tourist guides')"><img src="https://img.icons8.com/color/96/tour-guide.png"><p>Guides</p></div>
+            <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="https://img.icons8.com/color/96/camping-tent.png"><p>Camps</p></div>
+            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="https://img.icons8.com/color/96/pass.png"><p>ePass</p></div>
+            <div class="tool-btn" onclick="findNearby('wildlife safari Kerala')"><img src="https://img.icons8.com/color/96/tiger.png"><p>Track Wildlife</p></div>
+            <div class="tool-btn" onclick="window.open('https://calendar.google.com')"><img src="https://img.icons8.com/color/96/calendar--v1.png"><p>Calendar</p></div>
+            <div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/conference.png"><p>Meetup</p></div>
+            <div class="tool-btn" onclick="window.open('https://translate.google.com')"><img src="https://img.icons8.com/color/96/google-translate.png"><p>Translate</p></div>
+            <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=currency+converter')"><img src="https://img.icons8.com/color/96/currency-exchange.png"><p>Currency</p></div>
+            <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=current+time+zone')"><img src="https://img.icons8.com/color/96/time.png"><p>Time Zone</p></div>
+            <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=fuel+price+kerala')"><img src="https://img.icons8.com/color/96/gas-station.png"><p>Fuel Cost</p></div>
+            <div class="tool-btn" onclick="window.open('https://www.netcfasttag.com/')"><img src="https://img.icons8.com/color/96/tollway.png"><p>FASTag</p></div>
+            <div class="tool-btn" onclick="findNearby('ATM CDM')"><img src="https://img.icons8.com/color/96/atm.png"><p>ATM / CDM</p></div>
+            <div class="tool-btn" onclick="findNearby('Banks')"><img src="https://img.icons8.com/color/96/bank.png"><p>Banks</p></div>
+            <div class="tool-btn" onclick="findNearby('movie theaters')"><img src="https://img.icons8.com/color/96/movie-projector.png"><p>Movies</p></div>
+            <div class="tool-btn" onclick="findNearby('travel stories and blogs')"><img src="https://img.icons8.com/color/96/open-book.png"><p>Blog</p></div>
+            <div class="tool-btn" onclick="findNearby('bike riders routes Kerala')"><img src="https://img.icons8.com/color/96/motorbike.png"><p>Bike Riders</p></div>
+            <div class="tool-btn" onclick="findNearby('4x4 offroad trails Kerala')"><img src="https://img.icons8.com/color/96/jeep.png"><p>4x4 Offroad</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="activities-section">
+  <div class="activities-slider-wrap">
+    <div class="activities-cards" id="activitiesCards">
+      <div class="activity-card" onclick="findNearby('kayaking Kerala')"><img src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=440&q=80" alt="Kayaking"><div class="act-overlay"></div><p>🛶 Kayaking</p></div>
+      <div class="activity-card" onclick="findNearby('speed boating Kerala')"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=440&q=80" alt="Speed Boating"><div class="act-overlay"></div><p>🚤 Speed Boating</p></div>
+      <div class="activity-card" onclick="findNearby('paragliding Kerala')"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=440&q=80" alt="Paragliding"><div class="act-overlay"></div><p>🪂 Paragliding</p></div>
+      <div class="activity-card" onclick="findNearby('zipline Kerala')"><img src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=440&q=80" alt="Zipline"><div class="act-overlay"></div><p>🧗 Zipline</p></div>
+      <div class="activity-card" onclick="findNearby('bamboo rafting Kerala')"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=440&q=80" alt="Bamboo Rafting"><div class="act-overlay"></div><p>🎋 Bamboo Rafting</p></div>
+      <div class="activity-card" onclick="findNearby('scuba diving Kerala')"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=440&q=80" alt="Scuba Diving"><div class="act-overlay"></div><p>🤿 Scuba Diving</p></div>
+      <div class="activity-card" onclick="findNearby('off road jeep rides Kerala')"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=440&q=80" alt="Off-Road Rides"><div class="act-overlay"></div><p>🚙 Off-Road Rides</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- NEAR YOU SECTION -->
+<div class="nearyou-section">
+  <div class="nearyou-card-wrap">
+    <div class="nearyou-header">
+      <div class="nearyou-header-left">
+        <h2>Near You</h2>
+        <div class="nearyou-subtext-row">
+          <p id="nearyouSubtext">Tap Allow Location to show nearest places</p>
+          <span id="nearyouLocLabelInline" class="nearyou-loc-label-inline" onclick="nyRequestLocation()">Allow Location</span>
+        </div>
+      </div>
+      <div class="nearyou-header-right">
+        <span id="nearyouLocLabel" class="nearyou-loc-label" onclick="nyRequestLocation()">Allow Location</span>
+        <div class="nearyou-arrows">
+          <button onclick="document.getElementById('nearyouTrack').scrollBy({left:-100,behavior:'smooth'})">&#8249;</button>
+          <button onclick="document.getElementById('nearyouTrack').scrollBy({left:100,behavior:'smooth'})">&#8250;</button>
+        </div>
+      </div>
+    </div>
+    <div class="nearyou-track" id="nearyouTrack">
+      <div class="ny-shimmer"></div><div class="ny-shimmer"></div><div class="ny-shimmer"></div>
+      <div class="ny-shimmer"></div><div class="ny-shimmer"></div><div class="ny-shimmer"></div>
+      <div class="ny-shimmer"></div><div class="ny-shimmer"></div><div class="ny-shimmer"></div>
+      <div class="ny-shimmer"></div><div class="ny-shimmer"></div><div class="ny-shimmer"></div>
+      <div class="ny-shimmer"></div><div class="ny-shimmer"></div><div class="ny-shimmer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- NEARBY ESCAPES SECTION -->
+<div class="escapes-section">
+  <div class="escapes-card-wrap">
+    <!-- mobile heading (≤699px only) -->
+    <div class="esc-mobile-header">
+      <h2>Nearby Escapes</h2>
+      <p>Top getaways within reach from Kerala</p>
+    </div>
+    <!-- desktop heading handled inside .esc-right-header -->
+    <div class="escapes-layout">
+      <!-- BIG MAIN IMAGE -->
+      <div class="esc-main" id="escMain" onclick="if(escData[escActiveIdx])window.open(escData[escActiveIdx].map,'_blank')">
+        <img class="esc-main-img-back" id="escMainImgBack" src="" alt="">
+        <img class="esc-main-img-front" id="escMainImgFront" src="" alt="">
+        <div class="esc-main-overlay"></div>
+        <div class="esc-main-info">
+          <div class="esc-main-text">
+            <span class="esc-main-name" id="escMainName"></span>
+            <span class="esc-main-district" id="escMainDistrict"></span>
+          </div>
+          <div class="esc-main-actions">
+            <span class="esc-main-km" id="escMainKm"></span>
+            <button class="esc-dir-btn" onclick="event.stopPropagation();if(escData[escActiveIdx])window.open(escData[escActiveIdx].map,'_blank')">Directions</button>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT: header row + 3×2 grid (hidden on mobile) -->
+      <div class="esc-right">
+        <div class="esc-right-header">
+          <div class="esc-right-header-text">
+            <h2>Nearby Escapes</h2>
+            <p>Top getaways within reach</p>
+          </div>
+          <div class="escapes-arrows">
+            <button onclick="escapesPrev()">&#8249;</button>
+            <button onclick="escapesNext()">&#8250;</button>
+          </div>
+        </div>
+        <div class="esc-grid" id="escGrid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KERALA TOURIST PLACES SECTION -->
+<div class="ktp-section" id="ktpSection">
+  <div class="ktp-header">
+    <h2>Kerala All Tourist Places</h2>
+    <p>Explore beautiful destinations across all districts</p>
+  </div>
+  <div class="ktp-filter-wrap">
+    <button class="ktp-filter-arrow" onclick="ktpScrollFilter(-1)">&#10094;</button>
+    <div class="ktp-filter-scroll" id="ktpFilterScroll">
+      <button class="ktp-filter-btn active" data-district="All" onclick="ktpFilter(this,'All')">All</button>
+      <button class="ktp-filter-btn" data-district="Thiruvananthapuram" onclick="ktpFilter(this,'Thiruvananthapuram')">Thiruvananthapuram</button>
+      <button class="ktp-filter-btn" data-district="Kollam" onclick="ktpFilter(this,'Kollam')">Kollam</button>
+      <button class="ktp-filter-btn" data-district="Pathanamthitta" onclick="ktpFilter(this,'Pathanamthitta')">Pathanamthitta</button>
+      <button class="ktp-filter-btn" data-district="Alappuzha" onclick="ktpFilter(this,'Alappuzha')">Alappuzha</button>
+      <button class="ktp-filter-btn" data-district="Kottayam" onclick="ktpFilter(this,'Kottayam')">Kottayam</button>
+      <button class="ktp-filter-btn" data-district="Idukki" onclick="ktpFilter(this,'Idukki')">Idukki</button>
+      <button class="ktp-filter-btn" data-district="Ernakulam" onclick="ktpFilter(this,'Ernakulam')">Ernakulam</button>
+      <button class="ktp-filter-btn" data-district="Thrissur" onclick="ktpFilter(this,'Thrissur')">Thrissur</button>
+      <button class="ktp-filter-btn" data-district="Palakkad" onclick="ktpFilter(this,'Palakkad')">Palakkad</button>
+      <button class="ktp-filter-btn" data-district="Malappuram" onclick="ktpFilter(this,'Malappuram')">Malappuram</button>
+      <button class="ktp-filter-btn" data-district="Kozhikode" onclick="ktpFilter(this,'Kozhikode')">Kozhikode</button>
+      <button class="ktp-filter-btn" data-district="Wayanad" onclick="ktpFilter(this,'Wayanad')">Wayanad</button>
+      <button class="ktp-filter-btn" data-district="Kannur" onclick="ktpFilter(this,'Kannur')">Kannur</button>
+      <button class="ktp-filter-btn" data-district="Kasaragod" onclick="ktpFilter(this,'Kasaragod')">Kasaragod</button>
+    </div>
+    <button class="ktp-filter-arrow" onclick="ktpScrollFilter(1)">&#10095;</button>
+  </div>
+  <div class="ktp-masonry" id="ktpMasonry">
+    <!-- Cards rendered by JS -->
+  </div>
+</div>
+
+<div class="bottom-nav">
+    <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/external-Tent-travel-and-tourism-those-icons-lineal-color-those-icons.png" alt="Home">
+	<img src="https://img.icons8.com/external-vitaliy-gorbachev-flat-vitaly-gorbachev/58/external-search-smart-farm-vitaliy-gorbachev-flat-vitaly-gorbachev.png" alt="Search">
+    <img src="https://img.icons8.com/external-bearicons-flat-bearicons/64/external-Explore-social-media-bearicons-flat-bearicons.png" alt="Explore">
+    <img src="https://img.icons8.com/deco-color/48/gallery.png" alt="Favorites">
+    <img src="https://img.icons8.com/color/96/my-melody.png" alt="Profile">
+</div>
+
+<script>
+/* --- DYNAMIC DATA LOGIC --- */
+let stationData = [];
+
+async function loadTrainData() {
+    try {
+        const response = await fetch('stations.json');
+        stationData = await response.json();
+    } catch (e) { console.error("Could not load stations.json", e); }
+}
+loadTrainData();
+
+function calculateKM(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    return (R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)))).toFixed(1);
+}
+
+function handleDynamicTrain(type) {
+    const pop = document.getElementById('dynamicStationPopup');
+    const content = document.getElementById('dynamicContent');
+    const title = document.getElementById('dynamicTitle');
+    const sub = document.getElementById('dynamicSub');
+    
+    if (type === 'nearby') {
+        title.innerText = "Nearby Stations";
+        sub.innerText = "Finding the closest stations to you";
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+                const uLat = pos.coords.latitude, uLng = pos.coords.longitude;
+                const sorted = stationData.map(s => ({...s, dist: calculateKM(uLat, uLng, s.lat, s.lng)}))
+                    .sort((a, b) => a.dist - b.dist).slice(0, 15);
+                
+                let html = '';
+                sorted.forEach(s => {
+                    html += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}')">
+                        <div class="station-info">
+                            <div class="station-icon">
+                            <img src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
+                            </div>
+                            <div class="station-details">
+                                <h4>${s["Station Name"]}</h4>
+                                <p><span class="station-code-text">${s["Station Code"]}</span> ${s.District} District</p>
+                            </div>
+                        </div>
+                        <div class="station-action-group">
+                            <span class="station-distance">${s.dist} KM</span>
+                            <img class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
+                        </div>
+                    </div>`;
+                });
+                content.innerHTML = html;
+                pop.style.display = 'flex';
+            });
+        }
+    } else if (type === 'district') {
+        title.innerText = "Select District";
+        sub.innerText = "Stations categorized by district";
+        const districts = [...new Set(stationData.map(s => s.District))].filter(d => d && d.trim() !== "").sort();
+        
+        let html = '<div class="district-grid-wrapper">';
+        districts.forEach(d => {
+            html += `<div class="district-btn-pro" onclick="filterByDistrict('${d}')">${d}</div>`;
+        });
+        content.innerHTML = html + '</div>';
+        pop.style.display = 'flex';
+    }
+}
+
+function filterByDistrict(dist) {
+    const content = document.getElementById('dynamicContent');
+    document.getElementById('dynamicTitle').innerText = dist;
+    document.getElementById('dynamicSub').innerText = "All stations in this district";
+    const filtered = stationData.filter(s => s.District === dist);
+    let html = '';
+    filtered.forEach(s => {
+        html += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}')">
+            <div class="station-info">
+                <div class="station-icon">
+                  <img src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
+                </div>
+                <div class="station-details">
+                    <h4>${s["Station Name"]}</h4>
+                    <p><span class="station-code-text">${s["Station Code"]}</span></p>
+                </div>
+            </div>
+            <div class="station-action-group">
+                <img class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
+            </div>
+        </div>`;
+    });
+    content.innerHTML = html;
+}
+
+/* --- PRESERVED ORIGINAL SCRIPTS --- */
+document.querySelectorAll('.card-row').forEach(row => {
+    row.addEventListener('scroll', function() {
+        if (this.scrollLeft > 10) { this.classList.add('scrolled'); }
+    }, { passive: true });
+});
+
+
+
+function openPopup(){document.getElementById("popup").style.display="flex";}
+function closePopup(){document.getElementById("popup").style.display="none";}
+document.getElementById("popup").addEventListener("click", closePopup);
+
+function openEmergencyPopup(){document.getElementById("emergencyPopup").style.display="flex";}
+function closeEmergencyPopup(){document.getElementById("emergencyPopup").style.display="none";}
+function openHelpPopup(){document.getElementById("helpPopup").style.display="flex";}
+function closeHelpPopup(){document.getElementById("helpPopup").style.display="none";}
+function openTransportPopup(){document.getElementById("transportPopup").style.display="flex";}
+function closeTransportPopup(){document.getElementById("transportPopup").style.display="none";}
+
+function openRailwayPopup(){document.getElementById("railwayPopup").style.display="flex";}
+function closeRailwayPopup(){document.getElementById("railwayPopup").style.display="none";}
+
+function resetProviderPopup() {
+    const uberBtn = document.getElementById("uberBtn");
+    const rapidoBtn = document.getElementById("rapidoBtn");
+    const localBtn = document.getElementById("localBtn");
+    const mapBtn = document.getElementById("mapBtn");
+    uberBtn.style.display = "flex"; rapidoBtn.style.display = "flex"; localBtn.style.display = "flex"; mapBtn.style.display = "none";
+    uberBtn.style.background = "#000"; rapidoBtn.style.background = "#f5c400"; localBtn.style.background = "#007b7f";
+    uberBtn.style.color = "#fff"; rapidoBtn.style.color = "#000"; localBtn.style.color = "#fff"; mapBtn.style.color = "#fff";
+    uberBtn.querySelector('span').innerText = "Uber";
+    rapidoBtn.querySelector('span').innerText = "Rapido";
+    localBtn.querySelector('span').innerText = "Local Cabs";
+    uberBtn.onclick = function() { launchApp('uber://', 'https://m.uber.com'); };
+    rapidoBtn.onclick = function() { launchApp('rapido://', 'https://www.rapido.bike'); };
+    localBtn.onclick = function() { showComingSoon(this); };
+}
+
+function openBikeProvider() { resetProviderPopup(); document.getElementById("provTitle").innerText = "Book a Bike Taxi"; document.getElementById("localBtn").style.display = "none"; document.getElementById("bikeProviderPopup").style.display = "flex"; }
+function openCarAutoProvider(type) { resetProviderPopup(); document.getElementById("provTitle").innerText = "Book a " + type; const mapBtn = document.getElementById("mapBtn"); mapBtn.style.display = "flex"; const q = type === 'Auto' ? 'Auto Stand' : 'Taxi Stand'; mapBtn.style.background = "#000"; mapBtn.onclick = function() { findNearby(q); }; document.getElementById("bikeProviderPopup").style.display = "flex"; }
+function openDriverPopup() { resetProviderPopup(); document.getElementById("provTitle").innerText = "Hire a Driver"; document.getElementById("uberBtn").style.display = "none"; document.getElementById("rapidoBtn").style.display = "none"; const mapBtn = document.getElementById("mapBtn"); mapBtn.style.display = "flex"; mapBtn.style.background = "#000"; mapBtn.onclick = function() { findNearby("hire car driver service"); }; document.getElementById("bikeProviderPopup").style.display = "flex"; }
+function openGenericProvider(title, query) { resetProviderPopup(); document.getElementById("provTitle").innerText = title; document.getElementById("uberBtn").style.display = "none"; document.getElementById("rapidoBtn").style.display = "none"; const mapBtn = document.getElementById("mapBtn"); mapBtn.style.display = "flex"; mapBtn.style.background = "#000"; mapBtn.onclick = function() { findNearby(query); }; document.getElementById("bikeProviderPopup").style.display = "flex"; }
+
+function openMetroPopup(type) {
+    resetProviderPopup();
+    document.getElementById("provTitle").innerText = "Kochi " + type;
+    const ub = document.getElementById("uberBtn"), rb = document.getElementById("rapidoBtn"), lb = document.getElementById("localBtn"), mb = document.getElementById("mapBtn");
+    rb.style.background = "#007b7f"; rb.style.color = "#ffffff";
+    lb.style.background = "#333333"; lb.style.color = "#ffffff";
+    mb.style.display = "flex"; mb.style.background = "#000000"; mb.style.color = "#ffffff";
+    if(type === 'Metro'){
+        ub.style.background = "#25D366"; ub.querySelector('span').innerText = "WhatsApp Ticket"; ub.onclick = function() { window.open("https://wa.me/918129928888", "_blank"); };
+        rb.querySelector('span').innerText = "Time Table"; rb.onclick = function() { document.getElementById('metroTimingPopup').style.display='flex'; };
+        lb.querySelector('span').innerText = "Station List"; lb.onclick = function() { document.getElementById('metroStationPopup').style.display='flex'; };
+        mb.onclick = function() { findNearby("kochi metro stations list"); };
+    } else {
+        ub.style.background = "#25D366"; ub.querySelector('span').innerText = "WhatsApp Info"; ub.onclick = function() { window.open("https://wa.me/914842958000", "_blank"); };
+        rb.querySelector('span').innerText = "Routes Info"; rb.onclick = function() { window.open('https://watermetro.co.in/routes-info/', '_blank'); };
+        lb.querySelector('span').innerText = "Terminal List"; lb.onclick = function() { findNearby("Kochi Water Metro Terminals"); };
+        mb.onclick = function() { findNearby("kochi water metro terminals list"); };
+    }
+    document.getElementById("bikeProviderPopup").style.display = "flex";
+}
+
+function openTrainService(type) {
+    switch(type) {
+        case 'book': window.open('https://www.irctc.co.in/nget/train-search'); break;
+        case 'uts': window.open('https://www.utsonmobile.indianrail.gov.in/'); break;
+        case 'platform_tkt': findNearby('railway platform ticket counter'); break;
+        case 'seat': window.open('https://www.indianrail.gov.in/enquiry/SEAT/SeatAvailability.html'); break;
+        case 'fare': window.open('https://www.indianrail.gov.in/enquiry/FARE/FareEnquiry.html'); break;
+        case 'schedule': window.open('https://www.indianrail.gov.in/enquiry/SCHEDULE/TrainSchedule.html'); break;
+        case 'pnr': window.open('https://www.indianrail.gov.in/enquiry/PNR/PnrEnquiry.html'); break;
+        case 'live': window.open('https://enquiry.indianrail.gov.in/mntes/'); break;
+        case 'cancel': window.open('https://enquiry.indianrail.gov.in/mntes/q?opt=TrainAtStn'); break;
+        case 'platform_info': findNearby('railway station platform layout'); break;
+        case 'map': window.open('https://map.irctc.co.in/'); break;
+        case 'food': window.open('https://www.ecatering.irctc.co.in/'); break;
+        case 'luggage': window.open('https://www.baggageaway.in/'); break;
+        case 'helpline': callNumber('139'); break;
+        case 'madad': window.open('https://railmadad.indianrailways.gov.in/'); break;
+        case 'police': callNumber('1512'); break;
+        case 'medical': findNearby('hospital near railway station'); break;
+        case 'lost': window.open('https://railmadad.indianrailways.gov.in/madad/final/home.jsp'); break;
+    }
+}
+
+function getDirections(dest) { if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos => { const lat = pos.coords.latitude, lng = pos.coords.longitude; window.open(`https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${encodeURIComponent(dest)}&travelmode=transit`, '_blank'); }, () => { window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest)}`, '_blank'); }); } }
+function showComingSoon(btn) { const ot = btn.innerHTML, ob = btn.style.background; btn.innerHTML = "<span>Coming Soon!</span>"; btn.style.background = "#888"; setTimeout(() => { btn.innerHTML = ot; btn.style.background = ob; }, 2000); }
+function closeBikeProvider() { document.getElementById("bikeProviderPopup").style.display = "none"; }
+function launchApp(appUrl, webUrl) { const s = Date.now(); window.location.href = appUrl; setTimeout(() => { if (Date.now() - s < 1000) { window.open(webUrl, "_blank"); } }, 500); }
+function callNumber(num){window.location.href="tel:"+num;}
+
+function findNearbyHospital(){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude; const lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/hospital/@${lat},${lng},14z`); }); }
+function findRestStops(){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/rest+stop/@${lat},${lng},13z`); }); } }
+function findFoodSpot(){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/restaurant/@${lat},${lng},14z`); }); } }
+function findStaySpot(){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/hotel/@${lat},${lng},15z`); }); } }
+function findNearby(type){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/${encodeURIComponent(type)}/@${lat},${lng},14z`); }); } }
+
+
+/* --- HERO SLIDER: Smooth infinite loop --- */
+(function(){
+  const trk = document.getElementById("heroTrack");
+  if (!trk) return;
+  const origSlides = Array.from(trk.querySelectorAll(".hero-slide"));
+  const total = origSlides.length;
+  if (!total) return;
+  origSlides.forEach(s => trk.appendChild(s.cloneNode(true)));
+  let idx = 0;
+  let running = false;
+  function next() {
+    if (running) return;
+    running = true;
+    idx++;
+    trk.style.transition = "transform 0.8s ease-in-out";
+    trk.style.transform = `translateX(-${idx * 100}%)`;
+  }
+  trk.addEventListener('transitionend', () => {
+    if (idx >= total) {
+      idx -= total;
+      trk.style.transition = "none";
+      trk.style.transform = `translateX(-${idx * 100}%)`;
+    }
+    running = false;
+  });
+  setInterval(next, 4000);
+})();
+
+/* --- KERALA'S HIDDEN GEMS: Infinite seamless auto-slider --- */
+(function(){
+  const track = document.getElementById('handpickedCards');
+  if (!track) return;
+  const origCards = Array.from(track.querySelectorAll('.handpicked-card'));
+  const total = origCards.length;
+  if (!total) return;
+  let timer;
+  let isTransitioning = false;
+
+  // Clone all cards twice so blank space is always filled
+  origCards.forEach(c => track.appendChild(c.cloneNode(true)));
+  origCards.forEach(c => track.appendChild(c.cloneNode(true)));
+
+  function getCardStep() {
+    return origCards[0].offsetWidth + 12;
+  }
+
+  // Total width of one full set of original cards
+  function getSetWidth() {
+    return getCardStep() * total;
+  }
+
+  let offsetX = 0;
+
+  function step() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    offsetX += getCardStep();
+    track.style.transition = 'transform 0.5s ease';
+    track.style.transform = `translateX(-${offsetX}px)`;
+  }
+
+  track.addEventListener('transitionend', () => {
+    // When we've scrolled past one full set, silently reset to equivalent position in first set
+    const setWidth = getSetWidth();
+    if (offsetX >= setWidth) {
+      offsetX -= setWidth;
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${offsetX}px)`;
+    }
+    isTransitioning = false;
+  });
+
+  function startTimer() { timer = setInterval(step, 3000); }
+  function stopTimer() { clearInterval(timer); }
+
+  track.addEventListener('mouseenter', stopTimer);
+  track.addEventListener('mouseleave', startTimer);
+  track.addEventListener('touchstart', stopTimer, {passive:true});
+  track.addEventListener('touchend', () => { setTimeout(startTimer, 2000); }, {passive:true});
+
+  startTimer();
+})();
+
+/* --- ACTIVITIES: Infinite seamless auto-slider --- */
+(function(){
+  const track = document.getElementById('activitiesCards');
+  if (!track) return;
+  const origCards = Array.from(track.querySelectorAll('.activity-card'));
+  const total = origCards.length;
+  if (!total) return;
+  let timer, isTransitioning = false;
+
+  origCards.forEach(c => track.appendChild(c.cloneNode(true)));
+  origCards.forEach(c => track.appendChild(c.cloneNode(true)));
+
+  function getStep() { return origCards[0].offsetWidth + 12; }
+  function getSetWidth() { return getStep() * total; }
+
+  let offsetX = 0;
+
+  function step() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    offsetX += getStep();
+    track.style.transition = 'transform 0.5s ease';
+    track.style.transform = `translateX(-${offsetX}px)`;
+  }
+
+  track.addEventListener('transitionend', () => {
+    if (offsetX >= getSetWidth()) {
+      offsetX -= getSetWidth();
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${offsetX}px)`;
+    }
+    isTransitioning = false;
+  });
+
+  function startTimer() { timer = setInterval(step, 3000); }
+  function stopTimer() { clearInterval(timer); }
+
+  track.addEventListener('mouseenter', stopTimer);
+  track.addEventListener('mouseleave', startTimer);
+  track.addEventListener('touchstart', stopTimer, {passive:true});
+  track.addEventListener('touchend', () => { setTimeout(startTimer, 2000); }, {passive:true});
+
+  startTimer();
+})();
+
+/* --- TOOLBAR SCROLL FUNCTION --- */
+function scrollToolbar(dir){ const r=document.getElementById('toolbarRow'); if(!r) return; r.scrollBy({left:dir*150,behavior:'smooth'}); }
+
+let tIdx=0; const tTrk=document.getElementById("tipsTrack"), tSlds=document.querySelectorAll(".tip-card");
+setInterval(()=>{ tIdx++; tTrk.style.transition="transform 0.6s ease-in-out"; tTrk.style.transform=`translateX(-${tIdx*100}%)`; if(tIdx===tSlds.length-1){ setTimeout(()=>{ tTrk.style.transition="none"; tTrk.style.transform="translateX(0)"; tIdx=0; },600); } },5000);
+
+/* --- POPULAR PLACES SEE ALL POPUP --- */
+function openHpSeeAll() { document.getElementById('hpSeeAllPopup').style.display = 'flex'; }
+function closeHpSeeAll() { document.getElementById('hpSeeAllPopup').style.display = 'none'; }
+
+/* --- NEARBY ESCAPES SPLIT LAYOUT --- */
+var escData = [];
+var escActiveIdx = 0;
+var escPageStart = 0;
+
+(function(){
+  var escTimer   = null;   /* single interval — never recreated */
+  var escPaused  = false;
+  var escImgCache = {};
+
+  /* Pre-load all images into browser cache */
+  function escPreloadAll() {
+    escData.forEach(function(d){
+      if (!escImgCache[d.img]) {
+        var img = new Image();
+        img.src = d.img;
+        escImgCache[d.img] = img;
+      }
+    });
+  }
+
+  /* --- Load places from JSON --- */
+  function escLoadJSON() {
+    fetch('outside places.json')
+      .then(function(r){ return r.json(); })
+      .then(function(json){
+        escData = json.map(function(item){
+          return {
+            name:     item.Place,
+            district: item.State,
+            km:       '',
+            lat:      item.lat,
+            lng:      item.lng,
+            img:      'img/tourist places/' + item.Place + '.jpg',
+            map:      'https://www.google.com/maps/search/?api=1&query=' + item.lat + ',' + item.lng
+          };
+        });
+        escPreloadAll();
+        escInit();
+        /* Get location in background — silently update km when ready */
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(pos){
+            var uLat = pos.coords.latitude, uLng = pos.coords.longitude;
+            escData.forEach(function(d){
+              var R = 6371, dLat = (d.lat-uLat)*Math.PI/180, dLon = (d.lng-uLng)*Math.PI/180;
+              var a = Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(uLat*Math.PI/180)*Math.cos(d.lat*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+              d.km  = '~'+Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)))+' km';
+              d.map = 'https://www.google.com/maps/dir/?api=1&origin='+uLat+','+uLng+'&destination='+d.lat+','+d.lng;
+            });
+            escUpdateMain(true);
+          }, function(){});
+        }
+      })
+      .catch(function(){ escInit(); });
+  }
+
+  /* Build all thumb elements once — never rebuild, never wipe */
+  function escBuildGrid() {
+    var grid = document.getElementById('escGrid');
+
+    if (!grid || !escData.length) return;
+    grid.innerHTML = '';
+    escData.forEach(function(d, i){
+      var thumb = document.createElement('div');
+      thumb.className = 'esc-thumb' + (i === escActiveIdx ? ' esc-thumb-active' : '');
+      var imgBack = document.createElement('img');
+      imgBack.className = 'esc-thumb-img-back';
+      imgBack.src = d.img; imgBack.alt = d.name;
+      var imgFront = document.createElement('img');
+      imgFront.className = 'esc-thumb-img-front';
+      imgFront.src = d.img; imgFront.alt = d.name;
+      var label = document.createElement('div');
+      label.className = 'esc-thumb-label';
+      label.innerHTML = '<span>'+d.name+'</span>';
+      thumb.appendChild(imgBack);
+      thumb.appendChild(imgFront);
+      thumb.appendChild(label);
+      thumb.addEventListener('click', (function(idx){ return function(){
+        if (escPaused) return;
+        escActiveIdx = idx;
+        escUpdateGrid();
+        escUpdateMain(false);
+      }; })(i));
+      grid.appendChild(thumb);
+    });
+  }
+
+  /* Update active highlight on existing thumbs — no rebuild, no flash */
+  function escUpdateGrid() {
+    var thumbs = document.querySelectorAll('#escGrid .esc-thumb');
+    thumbs.forEach(function(t, i){
+      t.className = 'esc-thumb' + (i === escActiveIdx ? ' esc-thumb-active' : '');
+    });
+  }
+
+  /* Crossfade main image — old image stays visible underneath */
+  function escUpdateMain(instant) {
+    if (!escData.length) return;
+    var d = escData[escActiveIdx];
+    var imgBack  = document.getElementById('escMainImgBack');
+    var imgFront = document.getElementById('escMainImgFront');
+    var mainEl   = document.getElementById('escMain');
+    if (!imgFront) return;
+    if (instant) {
+      imgFront.src = d.img;
+      if (imgBack) imgBack.src = d.img;
+    } else {
+      if (imgBack) imgBack.src = imgFront.src;
+      imgFront.classList.add('esc-xfade');
+      imgFront.src = d.img;
+      setTimeout(function(){ imgFront.classList.remove('esc-xfade'); }, 30);
+    }
+    document.getElementById('escMainName').textContent = d.name;
+    document.getElementById('escMainDistrict').textContent = d.district;
+    document.getElementById('escMainKm').textContent = d.km || '';
+    if (mainEl) mainEl.onclick = function(){ window.open(d.map, '_blank'); };
+  }
+
+  /* Single interval created once — paused flag skips the body, never recreated */
+  function escStartTimer() {
+    if (escTimer) return;
+    escTimer = setInterval(function(){
+      if (escPaused || !escData.length) return;
+      escActiveIdx = (escActiveIdx + 1) % escData.length;
+      escUpdateMain(false);
+      escUpdateGrid();
+    }, 4000);
+  }
+
+  window.escapesNext = function(){
+    if (!escData.length) return;
+    escActiveIdx = (escActiveIdx + 1) % escData.length;
+    escUpdateMain(false); escUpdateGrid();
+  };
+  window.escapesPrev = function(){
+    if (!escData.length) return;
+    escActiveIdx = ((escActiveIdx - 1) + escData.length) % escData.length;
+    escUpdateMain(false); escUpdateGrid();
+  };
+
+  function escInit() {
+    escBuildGrid();
+    escUpdateMain(true);
+    escStartTimer();
+    var section = document.querySelector('.escapes-section');
+    if (section) {
+      section.addEventListener('mouseenter',  function(){ escPaused = true;  });
+      section.addEventListener('mouseleave',  function(){ escPaused = false; });
+      section.addEventListener('touchstart',  function(){ escPaused = true;  }, { passive: true });
+      section.addEventListener('touchend',    function(){ setTimeout(function(){ escPaused = false; }, 2000); }, { passive: true });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', escLoadJSON);
+  } else {
+    escLoadJSON();
+  }
+})();
+
+/* --- NEAR YOU SECTION LOGIC --- */
+(function() {
+
+  let _nyPlaces = null;
+
+  function nyCalcKM(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+    return (R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))).toFixed(1);
+  }
+
+  function nyBuildCard(place, km) {
+    const name = place['Place Name'] || place.name || 'Place';
+    const district = place['District'] || place.district || '';
+    const lat = place.lat, lng = place.lng;
+    // Image path: img/tourist places/<Place Name>.jpg
+    const imgSrc = 'img/tourist places/' + name + '.jpg';
+    const div = document.createElement('div');
+    div.className = 'ny-card';
+    div.onclick = () => window.open('https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng, '_blank');
+    div.innerHTML =
+      '<img src="' + imgSrc + '" alt="' + name + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=80\'">' +
+      '<div class="ny-card-overlay"></div>' +
+      '<div class="ny-card-body">' +
+        '<div class="ny-top-row">' +
+          '<span class="ny-name">' + name + '</span>' +
+          '<div class="ny-dir"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>' +
+        '</div>' +
+        '<div class="ny-bottom-row">' +
+          '<span class="ny-dist-label">' + district + '</span>' +
+          '<span class="ny-km">' + (km === '—' ? '—' : km + ' km') + '</span>' +
+        '</div>' +
+      '</div>';
+    return div;
+  }
+
+  function nyShowShimmer() {
+    var track = document.getElementById('nearyouTrack');
+    track.innerHTML = '';
+    for (var i = 0; i < 15; i++) {
+      var s = document.createElement('div'); s.className = 'ny-shimmer'; track.appendChild(s);
+    }
+  }
+
+  function nyRender(places, userLat, userLng) {
+    var track = document.getElementById('nearyouTrack');
+    var subtext = document.getElementById('nearyouSubtext');
+    var sorted = places
+      .map(function(p) {
+        var lat = parseFloat(p.lat || p.Lat || 0);
+        var lng = parseFloat(p.lng || p.Lng || p.lon || p.Lon || 0);
+        var km = parseFloat(nyCalcKM(userLat, userLng, lat, lng));
+        return Object.assign({}, p, { lat: lat, lng: lng, _km: km });
+      })
+      .filter(function(p) { return p.lat && p.lng; })
+      .sort(function(a, b) { return a._km - b._km; })
+      .slice(0, 15);
+    track.innerHTML = '';
+    sorted.forEach(function(p) { track.appendChild(nyBuildCard(p, p._km)); });
+    subtext.textContent = 'Tourist spots closest to you';
+  }
+
+  function nyRenderAll(places) {
+    var track = document.getElementById('nearyouTrack');
+    var subtext = document.getElementById('nearyouSubtext');
+    track.innerHTML = '';
+    places.slice(0, 15).forEach(function(p) {
+      var lat = parseFloat(p.lat || p.Lat || 0);
+      var lng = parseFloat(p.lng || p.Lng || p.lon || p.Lon || 0);
+      track.appendChild(nyBuildCard(Object.assign({}, p, { lat: lat, lng: lng }), '—'));
+    });
+    subtext.textContent = 'Tap Allow Location to show nearest places';
+  }
+
+  function nySetLabel(text, granted) {
+    var lbl = document.getElementById('nearyouLocLabel');
+    var lblInline = document.getElementById('nearyouLocLabelInline');
+    [lbl, lblInline].forEach(function(el) {
+      el.textContent = text;
+      if (granted) {
+        el.classList.add('is-granted');
+        el.onclick = null;
+      } else {
+        el.classList.remove('is-granted');
+        el.onclick = window.nyRequestLocation;
+      }
+    });
+  }
+
+  async function nyFetchPlaces() {
+    if (_nyPlaces) return _nyPlaces;
+    var res = await fetch('tourist places.json');
+    var data = await res.json();
+    _nyPlaces = Array.isArray(data) ? data : (data.places || data.data || []);
+    return _nyPlaces;
+  }
+
+  function nyReverseGeocode(lat, lng, callback) {
+    fetch('https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json')
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        var addr = d.address || {};
+        var label = addr.city || addr.town || addr.village || addr.county || addr.state_district || 'Your Location';
+        callback(label);
+      })
+      .catch(function() { callback('Your Location'); });
+  }
+
+  async function nyHandlePosition(pos) {
+    try {
+      var lat = pos.coords.latitude, lng = pos.coords.longitude;
+      var places = await nyFetchPlaces();
+      if (!places.length) return;
+      nyReverseGeocode(lat, lng, function(label) {
+        nySetLabel(label, true);
+        nyRender(places, lat, lng);
+      });
+    } catch(e) {
+      document.getElementById('nearyouSubtext').textContent = 'Could not load places data';
+    }
+  }
+
+  async function nyHandleDenied() {
+    try {
+      var places = await nyFetchPlaces();
+      if (places.length) nyRenderAll(places);
+      nySetLabel('Allow Location', false);
+    } catch(e) {
+      document.getElementById('nearyouSubtext').textContent = 'Could not load places data';
+    }
+  }
+
+  function nyGetPosition(onSuccess, onFail) {
+    navigator.geolocation.getCurrentPosition(onSuccess, onFail, { timeout: 8000, maximumAge: 300000 });
+  }
+
+  function nyInit() {
+    if (!navigator.geolocation) { nyHandleDenied(); return; }
+    if (navigator.permissions) {
+      navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+        if (result.state === 'granted') {
+          nySetLabel('Locating…', false);
+          nyGetPosition(nyHandlePosition, nyHandleDenied);
+        } else if (result.state === 'denied') {
+          nyHandleDenied();
+        } else {
+          nySetLabel('Allow Location', false);
+          nyGetPosition(nyHandlePosition, nyHandleDenied);
+        }
+        result.onchange = function() {
+          if (this.state === 'granted') {
+            nyShowShimmer();
+            document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
+            nySetLabel('Locating…', false);
+            nyGetPosition(nyHandlePosition, nyHandleDenied);
+          } else if (this.state === 'denied') {
+            nyHandleDenied();
+          }
+        };
+      }).catch(function() {
+        nyGetPosition(nyHandlePosition, nyHandleDenied);
+      });
+    } else {
+      nyGetPosition(nyHandlePosition, nyHandleDenied);
+    }
+  }
+
+  window.nyRequestLocation = function() {
+    if (!navigator.geolocation) return;
+    if (navigator.permissions) {
+      navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+        if (result.state === 'denied') {
+          alert('Location is blocked.\n\nTo enable:\n1. Click the lock icon in your browser address bar\n2. Set Location → Allow\n3. Refresh the page');
+        } else {
+          nyShowShimmer();
+          document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
+          nySetLabel('Locating…', false);
+          nyGetPosition(nyHandlePosition, nyHandleDenied);
+        }
+      }).catch(function() {
+        nyShowShimmer();
+        document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
+        nyGetPosition(nyHandlePosition, nyHandleDenied);
+      });
+    } else {
+      nyShowShimmer();
+      document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
+      nyGetPosition(nyHandlePosition, nyHandleDenied);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', nyInit);
+  } else {
+    nyInit();
+  }
+
+})();
+</script>
+
+<script>
+/* --- KERALA TOURIST PLACES SECTION --- */
+(function() {
+  var ktpData = [];
+  var ktpUserLat = null, ktpUserLng = null;
+  var ktpActiveDistrict = 'All';
+
+  // Image filename = exact Place Name + .jpg
+  // e.g. "Kovalam Beach" → "img/tourist places/Kovalam Beach.jpg"
+  function ktpImgSrc(placeName) {
+    return 'img/tourist places/' + placeName + '.jpg';
+  }
+
+  function ktpHaversine(lat1, lng1, lat2, lng2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLng = (lng2 - lng1) * Math.PI / 180;
+    var a = Math.sin(dLat/2)*Math.sin(dLat/2) + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)*Math.sin(dLng/2);
+    return (R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))).toFixed(1);
+  }
+
+  // Varied heights for Instagram masonry look
+  var ktpHeights = [160, 200, 240, 175, 210, 155, 230, 180, 195, 165, 220, 185, 170, 205, 245];
+
+  function ktpRender(filtered) {
+    var masonry = document.getElementById('ktpMasonry');
+    if (!masonry) return;
+    var html = '';
+    filtered.forEach(function(place, i) {
+      var km = (ktpUserLat !== null) ? ktpHaversine(ktpUserLat, ktpUserLng, place.lat, place.lng) + ' km' : '';
+      var imgH = ktpHeights[i % ktpHeights.length];
+      var mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + place.lat + ',' + place.lng;
+      // Escape single quotes in place name for safe HTML attribute use
+      var safeName = place["Place Name"].replace(/'/g, "&#39;");
+      html += '<div class="ktp-card" style="animation-delay:' + (i * 0.03) + 's" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
+        '<img src="' + ktpImgSrc(place["Place Name"]) + '" alt="' + safeName + '" style="height:' + imgH + 'px;width:100%;object-fit:cover;display:block;">' +
+        '<div class="ktp-card-overlay"></div>' +
+        '<div class="ktp-card-body">' +
+          '<div class="ktp-card-left">' +
+            '<span class="ktp-card-name">' + place["Place Name"] + '</span>' +
+            '<span class="ktp-card-district">' + place.District + '</span>' +
+          '</div>' +
+          '<div class="ktp-card-right">' +
+            (km ? '<span class="ktp-card-km">' + km + '</span>' : '') +
+            '<div class="ktp-dir-btn"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    });
+    masonry.innerHTML = html;
+  }
+
+  window.ktpFilter = function(btn, district) {
+    document.querySelectorAll('.ktp-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    ktpActiveDistrict = district;
+    var filtered = district === 'All' ? ktpData : ktpData.filter(function(p) { return p.District === district; });
+    ktpRender(filtered);
+  };
+
+  window.ktpScrollFilter = function(dir) {
+    var el = document.getElementById('ktpFilterScroll');
+    if (el) el.scrollBy({ left: dir * 160, behavior: 'smooth' });
+  };
+
+  function ktpInit() {
+    fetch('tourist places.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        ktpData = data;
+        ktpRender(ktpData);
+        // Try to get location for km display
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(pos) {
+            ktpUserLat = pos.coords.latitude;
+            ktpUserLng = pos.coords.longitude;
+            var filtered = ktpActiveDistrict === 'All' ? ktpData : ktpData.filter(function(p) { return p.District === ktpActiveDistrict; });
+            ktpRender(filtered);
+          }, function() {}, { timeout: 5000 });
+        }
+      })
+      .catch(function(e) { console.warn('tourist places.json not loaded', e); });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ktpInit);
+  } else {
+    ktpInit();
+  }
+})();
+</script>
+</body></html>

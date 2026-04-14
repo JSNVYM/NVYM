@@ -1,0 +1,1389 @@
+[
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Trivandrum Central",
+    "Station Code": "TVC",
+    "lat": 8.487142589,
+    "lng": 76.95270135
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Varkala",
+    "Station Code": "VAK",
+    "lat": 8.740635194,
+    "lng": 76.72320933
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Kochuveli",
+    "Station Code": "KCVL",
+    "lat": 8.510576098,
+    "lng": 76.89692547
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Pettai",
+    "Station Code": "TVP",
+    "lat": 8.718937607,
+    "lng": 77.65367279
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Chirayinkeezhu",
+    "Station Code": "CRY",
+    "lat": 8.659551794,
+    "lng": 76.7856327
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Kazhakuttam",
+    "Station Code": "KZK",
+    "lat": 8.557162661,
+    "lng": 76.8725202
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Neyyattinkara",
+    "Station Code": "NYY",
+    "lat": 8.410547201,
+    "lng": 77.08140662
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Parassala",
+    "Station Code": "PASA",
+    "lat": 8.339917908,
+    "lng": 77.16551764
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Kadakavur",
+    "Station Code": "KVU",
+    "lat": 8.679546584,
+    "lng": 76.76717164
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Dhanuvachapuram",
+    "Station Code": "DAVM",
+    "lat": 8.378297764,
+    "lng": 77.12575161
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Murukkampuzha",
+    "Station Code": "MQU",
+    "lat": 8.613287025,
+    "lng": 76.83057758
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Akathumuri",
+    "Station Code": "AMY",
+    "lat": 8.700501218,
+    "lng": 76.75875718
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Nemem",
+    "Station Code": "NEM",
+    "lat": 8.454126859,
+    "lng": 77.0104452
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Kappil",
+    "Station Code": "KFI",
+    "lat": 8.779614729,
+    "lng": 76.67938507
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Perunguzhi",
+    "Station Code": "PGZ",
+    "lat": 8.633028252,
+    "lng": 76.80760837
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Kaniyapuram",
+    "Station Code": "KXP",
+    "lat": 8.587575781,
+    "lng": 76.85436313
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Edavai",
+    "Station Code": "EVA",
+    "lat": 8.763431904,
+    "lng": 76.69740685
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Balaramapuram",
+    "Station Code": "BRAM",
+    "lat": 8.430846283,
+    "lng": 77.05133042
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Veli",
+    "Station Code": "VELI",
+    "lat": 8.522923217,
+    "lng": 76.88271123
+  },
+  {
+    "District": "Thiruvananthapuram",
+    "Station Name": "Amaravila Halt",
+    "Station Code": "AMVA",
+    "lat": 8.396540338,
+    "lng": 77.10066308
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Kollam Jn",
+    "Station Code": "QLN",
+    "lat": 8.88654527,
+    "lng": 76.59596277
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Karunagapalli",
+    "Station Code": "KPY",
+    "lat": 9.066206504,
+    "lng": 76.54423186
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Tenmalai",
+    "Station Code": "TML",
+    "lat": 8.968776316,
+    "lng": 77.07045115
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Punalur",
+    "Station Code": "PUU",
+    "lat": 9.023131332,
+    "lng": 76.91592582
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Auvaneeswaram",
+    "Station Code": "AVS",
+    "lat": 9.035338291,
+    "lng": 76.85197633
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Sasthankotta",
+    "Station Code": "STKT",
+    "lat": 9.031435008,
+    "lng": 76.60097856
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Kottarakara",
+    "Station Code": "KKZ",
+    "lat": 9.000402534,
+    "lng": 76.76572835
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Kundara",
+    "Station Code": "KUV",
+    "lat": 8.960292206,
+    "lng": 76.67817558
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Mayyanad",
+    "Station Code": "MYY",
+    "lat": 8.83805221,
+    "lng": 76.64773351
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Munroturuttu",
+    "Station Code": "MQO",
+    "lat": 8.994657982,
+    "lng": 76.61152367
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Aryankavu",
+    "Station Code": "AYV",
+    "lat": 8.95525142,
+    "lng": 77.13475048
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Edamann",
+    "Station Code": "EDN",
+    "lat": 9.007269763,
+    "lng": 76.9823236
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "New Aryankavu",
+    "Station Code": "AYVN",
+    "lat": 8.955205142,
+    "lng": 77.13472386
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Kilikollur",
+    "Station Code": "KLQ",
+    "lat": 8.917781368,
+    "lng": 76.63263962
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Perinad",
+    "Station Code": "PRND",
+    "lat": 8.948711937,
+    "lng": 76.62050727
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Ezhukone",
+    "Station Code": "EKN",
+    "lat": 8.979557909,
+    "lng": 76.71530978
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Ochira",
+    "Station Code": "OCR",
+    "lat": 9.131856466,
+    "lng": 76.52522353
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Kundara East",
+    "Station Code": "KFV",
+    "lat": 8.969017662,
+    "lng": 76.68993709
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Ottakkal",
+    "Station Code": "OKL",
+    "lat": 8.986504452,
+    "lng": 77.0382084
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Chandanattop Halt",
+    "Station Code": "CTPE",
+    "lat": 8.930046978,
+    "lng": 76.64153037
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Edapalayam Halt",
+    "Station Code": "EDP",
+    "lat": 8.962027539,
+    "lng": 77.11903727
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Kathuruthy Halt",
+    "Station Code": "KTHY",
+    "lat": 8.969976647,
+    "lng": 77.09798463
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Kuri",
+    "Station Code": "KIF",
+    "lat": 9.035060037,
+    "lng": 76.81741663
+  },
+  {
+    "District": "Kollam",
+    "Station Name": "Iravipuram",
+    "Station Code": "IRP",
+    "lat": 8.866909599,
+    "lng": 76.62452789
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Pathanamthitta",
+    "Station Name": "Tiruvalla",
+    "Station Code": "TRVL",
+    "lat": 9.3916175,
+    "lng": 76.57968956
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Kayankulam Jn",
+    "Station Code": "KYJ",
+    "lat": 9.181383945,
+    "lng": 76.51237507
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Alleppey",
+    "Station Code": "ALLP",
+    "lat": 9.483654701,
+    "lng": 76.32231131
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Chengannur",
+    "Station Code": "CNGR",
+    "lat": 9.318936054,
+    "lng": 76.60867606
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Cherthala",
+    "Station Code": "SRTL",
+    "lat": 9.691176765,
+    "lng": 76.32560247
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Mavelikara",
+    "Station Code": "MVLK",
+    "lat": 9.239627579,
+    "lng": 76.5458578
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Mararikulam",
+    "Station Code": "MAKM",
+    "lat": 9.597779374,
+    "lng": 76.31773989
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Ambalapuzha",
+    "Station Code": "AMPA",
+    "lat": 9.386465468,
+    "lng": 76.36290191
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Harippad",
+    "Station Code": "HAD",
+    "lat": 9.277787751,
+    "lng": 76.46330238
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Cheriyanad",
+    "Station Code": "CYN",
+    "lat": 9.273159016,
+    "lng": 76.58504142
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Turavur",
+    "Station Code": "TUVR",
+    "lat": 9.774940599,
+    "lng": 76.31020737
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Karuvatta",
+    "Station Code": "KVTA",
+    "lat": 9.316615761,
+    "lng": 76.43118106
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Cheppad",
+    "Station Code": "CHPD",
+    "lat": 9.233120929,
+    "lng": 76.47678156
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Aroor Halt",
+    "Station Code": "AROR",
+    "lat": 9.866919588,
+    "lng": 76.29956972
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Ezhuppunna",
+    "Station Code": "EZP",
+    "lat": 9.819606475,
+    "lng": 76.30209788
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Vayalar",
+    "Station Code": "VAY",
+    "lat": 9.741975426,
+    "lng": 76.31190641
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Tiruvizha",
+    "Station Code": "TRVZ",
+    "lat": 9.642564158,
+    "lng": 76.32651841
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Kalavur Halt",
+    "Station Code": "KAVR",
+    "lat": 9.568030291,
+    "lng": 76.3185479
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Punnapra",
+    "Station Code": "PUPR",
+    "lat": 9.423460334,
+    "lng": 76.34190583
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Tumboly",
+    "Station Code": "TMPY",
+    "lat": 9.519127557,
+    "lng": 76.32181364
+  },
+  {
+    "District": "Alappuzha",
+    "Station Name": "Takazhi",
+    "Station Code": "TZH",
+    "lat": 9.370671883,
+    "lng": 76.4089947
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Kottayam",
+    "Station Name": "Kottayam",
+    "Station Code": "KTYM",
+    "lat": 9.594914304,
+    "lng": 76.53146482
+  },
+  {
+    "District": "Kottayam",
+    "Station Name": "Changanasery",
+    "Station Code": "CGY",
+    "lat": 9.449007863,
+    "lng": 76.54872643
+  },
+  {
+    "District": "Kottayam",
+    "Station Name": "Ettumanur",
+    "Station Code": "ETM",
+    "lat": 9.675003017,
+    "lng": 76.54586844
+  },
+  {
+    "District": "Kottayam",
+    "Station Name": "Vaikam Road",
+    "Station Code": "VARD",
+    "lat": 9.778168263,
+    "lng": 76.47440088
+  },
+  {
+    "District": "Kottayam",
+    "Station Name": "Kuruppanthara",
+    "Station Code": "KRPP",
+    "lat": 9.735152918,
+    "lng": 76.51058121
+  },
+  {
+    "District": "Kottayam",
+    "Station Name": "Kaduturutti Halt",
+    "Station Code": "KDTY",
+    "lat": 9.755769826,
+    "lng": 76.49254446
+  },
+  {
+    "District": "Kottayam",
+    "Station Name": "Kumaranallur",
+    "Station Code": "KFQ",
+    "lat": 9.617116287,
+    "lng": 76.53211843
+  },
+  {
+    "District": "Kottayam",
+    "Station Name": "Chingavanam",
+    "Station Code": "CGV",
+    "lat": 9.529742135,
+    "lng": 76.5253382
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Aluva",
+    "Station Code": "AWY",
+    "lat": 10.10819149,
+    "lng": 76.35669876
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Ernakulam Jn",
+    "Station Code": "ERS",
+    "lat": 9.969268752,
+    "lng": 76.29098401
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Ernakulam Town",
+    "Station Code": "ERN",
+    "lat": 9.992181983,
+    "lng": 76.28626796
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Angamaly (Kalady)",
+    "Station Code": "AFK",
+    "lat": 10.18351344,
+    "lng": 76.37810392
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Paravur",
+    "Station Code": "PVU",
+    "lat": 8.814904646,
+    "lng": 76.66930301
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Edappally",
+    "Station Code": "IPL",
+    "lat": 10.03458148,
+    "lng": 76.29874146
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Chottanikkara Road",
+    "Station Code": "KFE",
+    "lat": 9.926503567,
+    "lng": 76.37465461
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Kanjiramittam",
+    "Station Code": "KPTM",
+    "lat": 9.862125738,
+    "lng": 76.4106159
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Piravam Road",
+    "Station Code": "PVRD",
+    "lat": 9.829487673,
+    "lng": 76.45544705
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Triupunittura",
+    "Station Code": "TRTR",
+    "lat": 9.950714833,
+    "lng": 76.35231961
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Mulanthuruthy",
+    "Station Code": "MNTT",
+    "lat": 9.897831898,
+    "lng": 76.39077421
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Kalamassery",
+    "Station Code": "KLMR",
+    "lat": 10.06242969,
+    "lng": 76.32726587
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Chovvara",
+    "Station Code": "CWR",
+    "lat": 10.13288524,
+    "lng": 76.37217027
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Tirunettur",
+    "Station Code": "TNU",
+    "lat": 9.934234779,
+    "lng": 76.30845667
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Kumbalam",
+    "Station Code": "KUMM",
+    "lat": 9.906149761,
+    "lng": 76.31153136
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Karukkutty",
+    "Station Code": "KUC",
+    "lat": 10.22607712,
+    "lng": 76.37343005
+  },
+  {
+    "District": "Ernakulam",
+    "Station Name": "Cochin Hrbr Tms",
+    "Station Code": "CHTS",
+    "lat": 9.959137289,
+    "lng": 76.26809912
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Thrisur",
+    "Station Code": "TCR",
+    "lat": 10.51606168,
+    "lng": 76.20846109
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Irinjalakuda",
+    "Station Code": "IJK",
+    "lat": 10.34000518,
+    "lng": 76.28141748
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Chalakudi",
+    "Station Code": "CKI",
+    "lat": 10.30227855,
+    "lng": 76.3216461
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Wadakancheri",
+    "Station Code": "WKI",
+    "lat": 10.65149844,
+    "lng": 76.23961747
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Pudukad",
+    "Station Code": "PUK",
+    "lat": 10.42067314,
+    "lng": 76.26088941
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Punkunnam",
+    "Station Code": "PNQ",
+    "lat": 10.53417556,
+    "lng": 76.20899255
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Guruvayur",
+    "Station Code": "GUV",
+    "lat": 10.59726195,
+    "lng": 76.04583537
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Divine Nagar",
+    "Station Code": "DINR",
+    "lat": 10.28529615,
+    "lng": 76.33691225
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Nellayi",
+    "Station Code": "NYI",
+    "lat": 10.3920403,
+    "lng": 76.27558719
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Koratti Angadi",
+    "Station Code": "KRAN",
+    "lat": 10.26049987,
+    "lng": 76.35635783
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Ollur",
+    "Station Code": "OLR",
+    "lat": 10.47381354,
+    "lng": 76.23713095
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Amala Nagar",
+    "Station Code": "AMLR",
+    "lat": 10.56221913,
+    "lng": 76.17216449
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Mulangunnathukavu",
+    "Station Code": "MGK",
+    "lat": 10.59566127,
+    "lng": 76.20749833
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Mullurkara",
+    "Station Code": "MUC",
+    "lat": 10.70604775,
+    "lng": 76.27109201
+  },
+  {
+    "District": "Thrissur",
+    "Station Name": "Vallathol Nagar",
+    "Station Code": "VTK",
+    "lat": 10.73151456,
+    "lng": 76.28128598
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Palakkad Jn",
+    "Station Code": "PGT",
+    "lat": 10.80097032,
+    "lng": 76.63947195
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Shoranur Jn",
+    "Station Code": "SRR",
+    "lat": 10.75962176,
+    "lng": 76.27209449
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Ottappalam",
+    "Station Code": "OTP",
+    "lat": 10.76994926,
+    "lng": 76.37775076
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Pattambi",
+    "Station Code": "PTB",
+    "lat": 10.8018115,
+    "lng": 76.18178091
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Pudunagaram",
+    "Station Code": "PDGM",
+    "lat": 10.68635362,
+    "lng": 76.68437746
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Palghat Town",
+    "Station Code": "PGTN",
+    "lat": 10.77743667,
+    "lng": 76.65156209
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Kollengode",
+    "Station Code": "KLGD",
+    "lat": 10.62732993,
+    "lng": 76.69884779
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Muthalamada",
+    "Station Code": "MMDA",
+    "lat": 10.62788719,
+    "lng": 76.77313782
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Vallapuzha",
+    "Station Code": "VPZ",
+    "lat": 10.83068187,
+    "lng": 76.25346421
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Vadakannikapurm",
+    "Station Code": "VDK",
+    "lat": 10.63957723,
+    "lng": 76.6868867
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Palappuram",
+    "Station Code": "PLPM",
+    "lat": 10.75189088,
+    "lng": 76.39796791
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Mannanur",
+    "Station Code": "MNUR",
+    "lat": 10.74929675,
+    "lng": 76.32408543
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Mankara",
+    "Station Code": "MNY",
+    "lat": 10.77191695,
+    "lng": 76.50035348
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Parli",
+    "Station Code": "PLL",
+    "lat": 10.80058484,
+    "lng": 76.55976933
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Lakkiti",
+    "Station Code": "LDY",
+    "lat": 10.75314398,
+    "lng": 76.43432106
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Vadanam Kurussi Halt",
+    "Station Code": "VDKS",
+    "lat": 10.78791123,
+    "lng": 76.25279285
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Karakkad",
+    "Station Code": "KRKD",
+    "lat": 10.78214934,
+    "lng": 76.22883038
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Kodumunda",
+    "Station Code": "KODN",
+    "lat": 10.81704607,
+    "lng": 76.14324114
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Pallippuram",
+    "Station Code": "PUM",
+    "lat": 10.84159268,
+    "lng": 76.11249949
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Kanjikode",
+    "Station Code": "KJKD",
+    "lat": 10.80040422,
+    "lng": 76.75569042
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Bharathapuzha H",
+    "Station Code": "BPZA",
+    "lat": 10.75886828,
+    "lng": 76.28741137
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Kulukkalur",
+    "Station Code": "KZC",
+    "lat": 10.86783102,
+    "lng": 76.23916655
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Shoranur A Cabin",
+    "Station Code": "SRRA",
+    "lat": 10.7589698,
+    "lng": 76.28532076
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Shoranur B Cabin",
+    "Station Code": "SRRB",
+    "lat": 10.75429328,
+    "lng": 76.28065783
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Kottekad",
+    "Station Code": "KTKU",
+    "lat": 10.81619588,
+    "lng": 76.69333187
+  },
+  {
+    "District": "Palakkad",
+    "Station Name": "Chullimada",
+    "Station Code": "CLMD",
+    "lat": 10.82069417,
+    "lng": 76.80402655
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Tirur",
+    "Station Code": "TIR",
+    "lat": 10.91787904,
+    "lng": 75.92175593
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Kuttippuram",
+    "Station Code": "KTU",
+    "lat": 10.84555928,
+    "lng": 76.03369384
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Parpanangadi",
+    "Station Code": "PGI",
+    "lat": 11.04719118,
+    "lng": 75.86014584
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Vallikunnu",
+    "Station Code": "VLI",
+    "lat": 11.09228789,
+    "lng": 75.8511781
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Tanur",
+    "Station Code": "TA",
+    "lat": 10.97811148,
+    "lng": 75.88147339
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Angadippuram",
+    "Station Code": "AAM",
+    "lat": 10.98119694,
+    "lng": 76.20825887
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Pattikkad",
+    "Station Code": "PKQ",
+    "lat": 11.02162598,
+    "lng": 76.23308679
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Tuvvur",
+    "Station Code": "TUV",
+    "lat": 11.12043107,
+    "lng": 76.28305038
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Nilambur Road",
+    "Station Code": "NIL",
+    "lat": 11.2788359,
+    "lng": 76.25388668
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Melattur",
+    "Station Code": "MLTR",
+    "lat": 11.06519639,
+    "lng": 76.27286775
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Vaniyambalam",
+    "Station Code": "VNB",
+    "lat": 11.18758028,
+    "lng": 76.26059745
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Cherukara",
+    "Station Code": "CQA",
+    "lat": 10.92639946,
+    "lng": 76.22762702
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Tirunnavaya",
+    "Station Code": "TUA",
+    "lat": 10.87518114,
+    "lng": 75.98539478
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Perssannur",
+    "Station Code": "PEU",
+    "lat": 10.84089806,
+    "lng": 76.06574152
+  },
+  {
+    "District": "Malappuram",
+    "Station Name": "Todiyapulam",
+    "Station Code": "TDPM",
+    "lat": 11.15328307,
+    "lng": 76.26861619
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Kozhikode",
+    "Station Code": "CLT",
+    "lat": 11.24634683,
+    "lng": 75.78087685
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Ferok",
+    "Station Code": "FK",
+    "lat": 11.17592774,
+    "lng": 75.83024669
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Quilandi",
+    "Station Code": "QLD",
+    "lat": 11.44610365,
+    "lng": 75.69353193
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Vadakara",
+    "Station Code": "BDJ",
+    "lat": 11.59362769,
+    "lng": 75.58722611
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Payyoli",
+    "Station Code": "PYOL",
+    "lat": 11.51723958,
+    "lng": 75.61846747
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Kadalundi",
+    "Station Code": "KN",
+    "lat": 11.13405505,
+    "lng": 75.82818156
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Nadapuram Road",
+    "Station Code": "NAU",
+    "lat": 11.63929504,
+    "lng": 75.57548554
+  },
+  {
+
+    "District": "Kozhikode",
+    "Station Name": "Chemancheri",
+    "Station Code": "CMC",
+    "lat": 11.4056223,
+    "lng": 75.71929721
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Kallayi",
+    "Station Code": "KUL",
+    "lat": 11.2337592,
+    "lng": 75.78894601
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Vellayil",
+    "Station Code": "VLL",
+    "lat": 11.26472963,
+    "lng": 75.77407859
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "West Hill",
+    "Station Code": "WH",
+    "lat": 11.28611496,
+    "lng": 75.76497954
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Elathur",
+    "Station Code": "ETR",
+    "lat": 11.34634822,
+    "lng": 75.74117328
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Tikkotti",
+    "Station Code": "TKT",
+    "lat": 11.48934252,
+    "lng": 75.62648715
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Vellarakkad",
+    "Station Code": "VEK",
+    "lat": 11.47220439,
+    "lng": 75.65298832
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Iringal",
+    "Station Code": "IGL",
+    "lat": 11.54858244,
+    "lng": 75.60948181
+  },
+  {
+    "District": "Kozhikode",
+    "Station Name": "Mukkali",
+    "Station Code": "MUKE",
+    "lat": 11.66887895,
+    "lng": 75.55969287
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Kannur",
+    "Station Code": "CAN",
+    "lat": 11.87181745,
+    "lng": 75.36755082
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Thalassery",
+    "Station Code": "TLY",
+    "lat": 11.75391658,
+    "lng": 75.4922641
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Payyanur",
+    "Station Code": "PAY",
+    "lat": 12.09154696,
+    "lng": 75.19539071
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Payangadi",
+    "Station Code": "PAZ",
+    "lat": 12.0218114,
+    "lng": 75.2602002
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Kannapuram",
+    "Station Code": "KPQ",
+    "lat": 11.9841254,
+    "lng": 75.31446408
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Valapattanam",
+    "Station Code": "VAPM",
+    "lat": 11.92675168,
+    "lng": 75.34611907
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Ezhimala",
+    "Station Code": "ELM",
+    "lat": 12.06911692,
+    "lng": 75.23016601
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Pappinissery",
+    "Station Code": "PPNS",
+    "lat": 11.94228554,
+    "lng": 75.34696137
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Etakkot",
+    "Station Code": "ETK",
+    "lat": 11.8059678,
+    "lng": 75.44375065
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Kannur South",
+    "Station Code": "CS",
+    "lat": 11.86688349,
+    "lng": 75.40019664
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Chirakkal",
+    "Station Code": "CQL",
+    "lat": 11.90902928,
+    "lng": 75.35417461
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Dharmadam",
+    "Station Code": "DMD",
+    "lat": 11.77886676,
+    "lng": 75.46329726
+  },
+  {
+    "District": "Kannur",
+    "Station Name": "Jagannath Temple Gate",
+    "Station Code": "JGE",
+    "lat": 11.73857962,
+    "lng": 75.50817775
+  },
+  {
+    "District": "",
+    "Station Name": "",
+    "Station Code": "",
+    "lat": "",
+    "lng": ""
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Kasaragod",
+    "Station Code": "KGQ",
+    "lat": 12.49129029,
+    "lng": 74.98764413
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Kanhangad",
+    "Station Code": "KZE",
+    "lat": 12.31989577,
+    "lng": 75.08480084
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Kotikulam",
+    "Station Code": "KQK",
+    "lat": 12.42351349,
+    "lng": 75.02416468
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Charvattur",
+    "Station Code": "CHV",
+    "lat": 12.21442625,
+    "lng": 75.15453705
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Bekal Fort",
+    "Station Code": "BFR",
+    "lat": 12.38696399,
+    "lng": 75.04299768
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Trikarpur",
+    "Station Code": "TKQ",
+    "lat": 12.14305663,
+    "lng": 75.17571812
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Kumbla",
+    "Station Code": "KMQ",
+    "lat": 12.59017501,
+    "lng": 74.94353636
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Nileshwar",
+    "Station Code": "NLE",
+    "lat": 12.25615303,
+    "lng": 75.13542556
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Manjeshwar",
+    "Station Code": "MJS",
+    "lat": 12.72509613,
+    "lng": 74.88754153
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Uppala",
+    "Station Code": "UAA",
+    "lat": 12.6699526,
+    "lng": 74.90668623
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Kalanad",
+    "Station Code": "KALD",
+    "lat": 12.46749665,
+    "lng": 74.99842105
+  },
+  {
+    "District": "Kasaragod",
+    "Station Name": "Chandera",
+    "Station Code": "CDRA",
+    "lat": 12.18060337,
+    "lng": 75.16742574
+  }
+]
