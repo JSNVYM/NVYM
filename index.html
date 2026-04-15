@@ -135,7 +135,7 @@
         }
 
         /* --- NEARBY ESCAPES SECTION (CARD WRAP) --- */
-        .escapes-section { margin: 0 var(--side-space) 80px; }
+        .escapes-section { margin: 0 var(--side-space) 20px; }
         .escapes-card-wrap { background: #fff; border-radius: 22px; box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06); padding: 16px; }
         /* header row: shown only on <700px at top, hidden on ≥700px (right col handles it) */
         .escapes-header { display: none; }
@@ -143,7 +143,7 @@
         .escapes-arrows button { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e5e5e5; background: #fff; cursor: pointer; font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center; color: #555; transition: background 0.2s, border-color 0.2s, color 0.2s; padding: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
         .escapes-arrows button:hover { background: #007b7f; border-color: #007b7f; color: #fff; }
         /* layout row */
-        .escapes-layout { display: flex; gap: 10px; align-items: flex-start; }
+        .escapes-layout { display: flex; gap: 18px; align-items: flex-start; }
         /* LEFT — big featured image */
         .esc-main { flex: 0 0 54%; position: relative; border-radius: 14px; overflow: hidden; background: #1a1a1a; cursor: pointer; height: 270px; }
         .esc-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
@@ -251,12 +251,17 @@
         @media (min-width: 700px) { .ny-card { min-width: 100px; max-width: 140px; } .ny-shimmer { min-width: 100px; max-width: 140px; } }
 
         /* --- KERALA TOURIST PLACES SECTION --- */
-        .ktp-section { margin: 30px var(--side-space) 30px; }
-        .ktp-header { margin-bottom: 14px; }
-        .ktp-header h2 { font-size: 18px; font-weight: 700; color: #111; letter-spacing: -0.3px; margin: 0 0 2px; }
-        .ktp-header p { font-size: 10px; color: #aaa; margin: 0; }
+        .ktp-section { margin: 40px var(--side-space) 30px; }
+        .ktp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+        .ktp-header-text h2 { font-size: 18px; font-weight: 700; color: #111; letter-spacing: -0.3px; margin: 0 0 2px; }
+        .ktp-header-text p { font-size: 10px; color: #aaa; margin: 0; }
+        .ktp-header-arrows { display: none; align-items: center; gap: 4px; padding-top: 3px; }
+        .ktp-header-arrows button { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e5e5e5; background: #fff; cursor: pointer; font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center; color: #555; transition: background 0.2s, border-color 0.2s, color 0.2s; padding: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+        .ktp-header-arrows button:hover { background: #007b7f; border-color: #007b7f; color: #fff; }
+        @media (max-width: 699px) { .ktp-header-arrows { display: flex; } }
         .ktp-filter-wrap { position: relative; display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
         .ktp-filter-arrow { background: none; border: none; cursor: pointer; font-size: 20px; color: #555; flex-shrink: 0; padding: 0 2px; line-height: 1; }
+        @media (max-width: 699px) { .ktp-filter-arrow { display: none; } }
         .ktp-filter-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; flex: 1; padding: 4px 0; }
         .ktp-filter-scroll::-webkit-scrollbar { display: none; }
         .ktp-filter-btn { flex: 0 0 auto; padding: 6px 14px; border-radius: 50px; border: 1.5px solid #000; background: transparent; font-size: 11px; font-weight: 600; color: #111; cursor: pointer; white-space: nowrap; transition: background 0.2s, color 0.2s; }
@@ -497,12 +502,12 @@
   </div>
 </div>
 
-<!-- NEAR YOU SECTION -->
+<!-- NEARBY ESCAPES SECTION -->
 <div class="nearyou-section">
   <div class="nearyou-card-wrap">
     <div class="nearyou-header">
       <div class="nearyou-header-left">
-        <h2>Near You</h2>
+        <h2>Nearby Escapes</h2>
         <div class="nearyou-subtext-row">
           <p id="nearyouSubtext">Tap Allow Location to show nearest places</p>
           <span id="nearyouLocLabelInline" class="nearyou-loc-label-inline" onclick="nyRequestLocation()">Allow Location</span>
@@ -526,20 +531,20 @@
   </div>
 </div>
 
-<!-- NEARBY ESCAPES SECTION -->
+<!-- WEEKEND GETAWAYS SECTION -->
 <div class="escapes-section">
   <div class="escapes-card-wrap">
     <!-- mobile heading (≤699px only) -->
     <div class="esc-mobile-header">
-      <h2>Nearby Escapes</h2>
+      <h2>Weekend Getaways</h2>
       <p>Top getaways within reach from Kerala</p>
     </div>
     <!-- desktop heading handled inside .esc-right-header -->
     <div class="escapes-layout">
       <!-- BIG MAIN IMAGE -->
       <div class="esc-main" id="escMain" onclick="if(escData[escActiveIdx])window.open(escData[escActiveIdx].map,'_blank')">
-        <img class="esc-main-img-back" id="escMainImgBack" src="" alt="">
-        <img class="esc-main-img-front" id="escMainImgFront" src="" alt="">
+        <img class="esc-main-img-back" id="escMainImgBack" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'">
+        <img class="esc-main-img-front" id="escMainImgFront" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'">
         <div class="esc-main-overlay"></div>
         <div class="esc-main-info">
           <div class="esc-main-text">
@@ -556,7 +561,7 @@
       <div class="esc-right">
         <div class="esc-right-header">
           <div class="esc-right-header-text">
-            <h2>Nearby Escapes</h2>
+            <h2>Weekend Getaways</h2>
             <p>Top getaways within reach</p>
           </div>
           <div class="escapes-arrows">
@@ -573,8 +578,14 @@
 <!-- KERALA TOURIST PLACES SECTION -->
 <div class="ktp-section" id="ktpSection">
   <div class="ktp-header">
-    <h2>Kerala All Tourist Places</h2>
-    <p>Explore beautiful destinations across all districts</p>
+    <div class="ktp-header-text">
+      <h2>Kerala All Tourist Places</h2>
+      <p>Explore beautiful destinations across all districts</p>
+    </div>
+    <div class="ktp-header-arrows">
+      <button onclick="ktpScrollFilter(-1)">&#8249;</button>
+      <button onclick="ktpScrollFilter(1)">&#8250;</button>
+    </div>
   </div>
   <div class="ktp-filter-wrap">
     <button class="ktp-filter-arrow" onclick="ktpScrollFilter(-1)">&#10094;</button>
@@ -1004,7 +1015,6 @@ var escPageStart = 0;
   /* Build all thumb elements once — never rebuild, never wipe */
   function escBuildGrid() {
     var grid = document.getElementById('escGrid');
-
     if (!grid || !escData.length) return;
     grid.innerHTML = '';
     escData.forEach(function(d, i){
@@ -1013,9 +1023,11 @@ var escPageStart = 0;
       var imgBack = document.createElement('img');
       imgBack.className = 'esc-thumb-img-back';
       imgBack.src = d.img; imgBack.alt = d.name;
+      imgBack.onerror = function(){ this.onerror=null; this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=80'; };
       var imgFront = document.createElement('img');
       imgFront.className = 'esc-thumb-img-front';
       imgFront.src = d.img; imgFront.alt = d.name;
+      imgFront.onerror = function(){ this.onerror=null; this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=80'; };
       var label = document.createElement('div');
       label.className = 'esc-thumb-label';
       label.innerHTML = '<span>'+d.name+'</span>';
@@ -1040,6 +1052,13 @@ var escPageStart = 0;
     });
   }
 
+  /* Attach/re-attach onerror so fallback fires even after dynamic src changes */
+  function escSetImgSrc(imgEl, src) {
+    if (!imgEl) return;
+    imgEl.onerror = function(){ this.onerror=null; this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'; };
+    imgEl.src = src;
+  }
+
   /* Crossfade main image — old image stays visible underneath */
   function escUpdateMain(instant) {
     if (!escData.length) return;
@@ -1049,12 +1068,12 @@ var escPageStart = 0;
     var mainEl   = document.getElementById('escMain');
     if (!imgFront) return;
     if (instant) {
-      imgFront.src = d.img;
-      if (imgBack) imgBack.src = d.img;
+      escSetImgSrc(imgFront, d.img);
+      if (imgBack) escSetImgSrc(imgBack, d.img);
     } else {
-      if (imgBack) imgBack.src = imgFront.src;
+      if (imgBack) escSetImgSrc(imgBack, imgFront.src);
       imgFront.classList.add('esc-xfade');
-      imgFront.src = d.img;
+      escSetImgSrc(imgFront, d.img);
       setTimeout(function(){ imgFront.classList.remove('esc-xfade'); }, 30);
     }
     document.getElementById('escMainName').textContent = d.name;
@@ -1095,6 +1114,23 @@ var escPageStart = 0;
       section.addEventListener('mouseleave',  function(){ escPaused = false; });
       section.addEventListener('touchstart',  function(){ escPaused = true;  }, { passive: true });
       section.addEventListener('touchend',    function(){ setTimeout(function(){ escPaused = false; }, 2000); }, { passive: true });
+    }
+    /* Fix: re-load main image when esc-main becomes visible after responsive resize */
+    var escMainEl = document.getElementById('escMain');
+    if (escMainEl && window.ResizeObserver) {
+      var _escLastW = escMainEl.offsetWidth;
+      new ResizeObserver(function() {
+        var w = escMainEl.offsetWidth;
+        if (w > 0 && w !== _escLastW) {
+          _escLastW = w;
+          var imgFront = document.getElementById('escMainImgFront');
+          var imgBack  = document.getElementById('escMainImgBack');
+          if (imgFront && escData[escActiveIdx]) {
+            escSetImgSrc(imgFront, escData[escActiveIdx].img);
+            if (imgBack) escSetImgSrc(imgBack, escData[escActiveIdx].img);
+          }
+        }
+      }).observe(escMainEl);
     }
   }
 
