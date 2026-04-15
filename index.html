@@ -24,7 +24,7 @@
         .railway-item:hover img{transform:scale(1.2) rotate(5deg);}.railway-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
 
         .emergency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.emergency-box{width:100%;max-width:600px;height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;}@media(max-width:600px){.emergency-box{width:94%;margin-bottom:10px;border-radius:18px;}}.drag-bar{width:45px;height:5px;background:#ccc;border-radius:10px;margin:0 auto;}.popup-content{overflow-y:auto;scrollbar-width:none;}.popup-content::-webkit-scrollbar{display:none;}.popup-content::after{content:'';position:sticky;bottom:0;height:40px;display:block;background:linear-gradient(to top,#fff,transparent);}.emergency-grid{display:grid;gap:12px;}@media(max-width:480px){.emergency-grid{grid-template-columns:repeat(2,1fr);}}@media(min-width:481px){.emergency-grid{grid-template-columns:repeat(3,1fr);}}@media(min-width:900px){.emergency-grid{grid-template-columns:repeat(4,1fr);}}.emergency-item{background:#f7f7f7;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;}.emergency-item img{width:30px;margin-bottom:6px;transition:transform 0.25s ease;}.emergency-item:hover img{transform:scale(1.25) rotate(5deg);}.emergency-item p{font-size:12px;font-weight:500;}.tips-slider{overflow:hidden;}.tips-track{display:flex;transition:transform 0.6s ease-in-out;}.tip-card{min-width:100%;padding:10px;}.tip-inner{background:#f9f9f9;border-radius:14px;padding:14px;}.tip-inner h4{font-size:13px;margin-bottom:6px;}.tip-inner p{font-size:11px;line-height:1.6;}.close-btn{background:#007b7f;color:#fff;border:none;padding:12px;border-radius:12px;font-size:13px;margin-top:8px;cursor:pointer;transition:all 0.3s ease;}.close-btn:hover{background:#005f61;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,0.15);}
-        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}
+        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
         .handpicked{margin:40px var(--side-space) 30px;}
         /* card wrapper for Hidden Gems */
         .handpicked-inner{background:#fff;border-radius:22px;box-shadow:0 4px 24px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.06);padding:16px 16px 16px;overflow:hidden;}
@@ -367,11 +367,11 @@
 	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img src="https://img.icons8.com/color/96/scooter.png"><p>Bike Rental</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img src="https://img.icons8.com/color/96/car-rental.png"><p>Car Rental</p></div>
     <div class="transport-item" onclick="openGenericProvider('Luggage', 'luggage courier service')"><img src="https://img.icons8.com/color/96/package.png"><p>Luggage</p></div>
-    <div class="transport-item" onclick="openGenericProvider('Baggage', 'baggage transfer service')"><img src="https://img.icons8.com/color/96/suitcases.png"><p>Baggage</p></div>
+    <div class="transport-item" onclick="openGenericProvider('Baggage', 'baggage transfer service')"><img src="https://img.icons8.com/color/96/suitcases.png"><p>Toll Plaza</p></div>
 	
 	<div class="transport-item" onclick="openGenericProvider('Backwater', 'shikara backwater transport')"><img src="https://img.icons8.com/color/96/rowboat.png"><p>Backwater</p></div>
 	
-	<div class="transport-item" onclick="openDriverPopup()"><img src="https://img.icons8.com/color/96/chauffeur.png"><p>Car Driver</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img src="https://img.icons8.com/color/96/railway-station.png"><p>Railway</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img src="https://img.icons8.com/color/96/parking.png"><p>Parking</p></div>        </div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
+	<div class="transport-item" onclick="openDriverPopup()"><img src="https://img.icons8.com/color/96/chauffeur.png"><p>Bus Ticket</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img src="https://img.icons8.com/color/96/railway-station.png"><p>FASTag</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img src="https://img.icons8.com/color/96/parking.png"><p>Parking</p></div>        </div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
 
 <div class="provider-popup" id="bikeProviderPopup" onclick="closeBikeProvider()">    <div class="provider-card" onclick="event.stopPropagation()">        <h3 id="provTitle" style="font-size:20px;">Book Ride</h3>        <div class="provider-options">            <button id="uberBtn" class="btn-uber"><span>Uber</span></button>            <button id="rapidoBtn" class="btn-rapido"><span>Rapido</span></button>            <button id="localBtn" class="btn-local"><span>Local Cabs</span></button>            <button id="mapBtn" class="btn-map" style="display:none;"><span>Search with Map</span></button>        </div>        <span class="close-link" onclick="closeBikeProvider()">Maybe Later</span>    </div></div>
 
@@ -466,24 +466,23 @@
     </div>
     <div class="toolbar-wrapper">
         <div class="toolbar-row" id="toolbarRow">
-            <div class="tool-btn" onclick="findNearby('weather today')"><img src="https://img.icons8.com/color/96/partly-cloudy-day--v1.png"><p>Weather</p></div>
+            <div class="tool-btn" onclick="openWeatherPopup()"><img src="https://img.icons8.com/color/96/partly-cloudy-day--v1.png"><p>Weather</p></div>
             <div class="tool-btn" onclick="findNearby('tourist guides')"><img src="https://img.icons8.com/color/96/tour-guide.png"><p>Guides</p></div>
             <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="https://img.icons8.com/color/96/camping-tent.png"><p>Camps</p></div>
+			<div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/conference.png"><p>Travel Partner</p></div>
             <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="https://img.icons8.com/color/96/pass.png"><p>ePass</p></div>
-            <div class="tool-btn" onclick="findNearby('wildlife safari Kerala')"><img src="https://img.icons8.com/color/96/tiger.png"><p>Track Wildlife</p></div>
-            <div class="tool-btn" onclick="window.open('https://calendar.google.com')"><img src="https://img.icons8.com/color/96/calendar--v1.png"><p>Calendar</p></div>
-            <div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/conference.png"><p>Meetup</p></div>
-            <div class="tool-btn" onclick="window.open('https://translate.google.com')"><img src="https://img.icons8.com/color/96/google-translate.png"><p>Translate</p></div>
-            <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=currency+converter')"><img src="https://img.icons8.com/color/96/currency-exchange.png"><p>Currency</p></div>
-            <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=current+time+zone')"><img src="https://img.icons8.com/color/96/time.png"><p>Time Zone</p></div>
-            <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=fuel+price+kerala')"><img src="https://img.icons8.com/color/96/gas-station.png"><p>Fuel Cost</p></div>
-            <div class="tool-btn" onclick="window.open('https://www.netcfasttag.com/')"><img src="https://img.icons8.com/color/96/tollway.png"><p>FASTag</p></div>
-            <div class="tool-btn" onclick="findNearby('ATM CDM')"><img src="https://img.icons8.com/color/96/atm.png"><p>ATM / CDM</p></div>
+			<div class="tool-btn" onclick="window.open('https://www.google.com/search?q=currency+converter')"><img src="https://img.icons8.com/color/96/currency-exchange.png"><p>Currency</p></div>
+			<div class="tool-btn" onclick="window.open('https://www.google.com/search?q=fuel+price+kerala')"><img src="https://img.icons8.com/color/96/gas-station.png"><p>Fuel Cost</p></div>
+			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img src="https://img.icons8.com/color/96/atm.png"><p>ATM / CDM</p></div>
             <div class="tool-btn" onclick="findNearby('Banks')"><img src="https://img.icons8.com/color/96/bank.png"><p>Banks</p></div>
-            <div class="tool-btn" onclick="findNearby('movie theaters')"><img src="https://img.icons8.com/color/96/movie-projector.png"><p>Movies</p></div>
-            <div class="tool-btn" onclick="findNearby('travel stories and blogs')"><img src="https://img.icons8.com/color/96/open-book.png"><p>Blog</p></div>
-            <div class="tool-btn" onclick="findNearby('bike riders routes Kerala')"><img src="https://img.icons8.com/color/96/motorbike.png"><p>Bike Riders</p></div>
+            <div class="tool-btn" onclick="openCalendarPopup()"><img src="https://img.icons8.com/color/96/calendar--v1.png"><p>Calendar</p></div>
+            <div class="tool-btn" onclick="window.open('https://translate.google.com')"><img src="https://img.icons8.com/color/96/google-translate.png"><p>Translate</p></div>
+            <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=current+time+zone')"><img src="https://img.icons8.com/color/96/time.png"><p>Time Zone</p></div>
+            <div class="tool-btn" onclick="findNearby('wildlife safari Kerala')"><img src="https://img.icons8.com/color/96/tiger.png"><p>Track Wildlife</p></div>
+            <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img src="https://img.icons8.com/color/96/open-book.png"><p>Visa Requirements</p></div>
+			<div class="tool-btn" onclick="findNearby('bike riders routes Kerala')"><img src="https://img.icons8.com/color/96/motorbike.png"><p>Bike Riders</p></div>
             <div class="tool-btn" onclick="findNearby('4x4 offroad trails Kerala')"><img src="https://img.icons8.com/color/96/jeep.png"><p>4x4 Offroad</p></div>
+            <div class="tool-btn" onclick="findNearby('movie theaters')"><img src="https://img.icons8.com/color/96/movie-projector.png"><p>Movies</p></div>
         </div>
     </div>
 </div>
@@ -1434,4 +1433,607 @@ var escPageStart = 0;
   }
 })();
 </script>
+
+<!-- ===================== WEATHER POPUP ===================== -->
+<div class="wx-overlay" id="weatherPopup" onclick="closeWeatherPopup()">
+  <div class="wx-sheet" onclick="event.stopPropagation()">
+    <div class="wx-drag-bar"></div>
+
+    <!-- Header -->
+    <div class="wx-header">
+      <div>
+        <h3 class="wx-title">Weather</h3>
+        <p class="wx-subtitle">Current conditions & forecast</p>
+      </div>
+      <button class="wx-close-btn" onclick="closeWeatherPopup()">✕</button>
+    </div>
+
+    <!-- Search bar -->
+    <div class="wx-search-wrap">
+      <span class="wx-search-icon">🔍</span>
+      <input class="wx-search-input" id="wxSearchInput" type="text" placeholder="Search city or place…" oninput="wxOnInput(this.value)" onkeydown="if(event.key==='Enter')wxSearchSubmit()">
+      <button class="wx-search-clear" id="wxSearchClear" onclick="wxClearSearch()" style="display:none">✕</button>
+    </div>
+
+    <!-- Autocomplete suggestions -->
+    <div class="wx-suggestions" id="wxSuggestions"></div>
+
+    <!-- Content area -->
+    <div class="wx-body" id="wxBody">
+      <!-- Skeleton shown initially -->
+      <div class="wx-skeleton" id="wxSkeleton">
+        <div class="wx-sk-card">
+          <div class="wx-sk-line wx-sk-w60"></div>
+          <div class="wx-sk-line wx-sk-w40"></div>
+          <div class="wx-sk-big"></div>
+          <div class="wx-sk-line wx-sk-w80"></div>
+        </div>
+      </div>
+      <!-- Real weather card (hidden until loaded) -->
+      <div class="wx-card" id="wxCard" style="display:none">
+        <div class="wx-card-top">
+          <div class="wx-location-row">
+            <span class="wx-loc-icon">📍</span>
+            <span class="wx-loc-name" id="wxLocName">—</span>
+          </div>
+          <span class="wx-updated" id="wxUpdated"></span>
+        </div>
+        <div class="wx-main-row">
+          <div class="wx-temp-block">
+            <span class="wx-emoji" id="wxEmoji">⛅</span>
+            <span class="wx-temp" id="wxTemp">—</span>
+          </div>
+          <div class="wx-meta-block">
+            <span class="wx-desc" id="wxDesc">—</span>
+            <span class="wx-feels" id="wxFeels"></span>
+          </div>
+        </div>
+        <div class="wx-stat-row">
+          <div class="wx-stat"><span class="wx-stat-icon">💧</span><span class="wx-stat-val" id="wxHumidity">—</span><span class="wx-stat-lbl">Humidity</span></div>
+          <div class="wx-stat"><span class="wx-stat-icon">💨</span><span class="wx-stat-val" id="wxWind">—</span><span class="wx-stat-lbl">Wind</span></div>
+          <div class="wx-stat"><span class="wx-stat-icon">👁️</span><span class="wx-stat-val" id="wxVis">—</span><span class="wx-stat-lbl">Visibility</span></div>
+          <div class="wx-stat"><span class="wx-stat-icon">☔</span><span class="wx-stat-val" id="wxRain">—</span><span class="wx-stat-lbl">Rain (1h)</span></div>
+        </div>
+        <!-- 5-day forecast -->
+        <div class="wx-forecast-label">5-Day Forecast</div>
+        <div class="wx-forecast-row" id="wxForecast"></div>
+      </div>
+      <!-- Error state -->
+      <div class="wx-error" id="wxError" style="display:none">
+        <span class="wx-error-icon">🌧️</span>
+        <p id="wxErrorMsg">Unable to fetch weather.</p>
+        <button class="wx-retry-btn" onclick="wxLoadCurrent()">Try Again</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== KERALA CALENDAR POPUP ===================== -->
+<div class="kcal-overlay" id="keralaCalendarPopup" onclick="closeCalendarPopup()">
+  <div class="kcal-sheet" onclick="event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="kcal-header">
+      <div>
+        <h3 class="kcal-title">Kerala Calendar</h3>
+        <p class="kcal-subtitle" id="kcalSubtitle">Festivals & Special Days</p>
+      </div>
+      <button class="kcal-close-btn" onclick="closeCalendarPopup()">✕</button>
+    </div>
+
+    <!-- Month Navigation -->
+    <div class="kcal-nav">
+      <button class="kcal-nav-btn" onclick="kcalPrevMonth()">&#8249;</button>
+      <span class="kcal-month-label" id="kcalMonthLabel"></span>
+      <button class="kcal-nav-btn" onclick="kcalNextMonth()">&#8250;</button>
+    </div>
+
+    <!-- Weekday headers -->
+    <div class="kcal-weekdays">
+      <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+    </div>
+
+    <!-- Calendar grid -->
+    <div class="kcal-grid" id="kcalGrid"></div>
+
+    <!-- Selected day event info -->
+    <div class="kcal-event-box" id="kcalEventBox" style="display:none">
+      <div class="kcal-event-inner" id="kcalEventInner"></div>
+    </div>
+
+    <!-- Legend -->
+    <div class="kcal-legend">
+      <span class="kcal-leg-dot kcal-dot-festival"></span><span>Festival</span>
+      <span class="kcal-leg-dot kcal-dot-holiday"></span><span>Holiday</span>
+      <span class="kcal-leg-dot kcal-dot-special"></span><span>Special Day</span>
+    </div>
+
+  </div>
+</div>
+
+<style>
+/* ===== KERALA CALENDAR POPUP ===== */
+.kcal-overlay{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(8,12,24,0.58);backdrop-filter:blur(10px);z-index:20001;padding:16px;}
+.kcal-sheet{width:100%;max-width:400px;background:#fff;border-radius:28px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:14px;animation:kcalPop .32s cubic-bezier(.32,1.2,.6,1);max-height:calc(100vh - 32px);overflow-y:auto;scrollbar-width:none;}
+.kcal-sheet::-webkit-scrollbar{display:none;}
+@keyframes kcalPop{from{transform:scale(0.92) translateY(18px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+
+/* Header */
+.kcal-header{display:flex;justify-content:space-between;align-items:flex-start;}
+.kcal-title{font-size:20px;font-weight:700;color:#111;letter-spacing:-.4px;margin:0;}
+.kcal-subtitle{font-size:11px;color:#aaa;margin:3px 0 0;}
+.kcal-close-btn{width:32px;height:32px;border-radius:50%;border:none;background:#f2f2f2;color:#555;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;}
+.kcal-close-btn:hover{background:#e0e0e0;}
+
+/* Month nav */
+.kcal-nav{display:flex;align-items:center;justify-content:space-between;background:#f5f6f8;border-radius:14px;padding:6px 8px;}
+.kcal-nav-btn{width:34px;height:34px;border:none;background:#fff;border-radius:10px;font-size:20px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.07);transition:.18s;line-height:1;}
+.kcal-nav-btn:hover{background:#007b7f;color:#fff;}
+.kcal-month-label{font-size:15px;font-weight:700;color:#111;letter-spacing:-.2px;}
+
+/* Weekday row */
+.kcal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;}
+.kcal-weekdays span{font-size:10px;font-weight:600;color:#aaa;padding:4px 0;text-transform:uppercase;letter-spacing:.3px;}
+.kcal-weekdays span:first-child{color:#e55;}
+.kcal-weekdays span:last-child{color:#5580e5;}
+
+/* Grid */
+.kcal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.kcal-cell{aspect-ratio:1/1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .15s,transform .15s;gap:2px;}
+.kcal-cell:hover{background:#f0f9f9;transform:scale(1.06);}
+.kcal-cell.kcal-empty{pointer-events:none;}
+.kcal-cell-num{font-size:13px;font-weight:600;color:#222;line-height:1;}
+.kcal-cell.kcal-sun .kcal-cell-num{color:#e05;}
+.kcal-cell.kcal-sat .kcal-cell-num{color:#448ef6;}
+.kcal-cell.kcal-today{background:linear-gradient(135deg,#007b7f,#00a89e);border-radius:12px;}
+.kcal-cell.kcal-today .kcal-cell-num{color:#fff;font-weight:700;}
+.kcal-cell.kcal-today:hover{transform:scale(1.06);}
+.kcal-cell.kcal-selected{background:#e8f8f7;border:2px solid #007b7f;}
+.kcal-cell.kcal-selected .kcal-cell-num{color:#007b7f;font-weight:700;}
+.kcal-cell.kcal-today.kcal-selected{background:linear-gradient(135deg,#007b7f,#00a89e);border:2px solid #005f61;}
+.kcal-cell.kcal-today.kcal-selected .kcal-cell-num{color:#fff;}
+.kcal-dot-row{display:flex;gap:2px;align-items:center;justify-content:center;height:5px;}
+.kcal-dot{width:4px;height:4px;border-radius:50%;}
+.kcal-dot-festival{background:#f97316;}
+.kcal-dot-holiday{background:#ef4444;}
+.kcal-dot-special{background:#8b5cf6;}
+
+/* Event box */
+.kcal-event-box{background:linear-gradient(135deg,#f0fafa,#e8f4fd);border-radius:16px;padding:14px 16px;border:1px solid #c7e8e9;}
+.kcal-event-inner{display:flex;flex-direction:column;gap:8px;}
+.kcal-event-date-row{font-size:11px;font-weight:700;color:#007b7f;text-transform:uppercase;letter-spacing:.5px;}
+.kcal-event-item{display:flex;align-items:flex-start;gap:10px;}
+.kcal-event-badge{font-size:18px;flex-shrink:0;line-height:1.3;}
+.kcal-event-text h4{font-size:13px;font-weight:700;color:#111;margin:0 0 1px;}
+.kcal-event-text p{font-size:11px;color:#777;margin:0;line-height:1.4;}
+.kcal-event-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;margin-top:3px;text-transform:uppercase;letter-spacing:.4px;}
+.kcal-tag-festival{background:#fff3e8;color:#f97316;}
+.kcal-tag-holiday{background:#fee2e2;color:#ef4444;}
+.kcal-tag-special{background:#ede9fe;color:#8b5cf6;}
+.kcal-no-event{font-size:12px;color:#aaa;text-align:center;padding:6px 0;}
+
+/* Legend */
+.kcal-legend{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;}
+.kcal-legend span{font-size:10px;color:#777;}
+.kcal-leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+@media(max-width:380px){
+  .kcal-cell-num{font-size:11px;}
+  .kcal-sheet{padding:18px 14px 16px;}
+}
+</style>
+
+<script>
+/* ===== KERALA CALENDAR POPUP LOGIC ===== */
+(function(){
+  /* ---- Kerala Special Days Data (month is 1-based) ---- */
+  const KERALA_EVENTS = [
+    /* January */
+    {m:1,d:1,name:'New Year\'s Day',desc:'Beginning of the Gregorian calendar year',emoji:'🎉',type:'holiday'},
+    {m:1,d:14,name:'Makar Vilakku',desc:'Sacred lamp festival at Sabarimala temple',emoji:'🪔',type:'festival'},
+    {m:1,d:15,name:'Makara Vilakku Day',desc:'Grand illumination at Sabarimala — state holiday',emoji:'🌟',type:'holiday'},
+    {m:1,d:26,name:'Republic Day',desc:'National Republic Day of India',emoji:'🇮🇳',type:'holiday'},
+    /* February */
+    {m:2,d:10,name:'Thaipusam',desc:'Festival dedicated to Lord Murugan',emoji:'🙏',type:'festival'},
+    {m:2,d:14,name:'Valentine\'s Day',desc:'Day of love and affection',emoji:'❤️',type:'special'},
+    {m:2,d:19,name:'Shivratri',desc:'Night of Lord Shiva — all-night vigil & prayer',emoji:'🕉️',type:'festival'},
+    /* March */
+    {m:3,d:8,name:'International Women\'s Day',desc:'Celebrating women\'s achievements worldwide',emoji:'👩',type:'special'},
+    {m:3,d:14,name:'Holi',desc:'Festival of colours',emoji:'🌈',type:'festival'},
+    {m:3,d:30,name:'Ugadi',desc:'Telugu & Kannada New Year',emoji:'🌸',type:'festival'},
+    /* April */
+    {m:4,d:1,name:'Kerala Piravi',desc:'Kerala Varsha Pirappu — Malayalam New Year (Vishu Eve)',emoji:'🌺',type:'special'},
+    {m:4,d:14,name:'Vishu',desc:'Malayalam New Year — Vishukkani, fireworks & feasts',emoji:'🌼',type:'festival'},
+    {m:4,d:14,name:'Vishu Holiday',desc:'State public holiday for Vishu',emoji:'🎊',type:'holiday'},
+    {m:4,d:18,name:'Good Friday',desc:'Christian holy day of fasting and prayer',emoji:'✝️',type:'holiday'},
+    {m:4,d:20,name:'Easter Sunday',desc:'Resurrection of Jesus Christ',emoji:'🐣',type:'festival'},
+    /* May */
+    {m:5,d:1,name:'Kerala Day / Labour Day',desc:'International Workers\' Day — Kerala Formation Day (Nov 1 also)',emoji:'🌹',type:'holiday'},
+    {m:5,d:9,name:'Eid ul-Fitr',desc:'End of Ramadan — feast of breaking the fast',emoji:'🌙',type:'holiday'},
+    {m:5,d:26,name:'Buddha Purnima',desc:'Birth anniversary of Gautama Buddha',emoji:'☸️',type:'festival'},
+    /* June */
+    {m:6,d:5,name:'World Environment Day',desc:'UN day for environmental awareness',emoji:'🌿',type:'special'},
+    {m:6,d:21,name:'International Yoga Day',desc:'Global day for yoga promoted by India',emoji:'🧘',type:'special'},
+    /* July */
+    {m:7,d:6,name:'Eid ul-Adha (Bakrid)',desc:'Festival of sacrifice — major Muslim holiday',emoji:'🐑',type:'holiday'},
+    {m:7,d:17,name:'Muharram',desc:'Islamic New Year — remembrance of Karbala',emoji:'☪️',type:'holiday'},
+    /* August */
+    {m:8,d:15,name:'Independence Day',desc:'India\'s Independence from British rule in 1947',emoji:'🇮🇳',type:'holiday'},
+    {m:8,d:16,name:'Onam Week Begins',desc:'Start of the ten-day Onam celebrations',emoji:'🌸',type:'festival'},
+    {m:8,d:22,name:'Thiruvonam (Onam)',desc:'Most important festival of Kerala — harvest & homecoming',emoji:'🌺',type:'festival'},
+    {m:8,d:22,name:'Onam State Holiday',desc:'Grand processions, Pookalam, Vallam Kali & Onam Sadya',emoji:'🎉',type:'holiday'},
+    {m:8,d:23,name:'Sree Krishna Jayanti',desc:'Birthday of Lord Krishna (Janmashtami)',emoji:'🦚',type:'festival'},
+    /* September */
+    {m:9,d:5,name:'Teachers\' Day',desc:'Honouring teachers on Dr. S. Radhakrishnan\'s birthday',emoji:'📚',type:'special'},
+    {m:9,d:25,name:'Navaratri Begins',desc:'Nine nights of Goddess Durga worship',emoji:'🪷',type:'festival'},
+    /* October */
+    {m:10,d:2,name:'Gandhi Jayanti',desc:'Birth anniversary of Mahatma Gandhi',emoji:'🕊️',type:'holiday'},
+    {m:10,d:2,name:'Vijayadasami',desc:'Final day of Navaratri — Vidyarambham in Kerala',emoji:'✍️',type:'festival'},
+    {m:10,d:20,name:'Diwali',desc:'Festival of lights — fireworks & sweets',emoji:'🪔',type:'festival'},
+    {m:10,d:31,name:'Halloween',desc:'Western festival of costumes and treats',emoji:'🎃',type:'special'},
+    /* November */
+    {m:11,d:1,name:'Kerala Piravi',desc:'Kerala State Formation Day — founded 1 Nov 1956',emoji:'🌴',type:'holiday'},
+    {m:11,d:5,name:'Gurunanak Jayanti',desc:'Birthday of Guru Nanak Dev Ji',emoji:'🙏',type:'festival'},
+    {m:11,d:14,name:'Children\'s Day',desc:'Nehru\'s birthday — celebrated as Children\'s Day',emoji:'👧',type:'special'},
+    /* December */
+    {m:12,d:1,name:'World AIDS Day',desc:'Raising awareness about HIV/AIDS',emoji:'🎗️',type:'special'},
+    {m:12,d:24,name:'Christmas Eve',desc:'Eve of Christmas — midnight mass & celebrations',emoji:'🌟',type:'festival'},
+    {m:12,d:25,name:'Christmas Day',desc:'Birth of Jesus Christ — national holiday',emoji:'🎄',type:'holiday'},
+    {m:12,d:31,name:'New Year\'s Eve',desc:'Last day of the year — parties and fireworks',emoji:'🎆',type:'special'},
+  ];
+
+  const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const today=new Date();
+  let kcalYear=today.getFullYear();
+  let kcalMonth=today.getMonth()+1; // 1-based
+  let kcalSelected={y:today.getFullYear(),m:today.getMonth()+1,d:today.getDate()};
+
+  window.openCalendarPopup=function(){
+    document.getElementById('keralaCalendarPopup').style.display='flex';
+    kcalRender();
+    kcalShowEvents(kcalSelected.y,kcalSelected.m,kcalSelected.d);
+  };
+  window.closeCalendarPopup=function(){
+    document.getElementById('keralaCalendarPopup').style.display='none';
+  };
+  window.kcalPrevMonth=function(){
+    kcalMonth--;
+    if(kcalMonth<1){kcalMonth=12;kcalYear--;}
+    kcalRender();
+    kcalHideEvents();
+  };
+  window.kcalNextMonth=function(){
+    kcalMonth++;
+    if(kcalMonth>12){kcalMonth=1;kcalYear++;}
+    kcalRender();
+    kcalHideEvents();
+  };
+
+  function kcalRender(){
+    document.getElementById('kcalMonthLabel').textContent=MONTHS[kcalMonth-1]+' '+kcalYear;
+    document.getElementById('kcalSubtitle').textContent='Festivals & Special Days';
+
+    const firstDay=new Date(kcalYear,kcalMonth-1,1).getDay(); // 0=Sun
+    const daysInMonth=new Date(kcalYear,kcalMonth,0).getDate();
+    const eventsThisMonth=KERALA_EVENTS.filter(e=>e.m===kcalMonth);
+    const eventDays={};
+    eventsThisMonth.forEach(e=>{
+      if(!eventDays[e.d])eventDays[e.d]=[];
+      eventDays[e.d].push(e);
+    });
+
+    let html='';
+    // Empty cells before first day
+    for(let i=0;i<firstDay;i++){
+      html+=`<div class="kcal-cell kcal-empty"></div>`;
+    }
+    for(let d=1;d<=daysInMonth;d++){
+      const dow=(firstDay+d-1)%7;
+      const isToday=(d===today.getDate()&&kcalMonth===today.getMonth()+1&&kcalYear===today.getFullYear());
+      const isSel=(kcalSelected&&d===kcalSelected.d&&kcalMonth===kcalSelected.m&&kcalYear===kcalSelected.y);
+      const evs=eventDays[d]||[];
+      let cls='kcal-cell';
+      if(dow===0)cls+=' kcal-sun';
+      if(dow===6)cls+=' kcal-sat';
+      if(isToday)cls+=' kcal-today';
+      if(isSel)cls+=' kcal-selected';
+
+      // Up to 3 dots
+      let dots='';
+      const shown=evs.slice(0,3);
+      shown.forEach(e=>{
+        dots+=`<span class="kcal-dot kcal-dot-${e.type}"></span>`;
+      });
+      const dotRow=dots?`<div class="kcal-dot-row">${dots}</div>`:'';
+
+      html+=`<div class="${cls}" onclick="kcalSelectDay(${d})"><span class="kcal-cell-num">${d}</span>${dotRow}</div>`;
+    }
+    document.getElementById('kcalGrid').innerHTML=html;
+  }
+
+  window.kcalSelectDay=function(d){
+    kcalSelected={y:kcalYear,m:kcalMonth,d};
+    kcalRender();
+    kcalShowEvents(kcalYear,kcalMonth,d);
+  };
+
+  function kcalShowEvents(y,m,d){
+    const evs=KERALA_EVENTS.filter(e=>e.m===m&&e.d===d);
+    const box=document.getElementById('kcalEventBox');
+    const inner=document.getElementById('kcalEventInner');
+    const dateStr=new Date(y,m-1,d).toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    let html=`<div class="kcal-event-date-row">📅 ${dateStr}</div>`;
+    if(evs.length===0){
+      html+=`<div class="kcal-no-event">No special events on this day</div>`;
+    } else {
+      evs.forEach(e=>{
+        html+=`<div class="kcal-event-item">
+          <span class="kcal-event-badge">${e.emoji}</span>
+          <div class="kcal-event-text">
+            <h4>${e.name}</h4>
+            <p>${e.desc}</p>
+            <span class="kcal-event-tag kcal-tag-${e.type}">${e.type}</span>
+          </div>
+        </div>`;
+      });
+    }
+    inner.innerHTML=html;
+    box.style.display='block';
+  }
+
+  function kcalHideEvents(){
+    document.getElementById('kcalEventBox').style.display='none';
+  }
+})();
+</script>
+
+<style>
+/* ===== WEATHER POPUP STYLES ===== */
+.wx-overlay{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(10,15,30,0.55);backdrop-filter:blur(8px);z-index:20000;padding:16px;}
+.wx-sheet{width:100%;max-width:520px;background:#fff;border-radius:28px;padding:18px 18px 22px;display:flex;flex-direction:column;gap:0;animation:wxSlideUp .35s cubic-bezier(.32,1.2,.6,1);max-height:calc(100vh - 32px);overflow:hidden;}
+@keyframes wxSlideUp{from{transform:scale(0.93) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.wx-drag-bar{display:none;}
+.wx-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.wx-title{font-size:20px;font-weight:700;color:#111;letter-spacing:-.4px;margin:0;}
+.wx-subtitle{font-size:11px;color:#aaa;margin:3px 0 0;}
+.wx-close-btn{width:32px;height:32px;border-radius:50%;border:none;background:#f2f2f2;color:#555;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;}
+.wx-close-btn:hover{background:#e0e0e0;}
+
+/* Search */
+.wx-search-wrap{display:flex;align-items:center;gap:8px;background:#f5f6f8;border-radius:14px;padding:10px 14px;margin-bottom:8px;border:1.5px solid transparent;transition:border-color .2s;}
+.wx-search-wrap:focus-within{border-color:#007b7f;background:#fff;}
+.wx-search-icon{font-size:15px;flex-shrink:0;}
+.wx-search-input{flex:1;border:none;background:transparent;font-size:13px;color:#222;outline:none;font-family:'Poppins',sans-serif;}
+.wx-search-input::placeholder{color:#bbb;}
+.wx-search-clear{border:none;background:transparent;color:#bbb;font-size:14px;cursor:pointer;padding:0;line-height:1;}
+
+/* Suggestions dropdown */
+.wx-suggestions{background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.1);display:none;flex-direction:column;overflow:hidden;margin-bottom:8px;border:1px solid #eee;}
+.wx-suggestions.wx-open{display:flex;}
+.wx-sug-item{padding:12px 16px;font-size:13px;color:#333;cursor:pointer;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:10px;transition:background .15s;}
+.wx-sug-item:last-child{border-bottom:none;}
+.wx-sug-item:hover{background:#f0f9f9;color:#007b7f;}
+.wx-sug-item span.wx-sug-flag{font-size:18px;flex-shrink:0;}
+.wx-sug-item .wx-sug-text{display:flex;flex-direction:column;}
+.wx-sug-item .wx-sug-text b{font-size:13px;font-weight:600;}
+.wx-sug-item .wx-sug-text small{font-size:10px;color:#aaa;margin-top:1px;}
+
+/* Body */
+.wx-body{flex:1;overflow-y:auto;scrollbar-width:none;padding:4px 0;}
+.wx-body::-webkit-scrollbar{display:none;}
+
+/* Skeleton */
+.wx-skeleton{padding:4px 0;}
+.wx-sk-card{background:#f8f9fa;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;}
+.wx-sk-line{height:12px;background:linear-gradient(90deg,#ececec 25%,#f8f8f8 50%,#ececec 75%);background-size:200% 100%;animation:wxShimmer 1.4s infinite;border-radius:6px;}
+.wx-sk-big{height:60px;background:linear-gradient(90deg,#ececec 25%,#f8f8f8 50%,#ececec 75%);background-size:200% 100%;animation:wxShimmer 1.4s infinite;border-radius:12px;}
+.wx-sk-w60{width:60%;}
+.wx-sk-w40{width:40%;}
+.wx-sk-w80{width:80%;}
+@keyframes wxShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Weather card */
+.wx-card{background:linear-gradient(145deg,#e8f4fd 0%,#f0fafa 100%);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px;border:1px solid #d8edf5;}
+.wx-card-top{display:flex;justify-content:space-between;align-items:center;}
+.wx-location-row{display:flex;align-items:center;gap:5px;}
+.wx-loc-icon{font-size:13px;}
+.wx-loc-name{font-size:13px;font-weight:600;color:#222;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wx-updated{font-size:10px;color:#aaa;}
+
+.wx-main-row{display:flex;align-items:center;gap:14px;}
+.wx-temp-block{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.wx-emoji{font-size:52px;line-height:1;}
+.wx-temp{font-size:52px;font-weight:700;color:#111;letter-spacing:-2px;line-height:1;}
+.wx-meta-block{display:flex;flex-direction:column;gap:4px;}
+.wx-desc{font-size:15px;font-weight:600;color:#333;text-transform:capitalize;}
+.wx-feels{font-size:12px;color:#777;}
+.wx-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.wx-stat{background:rgba(255,255,255,0.7);border-radius:12px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid rgba(0,123,127,0.08);}
+.wx-stat-icon{font-size:16px;}
+.wx-stat-val{font-size:12px;font-weight:700;color:#111;}
+.wx-stat-lbl{font-size:9px;color:#888;text-align:center;}
+
+/* Forecast */
+.wx-forecast-label{font-size:11px;font-weight:600;color:#888;letter-spacing:.5px;text-transform:uppercase;padding:0 2px;}
+.wx-forecast-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+.wx-fc-day{background:rgba(255,255,255,0.75);border-radius:12px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid rgba(0,123,127,0.08);}
+.wx-fc-day-name{font-size:10px;font-weight:600;color:#555;}
+.wx-fc-emoji{font-size:20px;}
+.wx-fc-hi{font-size:12px;font-weight:700;color:#111;}
+.wx-fc-lo{font-size:10px;color:#999;}
+
+/* Error */
+.wx-error{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:32px 0;text-align:center;}
+.wx-error-icon{font-size:42px;}
+.wx-error p{font-size:13px;color:#777;}
+.wx-retry-btn{padding:10px 22px;border-radius:50px;border:none;background:#007b7f;color:#fff;font-size:13px;font-weight:600;cursor:pointer;}
+
+/* Footer - removed */
+
+@media(max-width:420px){
+  .wx-temp,.wx-emoji{font-size:42px;}
+  .wx-stat-row{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+
+<script>
+/* ===== WEATHER POPUP LOGIC ===== */
+(function(){
+  const WMO={0:'Clear Sky',1:'Mainly Clear',2:'Partly Cloudy',3:'Overcast',45:'Foggy',48:'Icy Fog',51:'Light Drizzle',53:'Drizzle',55:'Heavy Drizzle',61:'Light Rain',63:'Rain',65:'Heavy Rain',71:'Light Snow',73:'Snow',75:'Heavy Snow',77:'Snow Grains',80:'Rain Showers',81:'Heavy Showers',82:'Violent Showers',85:'Snow Showers',86:'Heavy Snow Showers',95:'Thunderstorm',96:'Thunderstorm & Hail',99:'Severe Thunderstorm'};
+  const WMO_EMOJI={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'❄️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
+  const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  let wxSugTimer=null;
+
+  window.openWeatherPopup=function(){
+    document.getElementById('weatherPopup').style.display='flex';
+    wxLoadCurrent();
+  };
+  window.closeWeatherPopup=function(){
+    document.getElementById('weatherPopup').style.display='none';
+    wxClearSearch();
+  };
+
+  window.wxLoadCurrent=function(){
+    wxShowSkeleton();
+    wxClearSuggestions();
+    if(!navigator.geolocation){wxShowError('Geolocation not supported by your browser.');return;}
+    navigator.geolocation.getCurrentPosition(
+      pos=>wxFetchWeather(pos.coords.latitude,pos.coords.longitude,null),
+      ()=>wxShowError('Location access denied. Search for a city above.'),
+      {timeout:8000}
+    );
+  };
+
+  function wxFetchWeather(lat,lon,label){
+    wxShowSkeleton();
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation,visibility&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=6`;
+    fetch(url)
+      .then(r=>r.json())
+      .then(d=>{
+        const c=d.current;
+        const daily=d.daily;
+        // Location name: reverse geocode via open-meteo nominatim
+        const locLabel=label||`${lat.toFixed(2)}°N, ${lon.toFixed(2)}°E`;
+        if(!label){
+          fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+            .then(r=>r.json())
+            .then(geo=>{
+              const a=geo.address||{};
+              const name=a.city||a.town||a.village||a.county||a.state||geo.display_name||locLabel;
+              const country=a.country_code?(a.country_code.toUpperCase()):'';
+              wxRenderCard(c,daily,`${name}${country?', '+country:''}`,d.timezone_abbreviation);
+            }).catch(()=>wxRenderCard(c,daily,locLabel,d.timezone_abbreviation));
+        } else {
+          wxRenderCard(c,daily,label,d.timezone_abbreviation);
+        }
+      })
+      .catch(()=>wxShowError('Could not load weather data. Check connection.'));
+  }
+
+  function wxRenderCard(c,daily,locName,tz){
+    const code=c.weather_code;
+    document.getElementById('wxLocName').textContent=locName;
+    document.getElementById('wxTemp').textContent=Math.round(c.temperature_2m)+'°';
+    document.getElementById('wxEmoji').textContent=WMO_EMOJI[code]||'🌡️';
+    document.getElementById('wxDesc').textContent=WMO[code]||'Unknown';
+    document.getElementById('wxFeels').textContent='Feels like '+Math.round(c.apparent_temperature)+'°C';
+    document.getElementById('wxHumidity').textContent=c.relative_humidity_2m+'%';
+    document.getElementById('wxWind').textContent=Math.round(c.wind_speed_10m)+' km/h';
+    document.getElementById('wxVis').textContent=c.visibility!=null?Math.round(c.visibility/1000)+' km':'—';
+    document.getElementById('wxRain').textContent=c.precipitation!=null?c.precipitation+' mm':'0 mm';
+    const now=new Date();
+    document.getElementById('wxUpdated').textContent='Updated '+now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    // Set gradient based on weather
+    const card=document.getElementById('wxCard');
+    const gradients={clear:'linear-gradient(145deg,#fef9c3 0%,#fde68a 100%)',rain:'linear-gradient(145deg,#dbeafe 0%,#bfdbfe 100%)',cloud:'linear-gradient(145deg,#f1f5f9 0%,#e2e8f0 100%)',thunder:'linear-gradient(145deg,#e0e7ff 0%,#c7d2fe 100%)',snow:'linear-gradient(145deg,#f0f9ff 0%,#e0f2fe 100%)',fog:'linear-gradient(145deg,#f5f5f4 0%,#e7e5e4 100%)',default:'linear-gradient(145deg,#e8f4fd 0%,#f0fafa 100%)'};
+    let gkey='default';
+    if([0,1].includes(code))gkey='clear';
+    else if([2,3].includes(code))gkey='cloud';
+    else if([45,48].includes(code))gkey='fog';
+    else if(code>=51&&code<=82)gkey='rain';
+    else if(code>=85&&code<=86)gkey='snow';
+    else if(code>=71&&code<=77)gkey='snow';
+    else if(code>=95)gkey='thunder';
+    card.style.background=gradients[gkey];
+    // Forecast (skip today = index 0)
+    const fcRow=document.getElementById('wxForecast');
+    fcRow.innerHTML='';
+    for(let i=1;i<Math.min(6,daily.time.length);i++){
+      const d=new Date(daily.time[i]);
+      const em=WMO_EMOJI[daily.weather_code[i]]||'🌡️';
+      fcRow.innerHTML+=`<div class="wx-fc-day"><span class="wx-fc-day-name">${DAYS[d.getDay()]}</span><span class="wx-fc-emoji">${em}</span><span class="wx-fc-hi">${Math.round(daily.temperature_2m_max[i])}°</span><span class="wx-fc-lo">${Math.round(daily.temperature_2m_min[i])}°</span></div>`;
+    }
+    document.getElementById('wxSkeleton').style.display='none';
+    document.getElementById('wxError').style.display='none';
+    card.style.display='flex';
+  }
+
+  function wxShowSkeleton(){
+    document.getElementById('wxCard').style.display='none';
+    document.getElementById('wxError').style.display='none';
+    document.getElementById('wxSkeleton').style.display='block';
+  }
+  function wxShowError(msg){
+    document.getElementById('wxCard').style.display='none';
+    document.getElementById('wxSkeleton').style.display='none';
+    document.getElementById('wxErrorMsg').textContent=msg;
+    document.getElementById('wxError').style.display='flex';
+  }
+
+  /* Search */
+  window.wxOnInput=function(val){
+    const clear=document.getElementById('wxSearchClear');
+    clear.style.display=val?'block':'none';
+    clearTimeout(wxSugTimer);
+    if(val.trim().length<2){wxClearSuggestions();return;}
+    wxSugTimer=setTimeout(()=>wxFetchSuggestions(val.trim()),300);
+  };
+
+  function wxFetchSuggestions(q){
+    fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=6&language=en&format=json`)
+      .then(r=>r.json())
+      .then(d=>{
+        const results=d.results||[];
+        const sug=document.getElementById('wxSuggestions');
+        if(!results.length){sug.classList.remove('wx-open');return;}
+        sug.innerHTML=results.map(r=>{
+          const flag=r.country_code?getFlagEmoji(r.country_code):'🌐';
+          const sub=[r.admin1,r.country].filter(Boolean).join(', ');
+          return `<div class="wx-sug-item" onclick="wxSelectPlace(${r.latitude},${r.longitude},'${(r.name+', '+sub).replace(/'/g,"\\'")}')"><span class="wx-sug-flag">${flag}</span><span class="wx-sug-text"><b>${r.name}</b><small>${sub}</small></span></div>`;
+        }).join('');
+        sug.classList.add('wx-open');
+      }).catch(()=>{});
+  }
+
+  window.wxSelectPlace=function(lat,lon,label){
+    document.getElementById('wxSearchInput').value=label;
+    document.getElementById('wxSearchClear').style.display='block';
+    wxClearSuggestions();
+    wxFetchWeather(lat,lon,label);
+  };
+
+  window.wxSearchSubmit=function(){
+    const val=document.getElementById('wxSearchInput').value.trim();
+    if(val.length>1)wxFetchSuggestions(val);
+  };
+
+  window.wxClearSearch=function(){
+    document.getElementById('wxSearchInput').value='';
+    document.getElementById('wxSearchClear').style.display='none';
+    wxClearSuggestions();
+  };
+
+  function wxClearSuggestions(){
+    const s=document.getElementById('wxSuggestions');
+    s.innerHTML='';s.classList.remove('wx-open');
+  }
+
+  function getFlagEmoji(cc){
+    return cc.toUpperCase().replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt(0)));
+  }
+})();
+</script>
+
 </body></html>
