@@ -284,6 +284,80 @@
         .ktp-dir-btn svg { width: 11px; height: 11px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
         @keyframes ktpFadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         .ktp-card { animation: ktpFadeUp 0.35s ease both; }
+
+        /* --- CURRENCY POPUP --- */
+        .currency-popup { position:fixed; inset:0; display:none; justify-content:center; align-items:flex-end; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); z-index:12000; }
+        .currency-box { width:100%; max-width:520px; background:#fff; border-radius:28px 28px 0 0; padding:0; display:flex; flex-direction:column; animation:slideUp .35s cubic-bezier(0.4,0,0.2,1); max-height:92vh; overflow:hidden; }
+        .curr-drag { width:40px; height:5px; background:#ddd; border-radius:10px; margin:14px auto 0; flex-shrink:0; }
+        .curr-header { padding:18px 20px 14px; border-bottom:1px solid #f1f1f1; flex-shrink:0; }
+        .curr-header-top { display:flex; align-items:center; justify-content:space-between; }
+        .curr-header-top h3 { font-size:18px; font-weight:700; color:#111; letter-spacing:-0.4px; }
+        .curr-close-btn { width:32px; height:32px; border-radius:50%; background:#f5f5f5; border:none; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#666; transition:background 0.2s; }
+        .curr-close-btn:hover { background:#eee; }
+        .curr-header-sub { font-size:11px; color:#aaa; margin-top:3px; }
+        .curr-tabs { display:flex; gap:8px; margin-top:14px; }
+        .curr-tab { flex:1; padding:8px 0; border-radius:12px; border:1.5px solid #eee; background:#f8f8f8; font-size:12px; font-weight:600; color:#888; cursor:pointer; transition:all 0.2s; text-align:center; }
+        .curr-tab.active { background:linear-gradient(135deg,#007b7f,#00a896); color:#fff; border-color:transparent; box-shadow:0 4px 12px rgba(0,123,127,0.25); }
+        .curr-body { flex:1; overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none; }
+        .curr-body::-webkit-scrollbar { display:none; }
+        
+        /* Converter Tab */
+        .curr-converter { padding:18px 20px; display:flex; flex-direction:column; gap:14px; }
+        .curr-amount-section { background:linear-gradient(135deg,#007b7f,#00a896); border-radius:20px; padding:20px; }
+        .curr-amount-label { font-size:11px; color:rgba(255,255,255,0.75); font-weight:500; margin-bottom:8px; }
+        .curr-amount-row { display:flex; align-items:center; gap:10px; }
+        .curr-flag-code { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.2); border-radius:12px; padding:8px 12px; flex-shrink:0; }
+        .curr-flag-code span:first-child { font-size:22px; line-height:1; }
+        .curr-flag-code span:last-child { font-size:13px; font-weight:700; color:#fff; }
+        .curr-amount-input { flex:1; background:none; border:none; outline:none; font-size:28px; font-weight:700; color:#fff; width:100%; font-family:'Poppins',sans-serif; }
+        .curr-amount-input::placeholder { color:rgba(255,255,255,0.5); }
+        .curr-swap-btn { width:38px; height:38px; border-radius:50%; background:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; margin:0 auto; box-shadow:0 4px 12px rgba(0,0,0,0.12); transition:transform 0.3s; flex-shrink:0; }
+        .curr-swap-btn:hover { transform:rotate(180deg); }
+        .curr-to-section { background:#f8f9fa; border-radius:20px; padding:18px; border:1px solid #eee; }
+        .curr-to-label { font-size:11px; color:#999; font-weight:500; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between; }
+        .curr-to-label span:last-child { font-size:10px; color:#007b7f; cursor:pointer; font-weight:600; }
+        .curr-select-row { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+        .curr-country-select { flex:1; padding:10px 12px; border-radius:12px; border:1.5px solid #e5e5e5; background:#fff; font-size:13px; font-family:'Poppins',sans-serif; color:#333; outline:none; transition:border-color 0.2s; cursor:pointer; }
+        .curr-country-select:focus { border-color:#007b7f; }
+        .curr-result-display { background:#fff; border-radius:14px; padding:16px; border:1px solid #eee; text-align:center; }
+        .curr-result-amount { font-size:32px; font-weight:700; color:#007b7f; letter-spacing:-1px; }
+        .curr-result-code { font-size:13px; color:#888; margin-top:2px; }
+        .curr-rate-info { font-size:10px; color:#bbb; margin-top:8px; }
+        .curr-popular-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+        .curr-popular-card { background:#f8f9fa; border-radius:14px; padding:12px 14px; border:1px solid #eee; cursor:pointer; transition:all 0.2s; }
+        .curr-popular-card:hover { background:#e8f5f5; border-color:#007b7f; transform:translateY(-1px); }
+        .curr-popular-top { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+        .curr-popular-top span:first-child { font-size:18px; }
+        .curr-popular-top span:last-child { font-size:11px; font-weight:600; color:#333; }
+        .curr-popular-rate { font-size:13px; font-weight:700; color:#007b7f; }
+        .curr-popular-name { font-size:9px; color:#aaa; margin-top:1px; }
+        .curr-section-title { font-size:12px; font-weight:600; color:#555; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+        .curr-section-title::before { content:''; width:3px; height:13px; background:#007b7f; border-radius:2px; }
+
+        /* Nearby Tab */
+        .curr-nearby { padding:16px 20px; display:flex; flex-direction:column; gap:12px; }
+        .curr-search-wrap { position:relative; }
+        .curr-search-inp { width:100%; padding:11px 14px 11px 38px; border-radius:14px; border:1.5px solid #eee; background:#f8f9fa; font-size:13px; font-family:'Poppins',sans-serif; outline:none; transition:border-color 0.2s; }
+        .curr-search-inp:focus { border-color:#007b7f; background:#fff; }
+        .curr-search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:16px; color:#aaa; pointer-events:none; }
+        .curr-nearby-btn { width:100%; padding:13px; border-radius:16px; background:linear-gradient(135deg,#007b7f,#00a896); color:#fff; border:none; font-size:14px; font-weight:600; font-family:'Poppins',sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(0,123,127,0.3); }
+        .curr-nearby-btn:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,123,127,0.35); }
+        .curr-nearby-list { display:flex; flex-direction:column; gap:10px; }
+        .curr-nearby-item { background:#f8f9fa; border-radius:16px; padding:14px; border:1px solid #eee; display:flex; align-items:center; gap:12px; cursor:pointer; transition:all 0.2s; }
+        .curr-nearby-item:hover { background:#e8f5f5; border-color:#007b7f; }
+        .curr-nearby-icon { width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg,#007b7f22,#00a89622); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+        .curr-nearby-info { flex:1; min-width:0; }
+        .curr-nearby-info h4 { font-size:13px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .curr-nearby-info p { font-size:10px; color:#999; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .curr-nearby-dir { width:30px; height:30px; border-radius:50%; background:#fff; border:1px solid #eee; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; transition:background 0.2s; }
+        .curr-nearby-item:hover .curr-nearby-dir { background:#007b7f; border-color:#007b7f; }
+        .curr-status-msg { text-align:center; padding:20px; color:#aaa; font-size:12px; }
+        .curr-loading { display:flex; flex-direction:column; align-items:center; gap:10px; padding:24px; color:#888; font-size:12px; }
+        .curr-spinner { width:32px; height:32px; border:3px solid #eee; border-top-color:#007b7f; border-radius:50%; animation:spin .8s linear infinite; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .curr-type-badges { display:flex; gap:6px; flex-wrap:wrap; }
+        .curr-badge { padding:5px 10px; border-radius:50px; border:1.5px solid #eee; background:#fff; font-size:10px; font-weight:600; color:#666; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+        .curr-badge.active { background:#007b7f; color:#fff; border-color:#007b7f; }
     </style>
 </head>
 <body>
@@ -471,7 +545,7 @@
             <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="https://img.icons8.com/color/96/camping-tent.png"><p>Camps</p></div>
 			<div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/conference.png"><p>Travel Partner</p></div>
             <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="https://img.icons8.com/color/96/pass.png"><p>ePass</p></div>
-			<div class="tool-btn" onclick="window.open('https://www.google.com/search?q=currency+converter')"><img src="https://img.icons8.com/color/96/currency-exchange.png"><p>Currency</p></div>
+			<div class="tool-btn" onclick="openCurrencyPopup()"><img src="https://img.icons8.com/color/96/currency-exchange.png"><p>Currency</p></div>
 			<div class="tool-btn" onclick="window.open('https://www.google.com/search?q=fuel+price+kerala')"><img src="https://img.icons8.com/color/96/gas-station.png"><p>Fuel Cost</p></div>
 			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img src="https://img.icons8.com/color/96/atm.png"><p>ATM / CDM</p></div>
             <div class="tool-btn" onclick="findNearby('Banks')"><img src="https://img.icons8.com/color/96/bank.png"><p>Banks</p></div>
@@ -613,11 +687,11 @@
 </div>
 
 <div class="bottom-nav">
-    <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/external-Tent-travel-and-tourism-those-icons-lineal-color-those-icons.png" alt="Home">
-	<img src="https://img.icons8.com/external-vitaliy-gorbachev-flat-vitaly-gorbachev/58/external-search-smart-farm-vitaliy-gorbachev-flat-vitaly-gorbachev.png" alt="Search">
-    <img src="https://img.icons8.com/deco-color/48/plus-math.png" alt="Explore">
-    <img src="https://img.icons8.com/deco-color/48/gallery.png" alt="Favorites">
-    <img src="img/logo/rabbit head only.png" alt="Profile" style="width: 27px; height: 25px;">
+    <img src="https://img.icons8.com/pulsar-line/48/camping-tent.png" alt="Home">
+	<img src="https://img.icons8.com/pulsar-line/48/search.png" alt="Search">
+    <img src="https://img.icons8.com/pulsar-line/48/plus-math.png" alt="Explore">
+    <img src="https://img.icons8.com/pulsar-line/48/stack-of-photos.png" alt="Favorites">
+    <img src="https://img.icons8.com/pulsar-line/48/guest-male.png" alt="Profile" style="width: 27px; height: 25px;">
 </div>
 
 <script>
@@ -648,16 +722,37 @@ function handleDynamicTrain(type) {
     
     if (type === 'nearby') {
         title.innerText = "Nearby Stations";
-        sub.innerText = "Finding the closest stations to you";
+        sub.innerText = "Locating you…";
+        // Show popup immediately with all stations (unsorted) so user sees data right away
+        let html = '';
+        stationData.slice(0, 15).forEach(s => {
+            html += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}')">
+                <div class="station-info">
+                    <div class="station-icon">
+                    <img src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
+                    </div>
+                    <div class="station-details">
+                        <h4>${s["Station Name"]}</h4>
+                        <p><span class="station-code-text">${s["Station Code"]}</span> ${s.District} District</p>
+                    </div>
+                </div>
+                <div class="station-action-group">
+                    <img class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
+                </div>
+            </div>`;
+        });
+        content.innerHTML = html;
+        pop.style.display = 'flex';
+        // Now get GPS in background and re-sort when ready
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(pos => {
                 const uLat = pos.coords.latitude, uLng = pos.coords.longitude;
                 const sorted = stationData.map(s => ({...s, dist: calculateKM(uLat, uLng, s.lat, s.lng)}))
                     .sort((a, b) => a.dist - b.dist).slice(0, 15);
-                
-                let html = '';
+                sub.innerText = "Sorted by distance from you";
+                let html2 = '';
                 sorted.forEach(s => {
-                    html += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}')">
+                    html2 += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&origin=${uLat},${uLng}&destination=${s.lat},${s.lng}')">
                         <div class="station-info">
                             <div class="station-icon">
                             <img src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
@@ -670,12 +765,12 @@ function handleDynamicTrain(type) {
                         <div class="station-action-group">
                             <span class="station-distance">${s.dist} KM</span>
                             <img class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
+
                         </div>
                     </div>`;
                 });
-                content.innerHTML = html;
-                pop.style.display = 'flex';
-            });
+                content.innerHTML = html2;
+            }, () => { sub.innerText = "All Kerala stations"; }, { timeout: 10000, maximumAge: 300000 });
         }
     } else if (type === 'district') {
         title.innerText = "Select District";
@@ -804,17 +899,62 @@ function openTrainService(type) {
     }
 }
 
-function getDirections(dest) { if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos => { const lat = pos.coords.latitude, lng = pos.coords.longitude; window.open(`https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${encodeURIComponent(dest)}&travelmode=transit`, '_blank'); }, () => { window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest)}`, '_blank'); }); } }
+function getDirections(dest) { 
+    // Open Maps immediately with just destination, add origin when GPS ready
+    var win = window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(dest), '_blank');
+    if(navigator.geolocation){ 
+        navigator.geolocation.getCurrentPosition(function(pos) { 
+            var lat = pos.coords.latitude, lng = pos.coords.longitude; 
+            try { win.location.href = 'https://www.google.com/maps/dir/?api=1&origin='+lat+','+lng+'&destination='+encodeURIComponent(dest)+'&travelmode=transit'; } catch(e){}
+        }, null, { timeout: 5000, maximumAge: 300000 }); 
+    } 
+}
 function showComingSoon(btn) { const ot = btn.innerHTML, ob = btn.style.background; btn.innerHTML = "<span>Coming Soon!</span>"; btn.style.background = "#888"; setTimeout(() => { btn.innerHTML = ot; btn.style.background = ob; }, 2000); }
 function closeBikeProvider() { document.getElementById("bikeProviderPopup").style.display = "none"; }
 function launchApp(appUrl, webUrl) { const s = Date.now(); window.location.href = appUrl; setTimeout(() => { if (Date.now() - s < 1000) { window.open(webUrl, "_blank"); } }, 500); }
 function callNumber(num){window.location.href="tel:"+num;}
 
-function findNearbyHospital(){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude; const lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/hospital/@${lat},${lng},14z`); }); }
-function findRestStops(){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/rest+stop/@${lat},${lng},13z`); }); } }
-function findFoodSpot(){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/restaurant/@${lat},${lng},14z`); }); } }
-function findStaySpot(){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/hotel/@${lat},${lng},15z`); }); } }
-function findNearby(type){ if(navigator.geolocation){ navigator.geolocation.getCurrentPosition(pos=>{ const lat=pos.coords.latitude, lng=pos.coords.longitude; window.open(`https://www.google.com/maps/search/${encodeURIComponent(type)}/@${lat},${lng},14z`); }); } }
+function findNearbyHospital(){ 
+    // Open immediately, then enhance with coords if GPS is fast
+    var mapsUrl = 'https://www.google.com/maps/search/hospital';
+    var win = window.open(mapsUrl);
+    navigator.geolocation && navigator.geolocation.getCurrentPosition(function(pos){ 
+        var lat=pos.coords.latitude, lng=pos.coords.longitude;
+        try { win.location.href = 'https://www.google.com/maps/search/hospital/@'+lat+','+lng+',14z'; } catch(e){}
+    }, null, { timeout: 5000, maximumAge: 300000 }); 
+}
+function findRestStops(){ 
+    var mapsUrl = 'https://www.google.com/maps/search/rest+stop';
+    var win = window.open(mapsUrl);
+    navigator.geolocation && navigator.geolocation.getCurrentPosition(function(pos){ 
+        var lat=pos.coords.latitude, lng=pos.coords.longitude;
+        try { win.location.href = 'https://www.google.com/maps/search/rest+stop/@'+lat+','+lng+',13z'; } catch(e){}
+    }, null, { timeout: 5000, maximumAge: 300000 }); 
+}
+function findFoodSpot(){ 
+    var mapsUrl = 'https://www.google.com/maps/search/restaurant';
+    var win = window.open(mapsUrl);
+    navigator.geolocation && navigator.geolocation.getCurrentPosition(function(pos){ 
+        var lat=pos.coords.latitude, lng=pos.coords.longitude;
+        try { win.location.href = 'https://www.google.com/maps/search/restaurant/@'+lat+','+lng+',14z'; } catch(e){}
+    }, null, { timeout: 5000, maximumAge: 300000 }); 
+}
+function findStaySpot(){ 
+    var mapsUrl = 'https://www.google.com/maps/search/hotel';
+    var win = window.open(mapsUrl);
+    navigator.geolocation && navigator.geolocation.getCurrentPosition(function(pos){ 
+        var lat=pos.coords.latitude, lng=pos.coords.longitude;
+        try { win.location.href = 'https://www.google.com/maps/search/hotel/@'+lat+','+lng+',15z'; } catch(e){}
+    }, null, { timeout: 5000, maximumAge: 300000 }); 
+}
+function findNearby(type){ 
+    var mapsUrl = 'https://www.google.com/maps/search/'+encodeURIComponent(type);
+    var win = window.open(mapsUrl);
+    navigator.geolocation && navigator.geolocation.getCurrentPosition(function(pos){ 
+        var lat=pos.coords.latitude, lng=pos.coords.longitude;
+        try { win.location.href = 'https://www.google.com/maps/search/'+encodeURIComponent(type)+'/@'+lat+','+lng+',14z'; } catch(e){}
+    }, null, { timeout: 5000, maximumAge: 300000 }); 
+}
 
 
 /* --- HERO SLIDER: Smooth infinite loop --- */
@@ -1255,9 +1395,12 @@ var escPageStart = 0;
       var lat = pos.coords.latitude, lng = pos.coords.longitude;
       var places = await nyFetchPlaces();
       if (!places.length) return;
+      // Render sorted places immediately — don't wait for reverse geocode
+      nyRender(places, lat, lng);
+      nySetLabel('Your Location', true);
+      // Update label with city name in background
       nyReverseGeocode(lat, lng, function(label) {
         nySetLabel(label, true);
-        nyRender(places, lat, lng);
       });
     } catch(e) {
       document.getElementById('nearyouSubtext').textContent = 'Could not load places data';
@@ -1279,17 +1422,22 @@ var escPageStart = 0;
   }
 
   function nyInit() {
-    if (!navigator.geolocation) { nyHandleDenied(); return; }
+    // Immediately render all places (no GPS wait) so user sees data right away
+    nyFetchPlaces().then(function(places) {
+      if (places && places.length) nyRenderAll(places);
+    }).catch(function(){});
+
+    if (!navigator.geolocation) { nySetLabel('Allow Location', false); return; }
     if (navigator.permissions) {
       navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
         if (result.state === 'granted') {
           nySetLabel('Locating…', false);
-          nyGetPosition(nyHandlePosition, nyHandleDenied);
+          nyGetPosition(nyHandlePosition, function(){ nySetLabel('Allow Location', false); });
         } else if (result.state === 'denied') {
-          nyHandleDenied();
+          nySetLabel('Allow Location', false);
         } else {
           nySetLabel('Allow Location', false);
-          nyGetPosition(nyHandlePosition, nyHandleDenied);
+          nyGetPosition(nyHandlePosition, function(){ nySetLabel('Allow Location', false); });
         }
         result.onchange = function() {
           if (this.state === 'granted') {
@@ -1302,10 +1450,10 @@ var escPageStart = 0;
           }
         };
       }).catch(function() {
-        nyGetPosition(nyHandlePosition, nyHandleDenied);
+        nyGetPosition(nyHandlePosition, function(){ nySetLabel('Allow Location', false); });
       });
     } else {
-      nyGetPosition(nyHandlePosition, nyHandleDenied);
+      nyGetPosition(nyHandlePosition, function(){ nySetLabel('Allow Location', false); });
     }
   }
 
@@ -1628,59 +1776,75 @@ var escPageStart = 0;
 /* ===== KERALA CALENDAR POPUP LOGIC ===== */
 (function(){
   /* ---- Kerala Special Days Data (month is 1-based) ---- */
+  /* ---- Kerala Special Days Data 2026 (month is 1-based) ----
+     All dates verified against Kerala Government Gazette GO(P) No.15/2025/GAD
+     and official sources. Islamic holidays marked * (subject to moon sighting). */
   const KERALA_EVENTS = [
-    /* January */
-    {m:1,d:1,name:'New Year\'s Day',desc:'Beginning of the Gregorian calendar year',emoji:'🎉',type:'holiday'},
-    {m:1,d:14,name:'Makar Vilakku',desc:'Sacred lamp festival at Sabarimala temple',emoji:'🪔',type:'festival'},
-    {m:1,d:15,name:'Makara Vilakku Day',desc:'Grand illumination at Sabarimala — state holiday',emoji:'🌟',type:'holiday'},
-    {m:1,d:26,name:'Republic Day',desc:'National Republic Day of India',emoji:'🇮🇳',type:'holiday'},
-    /* February */
-    {m:2,d:10,name:'Thaipusam',desc:'Festival dedicated to Lord Murugan',emoji:'🙏',type:'festival'},
-    {m:2,d:14,name:'Valentine\'s Day',desc:'Day of love and affection',emoji:'❤️',type:'special'},
-    {m:2,d:19,name:'Shivratri',desc:'Night of Lord Shiva — all-night vigil & prayer',emoji:'🕉️',type:'festival'},
-    /* March */
-    {m:3,d:8,name:'International Women\'s Day',desc:'Celebrating women\'s achievements worldwide',emoji:'👩',type:'special'},
-    {m:3,d:14,name:'Holi',desc:'Festival of colours',emoji:'🌈',type:'festival'},
-    {m:3,d:30,name:'Ugadi',desc:'Telugu & Kannada New Year',emoji:'🌸',type:'festival'},
-    /* April */
-    {m:4,d:1,name:'Kerala Piravi',desc:'Kerala Varsha Pirappu — Malayalam New Year (Vishu Eve)',emoji:'🌺',type:'special'},
-    {m:4,d:14,name:'Vishu',desc:'Malayalam New Year — Vishukkani, fireworks & feasts',emoji:'🌼',type:'festival'},
-    {m:4,d:14,name:'Vishu Holiday',desc:'State public holiday for Vishu',emoji:'🎊',type:'holiday'},
-    {m:4,d:18,name:'Good Friday',desc:'Christian holy day of fasting and prayer',emoji:'✝️',type:'holiday'},
-    {m:4,d:20,name:'Easter Sunday',desc:'Resurrection of Jesus Christ',emoji:'🐣',type:'festival'},
-    /* May */
-    {m:5,d:1,name:'Kerala Day / Labour Day',desc:'International Workers\' Day — Kerala Formation Day (Nov 1 also)',emoji:'🌹',type:'holiday'},
-    {m:5,d:9,name:'Eid ul-Fitr',desc:'End of Ramadan — feast of breaking the fast',emoji:'🌙',type:'holiday'},
-    {m:5,d:26,name:'Buddha Purnima',desc:'Birth anniversary of Gautama Buddha',emoji:'☸️',type:'festival'},
-    /* June */
-    {m:6,d:5,name:'World Environment Day',desc:'UN day for environmental awareness',emoji:'🌿',type:'special'},
-    {m:6,d:21,name:'International Yoga Day',desc:'Global day for yoga promoted by India',emoji:'🧘',type:'special'},
-    /* July */
-    {m:7,d:6,name:'Eid ul-Adha (Bakrid)',desc:'Festival of sacrifice — major Muslim holiday',emoji:'🐑',type:'holiday'},
-    {m:7,d:17,name:'Muharram',desc:'Islamic New Year — remembrance of Karbala',emoji:'☪️',type:'holiday'},
-    /* August */
-    {m:8,d:15,name:'Independence Day',desc:'India\'s Independence from British rule in 1947',emoji:'🇮🇳',type:'holiday'},
-    {m:8,d:16,name:'Onam Week Begins',desc:'Start of the ten-day Onam celebrations',emoji:'🌸',type:'festival'},
-    {m:8,d:22,name:'Thiruvonam (Onam)',desc:'Most important festival of Kerala — harvest & homecoming',emoji:'🌺',type:'festival'},
-    {m:8,d:22,name:'Onam State Holiday',desc:'Grand processions, Pookalam, Vallam Kali & Onam Sadya',emoji:'🎉',type:'holiday'},
-    {m:8,d:23,name:'Sree Krishna Jayanti',desc:'Birthday of Lord Krishna (Janmashtami)',emoji:'🦚',type:'festival'},
-    /* September */
-    {m:9,d:5,name:'Teachers\' Day',desc:'Honouring teachers on Dr. S. Radhakrishnan\'s birthday',emoji:'📚',type:'special'},
-    {m:9,d:25,name:'Navaratri Begins',desc:'Nine nights of Goddess Durga worship',emoji:'🪷',type:'festival'},
-    /* October */
-    {m:10,d:2,name:'Gandhi Jayanti',desc:'Birth anniversary of Mahatma Gandhi',emoji:'🕊️',type:'holiday'},
-    {m:10,d:2,name:'Vijayadasami',desc:'Final day of Navaratri — Vidyarambham in Kerala',emoji:'✍️',type:'festival'},
-    {m:10,d:20,name:'Diwali',desc:'Festival of lights — fireworks & sweets',emoji:'🪔',type:'festival'},
-    {m:10,d:31,name:'Halloween',desc:'Western festival of costumes and treats',emoji:'🎃',type:'special'},
-    /* November */
-    {m:11,d:1,name:'Kerala Piravi',desc:'Kerala State Formation Day — founded 1 Nov 1956',emoji:'🌴',type:'holiday'},
-    {m:11,d:5,name:'Gurunanak Jayanti',desc:'Birthday of Guru Nanak Dev Ji',emoji:'🙏',type:'festival'},
-    {m:11,d:14,name:'Children\'s Day',desc:'Nehru\'s birthday — celebrated as Children\'s Day',emoji:'👧',type:'special'},
-    /* December */
-    {m:12,d:1,name:'World AIDS Day',desc:'Raising awareness about HIV/AIDS',emoji:'🎗️',type:'special'},
-    {m:12,d:24,name:'Christmas Eve',desc:'Eve of Christmas — midnight mass & celebrations',emoji:'🌟',type:'festival'},
-    {m:12,d:25,name:'Christmas Day',desc:'Birth of Jesus Christ — national holiday',emoji:'🎄',type:'holiday'},
-    {m:12,d:31,name:'New Year\'s Eve',desc:'Last day of the year — parties and fireworks',emoji:'🎆',type:'special'},
+    /* ── JANUARY ── */
+    {m:1,d:1, name:'New Year\'s Day',          desc:'Beginning of the Gregorian calendar year — celebrations across Kerala',emoji:'🎉',type:'holiday'},
+    {m:1,d:2, name:'Mannam Jayanti',            desc:'Birth anniversary of social reformer Sree Narayana Dharma Paripalana founder Mannathu Padmanabhan — Kerala bank holiday',emoji:'🙏',type:'holiday'},
+    {m:1,d:14,name:'Makara Vilakku',            desc:'Sacred festival at Sabarimala — Makara Jyoti appears in the eastern sky at dusk; coincides with Makar Sankranti',emoji:'🪔',type:'festival'},
+    {m:1,d:14,name:'Makar Sankranti / Pongal',  desc:'Harvest festival marking the sun\'s entry into Capricorn — celebrated as Pongal in Tamil community',emoji:'🌾',type:'festival'},
+    {m:1,d:26,name:'Republic Day',              desc:'National Republic Day of India — government offices, schools closed; parades held across the country',emoji:'🇮🇳',type:'holiday'},
+    /* ── FEBRUARY ── */
+    {m:2,d:1, name:'Thaipusam',                 desc:'Festival of Lord Murugan — devotees carry kavadi in penance; celebrated at Murugan temples across Kerala',emoji:'🙏',type:'festival'},
+    {m:2,d:14,name:'Valentine\'s Day',           desc:'Day of love and affection',emoji:'❤️',type:'special'},
+    {m:2,d:15,name:'Maha Shivaratri',            desc:'Great night of Lord Shiva — all-night vigil, fasting & abhishekam at temples across Kerala (Kerala Gazette official date)',emoji:'🕉️',type:'festival'},
+    /* ── MARCH ── */
+    {m:3,d:3, name:'Ayya Vaikunda Swami Jayanthi',desc:'Birth anniversary of social reformer Ayya Vaikunda Swami — restricted holiday for Nadar community',emoji:'🌟',type:'festival'},
+    {m:3,d:8, name:'International Women\'s Day', desc:'Celebrating women\'s achievements worldwide',emoji:'👩',type:'special'},
+    {m:3,d:19,name:'Holi',                       desc:'Festival of colours — celebrated with gulal and water; marks the arrival of spring',emoji:'🌈',type:'festival'},
+    {m:3,d:20,name:'Eid ul-Fitr (Ramzan) ★',    desc:'End of Ramadan — feast of breaking the fast; major Kerala public holiday (★ subject to moon sighting)',emoji:'🌙',type:'holiday'},
+    /* ── APRIL ── */
+    {m:4,d:2, name:'Maundy Thursday',            desc:'Christian holy day — washing of feet ceremony; new addition as Kerala bank holiday in 2026',emoji:'✝️',type:'festival'},
+    {m:4,d:3, name:'Good Friday',                desc:'Crucifixion of Jesus Christ — national public holiday; churches hold solemn services across Kerala',emoji:'✝️',type:'holiday'},
+    {m:4,d:5, name:'Easter Sunday',              desc:'Resurrection of Jesus Christ — celebrated with midnight mass & family gatherings in Kerala\'s churches',emoji:'🐣',type:'festival'},
+    {m:4,d:14,name:'Dr B. R. Ambedkar Jayanthi', desc:'Birth anniversary of Dr B. R. Ambedkar — architect of the Indian Constitution; Kerala public holiday',emoji:'🇮🇳',type:'holiday'},
+    {m:4,d:14,name:'Tamil New Year (Puthandu)',  desc:'Tamil New Year celebrated by Tamil community alongside Vishu',emoji:'🌸',type:'festival'},
+    {m:4,d:15,name:'Vishu',                      desc:'Malayalam New Year — Vishukkani, kaineetam, fireworks & grand Sadya feast; most important spring festival of Kerala',emoji:'🌼',type:'festival'},
+    {m:4,d:15,name:'Vishu — State Holiday',      desc:'Kerala state public holiday for Vishu — government offices and banks remain closed',emoji:'🎊',type:'holiday'},
+    /* ── MAY ── */
+    {m:5,d:1, name:'May Day / Labour Day',       desc:'International Workers\' Day — public holiday across India and Kerala',emoji:'🌹',type:'holiday'},
+    {m:5,d:27,name:'Eid ul-Adha (Bakrid) ★',    desc:'Festival of sacrifice — major Muslim public holiday in Kerala (★ subject to moon sighting)',emoji:'🐑',type:'holiday'},
+    /* ── JUNE ── */
+    {m:6,d:5, name:'World Environment Day',      desc:'UN day for environmental awareness — green drives and events across Kerala',emoji:'🌿',type:'special'},
+    {m:6,d:21,name:'International Yoga Day',     desc:'Global day for yoga promoted by India — events across Kerala',emoji:'🧘',type:'special'},
+    {m:6,d:25,name:'Muharram ★',                desc:'Islamic New Year — day of mourning and remembrance of the Battle of Karbala (★ subject to moon sighting)',emoji:'☪️',type:'holiday'},
+    /* ── JULY ── */
+    {m:7,d:10,name:'Guru Purnima',               desc:'Full moon day dedicated to honouring spiritual and academic gurus — celebrated at temples and ashrams',emoji:'🙏',type:'festival'},
+    {m:7,d:17,name:'Karkidaka Vavu',             desc:'Ancestor worship ritual performed on the Amavasya (new moon) of Karkidakam — offerings made at riverbanks',emoji:'🌑',type:'festival'},
+    /* ── AUGUST ── */
+    {m:8,d:12,name:'Karkidaka Vavu (official)',  desc:'Traditional ancestor worship — state bank holiday; rituals at rivers and water bodies across Kerala',emoji:'🌑',type:'holiday'},
+    {m:8,d:15,name:'Independence Day',           desc:'India\'s Independence from British rule in 1947 — national holiday with flag-hoisting ceremonies',emoji:'🇮🇳',type:'holiday'},
+    {m:8,d:16,name:'Onam — Atham Day',           desc:'First day of the 10-day Onam festival — Pookalam (floral carpet) making begins in every household',emoji:'🌸',type:'festival'},
+    {m:8,d:25,name:'Onam — First Onam',          desc:'First official Onam holiday — grand processions, cultural programmes and Pookalam competitions',emoji:'🎊',type:'holiday'},
+    {m:8,d:26,name:'Thiruvonam (Onam)',          desc:'Main Onam day — the grandest festival of Kerala; Onam Sadya feast, Vallam Kali boat race & homecoming',emoji:'🌺',type:'festival'},
+    {m:8,d:26,name:'Thiruvonam — State Holiday', desc:'Kerala state public holiday for Thiruvonam — most important holiday of the Onam season',emoji:'🎉',type:'holiday'},
+    {m:8,d:27,name:'Onam — Third Onam',          desc:'Third Onam holiday — continued celebrations with cultural events and family gatherings',emoji:'🎊',type:'holiday'},
+    {m:8,d:28,name:'Sree Narayana Guru Jayanthi',desc:'Birth anniversary of social reformer Sree Narayana Guru — Kerala public holiday; celebrated on Fourth Onam',emoji:'🙏',type:'holiday'},
+    {m:8,d:28,name:'Ayyankali Jayanthi',         desc:'Birth anniversary of social reformer Ayyankali — observed alongside Guru Jayanthi on Fourth Onam',emoji:'🌟',type:'holiday'},
+    /* ── SEPTEMBER ── */
+    {m:9,d:4, name:'Sree Krishna Jayanthi (Janmashtami)',desc:'Birthday of Lord Krishna — midnight puja, fasting, devotional music & temple celebrations across Kerala',emoji:'🦚',type:'festival'},
+    {m:9,d:4, name:'Sree Krishna Jayanthi — Holiday',desc:'Kerala state public holiday for Sree Krishna Jayanthi',emoji:'🎉',type:'holiday'},
+    {m:9,d:5, name:'Teachers\' Day',             desc:'Honouring teachers on Dr. S. Radhakrishnan\'s birthday — celebrated in schools across Kerala',emoji:'📚',type:'special'},
+    {m:9,d:21,name:'Sree Narayana Guru Samadhi', desc:'Death anniversary of Sree Narayana Guru — solemn observances at Sivagiri and temples across Kerala',emoji:'🕯️',type:'holiday'},
+    /* ── OCTOBER ── */
+    {m:10,d:2, name:'Gandhi Jayanthi',           desc:'Birth anniversary of Mahatma Gandhi — national holiday; prayer meetings and cleanliness drives',emoji:'🕊️',type:'holiday'},
+    {m:10,d:11,name:'Navaratri Begins',          desc:'Nine nights of Goddess Durga worship — Golu (doll display) tradition and Saraswati Puja in Kerala',emoji:'🪷',type:'festival'},
+    {m:10,d:20,name:'Maha Navami',               desc:'Ninth day of Navaratri — Saraswati Puja & Ayudha Puja; tools and instruments worshipped in Kerala',emoji:'📖',type:'holiday'},
+    {m:10,d:21,name:'Vijayadasami',              desc:'Final day of Navaratri — Vidyarambham (children\'s first writing initiation) in Kerala temples; books returned after Saraswati Puja',emoji:'✍️',type:'festival'},
+    {m:10,d:21,name:'Vijayadasami — Holiday',    desc:'Kerala state public holiday for Vijayadasami — Vidyarambham ceremonies at Saraswati temples',emoji:'🎉',type:'holiday'},
+    {m:10,d:31,name:'Halloween',                 desc:'Western festival of costumes and treats — observed in urban Kerala and by tourist communities',emoji:'🎃',type:'special'},
+    /* ── NOVEMBER ── */
+    {m:11,d:1, name:'Kerala Piravi',             desc:'Kerala State Formation Day — Kerala was formed on 1 November 1956; state holiday with cultural programmes',emoji:'🌴',type:'holiday'},
+    {m:11,d:5, name:'Guru Nanak Jayanthi',       desc:'Birth anniversary of Guru Nanak Dev Ji — founder of Sikhism; observed by Sikh community across Kerala',emoji:'🙏',type:'festival'},
+    {m:11,d:8, name:'Diwali (Deepavali)',         desc:'Festival of lights — falls on Sunday 8 Nov 2026; fireworks, sweets and Lakshmi puja (Sunday — no separate holiday)',emoji:'🪔',type:'festival'},
+    {m:11,d:14,name:'Children\'s Day',           desc:'Jawaharlal Nehru\'s birthday — celebrated as Children\'s Day with events in schools across Kerala',emoji:'👧',type:'special'},
+    /* ── DECEMBER ── */
+    {m:12,d:1, name:'World AIDS Day',            desc:'Raising awareness about HIV/AIDS — red ribbon awareness events across Kerala',emoji:'🎗️',type:'special'},
+    {m:12,d:24,name:'Christmas Eve',             desc:'Eve of Christmas — midnight mass at churches across Kerala; grand celebrations in Kottayam and Thrissur',emoji:'🌟',type:'festival'},
+    {m:12,d:25,name:'Christmas Day',             desc:'Birth of Jesus Christ — national public holiday; Kerala\'s large Christian community celebrates with mass and feasts',emoji:'🎄',type:'holiday'},
+    {m:12,d:31,name:'New Year\'s Eve',           desc:'Last day of the year — countdown parties and fireworks across Kerala tourist destinations',emoji:'🎆',type:'special'},
   ];
 
   const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -1902,7 +2066,7 @@ var escPageStart = 0;
     navigator.geolocation.getCurrentPosition(
       pos=>wxFetchWeather(pos.coords.latitude,pos.coords.longitude,null),
       ()=>wxShowError('Location access denied. Search for a city above.'),
-      {timeout:8000}
+      {timeout:8000, maximumAge:300000}
     );
   };
 
@@ -2036,4 +2200,228 @@ var escPageStart = 0;
 })();
 </script>
 
+
+<!-- CURRENCY POPUP -->
+<div class="currency-popup" id="currencyPopup" onclick="if(event.target===this)closeCurrencyPopup()">
+  <div class="currency-box">
+    <div class="curr-drag"></div>
+    <div class="curr-header">
+      <div class="curr-header-top">
+        <h3>💱 Currency Exchange</h3>
+        <button class="curr-close-btn" onclick="closeCurrencyPopup()">✕</button>
+      </div>
+      <div class="curr-header-sub">INR to world currencies · Find exchange nearby</div>
+      <div class="curr-tabs">
+        <div class="curr-tab active" id="currTab1" onclick="switchCurrTab('converter')">🔄 Converter</div>
+        <div class="curr-tab" id="currTab2" onclick="switchCurrTab('nearby')">📍 Find Nearby</div>
+      </div>
+    </div>
+    <div class="curr-body">
+      <!-- CONVERTER TAB -->
+      <div id="currConverterPanel" class="curr-converter">
+        <div class="curr-amount-section">
+          <div class="curr-amount-label">You have (Indian Rupee)</div>
+          <div class="curr-amount-row">
+            <div class="curr-flag-code"><span>🇮🇳</span><span>INR</span></div>
+            <input class="curr-amount-input" id="currAmountInput" type="number" placeholder="1000" oninput="currConvert()" value="1000">
+          </div>
+        </div>
+        <button class="curr-swap-btn" title="Swap">⇅</button>
+        <div class="curr-to-section">
+          <div class="curr-to-label">
+            <span>Convert to</span>
+            <span onclick="currConvert()">↻ Refresh</span>
+          </div>
+          <div class="curr-select-row">
+            <select class="curr-country-select" id="currTargetSelect" onchange="currConvert()"></select>
+          </div>
+          <div class="curr-result-display">
+            <div class="curr-result-amount" id="currResultAmount">—</div>
+            <div class="curr-result-code" id="currResultCode">Select a currency</div>
+            <div class="curr-rate-info" id="currRateInfo">Live rates via open.er-api.com</div>
+          </div>
+        </div>
+        <div>
+          <div class="curr-section-title">Popular Currencies</div>
+          <div class="curr-popular-grid" id="currPopularGrid">
+            <div class="curr-popular-card" style="grid-column:1/-1;text-align:center;color:#bbb;font-size:12px;padding:20px;">Loading rates…</div>
+          </div>
+        </div>
+      </div>
+      <!-- NEARBY TAB -->
+      <div id="currNearbyPanel" class="curr-nearby" style="display:none;">
+        <div class="curr-type-badges">
+          <div class="curr-badge active" data-nearby="currency exchange">🏦 Exchange</div>
+          <div class="curr-badge" data-nearby="forex bank">🏛️ Forex Bank</div>
+          <div class="curr-badge" data-nearby="international ATM">🏧 Int'l ATM</div>
+          <div class="curr-badge" data-nearby="Thomas Cook forex">✈️ Thomas Cook</div>
+        </div>
+        <button class="curr-nearby-btn" onclick="currFindNearby()">
+          <span>📍</span> Find Currency Exchange Near Me
+        </button>
+        <div id="currNearbyResults">
+          <div class="curr-status-msg">Tap the button above to find exchange services near your location.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const POPULAR=[
+    {code:'USD',flag:'🇺🇸',name:'US Dollar'},
+    {code:'EUR',flag:'🇪🇺',name:'Euro'},
+    {code:'GBP',flag:'🇬🇧',name:'British Pound'},
+    {code:'AED',flag:'🇦🇪',name:'UAE Dirham'},
+    {code:'SGD',flag:'🇸🇬',name:'Singapore Dollar'},
+    {code:'JPY',flag:'🇯🇵',name:'Japanese Yen'},
+    {code:'AUD',flag:'🇦🇺',name:'Aus Dollar'},
+    {code:'CAD',flag:'🇨🇦',name:'Canadian Dollar'},
+    {code:'MYR',flag:'🇲🇾',name:'Malaysian Ringgit'},
+    {code:'THB',flag:'🇹🇭',name:'Thai Baht'}
+  ];
+  const ALL_CURRENCIES=[
+    {code:'USD',name:'US Dollar 🇺🇸'},{code:'EUR',name:'Euro 🇪🇺'},{code:'GBP',name:'British Pound 🇬🇧'},
+    {code:'AED',name:'UAE Dirham 🇦🇪'},{code:'SGD',name:'Singapore Dollar 🇸🇬'},{code:'JPY',name:'Japanese Yen 🇯🇵'},
+    {code:'AUD',name:'Australian Dollar 🇦🇺'},{code:'CAD',name:'Canadian Dollar 🇨🇦'},{code:'MYR',name:'Malaysian Ringgit 🇲🇾'},
+    {code:'THB',name:'Thai Baht 🇹🇭'},{code:'CHF',name:'Swiss Franc 🇨🇭'},{code:'CNY',name:'Chinese Yuan 🇨🇳'},
+    {code:'HKD',name:'Hong Kong Dollar 🇭🇰'},{code:'NZD',name:'New Zealand Dollar 🇳🇿'},{code:'SEK',name:'Swedish Krona 🇸🇪'},
+    {code:'NOK',name:'Norwegian Krone 🇳🇴'},{code:'DKK',name:'Danish Krone 🇩🇰'},{code:'ZAR',name:'South African Rand 🇿🇦'},
+    {code:'BRL',name:'Brazilian Real 🇧🇷'},{code:'MXN',name:'Mexican Peso 🇲🇽'},{code:'IDR',name:'Indonesian Rupiah 🇮🇩'},
+    {code:'PHP',name:'Philippine Peso 🇵🇭'},{code:'PKR',name:'Pakistani Rupee 🇵🇰'},{code:'BDT',name:'Bangladeshi Taka 🇧🇩'},
+    {code:'LKR',name:'Sri Lankan Rupee 🇱🇰'},{code:'NPR',name:'Nepalese Rupee 🇳🇵'},{code:'KWD',name:'Kuwaiti Dinar 🇰🇼'},
+    {code:'SAR',name:'Saudi Riyal 🇸🇦'},{code:'QAR',name:'Qatari Riyal 🇶🇦'},{code:'OMR',name:'Omani Rial 🇴🇲'},
+    {code:'BHD',name:'Bahraini Dinar 🇧🇭'},{code:'RUB',name:'Russian Ruble 🇷🇺'},{code:'TRY',name:'Turkish Lira 🇹🇷'},
+    {code:'KRW',name:'South Korean Won 🇰🇷'},{code:'VND',name:'Vietnamese Dong 🇻🇳'},{code:'EGP',name:'Egyptian Pound 🇪🇬'},
+    {code:'NGN',name:'Nigerian Naira 🇳🇬'},{code:'KES',name:'Kenyan Shilling 🇰🇪'},{code:'GHS',name:'Ghanaian Cedi 🇬🇭'},
+    {code:'MAD',name:'Moroccan Dirham 🇲🇦'},{code:'TWD',name:'Taiwan Dollar 🇹🇼'},{code:'XOF',name:'West African CFA 🌍'}
+  ];
+  const FALLBACK={USD:0.012,EUR:0.011,GBP:0.0095,AED:0.044,SGD:0.016,JPY:1.79,AUD:0.018,CAD:0.016,MYR:0.056,THB:0.42,CHF:0.011,CNY:0.087,HKD:0.094,NZD:0.020,KWD:0.0037,SAR:0.045,QAR:0.044,OMR:0.0046,BHD:0.0045,TWD:0.38,KRW:15.8,VND:296,IDR:185,PHP:0.68,PKR:3.33,BDT:1.32,LKR:3.65,NPR:1.59,NGN:18.9,KES:1.55,GHS:0.18,MAD:0.12,EGP:0.59,ZAR:0.22,BRL:0.067,MXN:0.21,TRY:0.39,RUB:1.07,SEK:0.12,NOK:0.13,DKK:0.082,RUB:1.07};
+  let ratesCache=null,ratesFetched=false,nearbyType='currency exchange';
+
+  function populateSelect(){
+    const sel=document.getElementById('currTargetSelect');
+    sel.innerHTML=ALL_CURRENCIES.map(c=>`<option value="${c.code}">${c.name}</option>`).join('');
+    sel.value='USD';
+  }
+
+  async function fetchRates(){
+    if(ratesCache) return ratesCache;
+    try{
+      const r=await fetch('https://open.er-api.com/v6/latest/INR');
+      const d=await r.json();
+      if(d&&d.rates){ratesCache=d.rates;return ratesCache;}
+    }catch(e){}
+    ratesCache=FALLBACK;
+    return FALLBACK;
+  }
+
+  window.currConvert=async function(){
+    const amt=parseFloat(document.getElementById('currAmountInput').value)||0;
+    const target=document.getElementById('currTargetSelect').value;
+    const resEl=document.getElementById('currResultAmount');
+    const codeEl=document.getElementById('currResultCode');
+    const rateEl=document.getElementById('currRateInfo');
+    if(!target){resEl.textContent='—';return;}
+    resEl.textContent='...';
+    const rates=await fetchRates();
+    const rate=rates[target];
+    if(!rate){resEl.textContent='N/A';return;}
+    const result=amt*rate;
+    resEl.textContent=(result>=1000?result.toLocaleString('en-IN',{maximumFractionDigits:2}):result.toFixed(4))+' '+target;
+    const curr=ALL_CURRENCIES.find(c=>c.code===target);
+    codeEl.textContent=curr?curr.name:target;
+    rateEl.textContent='1 INR = '+rate.toFixed(6)+' '+target+(ratesCache===FALLBACK?' · Approximate rate':' · Live rate');
+    loadPopular(rates);
+  };
+
+  async function loadPopular(rates){
+    if(!rates) rates=await fetchRates();
+    const amt=parseFloat(document.getElementById('currAmountInput').value)||1000;
+    const grid=document.getElementById('currPopularGrid');
+    grid.innerHTML=POPULAR.map(p=>{
+      const r=rates[p.code];
+      if(!r) return '';
+      const val=amt*r;
+      const display=val>=1000?val.toLocaleString('en-IN',{maximumFractionDigits:0}):val.toFixed(2);
+      return '<div class="curr-popular-card" onclick="document.getElementById(\'currTargetSelect\').value=\''+p.code+'\';currConvert()">'+
+        '<div class="curr-popular-top"><span>'+p.flag+'</span><span>'+p.code+'</span></div>'+
+        '<div class="curr-popular-rate">'+display+'</div>'+
+        '<div class="curr-popular-name">'+p.name+'</div></div>';
+    }).join('');
+  }
+
+  window.switchCurrTab=function(tab){
+    const isConv=tab==='converter';
+    document.getElementById('currTab1').classList.toggle('active',isConv);
+    document.getElementById('currTab2').classList.toggle('active',!isConv);
+    document.getElementById('currConverterPanel').style.display=isConv?'flex':'none';
+    document.getElementById('currNearbyPanel').style.display=isConv?'none':'flex';
+  };
+
+  window.openCurrencyPopup=function(){
+    document.getElementById('currencyPopup').style.display='flex';
+    document.body.style.overflow='hidden';
+    if(!ratesFetched){ratesFetched=true;populateSelect();currConvert();}
+  };
+
+  window.closeCurrencyPopup=function(){
+    document.getElementById('currencyPopup').style.display='none';
+    document.body.style.overflow='';
+  };
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.curr-badge').forEach(function(b){
+      b.addEventListener('click',function(){
+        document.querySelectorAll('.curr-badge').forEach(function(x){x.classList.remove('active');});
+        this.classList.add('active');
+        nearbyType=this.dataset.nearby;
+      });
+    });
+  });
+
+  window.currFindNearby=function(){
+    const res=document.getElementById('currNearbyResults');
+    res.innerHTML='<div class="curr-loading"><div class="curr-spinner"></div><span>Getting your location…</span></div>';
+    if(!navigator.geolocation){res.innerHTML='<div class="curr-status-msg">Location not available on your device.</div>';return;}
+    navigator.geolocation.getCurrentPosition(
+      function(pos){currSearchNearby(pos.coords.latitude,pos.coords.longitude);},
+      function(){res.innerHTML='<div class="curr-status-msg">⚠️ Location access denied. Please enable location in browser settings.</div>';}
+    );
+  };
+
+  function currSearchNearby(lat,lon){
+    var res=document.getElementById('currNearbyResults');
+    res.innerHTML='<div class="curr-loading"><div class="curr-spinner"></div><span>Searching nearby places…</span></div>';
+    var q=encodeURIComponent(nearbyType);
+    var gmapsUrl='https://www.google.com/maps/search/'+encodeURIComponent(nearbyType)+'/@'+lat+','+lon+',15z';
+    var url='https://nominatim.openstreetmap.org/search?q='+q+'&lat='+lat+'&lon='+lon+'&format=json&limit=8&addressdetails=1';
+    fetch(url,{headers:{'Accept-Language':'en'}})
+      .then(function(r){return r.json();})
+      .then(function(data){
+        if(!data||!data.length){
+          res.innerHTML='<div class="curr-status-msg">No results found nearby.<br><br><button class="curr-nearby-btn" style="margin:0 auto;width:auto;padding:10px 20px;" onclick="window.open(\''+gmapsUrl+'\',\'_blank\')">🗺️ Open Google Maps</button></div>';
+          return;
+        }
+        var icons={'currency exchange':'🏦','forex bank':'🏛️','international ATM':'🏧','Thomas Cook forex':'✈️'};
+        var ic=icons[nearbyType]||'🏦';
+        var html='<div class="curr-nearby-list">';
+        data.forEach(function(p){
+          var addr=p.display_name.split(',').slice(0,3).join(', ');
+          var gm='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.display_name);
+          html+='<div class="curr-nearby-item" onclick="window.open(\''+gm+'\',\'_blank\')">'+
+            '<div class="curr-nearby-icon">'+ic+'</div>'+
+            '<div class="curr-nearby-info"><h4>'+(p.name||p.display_name.split(',')[0])+'</h4><p>'+addr+'</p></div>'+
+            '<div class="curr-nearby-dir">→</div></div>';
+        });
+        html+='<button class="curr-nearby-btn" style="margin-top:6px;" onclick="window.open(\''+gmapsUrl+'\',\'_blank\')">🗺️ View All on Google Maps</button></div>';
+        res.innerHTML=html;
+      })
+      .catch(function(){
+        res.innerHTML='<div class="curr-status-msg">Could not search. <br><br><button class="curr-nearby-btn" style="margin:0 auto;width:auto;padding:10px 20px;" onclick="window.open(\''+gmapsUrl+'\',\'_blank\')">🗺️ Open Google Maps</button></div>';
+      });
+  }
+})();
+</script>
 </body></html>
