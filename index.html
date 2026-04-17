@@ -286,78 +286,83 @@
         .ktp-card { animation: ktpFadeUp 0.35s ease both; }
 
         /* --- CURRENCY POPUP --- */
-        .currency-popup { position:fixed; inset:0; display:none; justify-content:center; align-items:flex-end; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); z-index:12000; }
-        .currency-box { width:100%; max-width:520px; background:#fff; border-radius:28px 28px 0 0; padding:0; display:flex; flex-direction:column; animation:slideUp .35s cubic-bezier(0.4,0,0.2,1); max-height:92vh; overflow:hidden; }
-        .curr-drag { width:40px; height:5px; background:#ddd; border-radius:10px; margin:14px auto 0; flex-shrink:0; }
-        .curr-header { padding:18px 20px 14px; border-bottom:1px solid #f1f1f1; flex-shrink:0; }
-        .curr-header-top { display:flex; align-items:center; justify-content:space-between; }
-        .curr-header-top h3 { font-size:18px; font-weight:700; color:#111; letter-spacing:-0.4px; }
-        .curr-close-btn { width:32px; height:32px; border-radius:50%; background:#f5f5f5; border:none; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#666; transition:background 0.2s; }
-        .curr-close-btn:hover { background:#eee; }
-        .curr-header-sub { font-size:11px; color:#aaa; margin-top:3px; }
-        .curr-tabs { display:flex; gap:8px; margin-top:14px; }
-        .curr-tab { flex:1; padding:8px 0; border-radius:12px; border:1.5px solid #eee; background:#f8f8f8; font-size:12px; font-weight:600; color:#888; cursor:pointer; transition:all 0.2s; text-align:center; }
-        .curr-tab.active { background:linear-gradient(135deg,#007b7f,#00a896); color:#fff; border-color:transparent; box-shadow:0 4px 12px rgba(0,123,127,0.25); }
-        .curr-body { flex:1; overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none; }
-        .curr-body::-webkit-scrollbar { display:none; }
-        
-        /* Converter Tab */
-        .curr-converter { padding:18px 20px; display:flex; flex-direction:column; gap:14px; }
-        .curr-amount-section { background:linear-gradient(135deg,#007b7f,#00a896); border-radius:20px; padding:20px; }
-        .curr-amount-label { font-size:11px; color:rgba(255,255,255,0.75); font-weight:500; margin-bottom:8px; }
-        .curr-amount-row { display:flex; align-items:center; gap:10px; }
-        .curr-flag-code { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.2); border-radius:12px; padding:8px 12px; flex-shrink:0; }
-        .curr-flag-code span:first-child { font-size:22px; line-height:1; }
-        .curr-flag-code span:last-child { font-size:13px; font-weight:700; color:#fff; }
-        .curr-amount-input { flex:1; background:none; border:none; outline:none; font-size:28px; font-weight:700; color:#fff; width:100%; font-family:'Poppins',sans-serif; }
-        .curr-amount-input::placeholder { color:rgba(255,255,255,0.5); }
-        .curr-swap-btn { width:38px; height:38px; border-radius:50%; background:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; margin:0 auto; box-shadow:0 4px 12px rgba(0,0,0,0.12); transition:transform 0.3s; flex-shrink:0; }
-        .curr-swap-btn:hover { transform:rotate(180deg); }
-        .curr-to-section { background:#f8f9fa; border-radius:20px; padding:18px; border:1px solid #eee; }
-        .curr-to-label { font-size:11px; color:#999; font-weight:500; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between; }
-        .curr-to-label span:last-child { font-size:10px; color:#007b7f; cursor:pointer; font-weight:600; }
-        .curr-select-row { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
-        .curr-country-select { flex:1; padding:10px 12px; border-radius:12px; border:1.5px solid #e5e5e5; background:#fff; font-size:13px; font-family:'Poppins',sans-serif; color:#333; outline:none; transition:border-color 0.2s; cursor:pointer; }
-        .curr-country-select:focus { border-color:#007b7f; }
-        .curr-result-display { background:#fff; border-radius:14px; padding:16px; border:1px solid #eee; text-align:center; }
-        .curr-result-amount { font-size:32px; font-weight:700; color:#007b7f; letter-spacing:-1px; }
-        .curr-result-code { font-size:13px; color:#888; margin-top:2px; }
-        .curr-rate-info { font-size:10px; color:#bbb; margin-top:8px; }
-        .curr-popular-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
-        .curr-popular-card { background:#f8f9fa; border-radius:14px; padding:12px 14px; border:1px solid #eee; cursor:pointer; transition:all 0.2s; }
-        .curr-popular-card:hover { background:#e8f5f5; border-color:#007b7f; transform:translateY(-1px); }
-        .curr-popular-top { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
-        .curr-popular-top span:first-child { font-size:18px; }
-        .curr-popular-top span:last-child { font-size:11px; font-weight:600; color:#333; }
-        .curr-popular-rate { font-size:13px; font-weight:700; color:#007b7f; }
-        .curr-popular-name { font-size:9px; color:#aaa; margin-top:1px; }
-        .curr-section-title { font-size:12px; font-weight:600; color:#555; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-        .curr-section-title::before { content:''; width:3px; height:13px; background:#007b7f; border-radius:2px; }
+        .currency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.38);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:12000;padding:clamp(10px,4vw,24px);}
+        .currency-box{width:100%;max-width:420px;background:#fff;border-radius:clamp(18px,4vw,28px);display:flex;flex-direction:column;animation:currPop .28s cubic-bezier(0.34,1.3,0.64,1) both;max-height:calc(100dvh - clamp(20px,8vw,48px));overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.06);}
+        @keyframes currPop{from{opacity:0;transform:scale(0.93) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
 
-        /* Nearby Tab */
-        .curr-nearby { padding:16px 20px; display:flex; flex-direction:column; gap:12px; }
-        .curr-search-wrap { position:relative; }
-        .curr-search-inp { width:100%; padding:11px 14px 11px 38px; border-radius:14px; border:1.5px solid #eee; background:#f8f9fa; font-size:13px; font-family:'Poppins',sans-serif; outline:none; transition:border-color 0.2s; }
-        .curr-search-inp:focus { border-color:#007b7f; background:#fff; }
-        .curr-search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:16px; color:#aaa; pointer-events:none; }
-        .curr-nearby-btn { width:100%; padding:13px; border-radius:16px; background:linear-gradient(135deg,#007b7f,#00a896); color:#fff; border:none; font-size:14px; font-weight:600; font-family:'Poppins',sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; box-shadow:0 4px 14px rgba(0,123,127,0.3); }
-        .curr-nearby-btn:hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,123,127,0.35); }
-        .curr-nearby-list { display:flex; flex-direction:column; gap:10px; }
-        .curr-nearby-item { background:#f8f9fa; border-radius:16px; padding:14px; border:1px solid #eee; display:flex; align-items:center; gap:12px; cursor:pointer; transition:all 0.2s; }
-        .curr-nearby-item:hover { background:#e8f5f5; border-color:#007b7f; }
-        .curr-nearby-icon { width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg,#007b7f22,#00a89622); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-        .curr-nearby-info { flex:1; min-width:0; }
-        .curr-nearby-info h4 { font-size:13px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-        .curr-nearby-info p { font-size:10px; color:#999; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-        .curr-nearby-dir { width:30px; height:30px; border-radius:50%; background:#fff; border:1px solid #eee; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; transition:background 0.2s; }
-        .curr-nearby-item:hover .curr-nearby-dir { background:#007b7f; border-color:#007b7f; }
-        .curr-status-msg { text-align:center; padding:20px; color:#aaa; font-size:12px; }
-        .curr-loading { display:flex; flex-direction:column; align-items:center; gap:10px; padding:24px; color:#888; font-size:12px; }
-        .curr-spinner { width:32px; height:32px; border:3px solid #eee; border-top-color:#007b7f; border-radius:50%; animation:spin .8s linear infinite; }
-        @keyframes spin { to { transform:rotate(360deg); } }
-        .curr-type-badges { display:flex; gap:6px; flex-wrap:wrap; }
-        .curr-badge { padding:5px 10px; border-radius:50px; border:1.5px solid #eee; background:#fff; font-size:10px; font-weight:600; color:#666; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-        .curr-badge.active { background:#007b7f; color:#fff; border-color:#007b7f; }
+        /* Header */
+        .curr-topbar{display:flex;align-items:center;justify-content:space-between;padding:clamp(12px,3vw,16px) clamp(14px,4vw,20px) 0;flex-shrink:0;}
+        .curr-topbar-title{font-size:clamp(15px,4vw,18px);font-weight:700;color:#111;letter-spacing:-0.4px;}
+        .curr-close-btn{width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.06);border:none;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#777;transition:all 0.18s;flex-shrink:0;}
+        .curr-close-btn:hover{background:rgba(0,0,0,0.12);color:#111;}
+        .curr-heading-wrap{padding:4px clamp(14px,4vw,20px) clamp(10px,3vw,14px);flex-shrink:0;}
+        .curr-heading-wrap p{font-size:clamp(10px,2.5vw,11px);color:#aaa;margin:0;font-weight:400;}
+        .curr-divider{height:1px;background:linear-gradient(90deg,transparent,#e8e8e8 30%,#e8e8e8 70%,transparent);margin:0 clamp(14px,4vw,20px);flex-shrink:0;}
+
+        /* Scrollable body */
+        .curr-body{flex:1;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;padding:clamp(12px,3vw,18px) clamp(12px,4vw,18px) 0;}
+        .curr-body::-webkit-scrollbar{display:none;}
+
+        /* FROM row */
+        .curr-from-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:clamp(10px,3vw,14px) clamp(12px,3vw,16px);border-radius:clamp(14px,3vw,18px);border:1.5px solid #ebebeb;margin-bottom:8px;}
+        .curr-from-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+        .curr-flag-pill{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,0.04);border-radius:50px;padding:4px 9px 4px 5px;flex-shrink:0;}
+        .curr-flag-pill .cflag{font-size:clamp(18px,5vw,22px);line-height:1;}
+        .curr-flag-pill .ccode{font-size:clamp(11px,3vw,13px);font-weight:700;color:#222;}
+        .curr-from-label{font-size:clamp(9px,2.5vw,11px);color:#bbb;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90px;}
+        .curr-amount-input{flex:1;background:none;border:none;outline:none;font-size:clamp(20px,5vw,26px);font-weight:700;color:#111;width:100%;font-family:'Poppins',sans-serif;text-align:right;min-width:0;}
+        .curr-amount-input::placeholder{color:#ddd;}
+
+        /* Swap */
+        .curr-swap-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
+        .curr-swap-btn{width:32px;height:32px;border-radius:50%;background:#fff;border:1.5px solid #e8e8e8;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.35s ease;color:#007b7f;box-shadow:0 2px 8px rgba(0,0,0,0.07);}
+        .curr-swap-btn:hover{border-color:#007b7f;box-shadow:0 4px 12px rgba(0,123,127,0.18);}
+        .curr-swap-btn.spinning{transform:rotate(180deg);}
+
+        /* TO row */
+        .curr-to-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:clamp(10px,3vw,14px) clamp(12px,3vw,16px);border-radius:clamp(14px,3vw,18px);border:1.5px solid #ebebeb;margin-bottom:4px;}
+        .curr-to-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+        .curr-to-right{text-align:right;flex-shrink:0;max-width:55%;}
+        .curr-result-amount{font-size:clamp(18px,5vw,24px);font-weight:700;color:#007b7f;letter-spacing:-0.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .curr-result-amount.loading{color:#ccc;}
+
+        /* Custom select trigger */
+        .curr-select-trigger{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,0.04);border-radius:50px;padding:4px 9px 4px 5px;cursor:pointer;flex-shrink:0;transition:background 0.18s;position:relative;}
+        .curr-select-trigger:hover{background:rgba(0,123,127,0.08);}
+        .curr-select-trigger .cflag{font-size:clamp(18px,5vw,22px);line-height:1;}
+        .curr-select-trigger .ccode{font-size:clamp(11px,3vw,13px);font-weight:700;color:#222;}
+        .curr-select-trigger .cchev{font-size:10px;color:#bbb;margin-left:2px;}
+        .curr-native-select{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;font-size:16px;}
+
+        /* Rate info row */
+        .curr-rate-row{text-align:center;font-size:clamp(9px,2.5vw,10px);color:#ccc;padding:4px 0 clamp(10px,3vw,14px);letter-spacing:0.1px;}
+        .curr-rate-row span{color:#007b7f;font-weight:600;}
+
+        /* Bottom find button */
+        .curr-footer{padding:clamp(10px,3vw,14px) clamp(12px,4vw,18px) clamp(14px,4vw,20px);flex-shrink:0;}
+        .curr-find-btn{width:100%;padding:clamp(10px,3vw,13px);border-radius:50px;background:transparent;border:1.5px solid #007b7f;color:#007b7f;font-size:clamp(11px,3vw,13px);font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;text-align:center;transition:all 0.22s;letter-spacing:0.1px;}
+        .curr-find-btn:hover{background:#007b7f;color:#fff;box-shadow:0 6px 20px rgba(0,123,127,0.22);}
+
+        /* Nearby results */
+        .curr-nearby-results{display:flex;flex-direction:column;gap:7px;margin-bottom:6px;}
+        .curr-nearby-item{border-radius:clamp(12px,3vw,14px);padding:clamp(10px,3vw,13px) clamp(11px,3vw,14px);border:1.5px solid #f0f0f0;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all 0.2s;background:transparent;}
+        .curr-nearby-item:hover{border-color:#007b7f;background:rgba(0,123,127,0.04);}
+        .curr-nearby-icon{width:36px;height:36px;border-radius:10px;border:1.5px solid #f0f0f0;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+        .curr-nearby-info{flex:1;min-width:0;}
+        .curr-nearby-info h4{font-size:clamp(11px,3vw,13px);font-weight:600;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .curr-nearby-info p{font-size:clamp(9px,2.5vw,10px);color:#aaa;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .curr-nearby-dir{font-size:15px;color:#007b7f;flex-shrink:0;transition:transform 0.18s;}
+        .curr-nearby-item:hover .curr-nearby-dir{transform:translateX(3px);}
+        .curr-maps-btn{width:100%;padding:10px;border-radius:50px;background:transparent;border:1.5px solid #e0e0e0;color:#888;font-size:clamp(10px,2.5vw,12px);font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;text-align:center;transition:all 0.2s;margin-top:4px;}
+        .curr-maps-btn:hover{border-color:#007b7f;color:#007b7f;}
+        .curr-status-msg{text-align:center;padding:16px;color:#ccc;font-size:clamp(10px,3vw,12px);line-height:1.6;}
+        .curr-loading{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px;color:#bbb;font-size:12px;}
+        .curr-spinner{width:24px;height:24px;border:2px solid #eee;border-top-color:#007b7f;border-radius:50%;animation:spin .8s linear infinite;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+        @media(max-width:360px){
+          .currency-popup{padding:8px;}
+          .curr-from-label{display:none;}
+        }
     </style>
 </head>
 <body>
@@ -399,6 +404,7 @@
             <div class="station-item" onclick="getDirections('Companypady Metro Station')"><div><div class="station-dot"></div></div>Companypady</div>
             <div class="station-item" onclick="getDirections('Ambattukavu Metro Station')"><div><div class="station-dot"></div></div>Ambattukavu</div>
             <div class="station-item" onclick="getDirections('Muttom Metro Station')"><div><div class="station-dot"></div></div>Muttom</div>
+
             <div class="station-item" onclick="getDirections('Kalamassery Town Metro Station')"><div><div class="station-dot"></div></div>Kalamassery Town</div>
             <div class="station-item" onclick="getDirections('Cochin University Metro Station')"><div><div class="station-dot"></div></div>Cochin University</div>
             <div class="station-item" onclick="getDirections('Pathadipalam Metro Station')"><div><div class="station-dot"></div></div>Pathadipalam</div>
@@ -544,6 +550,7 @@
             <div class="tool-btn" onclick="findNearby('tourist guides')"><img src="https://img.icons8.com/color/96/tour-guide.png"><p>Guides</p></div>
             <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="https://img.icons8.com/color/96/camping-tent.png"><p>Camps</p></div>
 			<div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/conference.png"><p>Travel Partner</p></div>
+			<div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/camera.png"><p>Click My Trip</p></div>
             <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="https://img.icons8.com/color/96/pass.png"><p>ePass</p></div>
 			<div class="tool-btn" onclick="openCurrencyPopup()"><img src="https://img.icons8.com/color/96/currency-exchange.png"><p>Currency</p></div>
 			<div class="tool-btn" onclick="window.open('https://www.google.com/search?q=fuel+price+kerala')"><img src="https://img.icons8.com/color/96/gas-station.png"><p>Fuel Cost</p></div>
@@ -600,6 +607,7 @@
       <div class="ny-shimmer"></div><div class="ny-shimmer"></div><div class="ny-shimmer"></div>
       <div class="ny-shimmer"></div><div class="ny-shimmer"></div><div class="ny-shimmer"></div>
       <div class="ny-shimmer"></div><div class="ny-shimmer"></div><div class="ny-shimmer"></div>
+
     </div>
   </div>
 </div>
@@ -768,6 +776,7 @@ function handleDynamicTrain(type) {
 
                         </div>
                     </div>`;
+
                 });
                 content.innerHTML = html2;
             }, () => { sub.innerText = "All Kerala stations"; }, { timeout: 10000, maximumAge: 300000 });
@@ -2204,166 +2213,224 @@ var escPageStart = 0;
 <!-- CURRENCY POPUP -->
 <div class="currency-popup" id="currencyPopup" onclick="if(event.target===this)closeCurrencyPopup()">
   <div class="currency-box">
-    <div class="curr-drag"></div>
-    <div class="curr-header">
-      <div class="curr-header-top">
-        <h3>💱 Currency Exchange</h3>
-        <button class="curr-close-btn" onclick="closeCurrencyPopup()">✕</button>
-      </div>
-      <div class="curr-header-sub">INR to world currencies · Find exchange nearby</div>
-      <div class="curr-tabs">
-        <div class="curr-tab active" id="currTab1" onclick="switchCurrTab('converter')">🔄 Converter</div>
-        <div class="curr-tab" id="currTab2" onclick="switchCurrTab('nearby')">📍 Find Nearby</div>
-      </div>
+
+    <!-- Top bar: title + close -->
+    <div class="curr-topbar">
+      <span class="curr-topbar-title">💱 Currency Converter</span>
+      <button class="curr-close-btn" onclick="closeCurrencyPopup()">✕</button>
     </div>
+
+    <!-- Subheading -->
+    <div class="curr-heading-wrap">
+      <p>Live exchange rates · INR &amp; world currencies</p>
+    </div>
+    <div class="curr-divider"></div>
+
+    <!-- Scrollable content -->
     <div class="curr-body">
-      <!-- CONVERTER TAB -->
-      <div id="currConverterPanel" class="curr-converter">
-        <div class="curr-amount-section">
-          <div class="curr-amount-label">You have (Indian Rupee)</div>
-          <div class="curr-amount-row">
-            <div class="curr-flag-code"><span>🇮🇳</span><span>INR</span></div>
-            <input class="curr-amount-input" id="currAmountInput" type="number" placeholder="1000" oninput="currConvert()" value="1000">
+
+      <!-- FROM row -->
+      <div class="curr-from-row">
+        <div class="curr-from-left">
+          <div class="curr-flag-pill">
+            <span class="cflag" id="currFromFlag">🇮🇳</span>
+            <span class="ccode" id="currFromCode">INR</span>
           </div>
+          <span class="curr-from-label" id="currFromName">Indian Rupee</span>
         </div>
-        <button class="curr-swap-btn" title="Swap">⇅</button>
-        <div class="curr-to-section">
-          <div class="curr-to-label">
-            <span>Convert to</span>
-            <span onclick="currConvert()">↻ Refresh</span>
+        <input class="curr-amount-input" id="currAmountInput" type="number" placeholder="1000" oninput="currConvert()" value="1000">
+      </div>
+
+      <!-- Swap button -->
+      <div class="curr-swap-wrap">
+        <button class="curr-swap-btn" id="currSwapBtn" title="Swap currencies" onclick="currSwap()">⇅</button>
+      </div>
+
+      <!-- TO row -->
+      <div class="curr-to-row">
+        <div class="curr-to-left">
+          <div class="curr-select-trigger">
+            <span class="cflag" id="currToFlag">🇺🇸</span>
+            <span class="ccode" id="currToCode">USD</span>
+            <span class="cchev">▾</span>
+            <select class="curr-native-select" id="currTargetSelect" onchange="currOnSelectChange()"></select>
           </div>
-          <div class="curr-select-row">
-            <select class="curr-country-select" id="currTargetSelect" onchange="currConvert()"></select>
-          </div>
-          <div class="curr-result-display">
-            <div class="curr-result-amount" id="currResultAmount">—</div>
-            <div class="curr-result-code" id="currResultCode">Select a currency</div>
-            <div class="curr-rate-info" id="currRateInfo">Live rates via open.er-api.com</div>
-          </div>
+          <span class="curr-from-label" id="currToName">US Dollar</span>
         </div>
-        <div>
-          <div class="curr-section-title">Popular Currencies</div>
-          <div class="curr-popular-grid" id="currPopularGrid">
-            <div class="curr-popular-card" style="grid-column:1/-1;text-align:center;color:#bbb;font-size:12px;padding:20px;">Loading rates…</div>
-          </div>
+        <div class="curr-to-right">
+          <div class="curr-result-amount" id="currResultAmount">—</div>
         </div>
       </div>
-      <!-- NEARBY TAB -->
-      <div id="currNearbyPanel" class="curr-nearby" style="display:none;">
-        <div class="curr-type-badges">
-          <div class="curr-badge active" data-nearby="currency exchange">🏦 Exchange</div>
-          <div class="curr-badge" data-nearby="forex bank">🏛️ Forex Bank</div>
-          <div class="curr-badge" data-nearby="international ATM">🏧 Int'l ATM</div>
-          <div class="curr-badge" data-nearby="Thomas Cook forex">✈️ Thomas Cook</div>
-        </div>
-        <button class="curr-nearby-btn" onclick="currFindNearby()">
-          <span>📍</span> Find Currency Exchange Near Me
-        </button>
-        <div id="currNearbyResults">
-          <div class="curr-status-msg">Tap the button above to find exchange services near your location.</div>
-        </div>
-      </div>
+
+      <!-- Rate info -->
+      <div class="curr-rate-row" id="currRateRow">1 INR = <span id="currRateSpan">…</span></div>
+
+      <!-- Nearby results injected here -->
+      <div id="currNearbyResults" class="curr-nearby-results"></div>
+
+    </div><!-- end curr-body -->
+
+    <!-- Sticky footer: find nearby button -->
+    <div class="curr-footer">
+      <button class="curr-find-btn" onclick="currFindNearby()">Find Nearest Currency Exchange</button>
     </div>
+
   </div>
 </div>
 
 <script>
 (function(){
-  const POPULAR=[
+  const ALL_CURRENCIES=[
+    {code:'INR',flag:'🇮🇳',name:'Indian Rupee'},
     {code:'USD',flag:'🇺🇸',name:'US Dollar'},
     {code:'EUR',flag:'🇪🇺',name:'Euro'},
     {code:'GBP',flag:'🇬🇧',name:'British Pound'},
     {code:'AED',flag:'🇦🇪',name:'UAE Dirham'},
     {code:'SGD',flag:'🇸🇬',name:'Singapore Dollar'},
     {code:'JPY',flag:'🇯🇵',name:'Japanese Yen'},
-    {code:'AUD',flag:'🇦🇺',name:'Aus Dollar'},
+    {code:'AUD',flag:'🇦🇺',name:'Australian Dollar'},
     {code:'CAD',flag:'🇨🇦',name:'Canadian Dollar'},
     {code:'MYR',flag:'🇲🇾',name:'Malaysian Ringgit'},
-    {code:'THB',flag:'🇹🇭',name:'Thai Baht'}
+    {code:'THB',flag:'🇹🇭',name:'Thai Baht'},
+    {code:'CHF',flag:'🇨🇭',name:'Swiss Franc'},
+    {code:'CNY',flag:'🇨🇳',name:'Chinese Yuan'},
+    {code:'HKD',flag:'🇭🇰',name:'Hong Kong Dollar'},
+    {code:'NZD',flag:'🇳🇿',name:'New Zealand Dollar'},
+    {code:'SEK',flag:'🇸🇪',name:'Swedish Krona'},
+    {code:'NOK',flag:'🇳🇴',name:'Norwegian Krone'},
+    {code:'DKK',flag:'🇩🇰',name:'Danish Krone'},
+    {code:'ZAR',flag:'🇿🇦',name:'South African Rand'},
+    {code:'BRL',flag:'🇧🇷',name:'Brazilian Real'},
+    {code:'MXN',flag:'🇲🇽',name:'Mexican Peso'},
+    {code:'IDR',flag:'🇮🇩',name:'Indonesian Rupiah'},
+    {code:'PHP',flag:'🇵🇭',name:'Philippine Peso'},
+    {code:'PKR',flag:'🇵🇰',name:'Pakistani Rupee'},
+    {code:'BDT',flag:'🇧🇩',name:'Bangladeshi Taka'},
+    {code:'LKR',flag:'🇱🇰',name:'Sri Lankan Rupee'},
+    {code:'NPR',flag:'🇳🇵',name:'Nepalese Rupee'},
+    {code:'KWD',flag:'🇰🇼',name:'Kuwaiti Dinar'},
+    {code:'SAR',flag:'🇸🇦',name:'Saudi Riyal'},
+    {code:'QAR',flag:'🇶🇦',name:'Qatari Riyal'},
+    {code:'OMR',flag:'🇴🇲',name:'Omani Rial'},
+    {code:'BHD',flag:'🇧🇭',name:'Bahraini Dinar'},
+    {code:'RUB',flag:'🇷🇺',name:'Russian Ruble'},
+    {code:'TRY',flag:'🇹🇷',name:'Turkish Lira'},
+    {code:'KRW',flag:'🇰🇷',name:'South Korean Won'},
+    {code:'VND',flag:'🇻🇳',name:'Vietnamese Dong'},
+    {code:'EGP',flag:'🇪🇬',name:'Egyptian Pound'},
+    {code:'NGN',flag:'🇳🇬',name:'Nigerian Naira'},
+    {code:'KES',flag:'🇰🇪',name:'Kenyan Shilling'},
+    {code:'GHS',flag:'🇬🇭',name:'Ghanaian Cedi'},
+    {code:'MAD',flag:'🇲🇦',name:'Moroccan Dirham'},
+    {code:'TWD',flag:'🇹🇼',name:'Taiwan Dollar'},
+    {code:'XOF',flag:'🌍',name:'West African CFA'}
   ];
-  const ALL_CURRENCIES=[
-    {code:'USD',name:'US Dollar 🇺🇸'},{code:'EUR',name:'Euro 🇪🇺'},{code:'GBP',name:'British Pound 🇬🇧'},
-    {code:'AED',name:'UAE Dirham 🇦🇪'},{code:'SGD',name:'Singapore Dollar 🇸🇬'},{code:'JPY',name:'Japanese Yen 🇯🇵'},
-    {code:'AUD',name:'Australian Dollar 🇦🇺'},{code:'CAD',name:'Canadian Dollar 🇨🇦'},{code:'MYR',name:'Malaysian Ringgit 🇲🇾'},
-    {code:'THB',name:'Thai Baht 🇹🇭'},{code:'CHF',name:'Swiss Franc 🇨🇭'},{code:'CNY',name:'Chinese Yuan 🇨🇳'},
-    {code:'HKD',name:'Hong Kong Dollar 🇭🇰'},{code:'NZD',name:'New Zealand Dollar 🇳🇿'},{code:'SEK',name:'Swedish Krona 🇸🇪'},
-    {code:'NOK',name:'Norwegian Krone 🇳🇴'},{code:'DKK',name:'Danish Krone 🇩🇰'},{code:'ZAR',name:'South African Rand 🇿🇦'},
-    {code:'BRL',name:'Brazilian Real 🇧🇷'},{code:'MXN',name:'Mexican Peso 🇲🇽'},{code:'IDR',name:'Indonesian Rupiah 🇮🇩'},
-    {code:'PHP',name:'Philippine Peso 🇵🇭'},{code:'PKR',name:'Pakistani Rupee 🇵🇰'},{code:'BDT',name:'Bangladeshi Taka 🇧🇩'},
-    {code:'LKR',name:'Sri Lankan Rupee 🇱🇰'},{code:'NPR',name:'Nepalese Rupee 🇳🇵'},{code:'KWD',name:'Kuwaiti Dinar 🇰🇼'},
-    {code:'SAR',name:'Saudi Riyal 🇸🇦'},{code:'QAR',name:'Qatari Riyal 🇶🇦'},{code:'OMR',name:'Omani Rial 🇴🇲'},
-    {code:'BHD',name:'Bahraini Dinar 🇧🇭'},{code:'RUB',name:'Russian Ruble 🇷🇺'},{code:'TRY',name:'Turkish Lira 🇹🇷'},
-    {code:'KRW',name:'South Korean Won 🇰🇷'},{code:'VND',name:'Vietnamese Dong 🇻🇳'},{code:'EGP',name:'Egyptian Pound 🇪🇬'},
-    {code:'NGN',name:'Nigerian Naira 🇳🇬'},{code:'KES',name:'Kenyan Shilling 🇰🇪'},{code:'GHS',name:'Ghanaian Cedi 🇬🇭'},
-    {code:'MAD',name:'Moroccan Dirham 🇲🇦'},{code:'TWD',name:'Taiwan Dollar 🇹🇼'},{code:'XOF',name:'West African CFA 🌍'}
-  ];
-  const FALLBACK={USD:0.012,EUR:0.011,GBP:0.0095,AED:0.044,SGD:0.016,JPY:1.79,AUD:0.018,CAD:0.016,MYR:0.056,THB:0.42,CHF:0.011,CNY:0.087,HKD:0.094,NZD:0.020,KWD:0.0037,SAR:0.045,QAR:0.044,OMR:0.0046,BHD:0.0045,TWD:0.38,KRW:15.8,VND:296,IDR:185,PHP:0.68,PKR:3.33,BDT:1.32,LKR:3.65,NPR:1.59,NGN:18.9,KES:1.55,GHS:0.18,MAD:0.12,EGP:0.59,ZAR:0.22,BRL:0.067,MXN:0.21,TRY:0.39,RUB:1.07,SEK:0.12,NOK:0.13,DKK:0.082,RUB:1.07};
-  let ratesCache=null,ratesFetched=false,nearbyType='currency exchange';
+  const FALLBACK_INR={USD:0.012,EUR:0.011,GBP:0.0095,AED:0.044,SGD:0.016,JPY:1.79,AUD:0.018,CAD:0.016,MYR:0.056,THB:0.42,CHF:0.011,CNY:0.087,HKD:0.094,NZD:0.020,KWD:0.0037,SAR:0.045,QAR:0.044,OMR:0.0046,BHD:0.0045,TWD:0.38,KRW:15.8,VND:296,IDR:185,PHP:0.68,PKR:3.33,BDT:1.32,LKR:3.65,NPR:1.59,NGN:18.9,KES:1.55,GHS:0.18,MAD:0.12,EGP:0.59,ZAR:0.22,BRL:0.067,MXN:0.21,TRY:0.39,RUB:1.07,SEK:0.12,NOK:0.13,DKK:0.082,INR:1};
+
+  let ratesFromINR=null,ratesFetched=false;
+  let fromCode='INR', toCode='USD';
+
+  function getCurrencyInfo(code){
+    return ALL_CURRENCIES.find(c=>c.code===code)||{code,flag:'💱',name:code};
+  }
 
   function populateSelect(){
     const sel=document.getElementById('currTargetSelect');
-    sel.innerHTML=ALL_CURRENCIES.map(c=>`<option value="${c.code}">${c.name}</option>`).join('');
+    sel.innerHTML=ALL_CURRENCIES.filter(c=>c.code!=='INR').map(c=>`<option value="${c.code}">${c.flag} ${c.code} — ${c.name}</option>`).join('');
     sel.value='USD';
   }
 
   async function fetchRates(){
-    if(ratesCache) return ratesCache;
+    if(ratesFromINR) return ratesFromINR;
     try{
       const r=await fetch('https://open.er-api.com/v6/latest/INR');
       const d=await r.json();
-      if(d&&d.rates){ratesCache=d.rates;return ratesCache;}
+      if(d&&d.rates){ratesFromINR=d.rates;ratesFromINR.INR=1;return ratesFromINR;}
     }catch(e){}
-    ratesCache=FALLBACK;
-    return FALLBACK;
+    ratesFromINR=FALLBACK_INR;
+    return FALLBACK_INR;
   }
+
+  function convertAmount(amt,from,to,rates){
+    if(from===to) return amt;
+    const inrAmt=from==='INR'?amt:amt/(rates[from]||1);
+    return to==='INR'?inrAmt:inrAmt*(rates[to]||1);
+  }
+
+  function updateFromUI(){
+    const fi=getCurrencyInfo(fromCode);
+    document.getElementById('currFromFlag').textContent=fi.flag;
+    document.getElementById('currFromCode').textContent=fi.code;
+    document.getElementById('currFromName').textContent=fi.name;
+  }
+
+  function updateToUI(){
+    const ti=getCurrencyInfo(toCode);
+    document.getElementById('currToFlag').textContent=ti.flag;
+    document.getElementById('currToCode').textContent=ti.code;
+    document.getElementById('currToName').textContent=ti.name;
+    const sel=document.getElementById('currTargetSelect');
+    if(sel){
+      // rebuild select excluding fromCode, include all others
+      sel.innerHTML=ALL_CURRENCIES.filter(c=>c.code!==fromCode).map(c=>`<option value="${c.code}">${c.flag} ${c.code} — ${c.name}</option>`).join('');
+      sel.value=toCode;
+    }
+  }
+
+  window.currOnSelectChange=function(){
+    const sel=document.getElementById('currTargetSelect');
+    toCode=sel.value;
+    updateToUI();
+    currConvert();
+  };
+
+  window.currSwap=function(){
+    const btn=document.getElementById('currSwapBtn');
+    // animate spin
+    btn.style.transition='transform 0.35s ease';
+    btn.style.transform='rotate(180deg)';
+    setTimeout(()=>{btn.style.transform='';},360);
+
+    // get current result value to use as new input
+    const resEl=document.getElementById('currResultAmount');
+    const currentResult=parseFloat((resEl.textContent||'').replace(/[^0-9.]/g,''));
+
+    // swap the currency codes
+    const tmp=fromCode;
+    fromCode=toCode;
+    toCode=tmp;
+
+    // set new input value to the previous result
+    if(!isNaN(currentResult)&&currentResult>0){
+      document.getElementById('currAmountInput').value=parseFloat(currentResult.toFixed(4)).toString();
+    }
+
+    updateFromUI();
+    updateToUI();
+    currConvert();
+  };
 
   window.currConvert=async function(){
     const amt=parseFloat(document.getElementById('currAmountInput').value)||0;
-    const target=document.getElementById('currTargetSelect').value;
     const resEl=document.getElementById('currResultAmount');
-    const codeEl=document.getElementById('currResultCode');
-    const rateEl=document.getElementById('currRateInfo');
-    if(!target){resEl.textContent='—';return;}
-    resEl.textContent='...';
+    const rateRow=document.getElementById('currRateRow');
+    resEl.textContent='…';
+    resEl.className='curr-result-amount loading';
     const rates=await fetchRates();
-    const rate=rates[target];
-    if(!rate){resEl.textContent='N/A';return;}
-    const result=amt*rate;
-    resEl.textContent=(result>=1000?result.toLocaleString('en-IN',{maximumFractionDigits:2}):result.toFixed(4))+' '+target;
-    const curr=ALL_CURRENCIES.find(c=>c.code===target);
-    codeEl.textContent=curr?curr.name:target;
-    rateEl.textContent='1 INR = '+rate.toFixed(6)+' '+target+(ratesCache===FALLBACK?' · Approximate rate':' · Live rate');
-    loadPopular(rates);
-  };
-
-  async function loadPopular(rates){
-    if(!rates) rates=await fetchRates();
-    const amt=parseFloat(document.getElementById('currAmountInput').value)||1000;
-    const grid=document.getElementById('currPopularGrid');
-    grid.innerHTML=POPULAR.map(p=>{
-      const r=rates[p.code];
-      if(!r) return '';
-      const val=amt*r;
-      const display=val>=1000?val.toLocaleString('en-IN',{maximumFractionDigits:0}):val.toFixed(2);
-      return '<div class="curr-popular-card" onclick="document.getElementById(\'currTargetSelect\').value=\''+p.code+'\';currConvert()">'+
-        '<div class="curr-popular-top"><span>'+p.flag+'</span><span>'+p.code+'</span></div>'+
-        '<div class="curr-popular-rate">'+display+'</div>'+
-        '<div class="curr-popular-name">'+p.name+'</div></div>';
-    }).join('');
-  }
-
-  window.switchCurrTab=function(tab){
-    const isConv=tab==='converter';
-    document.getElementById('currTab1').classList.toggle('active',isConv);
-    document.getElementById('currTab2').classList.toggle('active',!isConv);
-    document.getElementById('currConverterPanel').style.display=isConv?'flex':'none';
-    document.getElementById('currNearbyPanel').style.display=isConv?'none':'flex';
+    const result=convertAmount(amt,fromCode,toCode,rates);
+    const display=result>=1000?result.toLocaleString('en-IN',{maximumFractionDigits:2}):result.toFixed(4);
+    resEl.textContent=display+' '+toCode;
+    resEl.className='curr-result-amount';
+    const oneUnit=convertAmount(1,fromCode,toCode,rates);
+    const rateDisplay=(oneUnit>=1000?oneUnit.toLocaleString('en-IN',{maximumFractionDigits:2}):oneUnit.toFixed(4));
+    rateRow.innerHTML='1 '+fromCode+' = <span id="currRateSpan">'+rateDisplay+' '+toCode+'</span>'+(ratesFromINR===FALLBACK_INR?' &nbsp;·&nbsp; Approx':' &nbsp;·&nbsp; Live');
   };
 
   window.openCurrencyPopup=function(){
     document.getElementById('currencyPopup').style.display='flex';
     document.body.style.overflow='hidden';
-    if(!ratesFetched){ratesFetched=true;populateSelect();currConvert();}
+    document.getElementById('currNearbyResults').innerHTML='';
+    if(!ratesFetched){ratesFetched=true;populateSelect();updateFromUI();updateToUI();currConvert();}
   };
 
   window.closeCurrencyPopup=function(){
@@ -2371,57 +2438,36 @@ var escPageStart = 0;
     document.body.style.overflow='';
   };
 
-  document.addEventListener('DOMContentLoaded',function(){
-    document.querySelectorAll('.curr-badge').forEach(function(b){
-      b.addEventListener('click',function(){
-        document.querySelectorAll('.curr-badge').forEach(function(x){x.classList.remove('active');});
-        this.classList.add('active');
-        nearbyType=this.dataset.nearby;
-      });
-    });
-  });
-
+  // Opens Google Maps currency exchange search directly with GPS location
   window.currFindNearby=function(){
     const res=document.getElementById('currNearbyResults');
     res.innerHTML='<div class="curr-loading"><div class="curr-spinner"></div><span>Getting your location…</span></div>';
-    if(!navigator.geolocation){res.innerHTML='<div class="curr-status-msg">Location not available on your device.</div>';return;}
+    if(!navigator.geolocation){
+      // fallback: open Maps without specific location
+      window.open('https://www.google.com/maps/search/currency+exchange+near+me','_blank');
+      res.innerHTML='';
+      return;
+    }
     navigator.geolocation.getCurrentPosition(
-      function(pos){currSearchNearby(pos.coords.latitude,pos.coords.longitude);},
-      function(){res.innerHTML='<div class="curr-status-msg">⚠️ Location access denied. Please enable location in browser settings.</div>';}
+      function(pos){
+        const lat=pos.coords.latitude;
+        const lon=pos.coords.longitude;
+        res.innerHTML='';
+        // Open Google Maps with exact GPS coordinates showing nearest currency exchange
+        var mapsUrl='https://www.google.com/maps/search/currency+exchange/@'+lat+','+lon+',15z';
+        window.open(mapsUrl,'_blank');
+      },
+      function(err){
+        res.innerHTML='';
+        // If denied or error, open Maps with general search
+        window.open('https://www.google.com/maps/search/currency+exchange+near+me','_blank');
+      },
+      {timeout:8000,maximumAge:60000}
     );
   };
 
-  function currSearchNearby(lat,lon){
-    var res=document.getElementById('currNearbyResults');
-    res.innerHTML='<div class="curr-loading"><div class="curr-spinner"></div><span>Searching nearby places…</span></div>';
-    var q=encodeURIComponent(nearbyType);
-    var gmapsUrl='https://www.google.com/maps/search/'+encodeURIComponent(nearbyType)+'/@'+lat+','+lon+',15z';
-    var url='https://nominatim.openstreetmap.org/search?q='+q+'&lat='+lat+'&lon='+lon+'&format=json&limit=8&addressdetails=1';
-    fetch(url,{headers:{'Accept-Language':'en'}})
-      .then(function(r){return r.json();})
-      .then(function(data){
-        if(!data||!data.length){
-          res.innerHTML='<div class="curr-status-msg">No results found nearby.<br><br><button class="curr-nearby-btn" style="margin:0 auto;width:auto;padding:10px 20px;" onclick="window.open(\''+gmapsUrl+'\',\'_blank\')">🗺️ Open Google Maps</button></div>';
-          return;
-        }
-        var icons={'currency exchange':'🏦','forex bank':'🏛️','international ATM':'🏧','Thomas Cook forex':'✈️'};
-        var ic=icons[nearbyType]||'🏦';
-        var html='<div class="curr-nearby-list">';
-        data.forEach(function(p){
-          var addr=p.display_name.split(',').slice(0,3).join(', ');
-          var gm='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.display_name);
-          html+='<div class="curr-nearby-item" onclick="window.open(\''+gm+'\',\'_blank\')">'+
-            '<div class="curr-nearby-icon">'+ic+'</div>'+
-            '<div class="curr-nearby-info"><h4>'+(p.name||p.display_name.split(',')[0])+'</h4><p>'+addr+'</p></div>'+
-            '<div class="curr-nearby-dir">→</div></div>';
-        });
-        html+='<button class="curr-nearby-btn" style="margin-top:6px;" onclick="window.open(\''+gmapsUrl+'\',\'_blank\')">🗺️ View All on Google Maps</button></div>';
-        res.innerHTML=html;
-      })
-      .catch(function(){
-        res.innerHTML='<div class="curr-status-msg">Could not search. <br><br><button class="curr-nearby-btn" style="margin:0 auto;width:auto;padding:10px 20px;" onclick="window.open(\''+gmapsUrl+'\',\'_blank\')">🗺️ Open Google Maps</button></div>';
-      });
-  }
+  window.switchCurrTab=function(){};
+  window.updateToUI=updateToUI;
 })();
 </script>
 </body></html>
