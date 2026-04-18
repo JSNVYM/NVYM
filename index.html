@@ -363,6 +363,56 @@
           .currency-popup{padding:8px;}
           .curr-from-label{display:none;}
         }
+
+        /* ===== CLICK MY TRIP POPUP ===== */
+        .cmt-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12001;padding:16px;}
+        .cmt-box{width:100%;max-width:360px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+        .cmt-header{display:flex;align-items:center;justify-content:center;position:relative;}
+        .cmt-title{font-size:15px;font-weight:700;color:#111;text-align:center;flex:1;}
+        .cmt-x-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.06);border:none;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666;transition:all .18s;font-family:'Poppins',sans-serif;}
+        .cmt-x-btn:hover{background:rgba(0,0,0,0.13);color:#111;}
+        .cmt-subtitle{font-size:11px;color:#aaa;text-align:center;margin:-6px 0 2px;}
+        .cmt-options{display:flex;flex-direction:column;gap:10px;}
+        .cmt-option-card{display:flex;align-items:center;gap:14px;background:#f8f9fa;border:1.5px solid #eee;border-radius:14px;padding:14px 14px;cursor:pointer;transition:all .2s;}
+        .cmt-option-card:hover{background:#e8f6f6;border-color:#007b7f;}
+        .cmt-option-icon{font-size:26px;flex-shrink:0;width:36px;text-align:center;}
+        .cmt-option-info{flex:1;}
+        .cmt-option-info h4{font-size:13px;font-weight:600;color:#111;margin:0 0 2px;}
+        .cmt-option-info p{font-size:10px;color:#888;margin:0;line-height:1.4;}
+        .cmt-option-arrow{font-size:20px;color:#bbb;flex-shrink:0;transition:color .2s;}
+        .cmt-option-card:hover .cmt-option-arrow{color:#007b7f;}
+
+        /* ===== COMING SOON POPUP ===== */
+        .cs-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12003;padding:16px;}
+        .cs-box{width:100%;max-width:300px;background:#fff;border-radius:20px;padding:28px 20px 22px;display:flex;flex-direction:column;align-items:center;gap:10px;animation:fadeIn .25s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);text-align:center;}
+        .cs-icon{font-size:42px;line-height:1;}
+        .cs-title{font-size:17px;font-weight:700;color:#111;margin:0;}
+        .cs-msg{font-size:11px;color:#888;line-height:1.7;margin:0;}
+        .cs-close-btn{margin-top:6px;padding:10px 28px;background:#007b7f;color:#fff;border:none;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;transition:background .2s;}
+        .cs-close-btn:hover{background:#005f61;}
+
+        /* ===== FUEL COST POPUP ===== */
+        .fuel-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12001;padding:16px;}
+        .fuel-box{width:100%;max-width:420px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;animation:slideUp .3s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+        .fuel-box-body{display:flex;flex-direction:column;gap:12px;padding-top:8px;border-top:1px solid #f0f0f0;margin-top:4px;}
+        .fuel-box-header{display:flex;align-items:center;justify-content:center;position:relative;}
+        .fuel-box-title{font-size:15px;font-weight:700;color:#111;letter-spacing:-0.2px;text-align:center;flex:1;}
+        .fuel-x-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.06);border:none;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666;transition:all .18s;font-family:'Poppins',sans-serif;line-height:1;}
+        .fuel-x-btn:hover{background:rgba(0,0,0,0.13);color:#111;}
+        .fuel-calc-row{display:flex;align-items:center;gap:8px;}
+        .fuel-calc-label{font-size:11px;color:#666;font-weight:500;width:90px;flex-shrink:0;}
+        .fuel-calc-input{flex:1;border:1.5px solid #e5e5e5;border-radius:10px;padding:9px 10px;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;background:#fff;}
+        .fuel-calc-input:focus{border-color:#007b7f;}
+        .fuel-calc-select{flex:1;border:1.5px solid #e5e5e5;border-radius:10px;padding:9px 10px;font-size:12px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;background:#fff;cursor:pointer;}
+        .fuel-calc-select:focus{border-color:#007b7f;}
+        .fuel-calc-btn{width:100%;background:#007b7f;color:#fff;border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Poppins',sans-serif;}
+        .fuel-calc-btn:hover{background:#005f61;}
+        .fuel-result-box{background:#e8f6f6;border-radius:12px;padding:12px 14px;display:none;}
+        .fuel-result-box.show{display:block;}
+        .fuel-result-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px dashed #b2dfdf;}
+        .fuel-result-row:last-child{border-bottom:none;}
+        .fuel-result-label{font-size:11px;color:#555;}
+        .fuel-result-value{font-size:13px;font-weight:700;color:#007b7f;}
     </style>
 </head>
 <body>
@@ -547,17 +597,17 @@
     <div class="toolbar-wrapper">
         <div class="toolbar-row" id="toolbarRow">
             <div class="tool-btn" onclick="openWeatherPopup()"><img src="https://img.icons8.com/color/96/partly-cloudy-day--v1.png"><p>Weather</p></div>
-            <div class="tool-btn" onclick="findNearby('tourist guides')"><img src="https://img.icons8.com/color/96/tour-guide.png"><p>Guides</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img src="https://img.icons8.com/color/96/tour-guide.png"><p>Guides</p></div>
             <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="https://img.icons8.com/color/96/camping-tent.png"><p>Camps</p></div>
 			<div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/conference.png"><p>Travel Partner</p></div>
-			<div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/camera.png"><p>Click My Trip</p></div>
+			<div class="tool-btn" onclick="openClickMyTripPopup()"><img src="https://img.icons8.com/color/96/camera.png"><p>Click My Trip</p></div>
             <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="https://img.icons8.com/color/96/pass.png"><p>ePass</p></div>
 			<div class="tool-btn" onclick="openCurrencyPopup()"><img src="https://img.icons8.com/color/96/currency-exchange.png"><p>Currency</p></div>
-			<div class="tool-btn" onclick="window.open('https://www.google.com/search?q=fuel+price+kerala')"><img src="https://img.icons8.com/color/96/gas-station.png"><p>Fuel Cost</p></div>
+			<div class="tool-btn" onclick="openFuelPopup()"><img src="https://img.icons8.com/color/96/gas-station.png"><p>Fuel Cost</p></div>
 			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img src="https://img.icons8.com/color/96/atm.png"><p>ATM / CDM</p></div>
             <div class="tool-btn" onclick="findNearby('Banks')"><img src="https://img.icons8.com/color/96/bank.png"><p>Banks</p></div>
             <div class="tool-btn" onclick="openCalendarPopup()"><img src="https://img.icons8.com/color/96/calendar--v1.png"><p>Calendar</p></div>
-            <div class="tool-btn" onclick="window.open('https://translate.google.com')"><img src="https://img.icons8.com/color/96/google-translate.png"><p>Translate</p></div>
+            <div class="tool-btn" onclick="openTranslatePopup()"><img src="https://img.icons8.com/color/96/google-translate.png"><p>Translate</p></div>
             <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=current+time+zone')"><img src="https://img.icons8.com/color/96/time.png"><p>Time Zone</p></div>
             <div class="tool-btn" onclick="findNearby('wildlife safari Kerala')"><img src="https://img.icons8.com/color/96/tiger.png"><p>Track Wildlife</p></div>
             <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img src="https://img.icons8.com/color/96/open-book.png"><p>Visa Requirements</p></div>
@@ -2468,6 +2518,480 @@ var escPageStart = 0;
 
   window.switchCurrTab=function(){};
   window.updateToUI=updateToUI;
+})();
+</script>
+
+<!-- ===== FUEL COST POPUP ===== -->
+<!-- ===== CLICK MY TRIP POPUP ===== -->
+<div class="cmt-popup" id="cmtPopup" onclick="closeCmtPopup()">
+  <div class="cmt-box" onclick="event.stopPropagation()">
+    <div class="cmt-header">
+      <span class="cmt-title">📸 Click My Trip</span>
+      <button class="cmt-x-btn" onclick="closeCmtPopup()">✕</button>
+    </div>
+    <p class="cmt-subtitle">What are you looking for?</p>
+    <div class="cmt-options">
+      <div class="cmt-option-card" onclick="openComingSoonPopup('Photographers')">
+        <div class="cmt-option-icon">📷</div>
+        <div class="cmt-option-info">
+          <h4>Photographers</h4>
+          <p>Find professional trip photographers near you</p>
+        </div>
+        <span class="cmt-option-arrow">›</span>
+      </div>
+      <div class="cmt-option-card" onclick="openComingSoonPopup('Camera Rent')">
+        <div class="cmt-option-icon">🎥</div>
+        <div class="cmt-option-info">
+          <h4>Camera Rent</h4>
+          <p>Rent cameras & gear for your journey</p>
+        </div>
+        <span class="cmt-option-arrow">›</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COMING SOON POPUP ===== -->
+<div class="cs-popup" id="csPopup" onclick="closeCsPopup()">
+  <div class="cs-box" onclick="event.stopPropagation()">
+    <div class="cs-icon">🚀</div>
+    <h3 class="cs-title" id="csTitleText">Coming Soon</h3>
+    <p class="cs-msg">This feature is currently under development.<br>We're working hard to bring it to you soon!</p>
+    <button class="cs-close-btn" onclick="closeCsPopup()">Got it</button>
+  </div>
+</div>
+
+<div class="fuel-popup" id="fuelPopup" onclick="closeFuelPopup()">
+  <div class="fuel-box" onclick="event.stopPropagation()">
+    <div class="fuel-box-header">
+      <span class="fuel-box-title">⛽ Trip Cost Calculator</span>
+      <button class="fuel-x-btn" onclick="closeFuelPopup()">✕</button>
+    </div>
+    <div class="fuel-box-body">
+    <div class="fuel-calc-row">
+      <span class="fuel-calc-label">Fuel Type</span>
+      <select class="fuel-calc-select" id="fuelType" onchange="fuelTypeChanged()">
+        <option value="petrol">Petrol</option>
+        <option value="diesel">Diesel</option>
+        <option value="ev">EV (₹/kWh)</option>
+      </select>
+    </div>
+    <div class="fuel-calc-row">
+      <span class="fuel-calc-label" id="fuelPriceLabel">Price (₹/L)</span>
+      <input class="fuel-calc-input" id="calcPrice" type="number" placeholder="e.g. 106.45" step="0.01" min="0">
+    </div>
+    <div class="fuel-calc-row">
+      <span class="fuel-calc-label" id="fuelMileageLabel">Mileage (km/L)</span>
+      <input class="fuel-calc-input" id="calcMileage" type="number" placeholder="e.g. 18" step="0.1" min="0">
+    </div>
+    <div class="fuel-calc-row">
+      <span class="fuel-calc-label">Distance (km)</span>
+      <input class="fuel-calc-input" id="calcDistance" type="number" placeholder="e.g. 250" step="1" min="0">
+    </div>
+    <button class="fuel-calc-btn" onclick="calcFuelCost()">Calculate</button>
+    <div class="fuel-result-box" id="fuelResultBox">
+      <div class="fuel-result-row"><span class="fuel-result-label">Fuel needed</span><span class="fuel-result-value" id="resLitres">—</span></div>
+      <div class="fuel-result-row"><span class="fuel-result-label">Estimated cost</span><span class="fuel-result-value" id="resCost">—</span></div>
+      <div class="fuel-result-row"><span class="fuel-result-label">Cost per km</span><span class="fuel-result-value" id="resPerKm">—</span></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DEFAULTS = { petrol: 106.45, diesel: 95.36, ev: 18.00 };
+
+  window.openFuelPopup = function(){
+    document.getElementById('fuelPopup').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    fuelTypeChanged();
+  };
+
+  window.closeFuelPopup = function(){
+    document.getElementById('fuelPopup').style.display = 'none';
+    document.body.style.overflow = '';
+  };
+
+  window.fuelTypeChanged = function(){
+    var type = document.getElementById('fuelType').value;
+    var pLabel = document.getElementById('fuelPriceLabel');
+    var mLabel = document.getElementById('fuelMileageLabel');
+    var mInput = document.getElementById('calcMileage');
+    var pInput = document.getElementById('calcPrice');
+    if(type === 'ev'){
+      pLabel.textContent = 'Price (₹/kWh)';
+      mLabel.textContent = 'Range (km/kWh)';
+      mInput.placeholder = 'e.g. 6';
+      pInput.placeholder = 'e.g. 18.00';
+      if(!pInput.value) pInput.value = DEFAULTS.ev;
+    } else if(type === 'diesel'){
+      pLabel.textContent = 'Price (₹/L)';
+      mLabel.textContent = 'Mileage (km/L)';
+      mInput.placeholder = 'e.g. 20';
+      pInput.placeholder = 'e.g. 95.36';
+      if(!pInput.value) pInput.value = DEFAULTS.diesel;
+    } else {
+      pLabel.textContent = 'Price (₹/L)';
+      mLabel.textContent = 'Mileage (km/L)';
+      mInput.placeholder = 'e.g. 18';
+      pInput.placeholder = 'e.g. 106.45';
+      if(!pInput.value) pInput.value = DEFAULTS.petrol;
+    }
+    document.getElementById('fuelResultBox').classList.remove('show');
+  };
+
+  window.calcFuelCost = function(){
+    var price    = parseFloat(document.getElementById('calcPrice').value);
+    var mileage  = parseFloat(document.getElementById('calcMileage').value);
+    var distance = parseFloat(document.getElementById('calcDistance').value);
+    if(isNaN(price)||price<=0||isNaN(mileage)||mileage<=0||isNaN(distance)||distance<=0){
+      alert('Please fill in all fields with valid numbers.');
+      return;
+    }
+    var type = document.getElementById('fuelType').value;
+    var unit = type === 'ev' ? 'kWh' : 'L';
+    var qty  = distance / mileage;
+    var cost = qty * price;
+    var perKm = cost / distance;
+    document.getElementById('resLitres').textContent = qty.toFixed(2) + ' ' + unit;
+    document.getElementById('resCost').textContent   = '₹ ' + cost.toFixed(2);
+    document.getElementById('resPerKm').textContent  = '₹ ' + perKm.toFixed(2) + '/km';
+    document.getElementById('fuelResultBox').classList.add('show');
+  };
+})();
+</script>
+
+<script>
+// Click My Trip popup
+window.openClickMyTripPopup = function(){
+  document.getElementById('cmtPopup').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+};
+window.closeCmtPopup = function(){
+  document.getElementById('cmtPopup').style.display = 'none';
+  document.body.style.overflow = '';
+};
+
+// Coming Soon popup (shared)
+window.openComingSoonPopup = function(featureName){
+  document.getElementById('csTitleText').textContent = (featureName || 'Coming Soon') + ' — Under Development';
+  // Close any parent popup that may be open (like Click My Trip)
+  document.getElementById('cmtPopup').style.display = 'none';
+  document.getElementById('csPopup').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+};
+window.closeCsPopup = function(){
+  document.getElementById('csPopup').style.display = 'none';
+  document.body.style.overflow = '';
+};
+</script>
+<!-- ===== TRANSLATE POPUP ===== -->
+<style>
+.tr-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12002;padding:12px;}
+.tr-box{width:100%;max-width:520px;background:#fff;border-radius:22px;display:flex;flex-direction:column;animation:slideUp .3s ease;max-height:92vh;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,0.18);}
+.tr-topbar{display:flex;align-items:center;justify-content:center;padding:16px 16px 12px;position:relative;border-bottom:1px solid #f1f1f1;flex-shrink:0;}
+.tr-title{font-size:15px;font-weight:700;color:#111;flex:1;text-align:center;}
+.tr-x{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.06);border:none;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666;transition:all .18s;font-family:'Poppins',sans-serif;}
+.tr-x:hover{background:rgba(0,0,0,0.13);color:#111;}
+
+/* Input area */
+.tr-input-area{padding:12px 14px;flex-shrink:0;}
+.tr-textarea{width:100%;border:1.5px solid #e5e5e5;border-radius:14px;padding:11px 13px;font-size:13px;font-family:'Poppins',sans-serif;resize:none;outline:none;transition:border-color .2s;line-height:1.5;min-height:72px;box-sizing:border-box;}
+.tr-textarea:focus{border-color:#007b7f;}
+.tr-input-actions{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.tr-mic-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid #e5e5e5;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;flex-shrink:0;}
+.tr-mic-btn:hover{border-color:#007b7f;background:#e8f6f6;}
+.tr-mic-btn.listening{border-color:#e53935;background:#ffebee;animation:trPulse .8s infinite alternate;}
+@keyframes trPulse{from{box-shadow:0 0 0 0 rgba(229,57,53,0.3)}to{box-shadow:0 0 0 6px rgba(229,57,53,0)}}
+.tr-clear-btn{flex:1;background:#f5f5f5;border:none;border-radius:10px;padding:8px 12px;font-size:11px;color:#888;cursor:pointer;font-family:'Poppins',sans-serif;transition:background .2s;}
+.tr-clear-btn:hover{background:#eee;}
+.tr-translate-btn{background:#007b7f;color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;transition:background .2s;}
+.tr-translate-btn:hover{background:#005f61;}
+
+/* Language selector */
+.tr-lang-wrap{padding:0 14px 10px;flex-shrink:0;}
+.tr-lang-label{font-size:10px;color:#aaa;font-weight:500;margin-bottom:6px;}
+.tr-lang-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.tr-lang-scroll::-webkit-scrollbar{display:none;}
+.tr-lang-chip{flex:0 0 auto;padding:5px 12px;border-radius:20px;border:1.5px solid #e5e5e5;background:#fff;font-size:11px;font-weight:500;color:#444;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tr-lang-chip.active{background:#007b7f;border-color:#007b7f;color:#fff;}
+.tr-lang-chip:hover:not(.active){border-color:#007b7f;color:#007b7f;}
+
+/* Output area */
+.tr-output-wrap{flex:1;overflow-y:auto;scrollbar-width:none;padding:0 14px 14px;}
+.tr-output-wrap::-webkit-scrollbar{display:none;}
+.tr-output-box{background:#f0fafa;border-radius:14px;padding:13px 14px;min-height:60px;position:relative;border:1.5px solid #c8e8e8;}
+.tr-output-text{font-size:14px;color:#111;line-height:1.6;word-break:break-word;}
+.tr-output-placeholder{font-size:12px;color:#bbb;font-style:italic;}
+.tr-output-actions{display:flex;gap:8px;margin-top:10px;align-items:center;}
+.tr-speak-btn{display:flex;align-items:center;gap:5px;background:#007b7f;color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;transition:background .2s;}
+.tr-speak-btn:hover{background:#005f61;}
+.tr-speak-btn:disabled{background:#ccc;cursor:not-allowed;}
+.tr-copy-btn{display:flex;align-items:center;gap:5px;background:#f5f5f5;color:#555;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;transition:background .2s;}
+.tr-copy-btn:hover{background:#e8e8e8;}
+.tr-loading{display:none;align-items:center;gap:8px;font-size:12px;color:#007b7f;padding:8px 0;}
+.tr-spinner{width:16px;height:16px;border:2px solid #c8e8e8;border-top-color:#007b7f;border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+.tr-error{font-size:11px;color:#e53935;margin-top:6px;display:none;}
+
+/* Quick phrase grid */
+.tr-phrases-wrap{padding:0 14px 6px;flex-shrink:0;}
+.tr-phrases-label{font-size:10px;color:#aaa;font-weight:500;margin-bottom:6px;}
+.tr-phrases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;}
+.tr-phrase-item{background:#f8f9fa;border-radius:10px;padding:8px 10px;cursor:pointer;border:1px solid #eee;transition:all .2s;display:flex;justify-content:space-between;align-items:center;}
+.tr-phrase-item:hover{background:#e8f6f6;border-color:#007b7f;}
+.tr-phrase-item span{font-size:11px;color:#333;font-weight:500;}
+.tr-phrase-item em{font-size:10px;color:#aaa;font-style:normal;}
+</style>
+
+<div class="tr-popup" id="trPopup" onclick="closeTrPopup()">
+  <div class="tr-box" onclick="event.stopPropagation()">
+
+    <div class="tr-topbar">
+      <span class="tr-title">🌐 Translate</span>
+      <button class="tr-x" onclick="closeTrPopup()">✕</button>
+    </div>
+
+    <!-- Language Chips -->
+    <div class="tr-lang-wrap">
+      <div class="tr-lang-label">Translate to</div>
+      <div class="tr-lang-scroll" id="trLangScroll"></div>
+    </div>
+
+    <!-- Quick Phrases -->
+    <div class="tr-phrases-wrap">
+      <div class="tr-phrases-label">Quick phrases — tap to translate</div>
+      <div class="tr-phrases-grid" id="trPhrasesGrid"></div>
+    </div>
+
+    <!-- Input -->
+    <div class="tr-input-area">
+      <textarea class="tr-textarea" id="trInput" placeholder="Type something to translate…" rows="3"></textarea>
+      <div class="tr-input-actions">
+        <button class="tr-mic-btn" id="trMicBtn" onclick="trToggleMic()" title="Speak">🎤</button>
+        <button class="tr-clear-btn" onclick="trClear()">Clear</button>
+        <button class="tr-translate-btn" onclick="trTranslate()">Translate →</button>
+      </div>
+      <div class="tr-error" id="trError"></div>
+    </div>
+
+    <!-- Output -->
+    <div class="tr-output-wrap">
+      <div class="tr-loading" id="trLoading"><div class="tr-spinner"></div><span>Translating…</span></div>
+      <div class="tr-output-box" id="trOutputBox">
+        <div class="tr-output-placeholder" id="trOutputPlaceholder">Translation will appear here</div>
+        <div class="tr-output-text" id="trOutputText" style="display:none"></div>
+      </div>
+      <div class="tr-output-actions" id="trOutputActions" style="display:none">
+        <button class="tr-speak-btn" id="trSpeakBtn" onclick="trSpeak()">🔊 Listen</button>
+        <button class="tr-copy-btn" onclick="trCopy()">📋 Copy</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var TR_LANGS = [
+    {code:'ml',label:'Malayalam 🇮🇳'},
+    {code:'hi',label:'Hindi 🇮🇳'},
+    {code:'ta',label:'Tamil 🇮🇳'},
+    {code:'kn',label:'Kannada 🇮🇳'},
+    {code:'te',label:'Telugu 🇮🇳'},
+    {code:'en',label:'English 🇬🇧'},
+    {code:'ar',label:'Arabic 🇦🇪'},
+    {code:'fr',label:'French 🇫🇷'},
+    {code:'de',label:'German 🇩🇪'},
+    {code:'es',label:'Spanish 🇪🇸'},
+    {code:'zh',label:'Chinese 🇨🇳'},
+    {code:'ja',label:'Japanese 🇯🇵'},
+    {code:'ko',label:'Korean 🇰🇷'},
+    {code:'ru',label:'Russian 🇷🇺'},
+    {code:'pt',label:'Portuguese 🇧🇷'},
+    {code:'it',label:'Italian 🇮🇹'},
+  ];
+
+  var TR_PHRASES = [
+    {en:'Where is the bus stop?',icon:'🚌'},
+    {en:'How much does it cost?',icon:'💰'},
+    {en:'I need a doctor',icon:'🏥'},
+    {en:'Thank you very much',icon:'🙏'},
+    {en:'Where is the nearest hotel?',icon:'🏨'},
+    {en:'Can you help me?',icon:'🤝'},
+  ];
+
+  var _trLang = 'ml';
+  var _trSpeech = null;
+  var _micRecog = null;
+  var _listening = false;
+
+  function buildLangChips(){
+    var el = document.getElementById('trLangScroll');
+    el.innerHTML = TR_LANGS.map(function(l){
+      return '<div class="tr-lang-chip'+(l.code===_trLang?' active':'')+'" onclick="trSetLang(\''+l.code+'\')">'+l.label+'</div>';
+    }).join('');
+  }
+
+  function buildPhrases(){
+    var el = document.getElementById('trPhrasesGrid');
+    el.innerHTML = TR_PHRASES.map(function(p){
+      return '<div class="tr-phrase-item" onclick="trQuickPhrase(\''+p.en.replace(/'/g,"\\'")+'\')">'
+        +'<span>'+p.icon+' '+p.en+'</span>'
+        +'</div>';
+    }).join('');
+  }
+
+  window.trSetLang = function(code){
+    _trLang = code;
+    buildLangChips();
+    // If there's already text in output, re-translate
+    var inp = document.getElementById('trInput').value.trim();
+    if(inp) trTranslate();
+  };
+
+  window.trQuickPhrase = function(phrase){
+    document.getElementById('trInput').value = phrase;
+    trTranslate();
+  };
+
+  window.trTranslate = function(){
+    var text = document.getElementById('trInput').value.trim();
+
+    if(!text){ trShowError('Please enter text to translate.'); return; }
+    trShowError('');
+    trSetLoading(true);
+    trHideOutput();
+
+    var targetLang = _trLang;
+    var url = 'https://api.mymemory.translated.net/get?q='+encodeURIComponent(text)+'&langpair=autodetect|'+targetLang+'&de=yathramap@gmail.com';
+
+    fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d || !d.responseData || !d.responseData.translatedText){
+        throw new Error('No result');
+      }
+      var result = d.responseData.translatedText.trim();
+      if(!result) throw new Error('Empty');
+      // MyMemory returns error strings on failure
+      if(d.responseStatus && d.responseStatus !== 200 && d.responseStatus !== '200'){
+        throw new Error('API error');
+      }
+      trSetLoading(false);
+      trShowOutput(result);
+    })
+    .catch(function(){
+      trSetLoading(false);
+      trShowError('Translation failed. Please try again.');
+    });
+  };
+
+  function trSetLoading(on){
+    document.getElementById('trLoading').style.display = on ? 'flex' : 'none';
+  }
+  function trHideOutput(){
+    document.getElementById('trOutputPlaceholder').style.display='block';
+    document.getElementById('trOutputText').style.display='none';
+    document.getElementById('trOutputActions').style.display='none';
+  }
+  function trShowOutput(text){
+    document.getElementById('trOutputPlaceholder').style.display='none';
+    var el = document.getElementById('trOutputText');
+    el.style.display='block';
+    el.textContent = text;
+    document.getElementById('trOutputActions').style.display='flex';
+    // stop any ongoing speech
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
+  }
+  function trShowError(msg){
+    var el = document.getElementById('trError');
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+  }
+
+  window.trSpeak = function(){
+    var text = document.getElementById('trOutputText').textContent;
+    if(!text || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    var utt = new SpeechSynthesisUtterance(text);
+    utt.lang = _trLang;
+    utt.rate = 0.9;
+    var btn = document.getElementById('trSpeakBtn');
+    btn.disabled = true;
+    btn.textContent = '🔊 Speaking…';
+    utt.onend = utt.onerror = function(){ btn.disabled=false; btn.textContent='🔊 Listen'; };
+    window.speechSynthesis.speak(utt);
+  };
+
+  window.trCopy = function(){
+    var text = document.getElementById('trOutputText').textContent;
+    if(!text) return;
+    var btn = document.querySelector('.tr-copy-btn');
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(text).then(function(){
+        btn.textContent='✅ Copied!';
+        setTimeout(function(){btn.textContent='📋 Copy';},1800);
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      btn.textContent='✅ Copied!';
+      setTimeout(function(){btn.textContent='📋 Copy';},1800);
+    }
+  };
+
+  window.trClear = function(){
+    document.getElementById('trInput').value = '';
+    trHideOutput();
+    trShowError('');
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
+    trStopMic();
+  };
+
+  // Mic / Speech recognition
+  window.trToggleMic = function(){
+    if(_listening){ trStopMic(); return; }
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(!SR){ trShowError('Microphone not supported on this browser.'); return; }
+    _micRecog = new SR();
+    _micRecog.lang = 'en-IN';
+    _micRecog.interimResults = false;
+    _micRecog.onresult = function(e){
+      var t = Array.from(e.results).map(function(r){return r[0].transcript;}).join(' ');
+      document.getElementById('trInput').value = t;
+      trStopMic();
+      trTranslate();
+    };
+    _micRecog.onerror = _micRecog.onend = function(){ trStopMic(); };
+    _micRecog.start();
+    _listening = true;
+    document.getElementById('trMicBtn').classList.add('listening');
+    document.getElementById('trMicBtn').title = 'Stop';
+  };
+
+  function trStopMic(){
+    if(_micRecog) try{ _micRecog.stop(); }catch(e){}
+    _micRecog = null;
+    _listening = false;
+    var btn = document.getElementById('trMicBtn');
+    if(btn){ btn.classList.remove('listening'); btn.title='Speak'; }
+  }
+
+  window.openTranslatePopup = function(){
+    document.getElementById('trPopup').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    buildLangChips();
+    buildPhrases();
+  };
+
+  window.closeTrPopup = function(){
+    document.getElementById('trPopup').style.display = 'none';
+    document.body.style.overflow = '';
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
+    trStopMic();
+  };
 })();
 </script>
 </body></html>
