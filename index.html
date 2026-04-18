@@ -413,6 +413,38 @@
         .fuel-result-row:last-child{border-bottom:none;}
         .fuel-result-label{font-size:11px;color:#555;}
         .fuel-result-value{font-size:13px;font-weight:700;color:#007b7f;}
+        /* ===== TIMEZONE POPUP ===== */
+        .tz-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12004;padding:16px;}
+        .tz-box{width:100%;max-width:380px;background:#fff;border-radius:20px;padding:22px 20px;display:flex;flex-direction:column;gap:0;animation:fadeIn .25s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);overflow:hidden;}
+        .tz-header{display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:18px;}
+        .tz-title{font-size:15px;font-weight:700;color:#111;text-align:center;flex:1;}
+        .tz-x-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.06);border:none;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666;transition:all .18s;font-family:'Poppins',sans-serif;}
+        .tz-x-btn:hover{background:rgba(0,0,0,0.13);color:#111;}
+        /* Local time hero */
+        .tz-hero{background:linear-gradient(135deg,#007b7f,#00a99d);border-radius:16px;padding:18px 16px;text-align:center;margin-bottom:14px;}
+        .tz-hero-label{font-size:10px;color:rgba(255,255,255,0.75);font-weight:500;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px;}
+        .tz-hero-time{font-size:36px;font-weight:700;color:#fff;letter-spacing:-1px;line-height:1.1;}
+        .tz-hero-date{font-size:11px;color:rgba(255,255,255,0.8);margin-top:4px;}
+        .tz-hero-zone{font-size:10px;color:rgba(255,255,255,0.65);margin-top:2px;}
+        /* Info cards */
+        .tz-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+        .tz-card{background:#f8f9fa;border-radius:12px;padding:12px 12px;border:1px solid #eee;}
+        .tz-card-label{font-size:9px;color:#aaa;font-weight:500;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;}
+        .tz-card-value{font-size:13px;font-weight:700;color:#111;}
+        .tz-card-sub{font-size:9px;color:#888;margin-top:2px;}
+        /* World clocks */
+        .tz-world-label{font-size:10px;color:#aaa;font-weight:500;margin-bottom:8px;letter-spacing:0.3px;}
+        .tz-world-list{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;scrollbar-width:none;}
+        .tz-world-list::-webkit-scrollbar{display:none;}
+        .tz-world-row{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:#f8f9fa;border-radius:10px;border:1px solid #eee;}
+        .tz-world-left{display:flex;align-items:center;gap:8px;}
+        .tz-world-flag{font-size:16px;width:22px;text-align:center;}
+        .tz-world-city{font-size:11px;font-weight:600;color:#333;}
+        .tz-world-tz{font-size:9px;color:#aaa;margin-top:1px;}
+        .tz-world-time{font-size:12px;font-weight:700;color:#007b7f;font-variant-numeric:tabular-nums;}
+        /* Close btn */
+        .tz-close-btn{width:100%;padding:11px;background:#007b7f;color:#fff;border:none;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;transition:background .2s;margin-top:14px;}
+        .tz-close-btn:hover{background:#005f61;}
     </style>
 </head>
 <body>
@@ -599,7 +631,7 @@
             <div class="tool-btn" onclick="openWeatherPopup()"><img src="https://img.icons8.com/color/96/partly-cloudy-day--v1.png"><p>Weather</p></div>
             <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img src="https://img.icons8.com/color/96/tour-guide.png"><p>Guides</p></div>
             <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="https://img.icons8.com/color/96/camping-tent.png"><p>Camps</p></div>
-			<div class="tool-btn" onclick="findNearby('events and meetups')"><img src="https://img.icons8.com/color/96/conference.png"><p>Travel Partner</p></div>
+			<div class="tool-btn" onclick="openComingSoonPopup('Travel Partner')"><img src="https://img.icons8.com/color/96/conference.png"><p>Travel Partner</p></div>
 			<div class="tool-btn" onclick="openClickMyTripPopup()"><img src="https://img.icons8.com/color/96/camera.png"><p>Click My Trip</p></div>
             <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="https://img.icons8.com/color/96/pass.png"><p>ePass</p></div>
 			<div class="tool-btn" onclick="openCurrencyPopup()"><img src="https://img.icons8.com/color/96/currency-exchange.png"><p>Currency</p></div>
@@ -608,12 +640,12 @@
             <div class="tool-btn" onclick="findNearby('Banks')"><img src="https://img.icons8.com/color/96/bank.png"><p>Banks</p></div>
             <div class="tool-btn" onclick="openCalendarPopup()"><img src="https://img.icons8.com/color/96/calendar--v1.png"><p>Calendar</p></div>
             <div class="tool-btn" onclick="openTranslatePopup()"><img src="https://img.icons8.com/color/96/google-translate.png"><p>Translate</p></div>
-            <div class="tool-btn" onclick="window.open('https://www.google.com/search?q=current+time+zone')"><img src="https://img.icons8.com/color/96/time.png"><p>Time Zone</p></div>
-            <div class="tool-btn" onclick="findNearby('wildlife safari Kerala')"><img src="https://img.icons8.com/color/96/tiger.png"><p>Track Wildlife</p></div>
+            <div class="tool-btn" onclick="openTimezonePopup()"><img src="https://img.icons8.com/color/96/time.png"><p>Time Zone</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Track Wildlife')"><img src="https://img.icons8.com/color/96/tiger.png"><p>Track Wildlife</p></div>
             <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img src="https://img.icons8.com/color/96/open-book.png"><p>Visa Requirements</p></div>
-			<div class="tool-btn" onclick="findNearby('bike riders routes Kerala')"><img src="https://img.icons8.com/color/96/motorbike.png"><p>Bike Riders</p></div>
-            <div class="tool-btn" onclick="findNearby('4x4 offroad trails Kerala')"><img src="https://img.icons8.com/color/96/jeep.png"><p>4x4 Offroad</p></div>
-            <div class="tool-btn" onclick="findNearby('movie theaters')"><img src="https://img.icons8.com/color/96/movie-projector.png"><p>Movies</p></div>
+			<div class="tool-btn" onclick="openComingSoonPopup('Bike Riders')"><img src="https://img.icons8.com/color/96/motorbike.png"><p>Bike Riders</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('4x4 Offroad')"><img src="https://img.icons8.com/color/96/jeep.png"><p>4x4 Offroad</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Movies')"><img src="https://img.icons8.com/color/96/movie-projector.png"><p>Movies</p></div>
         </div>
     </div>
 </div>
@@ -2710,7 +2742,7 @@ window.closeCsPopup = function(){
 .tr-translate-btn:hover{background:#005f61;}
 
 /* Language selector */
-.tr-lang-wrap{padding:0 14px 10px;flex-shrink:0;}
+.tr-lang-wrap{padding:14px 14px 10px;flex-shrink:0;}
 .tr-lang-label{font-size:10px;color:#aaa;font-weight:500;margin-bottom:6px;}
 .tr-lang-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
 .tr-lang-scroll::-webkit-scrollbar{display:none;}
@@ -2787,6 +2819,7 @@ window.closeCsPopup = function(){
         <button class="tr-copy-btn" onclick="trCopy()">📋 Copy</button>
       </div>
     </div>
+    <audio id="trAudio" style="display:none" preload="none"></audio>
 
   </div>
 </div>
@@ -2910,19 +2943,75 @@ window.closeCsPopup = function(){
     el.style.display = msg ? 'block' : 'none';
   }
 
+  // Language code for Google TTS
+  var TR_TTS_LANG = {
+    ml:'ml', hi:'hi', ta:'ta', kn:'kn', te:'te',
+    en:'en', ar:'ar', fr:'fr', de:'de', es:'es',
+    zh:'zh-CN', ja:'ja', ko:'ko', ru:'ru', pt:'pt', it:'it'
+  };
+
   window.trSpeak = function(){
-    var text = document.getElementById('trOutputText').textContent;
-    if(!text || !window.speechSynthesis) return;
+    var text = document.getElementById('trOutputText').textContent.trim();
+    var btn  = document.getElementById('trSpeakBtn');
+    var audio = document.getElementById('trAudio');
+    if(!text || !btn || !audio) return;
+
+    // If playing, stop
+    if(!audio.paused){
+      audio.pause();
+      audio.currentTime = 0;
+      btn.textContent = '🔊 Listen';
+      btn.disabled = false;
+      return;
+    }
+
+    var lang = TR_TTS_LANG[_trLang] || 'en';
+    var url = 'https://translate.google.com/translate_tts?ie=UTF-8&tl=' + lang
+            + '&q=' + encodeURIComponent(text)
+            + '&client=tw-ob';
+
+    btn.disabled = true;
+    btn.textContent = '🔊 Loading…';
+
+    audio.src = url;
+    audio.oncanplay = function(){
+      btn.textContent = '⏹ Stop';
+    };
+    audio.onended = function(){
+      btn.disabled = false;
+      btn.textContent = '🔊 Listen';
+    };
+    audio.onerror = function(){
+      // Fallback to Web Speech API if Google TTS blocked
+      btn.disabled = false;
+      btn.textContent = '🔊 Listen';
+      trSpeakFallback(text, btn);
+    };
+    audio.load();
+    audio.play().catch(function(){
+      btn.disabled = false;
+      btn.textContent = '🔊 Listen';
+      trSpeakFallback(text, btn);
+    });
+  };
+
+  function trSpeakFallback(text, btn){
+    if(!window.speechSynthesis) return;
+    var locales = {
+      ml:'ml-IN',hi:'hi-IN',ta:'ta-IN',kn:'kn-IN',te:'te-IN',
+      en:'en-US',ar:'ar-SA',fr:'fr-FR',de:'de-DE',es:'es-ES',
+      zh:'zh-CN',ja:'ja-JP',ko:'ko-KR',ru:'ru-RU',pt:'pt-BR',it:'it-IT'
+    };
     window.speechSynthesis.cancel();
     var utt = new SpeechSynthesisUtterance(text);
-    utt.lang = _trLang;
+    utt.lang = locales[_trLang] || 'en-US';
     utt.rate = 0.9;
-    var btn = document.getElementById('trSpeakBtn');
     btn.disabled = true;
-    btn.textContent = '🔊 Speaking…';
-    utt.onend = utt.onerror = function(){ btn.disabled=false; btn.textContent='🔊 Listen'; };
+    btn.textContent = '⏹ Stop';
+    utt.onend = function(){ btn.disabled=false; btn.textContent='🔊 Listen'; };
+    utt.onerror = function(){ btn.disabled=false; btn.textContent='🔊 Listen'; };
     window.speechSynthesis.speak(utt);
-  };
+  }
 
   window.trCopy = function(){
     var text = document.getElementById('trOutputText').textContent;
@@ -2994,4 +3083,131 @@ window.closeCsPopup = function(){
   };
 })();
 </script>
+<!-- ===== TIMEZONE POPUP ===== -->
+<div class="tz-popup" id="tzPopup" onclick="if(event.target===this)closeTzPopup()">
+  <div class="tz-box">
+    <div class="tz-header">
+      <span class="tz-title">🕐 Time Zone</span>
+      <button class="tz-x-btn" onclick="closeTzPopup()">✕</button>
+    </div>
+    <div class="tz-hero">
+      <div class="tz-hero-label">Your Local Time</div>
+      <div class="tz-hero-time" id="tzLocalTime">--:--:--</div>
+      <div class="tz-hero-date" id="tzLocalDate"></div>
+      <div class="tz-hero-zone" id="tzLocalZone"></div>
+    </div>
+    <div class="tz-cards">
+      <div class="tz-card">
+        <div class="tz-card-label">Time Zone</div>
+        <div class="tz-card-value" id="tzName" style="font-size:11px;">Detecting…</div>
+        <div class="tz-card-sub" id="tzOffset"></div>
+      </div>
+      <div class="tz-card">
+        <div class="tz-card-label">UTC Offset</div>
+        <div class="tz-card-value" id="tzUtcOffset">--</div>
+        <div class="tz-card-sub" id="tzDst"></div>
+      </div>
+    </div>
+    <div class="tz-world-label">🌍 World Clocks</div>
+    <div class="tz-world-list" id="tzWorldList"></div>
+    <button class="tz-close-btn" onclick="closeTzPopup()">Close</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var _tzTimer = null;
+
+  var WORLD_ZONES = [
+    {flag:'🇮🇳', city:'India (IST)',    tz:'Asia/Kolkata'},
+    {flag:'🇦🇪', city:'Dubai (GST)',    tz:'Asia/Dubai'},
+    {flag:'🇬🇧', city:'London (GMT)',   tz:'Europe/London'},
+    {flag:'🇺🇸', city:'New York (EST)', tz:'America/New_York'},
+    {flag:'🇺🇸', city:'Los Angeles',    tz:'America/Los_Angeles'},
+    {flag:'🇯🇵', city:'Tokyo (JST)',    tz:'Asia/Tokyo'},
+    {flag:'🇸🇬', city:'Singapore',      tz:'Asia/Singapore'},
+    {flag:'🇦🇺', city:'Sydney (AEDT)',  tz:'Australia/Sydney'},
+    {flag:'🇩🇪', city:'Berlin (CET)',   tz:'Europe/Berlin'},
+    {flag:'🇧🇷', city:'São Paulo',      tz:'America/Sao_Paulo'},
+  ];
+
+  function fmt2(n){ return String(n).padStart(2,'0'); }
+
+  function getTimeInZone(tz){
+    try{
+      var d = new Date();
+      var s = d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:tz});
+      return s;
+    } catch(e){ return '--:--:--'; }
+  }
+
+  function buildWorldList(){
+    var html = WORLD_ZONES.map(function(z){
+      var t = getTimeInZone(z.tz);
+      return '<div class="tz-world-row" id="tzRow_'+z.tz.replace(/\//g,'_')+'">'
+        +'<div class="tz-world-left">'
+        +'<span class="tz-world-flag">'+z.flag+'</span>'
+        +'<span class="tz-world-city">'+z.city+'</span>'
+        +'</div>'
+        +'<span class="tz-world-time">'+t+'</span>'
+        +'</div>';
+    }).join('');
+    document.getElementById('tzWorldList').innerHTML = html;
+  }
+
+  function updateLocalTime(){
+    var d = new Date();
+    var h = fmt2(d.getHours()), m = fmt2(d.getMinutes()), s = fmt2(d.getSeconds());
+    var el = document.getElementById('tzLocalTime');
+    if(el) el.textContent = h+':'+m+':'+s;
+    // Update world clocks
+    WORLD_ZONES.forEach(function(z){
+      var row = document.getElementById('tzRow_'+z.tz.replace(/\//g,'_'));
+      if(row){
+        var cells = row.getElementsByClassName('tz-world-time');
+        if(cells[0]) cells[0].textContent = getTimeInZone(z.tz);
+      }
+    });
+  }
+
+  function populateStatic(){
+    var d = new Date();
+    // Date string
+    var dateStr = d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    document.getElementById('tzLocalDate').textContent = dateStr;
+    // Timezone name
+    var tzId = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+    document.getElementById('tzName').textContent = tzId;
+    // UTC offset
+    var off = -d.getTimezoneOffset();
+    var sign = off>=0?'+':'-';
+    var absOff = Math.abs(off);
+    var offH = Math.floor(absOff/60), offM = absOff%60;
+    var offStr = 'UTC '+sign+fmt2(offH)+':'+fmt2(offM);
+    document.getElementById('tzLocalZone').textContent = offStr;
+    document.getElementById('tzUtcOffset').textContent = offStr;
+    // DST hint
+    var jan = new Date(d.getFullYear(),0,1).getTimezoneOffset();
+    var jul = new Date(d.getFullYear(),6,1).getTimezoneOffset();
+    document.getElementById('tzDst').textContent = (jan !== jul) ? 'DST observed' : 'No DST';
+    document.getElementById('tzOffset').textContent = tzId.split('/')[1]||'';
+  }
+
+  window.openTimezonePopup = function(){
+    document.getElementById('tzPopup').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    populateStatic();
+    buildWorldList();
+    updateLocalTime();
+    _tzTimer = setInterval(updateLocalTime, 1000);
+  };
+
+  window.closeTzPopup = function(){
+    document.getElementById('tzPopup').style.display = 'none';
+    document.body.style.overflow = '';
+    if(_tzTimer){ clearInterval(_tzTimer); _tzTimer = null; }
+  };
+})();
+</script>
+
 </body></html>
