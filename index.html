@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Yathra Map</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,12 +17,12 @@
         /* --- BASE STYLES --- */
         *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}:root{--gap:14px;--nav-height:70px;--side-space:28px;}body{background:#fff;padding-top:var(--gap);overflow-x:hidden;}@media (max-width: 600px) { :root { --gap: 10px; --side-space: 12px; } body { padding-top: 8px; } .hero { height: 420px !important; } }.navbar{height:var(--nav-height);display:flex;align-items:center;justify-content:center;background:#fff;position:fixed;top:0;left:0;width:100%;z-index:1000;}.nav-inner{width:100%;max-width:1400px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--side-space);}.logo img{height:50px;}.nav-center{display:flex;gap:28px;justify-content:center;flex:1;}.nav-center span{font-size:14px;cursor:pointer;}.search-icon{cursor:pointer;font-size:18px;}.hero{margin-top:calc(var(--nav-height) + 1px);border-radius:20px;overflow:hidden;position:relative;height:450px;margin-left:var(--side-space);margin-right:var(--side-space);}.hero-track{display:flex;height:100%;transition:transform 0.8s ease-in-out;}.hero-slide{min-width:100%;height:100%;}.hero-slide img{width:100%;height:100%;object-fit:cover;}.hero-text{position:absolute;bottom:20px;left:20px;color:#fff;font-size:22px;font-weight:600;}.hero-btn{position:absolute;bottom:20px;right:20px;background:#fff;border:none;padding:10px 16px;border-radius:20px;font-size:12px;cursor:pointer;}.category{margin-top:30px;padding:0 var(--side-space);}.card-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-bottom:var(--gap);position:relative;}.card-row::-webkit-scrollbar{display:none;}.card-row{-ms-overflow-style:none;scrollbar-width:none;}.card-row::after{content:'';position:absolute;right:0;top:0;height:100%;width:40px;background:linear-gradient(to left, #fff, transparent);pointer-events:none;z-index:2;transition: opacity 0.3s ease;}.scroll-indicator{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:18px;color:#999;pointer-events:none;z-index:3;transition: opacity 0.3s ease;}.card-row.scrolled::after, .card-row.scrolled .scroll-indicator { opacity: 0 !important; visibility: hidden; }.card-btn{border-radius:16px;border:1px solid #e5e5e5;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;scroll-snap-align:start;transition:0.2s;flex:0 0 auto;width:85px;height:85px;cursor:pointer;padding:8px;}.card-btn img{width:26px;height:26px;margin-bottom:6px;transition:transform 0.25s ease;}.card-btn p{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}.card-btn:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(0,0,0,0.08);}.card-btn:hover img{transform:scale(1.2) rotate(5deg);}@media(max-width:400px){ .card-row { gap: 8px; } .card-btn { flex: 0 0 calc((100% / 4) - 9px); width: auto; aspect-ratio: 1/1; height: auto; padding: 5px; border-radius: 12px; } .card-btn img { width: 22px; height: 22px; margin-bottom: 4px; } .card-btn p { font-size: 9px; letter-spacing: -0.2px; }}@media(min-width:700px){ .card-row { display: grid; grid-template-columns: repeat(7, 1fr); overflow: visible; } .card-row::after, .scroll-indicator { display: none; } .card-btn { flex: none; width: 100%; aspect-ratio: auto; padding: 15px 5px; }}
         .popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);z-index:2000;}.popup-box{background:#fff;width:90%;max-width:360px;border-radius:16px;padding:25px 20px;text-align:center;animation:fadeIn 0.25s ease;display:flex;flex-direction:column;gap:20px;box-shadow:0 10px 25px rgba(0,0,0,0.15);}@keyframes fadeIn{from{transform:scale(0.9);opacity:0;}to{transform:scale(1);opacity:1;}}.popup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}.popup-item{background:#f9f9f9;border-radius:12px;padding:15px;cursor:pointer;transition:0.3s;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid transparent;}.popup-item img{width:35px;margin-bottom:8px;transition:transform 0.25s ease;}.popup-item p{font-size:13px;font-weight:500;transition:0.2s;}.popup-item:hover{transform:translateY(-3px);}.popup-item:hover img{transform:scale(1.25) rotate(5deg);}.popup-close{margin-top:10px;padding:10px 18px;border:none;border-radius:12px;background:#007b7f;color:#fff;font-weight:600;cursor:pointer;transition:0.3s;}.popup-close:hover{background:#005f61;transform:scale(1.05);}
-        .transport-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.transport-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.transport-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;overflow-y:auto;max-height:60vh;padding:10px 0;scrollbar-width:none;}.transport-grid::-webkit-scrollbar{display:none;}.transport-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s; display:flex; flex-direction:column; align-items:center; justify-content:center;}.transport-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.transport-item p{font-size:9px;font-weight:600;color:#333;line-height:1.1;}@media(max-width:480px){ .transport-grid { gap: 8px; } .transport-item { aspect-ratio: 1/1; padding: 5px; border-radius: 12px; } .transport-item img { width: 24px; height: 24px; } .transport-item p { font-size: 8px; } }.transport-item:hover img{transform:scale(1.25) rotate(5deg);}.transport-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
-        .provider-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);z-index:10000;}.provider-card{width:85%;max-width:320px;background:#fff;border-radius:28px;padding:30px 20px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation:popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);}@keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}.provider-options{display:flex;flex-direction:column;gap:15px;margin-top:25px;}.btn-uber{background:#000;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-uber:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.2);}.btn-rapido{background:#f5c400;color:#000;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-rapido:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(245,196,0,0.3);}.btn-local{background:#007b7f;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-local:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,123,127,0.2);}.btn-map{background:#444;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-map:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.3);}.close-link{margin-top:20px;display:inline-block;color:#000;font-weight:400;font-size:14px;text-decoration:none;cursor:pointer;}
-        .help-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.help-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;overflow-y:auto;max-height:60vh;padding:10px 0;scrollbar-width:none;}.help-grid::-webkit-scrollbar{display:none;}.help-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s;}.help-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.help-item p{font-size:10px;font-weight:600;color:#333;line-height:1.2;}.help-item:hover img{transform:scale(1.25) rotate(5deg);}.help-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
+        .transport-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);z-index:9999;}.transport-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.transport-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;overflow-y:auto;max-height:60vh;padding:10px 0;scrollbar-width:none;}.transport-grid::-webkit-scrollbar{display:none;}.transport-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s; display:flex; flex-direction:column; align-items:center; justify-content:center;}.transport-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.transport-item p{font-size:9px;font-weight:600;color:#333;line-height:1.1;}@media(max-width:480px){ .transport-grid { gap: 8px; } .transport-item { aspect-ratio: 1/1; padding: 5px; border-radius: 12px; } .transport-item img { width: 24px; height: 24px; } .transport-item p { font-size: 8px; } }.transport-item:hover img{transform:scale(1.25) rotate(5deg);}.transport-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
+        .provider-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.6);z-index:10000;}.provider-card{width:85%;max-width:320px;background:#fff;border-radius:28px;padding:30px 20px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation:popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);}@keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}.provider-options{display:flex;flex-direction:column;gap:15px;margin-top:25px;}.btn-uber{background:#000;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-uber:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.2);}.btn-rapido{background:#f5c400;color:#000;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-rapido:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(245,196,0,0.3);}.btn-local{background:#007b7f;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-local:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,123,127,0.2);}.btn-map{background:#444;color:#fff;border:none;padding:16px;border-radius:14px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px; transition:0.3s;}.btn-map:hover{transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.3);}.close-link{margin-top:20px;display:inline-block;color:#000;font-weight:400;font-size:14px;text-decoration:none;cursor:pointer;}
+        .help-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);z-index:9999;}.help-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;overflow-y:auto;max-height:60vh;padding:10px 0;scrollbar-width:none;}.help-grid::-webkit-scrollbar{display:none;}.help-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s;}.help-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.help-item p{font-size:10px;font-weight:600;color:#333;line-height:1.2;}.help-item:hover img{transform:scale(1.25) rotate(5deg);}.help-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
 
         /* --- RAILWAY POPUP CSS --- */
-        .railway-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:10001;}.railway-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.railway-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;overflow-y:auto;max-height:65vh;padding:10px 0;scrollbar-width:none;}.railway-grid::-webkit-scrollbar{display:none;}.railway-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s; display:flex; flex-direction:column; align-items:center; justify-content:center;}.railway-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.railway-item p{font-size:8.5px;font-weight:600;color:#333;line-height:1.1;}
+        .railway-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);z-index:10001;}.railway-box{width:94%;max-width:600px;background:#fff;border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;animation:slideUp .3s ease;margin-bottom:20px;}.railway-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;overflow-y:auto;max-height:65vh;padding:10px 0;scrollbar-width:none;}.railway-grid::-webkit-scrollbar{display:none;}.railway-item{background:#f8f9fa;border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;border:1px solid #f1f1f1; transition: 0.3s; display:flex; flex-direction:column; align-items:center; justify-content:center;}.railway-item img{width:32px;height:32px;margin-bottom:6px;transition: transform 0.25s ease;}.railway-item p{font-size:8.5px;font-weight:600;color:#333;line-height:1.1;}
         @media(max-width:480px){ 
           .railway-grid { gap: 8px; } 
           .railway-item { aspect-ratio: 1/1; padding: 5px; border-radius: 12px; } 
@@ -32,9 +31,9 @@
         }
         .railway-item:hover img{transform:scale(1.2) rotate(5deg);}.railway-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
 
-        .emergency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.emergency-box{width:100%;max-width:600px;height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;}@media(max-width:600px){.emergency-box{width:94%;margin-bottom:10px;border-radius:18px;}}.drag-bar{width:45px;height:5px;background:#ccc;border-radius:10px;margin:0 auto;}.popup-content{overflow-y:auto;scrollbar-width:none;}.popup-content::-webkit-scrollbar{display:none;}.popup-content::after{content:'';position:sticky;bottom:0;height:40px;display:block;background:linear-gradient(to top,#fff,transparent);}.emergency-grid{display:grid;gap:12px;}@media(max-width:480px){.emergency-grid{grid-template-columns:repeat(2,1fr);}}@media(min-width:481px){.emergency-grid{grid-template-columns:repeat(3,1fr);}}@media(min-width:900px){.emergency-grid{grid-template-columns:repeat(4,1fr);}}.emergency-item{background:#f7f7f7;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;}.emergency-item img{width:30px;margin-bottom:6px;transition:transform 0.25s ease;}.emergency-item:hover img{transform:scale(1.25) rotate(5deg);}.emergency-item p{font-size:12px;font-weight:500;}.tips-slider{overflow:hidden;}.tips-track{display:flex;transition:transform 0.6s ease-in-out;}.tip-card{min-width:100%;padding:10px;}.tip-inner{background:#f9f9f9;border-radius:14px;padding:14px;}.tip-inner h4{font-size:13px;margin-bottom:6px;}.tip-inner p{font-size:11px;line-height:1.6;}.close-btn{background:#007b7f;color:#fff;border:none;padding:12px;border-radius:12px;font-size:13px;margin-top:8px;cursor:pointer;transition:all 0.3s ease;}.close-btn:hover{background:#005f61;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,0.15);}
+        .emergency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);z-index:9999;}.emergency-box{width:100%;max-width:600px;height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;}@media(max-width:600px){.emergency-box{width:94%;margin-bottom:10px;border-radius:18px;}}.drag-bar{width:45px;height:5px;background:#ccc;border-radius:10px;margin:0 auto;}.popup-content{overflow-y:auto;scrollbar-width:none;}.popup-content::-webkit-scrollbar{display:none;}.popup-content::after{content:'';position:sticky;bottom:0;height:40px;display:block;background:linear-gradient(to top,#fff,transparent);}.emergency-grid{display:grid;gap:12px;}@media(max-width:480px){.emergency-grid{grid-template-columns:repeat(2,1fr);}}@media(min-width:481px){.emergency-grid{grid-template-columns:repeat(3,1fr);}}@media(min-width:900px){.emergency-grid{grid-template-columns:repeat(4,1fr);}}.emergency-item{background:#f7f7f7;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;}.emergency-item img{width:30px;margin-bottom:6px;transition:transform 0.25s ease;}.emergency-item:hover img{transform:scale(1.25) rotate(5deg);}.emergency-item p{font-size:12px;font-weight:500;}.tips-slider{overflow:hidden;}.tips-track{display:flex;transition:transform 0.6s ease-in-out;}.tip-card{min-width:100%;padding:10px;}.tip-inner{background:#f9f9f9;border-radius:14px;padding:14px;}.tip-inner h4{font-size:13px;margin-bottom:6px;}.tip-inner p{font-size:11px;line-height:1.6;}.close-btn{background:#007b7f;color:#fff;border:none;padding:12px;border-radius:12px;font-size:13px;margin-top:8px;cursor:pointer;transition:all 0.3s ease;}.close-btn:hover{background:#005f61;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,0.15);}
         .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
-        .handpicked{margin:40px var(--side-space) 30px;}
+        .handpicked{margin:40px var(--side-space) 30px;content-visibility:auto;contain-intrinsic-size:0 400px;}
         /* card wrapper for Hidden Gems */
         .handpicked-inner{background:#fff;border-radius:22px;box-shadow:0 4px 24px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.06);padding:16px 16px 16px;overflow:hidden;}
         .handpicked-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
@@ -43,7 +42,7 @@
         .handpicked-see-all{font-size:11px;font-weight:600;color:#007b7f;cursor:pointer;white-space:nowrap;padding-top:3px;text-decoration:none;}
         .handpicked-see-all:hover{text-decoration:underline;}
         /* See All popup */
-        .hp-seeall-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12000;}
+        .hp-seeall-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);z-index:12000;}
         .hp-seeall-box{width:94%;max-width:600px;background:#fff;border-radius:24px 24px 0 0;padding:20px 16px 30px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;max-height:80vh;}
         .hp-seeall-header{display:flex;justify-content:space-between;align-items:center;}
         .hp-seeall-header h3{font-size:17px;font-weight:700;color:#111;}
@@ -56,9 +55,9 @@
         .hp-place-item p{font-size:10px;color:#888;margin:0;}
         @media(min-width:480px){.hp-seeall-grid{grid-template-columns:repeat(3,1fr);}}
         .handpicked-slider-wrap{overflow:hidden;width:100%;}
-        .handpicked-cards{display:flex;gap:12px;transition:transform 0.5s ease;will-change:transform;}
+        .handpicked-cards{display:flex;gap:12px;transition:transform 0.5s ease;}
         .handpicked-card{flex:0 0 140px;height:200px;position:relative;border-radius:12px;}.handpicked-card img{width:100%;height:100%;object-fit:cover;border-radius:12px;}.handpicked-card p{position:absolute;bottom:8px;left:8px;color:#fff;font-weight:600;font-size:13px;text-shadow:0 0 5px rgba(0,0,0,0.6);margin:0;}
-        .internal-popup { position:fixed; inset:0; display:none; justify-content:center; align-items:center; background:rgba(0,0,0,0.7); backdrop-filter:blur(10px); z-index:11000; }
+        .internal-popup { position:fixed; inset:0; display:none; justify-content:center; align-items:center; background:rgba(0,0,0,0.7);  z-index:11000; }
         .internal-box { width:92%; max-width:420px; background:#f8f9fa; border-radius:28px; padding:0; max-height:82vh; overflow-y:auto; scrollbar-width:none; position:relative; box-shadow:0 15px 35px rgba(0,0,0,0.3); }
         .internal-box::-webkit-scrollbar { display:none; }
         .internal-header { position:sticky; top:0; background:#fff; padding:20px 16px; border-bottom:1px solid #eee; text-align:center; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.03); }
@@ -129,11 +128,11 @@
         }
 
         /* --- ACTIVITIES SECTION --- */
-        .activities-section { margin: 0 var(--side-space) 40px; }
+        .activities-section { margin: 0 var(--side-space) 40px; content-visibility:auto; contain-intrinsic-size:0 200px; }
         .activities-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .activities-header h2 { font-size: 18px; font-weight: 600; }
         .activities-slider-wrap { overflow: hidden; width: 100%; }
-        .activities-cards { display: flex; gap: 12px; transition: transform 0.5s ease; will-change: transform; }
+        .activities-cards { display: flex; gap: 12px; transition: transform 0.5s ease;  }
         .activity-card { flex: 0 0 220px; height: 110px; position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; }
         .activity-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
         .activity-card:hover img { transform: scale(1.06); }
@@ -144,7 +143,7 @@
         }
 
         /* --- NEARBY ESCAPES SECTION (CARD WRAP) --- */
-        .escapes-section { margin: 0 var(--side-space) 20px; }
+        .escapes-section { margin: 0 var(--side-space) 20px; content-visibility:auto; contain-intrinsic-size:0 320px; }
         .escapes-card-wrap { background: #fff; border-radius: 22px; box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06); padding: 16px; }
         /* header row: shown only on <700px at top, hidden on ≥700px (right col handles it) */
         .escapes-header { display: none; }
@@ -211,7 +210,7 @@
         }
 
         /* --- NEAR YOU SECTION --- */
-        .nearyou-section { margin: 20px var(--side-space) 20px; }
+        .nearyou-section { margin: 20px var(--side-space) 20px; content-visibility:auto; contain-intrinsic-size:0 280px; }
         .nearyou-card-wrap { background: #fff; border-radius: 22px; box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06); padding: 16px 16px 16px; }
         .nearyou-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
         .nearyou-header-left h2 { font-size: 16px; font-weight: 700; color: #111; letter-spacing: -0.3px; }
@@ -242,7 +241,7 @@
         .ny-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 7px 8px 8px; display: flex; flex-direction: column; gap: 4px; }
         .ny-top-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
         .ny-name { font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0,0,0,0.6); flex: 1; min-width: 0; }
-        .ny-dir { width: 19px; height: 19px; border-radius: 50%; background: rgba(255,255,255,0.22); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s ease; }
+        .ny-dir { width: 19px; height: 19px; border-radius: 50%; background: rgba(255,255,255,0.22) border: 1px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s ease; }
         .ny-card:hover .ny-dir { background: #007b7f; border-color: transparent; }
         .ny-dir svg { width: 10px; height: 10px; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
         .ny-bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
@@ -260,7 +259,7 @@
         @media (min-width: 700px) { .ny-card { min-width: 100px; max-width: 140px; } .ny-shimmer { min-width: 100px; max-width: 140px; } }
 
         /* --- KERALA TOURIST PLACES SECTION --- */
-        .ktp-section { margin: 40px var(--side-space) 30px; }
+        .ktp-section { margin: 40px var(--side-space) 30px; content-visibility:auto; contain-intrinsic-size:0 500px; }
         .ktp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
         .ktp-header-text h2 { font-size: 18px; font-weight: 700; color: #111; letter-spacing: -0.3px; margin: 0 0 2px; }
         .ktp-header-text p { font-size: 10px; color: #aaa; margin: 0; }
@@ -288,14 +287,14 @@
         .ktp-card-district { font-size: 9px; color: rgba(255,255,255,0.75); font-weight: 400; white-space: nowrap; }
         .ktp-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
         .ktp-card-km { font-size: 9px; color: rgba(255,255,255,0.75); font-weight: 600; white-space: nowrap; }
-        .ktp-dir-btn { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.12); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+        .ktp-dir-btn { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.12) display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
         .ktp-card:hover .ktp-dir-btn { background: #007b7f; border-color: transparent; }
         .ktp-dir-btn svg { width: 11px; height: 11px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
         @keyframes ktpFadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         .ktp-card { animation: ktpFadeUp 0.35s ease both; }
 
         /* --- CURRENCY POPUP --- */
-        .currency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.38);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:12000;padding:clamp(10px,4vw,24px);}
+        .currency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.38);z-index:12000;padding:clamp(10px,4vw,24px);}
         .currency-box{width:100%;max-width:420px;background:#fff;border-radius:clamp(18px,4vw,28px);display:flex;flex-direction:column;animation:currPop .28s cubic-bezier(0.34,1.3,0.64,1) both;max-height:calc(100dvh - clamp(20px,8vw,48px));overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.06);}
         @keyframes currPop{from{opacity:0;transform:scale(0.93) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
 
@@ -374,7 +373,7 @@
         }
 
         /* ===== CLICK MY TRIP POPUP ===== */
-        .cmt-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12001;padding:16px;}
+        .cmt-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);z-index:12001;padding:16px;}
         .cmt-box{width:100%;max-width:360px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);}
         .cmt-header{display:flex;align-items:center;justify-content:center;position:relative;}
         .cmt-title{font-size:15px;font-weight:700;color:#111;text-align:center;flex:1;}
@@ -392,7 +391,7 @@
         .cmt-option-card:hover .cmt-option-arrow{color:#007b7f;}
 
         /* ===== COMING SOON POPUP ===== */
-        .cs-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12003;padding:16px;}
+        .cs-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);z-index:12003;padding:16px;}
         .cs-box{width:100%;max-width:300px;background:#fff;border-radius:20px;padding:28px 20px 22px;display:flex;flex-direction:column;align-items:center;gap:10px;animation:fadeIn .25s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);text-align:center;}
         .cs-icon{font-size:42px;line-height:1;}
         .cs-title{font-size:17px;font-weight:700;color:#111;margin:0;}
@@ -401,7 +400,7 @@
         .cs-close-btn:hover{background:#005f61;}
 
         /* ===== FUEL COST POPUP ===== */
-        .fuel-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12001;padding:16px;}
+        .fuel-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);z-index:12001;padding:16px;}
         .fuel-box{width:100%;max-width:420px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;animation:slideUp .3s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);}
         .fuel-box-body{display:flex;flex-direction:column;gap:12px;padding-top:8px;border-top:1px solid #f0f0f0;margin-top:4px;}
         .fuel-box-header{display:flex;align-items:center;justify-content:center;position:relative;}
@@ -423,7 +422,7 @@
         .fuel-result-label{font-size:11px;color:#555;}
         .fuel-result-value{font-size:13px;font-weight:700;color:#007b7f;}
         /* ===== TIMEZONE POPUP ===== */
-        .tz-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12004;padding:16px;}
+        .tz-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);z-index:12004;padding:16px;}
         .tz-box{width:100%;max-width:380px;background:#fff;border-radius:20px;padding:22px 20px;display:flex;flex-direction:column;gap:0;animation:fadeIn .25s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);overflow:hidden;}
         .tz-header{display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:18px;}
         .tz-title{font-size:15px;font-weight:700;color:#111;text-align:center;flex:1;}
@@ -458,7 +457,7 @@
 </head>
 <body>
 
-<div class="navbar"><div class="nav-inner"><div class="logo"><img decoding="async" src="img/logo/Yathra Map Logo PNG.png" loading="lazy"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span>About</span></div><div class="search-icon">🔍</div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img decoding="async" src="img/hero1.jpg" loading="lazy"></div>    <div class="hero-slide"><img decoding="async" src="img/hero6.jpg" loading="lazy"></div>    <div class="hero-slide"><img decoding="async" src="img/hero7.png" loading="lazy"></div>    <div class="hero-slide"><img decoding="async" src="img/hero9.jpg" loading="lazy"></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img decoding="async" src="https://img.icons8.com/color/48/beach.png" loading="lazy"><p>Beaches</p></div>    <div class="card-btn"><img decoding="async" src="https://img.icons8.com/color/48/national-park.png" loading="lazy"><p>Mountains</p></div>    <div class="card-btn"><img decoding="async" src="https://img.icons8.com/color/48/water-sport-skin-type-2.png" loading="lazy"><p>Backwater</p></div>    <div class="card-btn"><img decoding="async" src="https://img.icons8.com/emoji/48/fox-emoji.png" loading="lazy"><p>Wildlife</p></div>    <div class="card-btn"><img decoding="async" src="https://img.icons8.com/color/48/bouldering.png" loading="lazy"><p>Adventure</p></div>    <div class="card-btn"><img decoding="async" src="https://img.icons8.com/color/48/waterfall.png" loading="lazy"><p>Waterfalls</p></div>    <div class="card-btn"><img decoding="async" src="https://img.icons8.com/color/48/paradise.png" loading="lazy"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img decoding="async" src="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/external-gas-station-town-xnimrodx-lineal-color-xnimrodx.png" loading="lazy"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img decoding="async" src="https://img.icons8.com/fluency/48/ambulance.png" loading="lazy"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img decoding="async" src="https://img.icons8.com/color/48/relax.png" loading="lazy"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img decoding="async" src="https://img.icons8.com/fluency/48/restaurant.png" loading="lazy"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img decoding="async" src="https://img.icons8.com/color/48/house-with-a-garden.png" loading="lazy"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img decoding="async" src="https://img.icons8.com/color/48/maintenance.png" loading="lazy"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img decoding="async" src="https://img.icons8.com/color/48/garage.png" loading="lazy"><p>Transport</p></div>  </div></div>
+<div class="navbar"><div class="nav-inner"><div class="logo"><img decoding="async" loading="lazy" src="img/logo/Yathra Map Logo PNG.png"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span>About</span></div><div class="search-icon">🔍</div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img decoding="async" loading="lazy" src="img/hero1.jpg"></div>    <div class="hero-slide"><img decoding="async" loading="lazy" src="img/hero6.jpg"></div>    <div class="hero-slide"><img decoding="async" loading="lazy" src="img/hero7.png"></div>    <div class="hero-slide"><img decoding="async" loading="lazy" src="img/hero9.jpg"></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/beach.png"><p>Beaches</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/national-park.png"><p>Mountains</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/water-sport-skin-type-2.png"><p>Backwater</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="https://img.icons8.com/emoji/48/fox-emoji.png"><p>Wildlife</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/bouldering.png"><p>Adventure</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/waterfall.png"><p>Waterfalls</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/paradise.png"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/external-gas-station-town-xnimrodx-lineal-color-xnimrodx.png"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/fluency/48/ambulance.png"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/relax.png"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img decoding="async" loading="lazy" src="https://img.icons8.com/fluency/48/restaurant.png"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/house-with-a-garden.png"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/maintenance.png"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/garage.png"><p>Transport</p></div>  </div></div>
 
 <div class="internal-popup" id="metroTimingPopup" onclick="this.style.display='none'">
     <div class="internal-box" onclick="event.stopPropagation()">
@@ -521,28 +520,28 @@
     </div>
 </div>
 
-<div class="transport-popup" id="transportPopup" onclick="closeTransportPopup()">    <div class="transport-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Transport & Parking</h3>        <div class="transport-grid">            <div class="transport-item" onclick="openBikeProvider()"><img decoding="async" src="https://img.icons8.com/color/48/motorcycle.png" loading="lazy"><p>Bike Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Car Taxi')"><img decoding="async" src="https://img.icons8.com/color/48/taxi.png" loading="lazy"><p>Car Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Auto')"><img decoding="async" src="https://img.icons8.com/color/48/auto-rickshaw.png" loading="lazy"><p>Auto</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Drivers', 'hire driver service')"><img decoding="async" src="https://img.icons8.com/color/48/driver.png" loading="lazy"><p>Drivers</p></div>
-	<div class="transport-item" onclick="findNearby('bus stop')"><img decoding="async" src="https://img.icons8.com/emoji/48/bus-stop-emoji.png" loading="lazy"><p>Bus Stops</p></div>
-	<div class="transport-item" onclick="findNearby('bus stand')"><img decoding="async" src="https://img.icons8.com/color/48/get-on-bus.png" loading="lazy"><p>Bus Stand</p></div>
-	<div class="transport-item" onclick="openMetroPopup('Metro')"><img decoding="async" src="https://img.icons8.com/color/48/subway.png" loading="lazy"><p>Metro</p></div>
-	<div class="transport-item" onclick="openMetroPopup('Water Metro')"><img decoding="async" src="https://img.icons8.com/color/48/yacht.png" loading="lazy"><p>Water Metro</p></div>
-	<div class="transport-item" onclick="openRailwayPopup()"><img decoding="async" src="https://img.icons8.com/color/48/train.png" loading="lazy"><p>Train</p></div>
-	<div class="transport-item" onclick="findNearby('airport')"><img decoding="async" src="https://img.icons8.com/color/48/airport.png" loading="lazy"><p>Airport</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Helicopter', 'helicopter service')"><img decoding="async" src="https://img.icons8.com/color/48/helicopter.png" loading="lazy"><p>Helicopter</p></div>
-	<div class="transport-item" onclick="findNearby('ferry boat service')"><img decoding="async" src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-boat-vacation-planning-guys-trip-flaticons-flat-flat-icons-2.png" loading="lazy"><p>Ferry/Boat</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Tourist Bus', 'tourist bus service')"><img decoding="async" src="https://img.icons8.com/color/48/bus.png" loading="lazy"><p>Tourist Bus</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Traveller', 'tempo traveller rental')"><img decoding="async" src="https://img.icons8.com/color/48/van.png" loading="lazy"><p>Traveller</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Mini Bus', 'mini bus rental')"><img decoding="async" src="https://img.icons8.com/fluency/48/bus.png" loading="lazy"><p>Mini Bus</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Mini Goods', 'mini goods truck')"><img decoding="async" src="https://img.icons8.com/color/48/truck.png" loading="lazy"><p>Mini Goods</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img decoding="async" src="https://img.icons8.com/color/48/scooter.png" loading="lazy"><p>Bike Rental</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img decoding="async" src="https://img.icons8.com/color/48/car-rental.png" loading="lazy"><p>Car Rental</p></div>
-    <div class="transport-item" onclick="openGenericProvider('Luggage', 'luggage courier service')"><img decoding="async" src="https://img.icons8.com/color/48/package.png" loading="lazy"><p>Luggage</p></div>
-    <div class="transport-item" onclick="openGenericProvider('Baggage', 'baggage transfer service')"><img decoding="async" src="https://img.icons8.com/color/48/suitcases.png" loading="lazy"><p>Toll Plaza</p></div>
+<div class="transport-popup" id="transportPopup" onclick="closeTransportPopup()">    <div class="transport-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Transport & Parking</h3>        <div class="transport-grid">            <div class="transport-item" onclick="openBikeProvider()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/motorcycle.png"><p>Bike Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Car Taxi')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/taxi.png"><p>Car Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Auto')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/auto-rickshaw.png"><p>Auto</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Drivers', 'hire driver service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/driver.png"><p>Drivers</p></div>
+	<div class="transport-item" onclick="findNearby('bus stop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/emoji/48/bus-stop-emoji.png"><p>Bus Stops</p></div>
+	<div class="transport-item" onclick="findNearby('bus stand')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/get-on-bus.png"><p>Bus Stand</p></div>
+	<div class="transport-item" onclick="openMetroPopup('Metro')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/subway.png"><p>Metro</p></div>
+	<div class="transport-item" onclick="openMetroPopup('Water Metro')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/yacht.png"><p>Water Metro</p></div>
+	<div class="transport-item" onclick="openRailwayPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/train.png"><p>Train</p></div>
+	<div class="transport-item" onclick="findNearby('airport')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/airport.png"><p>Airport</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Helicopter', 'helicopter service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/helicopter.png"><p>Helicopter</p></div>
+	<div class="transport-item" onclick="findNearby('ferry boat service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-boat-vacation-planning-guys-trip-flaticons-flat-flat-icons-2.png"><p>Ferry/Boat</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Tourist Bus', 'tourist bus service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/bus.png"><p>Tourist Bus</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Traveller', 'tempo traveller rental')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/van.png"><p>Traveller</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Mini Bus', 'mini bus rental')"><img decoding="async" loading="lazy" src="https://img.icons8.com/fluency/48/bus.png"><p>Mini Bus</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Mini Goods', 'mini goods truck')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/truck.png"><p>Mini Goods</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/scooter.png"><p>Bike Rental</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/car-rental.png"><p>Car Rental</p></div>
+    <div class="transport-item" onclick="openGenericProvider('Luggage', 'luggage courier service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/package.png"><p>Luggage</p></div>
+    <div class="transport-item" onclick="openGenericProvider('Baggage', 'baggage transfer service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/suitcases.png"><p>Toll Plaza</p></div>
 	
-	<div class="transport-item" onclick="openGenericProvider('Backwater', 'shikara backwater transport')"><img decoding="async" src="https://img.icons8.com/color/48/rowboat.png" loading="lazy"><p>Backwater</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Backwater', 'shikara backwater transport')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/rowboat.png"><p>Backwater</p></div>
 	
-	<div class="transport-item" onclick="openDriverPopup()"><img decoding="async" src="https://img.icons8.com/color/48/chauffeur.png" loading="lazy"><p>Bus Ticket</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img decoding="async" src="https://img.icons8.com/color/48/railway-station.png" loading="lazy"><p>FASTag</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img decoding="async" src="https://img.icons8.com/color/48/parking.png" loading="lazy"><p>Parking</p></div>        </div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
+	<div class="transport-item" onclick="openDriverPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/chauffeur.png"><p>Bus Ticket</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/railway-station.png"><p>FASTag</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/parking.png"><p>Parking</p></div>        </div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
 
 <div class="provider-popup" id="bikeProviderPopup" onclick="closeBikeProvider()">    <div class="provider-card" onclick="event.stopPropagation()">        <h3 id="provTitle" style="font-size:20px;">Book Ride</h3>        <div class="provider-options">            <button id="uberBtn" class="btn-uber"><span>Uber</span></button>            <button id="rapidoBtn" class="btn-rapido"><span>Rapido</span></button>            <button id="localBtn" class="btn-local"><span>Local Cabs</span></button>            <button id="mapBtn" class="btn-map" style="display:none;"><span>Search with Map</span></button>        </div>        <span class="close-link" onclick="closeBikeProvider()">Maybe Later</span>    </div></div>
 
@@ -551,26 +550,26 @@
         <div class="drag-bar"></div>
         <h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Indian Railway Services</h3>
         <div class="railway-grid">
-            <div class="railway-item" onclick="handleDynamicTrain('nearby')"><img decoding="async" src="https://img.icons8.com/color/48/railway-station.png" loading="lazy"><p>Nearby Station</p></div>
-            <div class="railway-item" onclick="handleDynamicTrain('district')"><img decoding="async" src="https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/66/external-Railway-Station-urban-life-smashingstocks-flat-smashing-stocks.png" loading="lazy"><p>By District</p></div>
-            <div class="railway-item" onclick="openTrainService('book')"><img decoding="async" src="https://img.icons8.com/color/48/ticket.png" loading="lazy"><p>Book Ticket</p></div>
-            <div class="railway-item" onclick="openTrainService('uts')"><img decoding="async" src="https://img.icons8.com/color/48/smartphone.png" loading="lazy"><p>UTS Booking</p></div>
-            <div class="railway-item" onclick="openTrainService('platform_tkt')"><img decoding="async" src="https://img.icons8.com/color/48/ticket-purchase.png" loading="lazy"><p>Platform Ticket</p></div>
-            <div class="railway-item" onclick="openTrainService('seat')"><img decoding="async" src="https://img.icons8.com/color/48/sleeping-in-bed.png" loading="lazy"><p>Seat Avail.</p></div>
-            <div class="railway-item" onclick="openTrainService('fare')"><img decoding="async" src="https://img.icons8.com/color/48/rupee.png" loading="lazy"><p>Fare Estimate</p></div>
-            <div class="railway-item" onclick="openTrainService('schedule')"><img decoding="async" src="https://img.icons8.com/color/48/calendar--v1.png" loading="lazy"><p>Schedule</p></div>
-            <div class="railway-item" onclick="openTrainService('pnr')"><img decoding="async" src="https://img.icons8.com/color/48/search-property.png" loading="lazy"><p>PNR Check</p></div>
-            <div class="railway-item" onclick="openTrainService('live')"><img decoding="async" src="https://img.icons8.com/color/48/clock--v1.png" loading="lazy"><p>Live Status</p></div>
-            <div class="railway-item" onclick="openTrainService('cancel')"><img decoding="async" src="https://img.icons8.com/color/48/expired.png" loading="lazy"><p>Reschedule</p></div>
-            <div class="railway-item" onclick="openTrainService('platform_info')"><img decoding="async" src="https://img.icons8.com/color/48/info.png" loading="lazy"><p>Platform Info</p></div>
-            <div class="railway-item" onclick="openTrainService('map')"><img decoding="async" src="https://img.icons8.com/color/48/map-marker--v1.png" loading="lazy"><p>Live Map</p></div>
-            <div class="railway-item" onclick="openTrainService('food')"><img decoding="async" src="https://img.icons8.com/color/48/food-receiver.png" loading="lazy"><p>Order Food</p></div>
-            <div class="railway-item" onclick="openTrainService('luggage')"><img decoding="async" src="https://img.icons8.com/color/48/suitcases.png" loading="lazy"><p>Luggage Svcs</p></div>
-            <div class="railway-item" onclick="openTrainService('helpline')"><img decoding="async" src="https://img.icons8.com/color/48/customer-support.png" loading="lazy"><p>Helpline</p></div>
-            <div class="railway-item" onclick="openTrainService('madad')"><img decoding="async" src="https://img.icons8.com/color/48/complaint.png" loading="lazy"><p>Rail Madad</p></div>
-            <div class="railway-item" onclick="openTrainService('police')"><img decoding="async" src="https://img.icons8.com/color/48/police-skin-type-1.png" loading="lazy"><p>Railway Police</p></div>
-            <div class="railway-item" onclick="openTrainService('medical')"><img decoding="async" src="https://img.icons8.com/color/48/doctors-bag.png" loading="lazy"><p>Medical Help</p></div>
-            <div class="railway-item" onclick="openTrainService('lost')"><img decoding="async" src="https://img.icons8.com/color/48/lost-and-found.png" loading="lazy"><p>Lost & Found</p></div>
+            <div class="railway-item" onclick="handleDynamicTrain('nearby')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/railway-station.png"><p>Nearby Station</p></div>
+            <div class="railway-item" onclick="handleDynamicTrain('district')"><img decoding="async" loading="lazy" src="https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/66/external-Railway-Station-urban-life-smashingstocks-flat-smashing-stocks.png"><p>By District</p></div>
+            <div class="railway-item" onclick="openTrainService('book')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/ticket.png"><p>Book Ticket</p></div>
+            <div class="railway-item" onclick="openTrainService('uts')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/smartphone.png"><p>UTS Booking</p></div>
+            <div class="railway-item" onclick="openTrainService('platform_tkt')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/ticket-purchase.png"><p>Platform Ticket</p></div>
+            <div class="railway-item" onclick="openTrainService('seat')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/sleeping-in-bed.png"><p>Seat Avail.</p></div>
+            <div class="railway-item" onclick="openTrainService('fare')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/rupee.png"><p>Fare Estimate</p></div>
+            <div class="railway-item" onclick="openTrainService('schedule')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/calendar--v1.png"><p>Schedule</p></div>
+            <div class="railway-item" onclick="openTrainService('pnr')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/search-property.png"><p>PNR Check</p></div>
+            <div class="railway-item" onclick="openTrainService('live')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/clock--v1.png"><p>Live Status</p></div>
+            <div class="railway-item" onclick="openTrainService('cancel')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/expired.png"><p>Reschedule</p></div>
+            <div class="railway-item" onclick="openTrainService('platform_info')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/info.png"><p>Platform Info</p></div>
+            <div class="railway-item" onclick="openTrainService('map')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/map-marker--v1.png"><p>Live Map</p></div>
+            <div class="railway-item" onclick="openTrainService('food')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/food-receiver.png"><p>Order Food</p></div>
+            <div class="railway-item" onclick="openTrainService('luggage')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/suitcases.png"><p>Luggage Svcs</p></div>
+            <div class="railway-item" onclick="openTrainService('helpline')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/customer-support.png"><p>Helpline</p></div>
+            <div class="railway-item" onclick="openTrainService('madad')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/complaint.png"><p>Rail Madad</p></div>
+            <div class="railway-item" onclick="openTrainService('police')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/police-skin-type-1.png"><p>Railway Police</p></div>
+            <div class="railway-item" onclick="openTrainService('medical')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/doctors-bag.png"><p>Medical Help</p></div>
+            <div class="railway-item" onclick="openTrainService('lost')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/lost-and-found.png"><p>Lost & Found</p></div>
         </div>
         <button class="close-btn" onclick="closeRailwayPopup()">Close</button>    </div>
 </div>
@@ -589,13 +588,13 @@
     </div>
 </div>
 
-<div class="help-popup" id="helpPopup" onclick="closeHelpPopup()">    <div class="help-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Vehicle Support</h3>        <div class="help-grid">            <div class="help-item" onclick="openGenericProvider('2-Wheeler Repair', '2 wheeler repair workshop')"><img decoding="async" src="https://img.icons8.com/color/48/motorcycle.png" loading="lazy"><p>2-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('3-Wheeler Repair', 'auto rickshaw 3 wheeler repair workshop')"><img decoding="async" src="https://img.icons8.com/color/48/auto-rickshaw.png" loading="lazy"><p>3-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('4-Wheeler Repair', 'car repair workshop')"><img decoding="async" src="https://img.icons8.com/color/48/convertible--v1.png" loading="lazy"><p>4-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('Tyre & Puncture', 'tyre puncture shop')"><img decoding="async" src="https://img.icons8.com/color/48/flat-tire.png" loading="lazy"><p>Tyre & Puncture</p></div>            <div class="help-item" onclick="openGenericProvider('Fuel Delivery', 'fuel delivery service')"><img decoding="async" src="https://img.icons8.com/color/48/gasoline-refill.png" loading="lazy"><p>Fuel Delivery</p></div>            <div class="help-item" onclick="openGenericProvider('Wheel Alignment', 'wheel alignment center')"><img decoding="async" src="https://img.icons8.com/color/48/tire.png" loading="lazy"><p>Wheel Alignment</p></div>            <div class="help-item" onclick="openGenericProvider('Tow Truck', 'tow truck service')"><img decoding="async" src="https://img.icons8.com/color/48/tow-truck.png" loading="lazy"><p>Tow Truck</p></div>            <div class="help-item" onclick="openGenericProvider('Crane Service', 'crane service')"><img decoding="async" src="https://img.icons8.com/color/48/crane.png" loading="lazy"><p>Crane Service</p></div>            <div class="help-item" onclick="openGenericProvider('Vehicle Carrying', 'vehicle carrying service')"><img decoding="async" src="https://img.icons8.com/color/48/trailer.png" loading="lazy"><p>Vehicle Carrying</p></div>            <div class="help-item" onclick="openGenericProvider('Accident Recovery', 'accident recovery support')"><img decoding="async" src="https://img.icons8.com/color/48/car-crash.png" loading="lazy"><p>Accident Recovery</p></div>            <div class="help-item" onclick="openGenericProvider('Water Services', 'car wash water service')"><img decoding="async" src="https://img.icons8.com/color/48/automatic-car-wash.png" loading="lazy"><p>Water Services</p></div>            <div class="help-item" onclick="openGenericProvider('Spare Parts', 'vehicle spare parts accessories shop')"><img decoding="async" src="https://img.icons8.com/color/48/gear.png" loading="lazy"><p>Spare Parts</p></div>        </div>        <button class="close-btn" onclick="closeHelpPopup()">Close</button>    </div></div>
+<div class="help-popup" id="helpPopup" onclick="closeHelpPopup()">    <div class="help-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Vehicle Support</h3>        <div class="help-grid">            <div class="help-item" onclick="openGenericProvider('2-Wheeler Repair', '2 wheeler repair workshop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/motorcycle.png"><p>2-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('3-Wheeler Repair', 'auto rickshaw 3 wheeler repair workshop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/auto-rickshaw.png"><p>3-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('4-Wheeler Repair', 'car repair workshop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/convertible--v1.png"><p>4-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('Tyre & Puncture', 'tyre puncture shop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/flat-tire.png"><p>Tyre & Puncture</p></div>            <div class="help-item" onclick="openGenericProvider('Fuel Delivery', 'fuel delivery service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/gasoline-refill.png"><p>Fuel Delivery</p></div>            <div class="help-item" onclick="openGenericProvider('Wheel Alignment', 'wheel alignment center')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/tire.png"><p>Wheel Alignment</p></div>            <div class="help-item" onclick="openGenericProvider('Tow Truck', 'tow truck service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/tow-truck.png"><p>Tow Truck</p></div>            <div class="help-item" onclick="openGenericProvider('Crane Service', 'crane service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/crane.png"><p>Crane Service</p></div>            <div class="help-item" onclick="openGenericProvider('Vehicle Carrying', 'vehicle carrying service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/trailer.png"><p>Vehicle Carrying</p></div>            <div class="help-item" onclick="openGenericProvider('Accident Recovery', 'accident recovery support')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/car-crash.png"><p>Accident Recovery</p></div>            <div class="help-item" onclick="openGenericProvider('Water Services', 'car wash water service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/automatic-car-wash.png"><p>Water Services</p></div>            <div class="help-item" onclick="openGenericProvider('Spare Parts', 'vehicle spare parts accessories shop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/gear.png"><p>Spare Parts</p></div>        </div>        <button class="close-btn" onclick="closeHelpPopup()">Close</button>    </div></div>
 
-<div class="popup-overlay" id="popup" onclick="closePopup()">  <div class="popup-box" onclick="event.stopPropagation()">    <h3>Find Nearby</h3>    <div class="popup-grid">      <div class="popup-item" onclick="findNearby('petrol pumps')"><img decoding="async" src="https://img.icons8.com/color/48/gasoline-refill.png" loading="lazy"><p>Petrol</p></div>      <div class="popup-item" onclick="findNearby('EV charging')"><img decoding="async" src="https://img.icons8.com/color/48/car-charger.png" loading="lazy"><p>EV</p></div>      <div class="popup-item" onclick="findNearby('CNG stations')"><img decoding="async" src="https://img.icons8.com/color/48/gas-station.png" loading="lazy"><p>CNG</p></div>    </div>    <button class="popup-close" onclick="closePopup()">Close</button>  </div></div>
+<div class="popup-overlay" id="popup" onclick="closePopup()">  <div class="popup-box" onclick="event.stopPropagation()">    <h3>Find Nearby</h3>    <div class="popup-grid">      <div class="popup-item" onclick="findNearby('petrol pumps')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/gasoline-refill.png"><p>Petrol</p></div>      <div class="popup-item" onclick="findNearby('EV charging')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/car-charger.png"><p>EV</p></div>      <div class="popup-item" onclick="findNearby('CNG stations')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/gas-station.png"><p>CNG</p></div>    </div>    <button class="popup-close" onclick="closePopup()">Close</button>  </div></div>
 
-<div class="emergency-popup" id="emergencyPopup" onclick="closeEmergencyPopup()">  <div class="emergency-box" onclick="event.stopPropagation()">    <div class="drag-bar"></div><h3 style="text-align:center;">Emergency Help</h3>    <div class="popup-content">      <div class="emergency-grid">        <div class="emergency-item" onclick="callNumber('102')"><img decoding="async" src="https://img.icons8.com/color/48/ambulance.png" loading="lazy"><p>Ambulance</p></div>        <div class="emergency-item" onclick="findNearbyHospital()"><img decoding="async" src="https://img.icons8.com/color/48/hospital-3.png" loading="lazy"><p>Hospital</p></div>        <div class="emergency-item" onclick="callNumber('100')"><img decoding="async" src="https://img.icons8.com/color/48/police-skin-type-1.png" loading="lazy"><p>Police</p></div>        <div class="emergency-item" onclick="callNumber('101')"><img decoding="async" src="https://img.icons8.com/color/48/fire-truck.png" loading="lazy"><p>Fire</p></div>        <div class="emergency-item" onclick="callNumber('1091')"><img decoding="async" src="https://img.icons8.com/color/48/lady-skin-type-1.png" loading="lazy"><p>Women Helpline</p></div>        <div class="emergency-item" onclick="callNumber('1098')"><img decoding="async" src="https://img.icons8.com/fluency/48/children.png" loading="lazy"><p>Child Helpline</p></div>        <div class="emergency-item" onclick="callNumber('108')"><img decoding="async" src="https://img.icons8.com/color/48/earthquakes.png" loading="lazy"><p>Disaster Mgmt</p></div>        <div class="emergency-item" onclick="callNumber('112')"><img decoding="async" src="https://img.icons8.com/external-flat-wichaiwi/64/external-airport-jobs-and-occupations-flat-wichaiwi.png" loading="lazy"><p>Tourist Police</p></div>        <div class="emergency-item" onclick="callNumber('1363')"><img decoding="async" src="https://img.icons8.com/color/48/man-on-phone.png" loading="lazy"><p>Tourism Helpline</p></div>        <div class="emergency-item" onclick="callNumber('0471-2518255')"><img decoding="async" src="https://img.icons8.com/color/48/doctors-bag.png" loading="lazy"><p>Health Helpline</p></div>        <div class="emergency-item" onclick="callNumber('91 8589 0404 94')"><img decoding="async" src="https://img.icons8.com/color/48/trust--v1.png" loading="lazy"><p>Blood Donors</p></div>        <div class="emergency-item" onclick="callNumber('98461 00100')"><img decoding="async" src="https://img.icons8.com/color/48/highway.png" loading="lazy"><p>Highway Alert</p></div>      </div>      <div class="tips-slider">        <div class="tips-track" id="tipsTrack">          <div class="tip-card"><div class="tip-inner"><h4>🩺 Health Tips</h4><p>Drink bottled or purified water. Carry ORS and essential medicines. Use mosquito repellent in monsoon. Wear light cotton clothing. Ensure travel insurance coverage.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>🚗 Travel Safety</h4><p>Use ride apps or prepaid taxis. Always wear helmets and seatbelts. Avoid isolated places at night. Check weather alerts during monsoon. Follow beach & backwater safety rules.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>🌿 Natural Safety</h4><p>Swim only in lifeguard zones. Beware of strong currents in rivers and backwaters. Avoid trekking during heavy rain. Stay away from cliff edges. Carry flashlight during forest or night trips.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>💊 Pharmacies & First Aid</h4><p>Locate nearest pharmacies using maps. Carry basic first aid kit. Store medicines properly. Keep contact of local doctors & hospitals. Check expiry dates before use.</p></div></div>        </div>      </div>    </div>    <button class="close-btn" onclick="closeEmergencyPopup()">Close</button>  </div></div>
+<div class="emergency-popup" id="emergencyPopup" onclick="closeEmergencyPopup()">  <div class="emergency-box" onclick="event.stopPropagation()">    <div class="drag-bar"></div><h3 style="text-align:center;">Emergency Help</h3>    <div class="popup-content">      <div class="emergency-grid">        <div class="emergency-item" onclick="callNumber('102')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/ambulance.png"><p>Ambulance</p></div>        <div class="emergency-item" onclick="findNearbyHospital()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/hospital-3.png"><p>Hospital</p></div>        <div class="emergency-item" onclick="callNumber('100')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/police-skin-type-1.png"><p>Police</p></div>        <div class="emergency-item" onclick="callNumber('101')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/fire-truck.png"><p>Fire</p></div>        <div class="emergency-item" onclick="callNumber('1091')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/lady-skin-type-1.png"><p>Women Helpline</p></div>        <div class="emergency-item" onclick="callNumber('1098')"><img decoding="async" loading="lazy" src="https://img.icons8.com/fluency/48/children.png"><p>Child Helpline</p></div>        <div class="emergency-item" onclick="callNumber('108')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/earthquakes.png"><p>Disaster Mgmt</p></div>        <div class="emergency-item" onclick="callNumber('112')"><img decoding="async" loading="lazy" src="https://img.icons8.com/external-flat-wichaiwi/64/external-airport-jobs-and-occupations-flat-wichaiwi.png"><p>Tourist Police</p></div>        <div class="emergency-item" onclick="callNumber('1363')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/man-on-phone.png"><p>Tourism Helpline</p></div>        <div class="emergency-item" onclick="callNumber('0471-2518255')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/doctors-bag.png"><p>Health Helpline</p></div>        <div class="emergency-item" onclick="callNumber('91 8589 0404 94')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/trust--v1.png"><p>Blood Donors</p></div>        <div class="emergency-item" onclick="callNumber('98461 00100')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/highway.png"><p>Highway Alert</p></div>      </div>      <div class="tips-slider">        <div class="tips-track" id="tipsTrack">          <div class="tip-card"><div class="tip-inner"><h4>🩺 Health Tips</h4><p>Drink bottled or purified water. Carry ORS and essential medicines. Use mosquito repellent in monsoon. Wear light cotton clothing. Ensure travel insurance coverage.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>🚗 Travel Safety</h4><p>Use ride apps or prepaid taxis. Always wear helmets and seatbelts. Avoid isolated places at night. Check weather alerts during monsoon. Follow beach & backwater safety rules.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>🌿 Natural Safety</h4><p>Swim only in lifeguard zones. Beware of strong currents in rivers and backwaters. Avoid trekking during heavy rain. Stay away from cliff edges. Carry flashlight during forest or night trips.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>💊 Pharmacies & First Aid</h4><p>Locate nearest pharmacies using maps. Carry basic first aid kit. Store medicines properly. Keep contact of local doctors & hospitals. Check expiry dates before use.</p></div></div>        </div>      </div>    </div>    <button class="close-btn" onclick="closeEmergencyPopup()">Close</button>  </div></div>
 
-<div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img decoding="async" src="img/handpicked/munnar.jpg" loading="lazy"><p>Munnar</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/chembra peak.jpg" loading="lazy"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/alappuzha.jpg" loading="lazy"><p>Alappuzha</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/fort kochi.jpg" loading="lazy"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/varkala.jpg" loading="lazy"><p>Varkala</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/munnar.jpg" loading="lazy"><p>Munnar</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/chembra peak.jpg" loading="lazy"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/alappuzha.jpg" loading="lazy"><p>Alappuzha</p></div>    <div class="handpicked-card"><img decoding="async" src="img/handpicked/fort kochi.jpg" loading="lazy"><p>Fort Kochi</p></div>  </div>  </div>  </div></div>
+<div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/munnar.jpg"><p>Munnar</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/periyar Wildlife Sanctuary.jpg"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/chembra peak.jpg"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/alappuzha.jpg"><p>Alappuzha</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/fort kochi.jpg"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/varkala.jpg"><p>Varkala</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/munnar.jpg"><p>Munnar</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/chembra peak.jpg"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/periyar Wildlife Sanctuary.jpg"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/alappuzha.jpg"><p>Alappuzha</p></div>    <div class="handpicked-card"><img decoding="async" loading="lazy" src="img/handpicked/fort kochi.jpg"><p>Fort Kochi</p></div>  </div>  </div>  </div></div>
 
 <!-- SEE ALL POPUP -->
 <div class="hp-seeall-popup" id="hpSeeAllPopup" onclick="closeHpSeeAll()">
@@ -637,24 +636,24 @@
     </div>
     <div class="toolbar-wrapper">
         <div class="toolbar-row" id="toolbarRow">
-            <div class="tool-btn" onclick="openWeatherPopup()"><img decoding="async" src="https://img.icons8.com/color/48/partly-cloudy-day--v1.png" loading="lazy"><p>Weather</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img decoding="async" src="https://img.icons8.com/color/48/tour-guide.png" loading="lazy"><p>Guides</p></div>
-            <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img decoding="async" src="https://img.icons8.com/color/48/camping-tent.png" loading="lazy"><p>Camps</p></div>
-			<div class="tool-btn" onclick="openComingSoonPopup('Travel Partner')"><img decoding="async" src="https://img.icons8.com/color/48/conference.png" loading="lazy"><p>Travel Partner</p></div>
-			<div class="tool-btn" onclick="openClickMyTripPopup()"><img decoding="async" src="https://img.icons8.com/color/48/camera.png" loading="lazy"><p>Click My Trip</p></div>
-            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img decoding="async" src="https://img.icons8.com/color/48/pass.png" loading="lazy"><p>ePass</p></div>
-			<div class="tool-btn" onclick="openCurrencyPopup()"><img decoding="async" src="https://img.icons8.com/color/48/currency-exchange.png" loading="lazy"><p>Currency</p></div>
-			<div class="tool-btn" onclick="openFuelPopup()"><img decoding="async" src="https://img.icons8.com/color/48/gas-station.png" loading="lazy"><p>Fuel Cost</p></div>
-			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img decoding="async" src="https://img.icons8.com/color/48/atm.png" loading="lazy"><p>ATM / CDM</p></div>
-            <div class="tool-btn" onclick="findNearby('Banks')"><img decoding="async" src="https://img.icons8.com/color/48/bank.png" loading="lazy"><p>Banks</p></div>
-            <div class="tool-btn" onclick="openCalendarPopup()"><img decoding="async" src="https://img.icons8.com/color/48/calendar--v1.png" loading="lazy"><p>Calendar</p></div>
-            <div class="tool-btn" onclick="openTranslatePopup()"><img decoding="async" src="https://img.icons8.com/color/48/google-translate.png" loading="lazy"><p>Translate</p></div>
-            <div class="tool-btn" onclick="openTimezonePopup()"><img decoding="async" src="https://img.icons8.com/color/48/time.png" loading="lazy"><p>Time Zone</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Track Wildlife')"><img decoding="async" src="https://img.icons8.com/color/48/tiger.png" loading="lazy"><p>Track Wildlife</p></div>
-            <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img decoding="async" src="https://img.icons8.com/color/48/open-book.png" loading="lazy"><p>Visa Requirements</p></div>
-			<div class="tool-btn" onclick="openComingSoonPopup('Bike Riders')"><img decoding="async" src="https://img.icons8.com/color/48/motorbike.png" loading="lazy"><p>Bike Riders</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('4x4 Offroad')"><img decoding="async" src="https://img.icons8.com/color/48/jeep.png" loading="lazy"><p>4x4 Offroad</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Movies')"><img decoding="async" src="https://img.icons8.com/color/48/movie-projector.png" loading="lazy"><p>Movies</p></div>
+            <div class="tool-btn" onclick="openWeatherPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/partly-cloudy-day--v1.png"><p>Weather</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/tour-guide.png"><p>Guides</p></div>
+            <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/camping-tent.png"><p>Camps</p></div>
+			<div class="tool-btn" onclick="openComingSoonPopup('Travel Partner')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/conference.png"><p>Travel Partner</p></div>
+			<div class="tool-btn" onclick="openClickMyTripPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/camera.png"><p>Click My Trip</p></div>
+            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/pass.png"><p>ePass</p></div>
+			<div class="tool-btn" onclick="openCurrencyPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/currency-exchange.png"><p>Currency</p></div>
+			<div class="tool-btn" onclick="openFuelPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/gas-station.png"><p>Fuel Cost</p></div>
+			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/atm.png"><p>ATM / CDM</p></div>
+            <div class="tool-btn" onclick="findNearby('Banks')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/bank.png"><p>Banks</p></div>
+            <div class="tool-btn" onclick="openCalendarPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/calendar--v1.png"><p>Calendar</p></div>
+            <div class="tool-btn" onclick="openTranslatePopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/google-translate.png"><p>Translate</p></div>
+            <div class="tool-btn" onclick="openTimezonePopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/time.png"><p>Time Zone</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Track Wildlife')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/tiger.png"><p>Track Wildlife</p></div>
+            <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/open-book.png"><p>Visa Requirements</p></div>
+			<div class="tool-btn" onclick="openComingSoonPopup('Bike Riders')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/motorbike.png"><p>Bike Riders</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('4x4 Offroad')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/jeep.png"><p>4x4 Offroad</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Movies')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/movie-projector.png"><p>Movies</p></div>
         </div>
     </div>
 </div>
@@ -662,13 +661,13 @@
 <div class="activities-section">
   <div class="activities-slider-wrap">
     <div class="activities-cards" id="activitiesCards">
-      <div class="activity-card" onclick="findNearby('kayaking Kerala')"><img decoding="async" src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=440&q=80" alt="Kayaking" loading="lazy"><div class="act-overlay"></div><p>🛶 Kayaking</p></div>
-      <div class="activity-card" onclick="findNearby('speed boating Kerala')"><img decoding="async" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=440&q=80" alt="Speed Boating" loading="lazy"><div class="act-overlay"></div><p>🚤 Speed Boating</p></div>
-      <div class="activity-card" onclick="findNearby('paragliding Kerala')"><img decoding="async" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=440&q=80" alt="Paragliding" loading="lazy"><div class="act-overlay"></div><p>🪂 Paragliding</p></div>
-      <div class="activity-card" onclick="findNearby('zipline Kerala')"><img decoding="async" src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=440&q=80" alt="Zipline" loading="lazy"><div class="act-overlay"></div><p>🧗 Zipline</p></div>
-      <div class="activity-card" onclick="findNearby('bamboo rafting Kerala')"><img decoding="async" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=440&q=80" alt="Bamboo Rafting" loading="lazy"><div class="act-overlay"></div><p>🎋 Bamboo Rafting</p></div>
-      <div class="activity-card" onclick="findNearby('scuba diving Kerala')"><img decoding="async" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=440&q=80" alt="Scuba Diving" loading="lazy"><div class="act-overlay"></div><p>🤿 Scuba Diving</p></div>
-      <div class="activity-card" onclick="findNearby('off road jeep rides Kerala')"><img decoding="async" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=440&q=80" alt="Off-Road Rides" loading="lazy"><div class="act-overlay"></div><p>🚙 Off-Road Rides</p></div>
+      <div class="activity-card" onclick="findNearby('kayaking Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=440&q=80" alt="Kayaking"><div class="act-overlay"></div><p>🛶 Kayaking</p></div>
+      <div class="activity-card" onclick="findNearby('speed boating Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=440&q=80" alt="Speed Boating"><div class="act-overlay"></div><p>🚤 Speed Boating</p></div>
+      <div class="activity-card" onclick="findNearby('paragliding Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=440&q=80" alt="Paragliding"><div class="act-overlay"></div><p>🪂 Paragliding</p></div>
+      <div class="activity-card" onclick="findNearby('zipline Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=440&q=80" alt="Zipline"><div class="act-overlay"></div><p>🧗 Zipline</p></div>
+      <div class="activity-card" onclick="findNearby('bamboo rafting Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=440&q=80" alt="Bamboo Rafting"><div class="act-overlay"></div><p>🎋 Bamboo Rafting</p></div>
+      <div class="activity-card" onclick="findNearby('scuba diving Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=440&q=80" alt="Scuba Diving"><div class="act-overlay"></div><p>🤿 Scuba Diving</p></div>
+      <div class="activity-card" onclick="findNearby('off road jeep rides Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=440&q=80" alt="Off-Road Rides"><div class="act-overlay"></div><p>🚙 Off-Road Rides</p></div>
     </div>
   </div>
 </div>
@@ -715,8 +714,8 @@
     <div class="escapes-layout">
       <!-- BIG MAIN IMAGE -->
       <div class="esc-main" id="escMain" onclick="if(escData[escActiveIdx])window.open(escData[escActiveIdx].map,'_blank')">
-        <img decoding="async" class="esc-main-img-back" id="escMainImgBack" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'" loading="lazy">
-        <img decoding="async" class="esc-main-img-front" id="escMainImgFront" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'" loading="lazy">
+        <img decoding="async" loading="lazy" class="esc-main-img-back" id="escMainImgBack" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'">
+        <img decoding="async" loading="lazy" class="esc-main-img-front" id="escMainImgFront" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'">
         <div class="esc-main-overlay"></div>
         <div class="esc-main-info">
           <div class="esc-main-text">
@@ -786,11 +785,11 @@
 </div>
 
 <div class="bottom-nav">
-    <img decoding="async" src="https://img.icons8.com/pulsar-line/48/camping-tent.png" alt="Home" loading="lazy">
-	<img decoding="async" src="https://img.icons8.com/pulsar-line/48/search.png" alt="Search" loading="lazy">
-    <img decoding="async" src="https://img.icons8.com/pulsar-line/48/plus-math.png" alt="Explore" loading="lazy">
-    <img decoding="async" src="https://img.icons8.com/pulsar-line/48/stack-of-photos.png" alt="Favorites" loading="lazy">
-    <img decoding="async" src="https://img.icons8.com/pulsar-line/48/guest-male.png" alt="Profile" style="width: 27px; height: 25px;" loading="lazy">
+    <img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/camping-tent.png" alt="Home">
+	<img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/search.png" alt="Search">
+    <img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/plus-math.png" alt="Explore">
+    <img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/stack-of-photos.png" alt="Favorites">
+    <img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/guest-male.png" alt="Profile" style="width: 27px; height: 25px;">
 </div>
 
 <script>
@@ -803,7 +802,12 @@ async function loadTrainData() {
         stationData = await response.json();
     } catch (e) { console.error("Could not load stations.json", e); }
 }
-loadTrainData();
+// Load train data after page is interactive, not immediately
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(loadTrainData, 800); });
+} else {
+  setTimeout(loadTrainData, 800);
+}
 
 function calculateKM(lat1, lon1, lat2, lon2) {
     const R = 6371;
@@ -828,7 +832,7 @@ function handleDynamicTrain(type) {
             html += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}')">
                 <div class="station-info">
                     <div class="station-icon">
-                    <img decoding="async" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon" loading="lazy">
+                    <img decoding="async" loading="lazy" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
                     </div>
                     <div class="station-details">
                         <h4>${s["Station Name"]}</h4>
@@ -836,7 +840,7 @@ function handleDynamicTrain(type) {
                     </div>
                 </div>
                 <div class="station-action-group">
-                    <img decoding="async" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png" loading="lazy">
+                    <img decoding="async" loading="lazy" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
                 </div>
             </div>`;
         });
@@ -854,7 +858,7 @@ function handleDynamicTrain(type) {
                     html2 += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&origin=${uLat},${uLng}&destination=${s.lat},${s.lng}')">
                         <div class="station-info">
                             <div class="station-icon">
-                            <img decoding="async" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon" loading="lazy">
+                            <img decoding="async" loading="lazy" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
                             </div>
                             <div class="station-details">
                                 <h4>${s["Station Name"]}</h4>
@@ -863,7 +867,7 @@ function handleDynamicTrain(type) {
                         </div>
                         <div class="station-action-group">
                             <span class="station-distance">${s.dist} KM</span>
-                            <img decoding="async" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png" loading="lazy">
+                            <img decoding="async" loading="lazy" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
 
                         </div>
                     </div>`;
@@ -896,7 +900,7 @@ function filterByDistrict(dist) {
         html += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}')">
             <div class="station-info">
                 <div class="station-icon">
-                  <img decoding="async" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon" loading="lazy">
+                  <img decoding="async" loading="lazy" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
                 </div>
                 <div class="station-details">
                     <h4>${s["Station Name"]}</h4>
@@ -904,7 +908,7 @@ function filterByDistrict(dist) {
                 </div>
             </div>
             <div class="station-action-group">
-                <img decoding="async" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png" loading="lazy">
+                <img decoding="async" loading="lazy" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
             </div>
         </div>`;
     });
@@ -1082,7 +1086,12 @@ function findNearby(type){
     }
     running = false;
   });
-  setInterval(next, 4000);
+  var heroTimer = setInterval(next, 4000);
+  // Pause when tab hidden — saves CPU/battery on mobile
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ clearInterval(heroTimer); }
+    else { heroTimer = setInterval(next, 4000); }
+  });
 })();
 
 /* --- KERALA'S HIDDEN GEMS: Infinite seamless auto-slider --- */
@@ -1189,7 +1198,8 @@ function findNearby(type){
 function scrollToolbar(dir){ const r=document.getElementById('toolbarRow'); if(!r) return; r.scrollBy({left:dir*150,behavior:'smooth'}); }
 
 let tIdx=0; const tTrk=document.getElementById("tipsTrack"), tSlds=document.querySelectorAll(".tip-card");
-setInterval(()=>{ tIdx++; tTrk.style.transition="transform 0.6s ease-in-out"; tTrk.style.transform=`translateX(-${tIdx*100}%)`; if(tIdx===tSlds.length-1){ setTimeout(()=>{ tTrk.style.transition="none"; tTrk.style.transform="translateX(0)"; tIdx=0; },600); } },5000);
+var tTimer=setInterval(()=>{ tIdx++; tTrk.style.transition="transform 0.6s ease-in-out"; tTrk.style.transform=`translateX(-${tIdx*100}%)`; if(tIdx===tSlds.length-1){ setTimeout(()=>{ tTrk.style.transition="none"; tTrk.style.transform="translateX(0)"; tIdx=0; },600); } },5000);
+document.addEventListener('visibilitychange',function(){ if(document.hidden)clearInterval(tTimer); else tTimer=setInterval(()=>{ tIdx++; tTrk.style.transition="transform 0.6s ease-in-out"; tTrk.style.transform=`translateX(-${tIdx*100}%)`; if(tIdx===tSlds.length-1){ setTimeout(()=>{ tTrk.style.transition="none"; tTrk.style.transform="translateX(0)"; tIdx=0; },600); } },5000); });
 
 /* --- POPULAR PLACES SEE ALL POPUP --- */
 function openHpSeeAll() { document.getElementById('hpSeeAllPopup').style.display = 'flex'; }
@@ -1374,9 +1384,9 @@ var escPageStart = 0;
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', escLoadJSON);
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(escLoadJSON, 400); });
   } else {
-    escLoadJSON();
+    setTimeout(escLoadJSON, 400);
   }
 })();
 
@@ -1403,7 +1413,7 @@ var escPageStart = 0;
     div.className = 'ny-card';
     div.onclick = () => window.open('https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng, '_blank');
     div.innerHTML =
-      '<img decoding="async" src="' + imgSrc + '" alt="' + name + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=80\'" loading="lazy">' +
+      '<img decoding="async" src="' + imgSrc + '" alt="' + name + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=80\'">' +
       '<div class="ny-card-overlay"></div>' +
       '<div class="ny-card-body">' +
         '<div class="ny-top-row">' +
@@ -1582,9 +1592,9 @@ var escPageStart = 0;
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', nyInit);
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(nyInit, 600); });
   } else {
-    nyInit();
+    setTimeout(nyInit, 600);
   }
 
 })();
@@ -1625,7 +1635,7 @@ var escPageStart = 0;
       // Escape single quotes in place name for safe HTML attribute use
       var safeName = place["Place Name"].replace(/'/g, "&#39;");
       html += '<div class="ktp-card" style="animation-delay:' + (i * 0.03) + 's" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
-        '<img decoding="async" src="' + ktpImgSrc(place["Place Name"]) + '" alt="' + safeName + '" style="height:' + imgH + 'px;width:100%;object-fit:cover;display:block;" loading="lazy">' +
+        '<img decoding="async" loading="lazy" src="' + ktpImgSrc(place["Place Name"]) + '" alt="' + safeName + '" style="height:' + imgH + 'px;width:100%;object-fit:cover;display:block;">' +
         '<div class="ktp-card-overlay"></div>' +
         '<div class="ktp-card-body">' +
           '<div class="ktp-card-left">' +
@@ -1675,9 +1685,9 @@ var escPageStart = 0;
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', ktpInit);
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(ktpInit, 1000); });
   } else {
-    ktpInit();
+    setTimeout(ktpInit, 1000);
   }
 })();
 </script>
@@ -1803,7 +1813,7 @@ var escPageStart = 0;
 
 <style>
 /* ===== KERALA CALENDAR POPUP ===== */
-.kcal-overlay{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(8,12,24,0.58);backdrop-filter:blur(10px);z-index:20001;padding:16px;}
+.kcal-overlay{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(8,12,24,0.58);z-index:20001;padding:16px;}
 .kcal-sheet{width:100%;max-width:400px;background:#fff;border-radius:28px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:14px;animation:kcalPop .32s cubic-bezier(.32,1.2,.6,1);max-height:calc(100vh - 32px);overflow-y:auto;scrollbar-width:none;}
 .kcal-sheet::-webkit-scrollbar{display:none;}
 @keyframes kcalPop{from{transform:scale(0.92) translateY(18px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
@@ -2055,7 +2065,7 @@ var escPageStart = 0;
 
 <style>
 /* ===== WEATHER POPUP STYLES ===== */
-.wx-overlay{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(10,15,30,0.55);backdrop-filter:blur(8px);z-index:20000;padding:16px;}
+.wx-overlay{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(10,15,30,0.55);z-index:20000;padding:16px;}
 .wx-sheet{width:100%;max-width:520px;background:#fff;border-radius:28px;padding:18px 18px 22px;display:flex;flex-direction:column;gap:0;animation:wxSlideUp .35s cubic-bezier(.32,1.2,.6,1);max-height:calc(100vh - 32px);overflow:hidden;}
 @keyframes wxSlideUp{from{transform:scale(0.93) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
 .wx-drag-bar{display:none;}
@@ -2730,7 +2740,7 @@ window.closeCsPopup = function(){
 </script>
 <!-- ===== TRANSLATE POPUP ===== -->
 <style>
-.tr-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12002;padding:12px;}
+.tr-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);z-index:12002;padding:12px;}
 .tr-box{width:100%;max-width:520px;background:#fff;border-radius:22px;display:flex;flex-direction:column;animation:slideUp .3s ease;max-height:92vh;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,0.18);}
 .tr-topbar{display:flex;align-items:center;justify-content:center;padding:16px 16px 12px;position:relative;border-bottom:1px solid #f1f1f1;flex-shrink:0;}
 .tr-title{font-size:15px;font-weight:700;color:#111;flex:1;text-align:center;}
@@ -3218,39 +3228,6 @@ window.closeCsPopup = function(){
     document.body.style.overflow = '';
     if(_tzTimer){ clearInterval(_tzTimer); _tzTimer = null; }
   };
-})();
-</script>
-
-<script>
-// ── PERFORMANCE: Native lazy-load observer for all images ──────────────────
-// Replaces src with data-src on icons8 images (inside popups, not visible on load)
-// and loads them only when they scroll into view or popup opens
-(function(){
-  // All icons8 images are inside popups - defer their load completely
-  // by converting to data-src and loading on demand
-  if(!('IntersectionObserver' in window)) return;
-
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        var img = e.target;
-        if(img.dataset.src){ img.src = img.dataset.src; delete img.dataset.src; }
-        obs.unobserve(img);
-      }
-    });
-  }, { rootMargin: '200px' });
-
-  // Convert popup images to lazy on DOM ready
-  document.querySelectorAll(
-    '.transport-item img, .help-item img, .popup-item img, ' +
-    '.railway-item img, .emergency-item img, .tool-btn img'
-  ).forEach(function(img){
-    if(img.src && img.src.indexOf('icons8.com') !== -1){
-      img.dataset.src = img.src;
-      img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAI='; // 1px blank
-      obs.observe(img);
-    }
-  });
 })();
 </script>
 
