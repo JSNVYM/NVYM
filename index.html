@@ -6,7 +6,6 @@
     <title>Yathra Map</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://img.icons8.com">
     <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://api.mymemory.translated.net">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -456,7 +455,7 @@
 </head>
 <body>
 
-<div class="navbar"><div class="nav-inner"><div class="logo"><img decoding="async" loading="lazy" src="img/logo/Yathra Map Logo PNG.png"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span>About</span></div><div class="search-icon">🔍</div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg" fetchpriority="high"></div>    <div class="hero-slide"><img src="img/hero6.jpg"></div>    <div class="hero-slide"><img src="img/hero7.png"></div>    <div class="hero-slide"><img src="img/hero9.jpg"></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img decoding="async" loading="lazy" src="img/icons/beach.png"><p>Beaches</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="img/icons/mountain.png"><p>Mountains</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="img/icons/backwater.png"><p>Backwater</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="img/icons/wildlife.png"><p>Wildlife</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="img/icons/adventure.png"><p>Adventure</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="img/icons/waterfall.png"><p>Waterfalls</p></div>    <div class="card-btn"><img decoding="async" loading="lazy" src="img/icons/culture.png"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img decoding="async" loading="lazy" src="img/icons/fuel.png"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img decoding="async" loading="lazy" src="img/icons/emergency.png"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img decoding="async" loading="lazy" src="img/icons/pit stop.png"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img decoding="async" loading="lazy" src="img/icons/eat.png"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img decoding="async" loading="lazy" src="img/icons/stay.png"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img decoding="async" loading="lazy" src="img/icons/help.png"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img decoding="async" loading="lazy" src="img/icons/transport.png"><p>Transport</p></div>  </div></div>
+<div class="navbar"><div class="nav-inner"><div class="logo"><img src="img/logo/Yathra Map Logo PNG.png"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span>About</span></div><div class="search-icon">🔍</div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg" fetchpriority="high"></div>    <div class="hero-slide"><img src="img/hero6.jpg"></div>    <div class="hero-slide"><img src="img/hero7.png"></div>    <div class="hero-slide"><img src="img/hero9.jpg"></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img src="img/icons/beach.png"><p>Beaches</p></div>    <div class="card-btn"><img src="img/icons/mountain.png"><p>Mountains</p></div>    <div class="card-btn"><img src="img/icons/backwater.png"><p>Backwater</p></div>    <div class="card-btn"><img src="img/icons/wildlife.png"><p>Wildlife</p></div>    <div class="card-btn"><img src="img/icons/adventure.png"><p>Adventure</p></div>    <div class="card-btn"><img src="img/icons/waterfall.png"><p>Waterfalls</p></div>    <div class="card-btn"><img src="img/icons/culture.png"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img src="img/icons/fuel.png"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img src="img/icons/emergency.png"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img src="img/icons/pit stop.png"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img src="img/icons/eat.png"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img src="img/icons/stay.png"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img src="img/icons/help.png"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img src="img/icons/transport.png"><p>Transport</p></div>  </div></div>
 
 <div class="internal-popup" id="metroTimingPopup" onclick="this.style.display='none'">
     <div class="internal-box" onclick="event.stopPropagation()">
@@ -519,28 +518,28 @@
     </div>
 </div>
 
-<div class="transport-popup" id="transportPopup" onclick="closeTransportPopup()">    <div class="transport-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Transport & Parking</h3>        <div class="transport-grid">            <div class="transport-item" onclick="openBikeProvider()"><img decoding="async" loading="lazy" src="img/icons/bike taxi.png"><p>Bike Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Car Taxi')"><img decoding="async" loading="lazy" src="img/icons/car taxi.png"><p>Car Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Auto')"><img decoding="async" loading="lazy" src="img/icons/auto.png"><p>Auto</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Drivers', 'hire driver service')"><img decoding="async" loading="lazy" src="img/icons/drivers.png"><p>Drivers</p></div>
-	<div class="transport-item" onclick="findNearby('bus stop')"><img decoding="async" loading="lazy" src="img/icons/bus stops.png"><p>Bus Stops</p></div>
-	<div class="transport-item" onclick="findNearby('bus stand')"><img decoding="async" loading="lazy" src="img/icons/bus stand.png"><p>Bus Stand</p></div>
-	<div class="transport-item" onclick="openMetroPopup('Metro')"><img decoding="async" loading="lazy" src="img/icons/metro.png"><p>Metro</p></div>
-	<div class="transport-item" onclick="openMetroPopup('Water Metro')"><img decoding="async" loading="lazy" src="img/icons/water metro.png"><p>Water Metro</p></div>
-	<div class="transport-item" onclick="openRailwayPopup()"><img decoding="async" loading="lazy" src="img/icons/train.png"><p>Train</p></div>
-	<div class="transport-item" onclick="findNearby('airport')"><img decoding="async" loading="lazy" src="img/icons/airport.png"><p>Airport</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Helicopter', 'helicopter service')"><img decoding="async" loading="lazy" src="img/icons/helicopter.png"><p>Helicopter</p></div>
-	<div class="transport-item" onclick="findNearby('ferry boat service')"><img decoding="async" loading="lazy" src="img/icons/ferry and boat.png"><p>Ferry/Boat</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Tourist Bus', 'tourist bus service')"><img decoding="async" loading="lazy" src="img/icons/tourist bus.png"><p>Tourist Bus</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Traveller', 'tempo traveller rental')"><img decoding="async" loading="lazy" src="img/icons/traveller.png"><p>Traveller</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Mini Bus', 'mini bus rental')"><img decoding="async" loading="lazy" src="img/icons/mini bus.png"><p>Mini Bus</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Mini Goods', 'mini goods truck')"><img decoding="async" loading="lazy" src="img/icons/mini goods.png"><p>Mini Goods</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img decoding="async" loading="lazy" src="img/icons/bike rental.png"><p>Bike Rental</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img decoding="async" loading="lazy" src="img/icons/car rental.png"><p>Car Rental</p></div>
-    <div class="transport-item" onclick="openGenericProvider('Luggage', 'luggage courier service')"><img decoding="async" loading="lazy" src="img/icons/luggage.png"><p>Luggage</p></div>
-    <div class="transport-item" onclick="openGenericProvider('Baggage', 'baggage transfer service')"><img decoding="async" loading="lazy" src="img/icons/toll plaza.png"><p>Toll Plaza</p></div>
+<div class="transport-popup" id="transportPopup" onclick="closeTransportPopup()">    <div class="transport-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Transport & Parking</h3>        <div class="transport-grid">            <div class="transport-item" onclick="openBikeProvider()"><img src="img/icons/bike taxi.png"><p>Bike Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Car Taxi')"><img src="img/icons/car taxi.png"><p>Car Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Auto')"><img src="img/icons/auto.png"><p>Auto</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Drivers', 'hire driver service')"><img src="img/icons/drivers.png"><p>Drivers</p></div>
+	<div class="transport-item" onclick="findNearby('bus stop')"><img src="img/icons/bus stops.png"><p>Bus Stops</p></div>
+	<div class="transport-item" onclick="findNearby('bus stand')"><img src="img/icons/bus stand.png"><p>Bus Stand</p></div>
+	<div class="transport-item" onclick="openMetroPopup('Metro')"><img src="img/icons/metro.png"><p>Metro</p></div>
+	<div class="transport-item" onclick="openMetroPopup('Water Metro')"><img src="img/icons/water metro.png"><p>Water Metro</p></div>
+	<div class="transport-item" onclick="openRailwayPopup()"><img src="img/icons/train.png"><p>Train</p></div>
+	<div class="transport-item" onclick="findNearby('airport')"><img src="img/icons/airport.png"><p>Airport</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Helicopter', 'helicopter service')"><img src="img/icons/helicopter.png"><p>Helicopter</p></div>
+	<div class="transport-item" onclick="findNearby('ferry boat service')"><img src="img/icons/ferry and boat.png"><p>Ferry/Boat</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Tourist Bus', 'tourist bus service')"><img src="img/icons/tourist bus.png"><p>Tourist Bus</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Traveller', 'tempo traveller rental')"><img src="img/icons/traveller.png"><p>Traveller</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Mini Bus', 'mini bus rental')"><img src="img/icons/mini bus.png"><p>Mini Bus</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Mini Goods', 'mini goods truck')"><img src="img/icons/mini goods.png"><p>Mini Goods</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img src="img/icons/bike rental.png"><p>Bike Rental</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img src="img/icons/car rental.png"><p>Car Rental</p></div>
+    <div class="transport-item" onclick="openGenericProvider('Luggage', 'luggage courier service')"><img src="img/icons/luggage.png"><p>Luggage</p></div>
+    <div class="transport-item" onclick="openGenericProvider('Baggage', 'baggage transfer service')"><img src="img/icons/toll plaza.png"><p>Toll Plaza</p></div>
 	
-	<div class="transport-item" onclick="openGenericProvider('Backwater', 'shikara backwater transport')"><img decoding="async" loading="lazy" src="img/icons/house boat.png"><p>Houseboat</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Backwater', 'shikara backwater transport')"><img src="img/icons/house boat.png"><p>Houseboat</p></div>
 	
-	<div class="transport-item" onclick="openDriverPopup()"><img decoding="async" loading="lazy" src="img/icons/bus ticket.png"><p>Bus Ticket</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img decoding="async" loading="lazy" src="img/icons/fastag.png"><p>FASTag</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img decoding="async" loading="lazy" src="img/icons/parking.png"><p>Parking</p></div>        </div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
+	<div class="transport-item" onclick="openDriverPopup()"><img src="img/icons/bus ticket.png"><p>Bus Ticket</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img src="img/icons/fastag.png"><p>FASTag</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img src="img/icons/parking.png"><p>Parking</p></div>        </div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
 
 <div class="provider-popup" id="bikeProviderPopup" onclick="closeBikeProvider()">    <div class="provider-card" onclick="event.stopPropagation()">        <h3 id="provTitle" style="font-size:20px;">Book Ride</h3>        <div class="provider-options">            <button id="uberBtn" class="btn-uber"><span>Uber</span></button>            <button id="rapidoBtn" class="btn-rapido"><span>Rapido</span></button>            <button id="localBtn" class="btn-local"><span>Local Cabs</span></button>            <button id="mapBtn" class="btn-map" style="display:none;"><span>Search with Map</span></button>        </div>        <span class="close-link" onclick="closeBikeProvider()">Maybe Later</span>    </div></div>
 
@@ -549,26 +548,22 @@
         <div class="drag-bar"></div>
         <h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Indian Railway Services</h3>
         <div class="railway-grid">
-            <div class="railway-item" onclick="handleDynamicTrain('nearby')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/railway-station.png"><p>Nearby Station</p></div>
-            <div class="railway-item" onclick="handleDynamicTrain('district')"><img decoding="async" loading="lazy" src="https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/66/external-Railway-Station-urban-life-smashingstocks-flat-smashing-stocks.png"><p>By District</p></div>
-            <div class="railway-item" onclick="openTrainService('book')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/ticket.png"><p>Book Ticket</p></div>
-            <div class="railway-item" onclick="openTrainService('uts')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/smartphone.png"><p>UTS Booking</p></div>
-            <div class="railway-item" onclick="openTrainService('platform_tkt')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/ticket-purchase.png"><p>Platform Ticket</p></div>
-            <div class="railway-item" onclick="openTrainService('seat')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/sleeping-in-bed.png"><p>Seat Avail.</p></div>
-            <div class="railway-item" onclick="openTrainService('fare')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/rupee.png"><p>Fare Estimate</p></div>
-            <div class="railway-item" onclick="openTrainService('schedule')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/calendar--v1.png"><p>Schedule</p></div>
-            <div class="railway-item" onclick="openTrainService('pnr')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/search-property.png"><p>PNR Check</p></div>
-            <div class="railway-item" onclick="openTrainService('live')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/clock--v1.png"><p>Live Status</p></div>
-            <div class="railway-item" onclick="openTrainService('cancel')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/expired.png"><p>Reschedule</p></div>
-            <div class="railway-item" onclick="openTrainService('platform_info')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/info.png"><p>Platform Info</p></div>
-            <div class="railway-item" onclick="openTrainService('map')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/map-marker--v1.png"><p>Live Map</p></div>
-            <div class="railway-item" onclick="openTrainService('food')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/food-receiver.png"><p>Order Food</p></div>
-            <div class="railway-item" onclick="openTrainService('luggage')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/suitcases.png"><p>Luggage Svcs</p></div>
-            <div class="railway-item" onclick="openTrainService('helpline')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/customer-support.png"><p>Helpline</p></div>
-            <div class="railway-item" onclick="openTrainService('madad')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/complaint.png"><p>Rail Madad</p></div>
-            <div class="railway-item" onclick="openTrainService('police')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/police-skin-type-1.png"><p>Railway Police</p></div>
-            <div class="railway-item" onclick="openTrainService('medical')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/doctors-bag.png"><p>Medical Help</p></div>
-            <div class="railway-item" onclick="openTrainService('lost')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/lost-and-found.png"><p>Lost & Found</p></div>
+            <div class="railway-item" onclick="handleDynamicTrain('nearby')"><img src="img/icons/nearby station.png"><p>Nearby Station</p></div>
+            <div class="railway-item" onclick="handleDynamicTrain('district')"><img src="img/icons/by district.png"><p>By District</p></div>
+            <div class="railway-item" onclick="openTrainService('book')"><img src="img/icons/train ticket.png"><p>Book Ticket</p></div>
+            <div class="railway-item" onclick="openTrainService('uts')"><img src="img/icons/uts booking.png"><p>UTS Booking</p></div>
+            <div class="railway-item" onclick="openTrainService('platform_tkt')"><img src="img/icons/platform ticket.png"><p>Platform Ticket</p></div>
+            <div class="railway-item" onclick="openTrainService('seat')"><img src="img/icons/seat available.png"><p>Seat Avail.</p></div>
+            <div class="railway-item" onclick="openTrainService('fare')"><img src="img/icons/fare estimate.png"><p>Fare Estimate</p></div>
+            <div class="railway-item" onclick="openTrainService('schedule')"><img src="img/icons/schedule.png"><p>Reschedule</p></div>
+            <div class="railway-item" onclick="openTrainService('pnr')"><img src="img/icons/pnr check.png"><p>PNR Check</p></div>
+            <div class="railway-item" onclick="openTrainService('live')"><img src="img/icons/live status.png"><p>Live Status</p></div>
+            <div class="railway-item" onclick="openTrainService('platform_info')"><img src="img/icons/platform info.png"><p>Platform Info</p></div>
+            <div class="railway-item" onclick="openTrainService('food')"><img src="img/icons/food order.png"><p>Order Food</p></div>
+            <div class="railway-item" onclick="openTrainService('helpline')"><img src="img/icons/railway helpline.png"><p>Helpline</p></div>
+            <div class="railway-item" onclick="openTrainService('police')"><img src="img/icons/railway police.png"><p>Railway Police</p></div>
+            <div class="railway-item" onclick="openTrainService('medical')"><img src="img/icons/medical help.png"><p>Medical Help</p></div>
+            <div class="railway-item" onclick="openTrainService('lost')"><img src="img/icons/lost and found.png"><p>Lost & Found</p></div>
         </div>
         <button class="close-btn" onclick="closeRailwayPopup()">Close</button>    </div>
 </div>
@@ -587,11 +582,11 @@
     </div>
 </div>
 
-<div class="help-popup" id="helpPopup" onclick="closeHelpPopup()">    <div class="help-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Vehicle Support</h3>        <div class="help-grid">            <div class="help-item" onclick="openGenericProvider('2-Wheeler Repair', '2 wheeler repair workshop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/motorcycle.png"><p>2-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('3-Wheeler Repair', 'auto rickshaw 3 wheeler repair workshop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/auto-rickshaw.png"><p>3-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('4-Wheeler Repair', 'car repair workshop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/convertible--v1.png"><p>4-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('Tyre & Puncture', 'tyre puncture shop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/flat-tire.png"><p>Tyre & Puncture</p></div>            <div class="help-item" onclick="openGenericProvider('Fuel Delivery', 'fuel delivery service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/gasoline-refill.png"><p>Fuel Delivery</p></div>            <div class="help-item" onclick="openGenericProvider('Wheel Alignment', 'wheel alignment center')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/tire.png"><p>Wheel Alignment</p></div>            <div class="help-item" onclick="openGenericProvider('Tow Truck', 'tow truck service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/tow-truck.png"><p>Tow Truck</p></div>            <div class="help-item" onclick="openGenericProvider('Crane Service', 'crane service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/crane.png"><p>Crane Service</p></div>            <div class="help-item" onclick="openGenericProvider('Vehicle Carrying', 'vehicle carrying service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/trailer.png"><p>Vehicle Carrying</p></div>            <div class="help-item" onclick="openGenericProvider('Accident Recovery', 'accident recovery support')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/car-crash.png"><p>Accident Recovery</p></div>            <div class="help-item" onclick="openGenericProvider('Water Services', 'car wash water service')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/automatic-car-wash.png"><p>Water Services</p></div>            <div class="help-item" onclick="openGenericProvider('Spare Parts', 'vehicle spare parts accessories shop')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/gear.png"><p>Spare Parts</p></div>        </div>        <button class="close-btn" onclick="closeHelpPopup()">Close</button>    </div></div>
+<div class="help-popup" id="helpPopup" onclick="closeHelpPopup()">    <div class="help-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Vehicle Support</h3>        <div class="help-grid">            <div class="help-item" onclick="openGenericProvider('2-Wheeler Repair', '2 wheeler repair workshop')"><img src="img/icons/two wheeler.png"><p>2-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('3-Wheeler Repair', 'auto rickshaw 3 wheeler repair workshop')"><img src="img/icons/three wheeler.png"><p>3-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('4-Wheeler Repair', 'car repair workshop')"><img src="img/icons/four wheeler.png"><p>4-Wheeler</p></div>            <div class="help-item" onclick="openGenericProvider('Tyre & Puncture', 'tyre puncture shop')"><img src="img/icons/puncture.png"><p>Tyre & Puncture</p></div>            <div class="help-item" onclick="openGenericProvider('Fuel Delivery', 'fuel delivery service')"><img src="img/icons/fuel delivery.png"><p>Fuel Delivery</p></div>            <div class="help-item" onclick="openGenericProvider('Wheel Alignment', 'wheel alignment center')"><img src="img/icons/wheel alignment.png"><p>Wheel Alignment</p></div>            <div class="help-item" onclick="openGenericProvider('Tow Truck', 'tow truck service')"><img src="img/icons/tow truck.png"><p>Tow Truck</p></div>            <div class="help-item" onclick="openGenericProvider('Crane Service', 'crane service')"><img src="img/icons/crane service.png"><p>Crane Service</p></div>            <div class="help-item" onclick="openGenericProvider('Vehicle Carrying', 'vehicle carrying service')"><img src="img/icons/vehicle carrying.png"><p>Vehicle Carrying</p></div>            <div class="help-item" onclick="openGenericProvider('Accident Recovery', 'accident recovery support')"><img src="img/icons/accident recovery.png"><p>Accident Recovery</p></div>            <div class="help-item" onclick="openGenericProvider('Water Services', 'car wash water service')"><img src="img/icons/water service.png"><p>Water Services</p></div>            <div class="help-item" onclick="openGenericProvider('Spare Parts', 'vehicle spare parts accessories shop')"><img src="img/icons/spare parts.png"><p>Spare Parts</p></div>        </div>        <button class="close-btn" onclick="closeHelpPopup()">Close</button>    </div></div>
 
-<div class="popup-overlay" id="popup" onclick="closePopup()">  <div class="popup-box" onclick="event.stopPropagation()">    <h3>Find Nearby</h3>    <div class="popup-grid">      <div class="popup-item" onclick="findNearby('petrol pumps')"><img decoding="async" loading="lazy" src="img/icons/petrol.png"><p>Petrol</p></div>      <div class="popup-item" onclick="findNearby('EV charging')"><img decoding="async" loading="lazy" src="img/icons/ev.png"><p>EV</p></div>      <div class="popup-item" onclick="findNearby('CNG stations')"><img decoding="async" loading="lazy" src="img/icons/cng.png"><p>CNG</p></div>    </div>    <button class="popup-close" onclick="closePopup()">Close</button>  </div></div>
+<div class="popup-overlay" id="popup" onclick="closePopup()">  <div class="popup-box" onclick="event.stopPropagation()">    <h3>Find Nearby</h3>    <div class="popup-grid">      <div class="popup-item" onclick="findNearby('petrol pumps')"><img src="img/icons/petrol.png"><p>Petrol</p></div>      <div class="popup-item" onclick="findNearby('EV charging')"><img src="img/icons/ev.png"><p>EV</p></div>      <div class="popup-item" onclick="findNearby('CNG stations')"><img src="img/icons/cng.png"><p>CNG</p></div>    </div>    <button class="popup-close" onclick="closePopup()">Close</button>  </div></div>
 
-<div class="emergency-popup" id="emergencyPopup" onclick="closeEmergencyPopup()">  <div class="emergency-box" onclick="event.stopPropagation()">    <div class="drag-bar"></div><h3 style="text-align:center;">Emergency Help</h3>    <div class="popup-content">      <div class="emergency-grid">        <div class="emergency-item" onclick="callNumber('102')"><img decoding="async" loading="lazy" src="img/icons/ambulance.png"><p>Ambulance</p></div>        <div class="emergency-item" onclick="findNearbyHospital()"><img decoding="async" loading="lazy" src="img/icons/hospital.png"><p>Hospital</p></div>        <div class="emergency-item" onclick="callNumber('100')"><img decoding="async" loading="lazy" src="img/icons/police.png"><p>Police</p></div>        <div class="emergency-item" onclick="callNumber('101')"><img decoding="async" loading="lazy" src="img/icons/fire.png"><p>Fire</p></div>        <div class="emergency-item" onclick="callNumber('1091')"><img decoding="async" loading="lazy" src="img/icons/women.png"><p>Women Helpline</p></div>        <div class="emergency-item" onclick="callNumber('1098')"><img decoding="async" loading="lazy" src="img/icons/child.png"><p>Child Helpline</p></div>        <div class="emergency-item" onclick="callNumber('108')"><img decoding="async" loading="lazy" src="img/icons/disaster.png"><p>Disaster Mgmt</p></div>        <div class="emergency-item" onclick="callNumber('112')"><img decoding="async" loading="lazy" src="img/icons/tourist police.png"><p>Tourist Police</p></div>        <div class="emergency-item" onclick="callNumber('1363')"><img decoding="async" loading="lazy" src="img/icons/tourism helpline.png"><p>Tourism Helpline</p></div>        <div class="emergency-item" onclick="callNumber('0471-2518255')"><img decoding="async" loading="lazy" src="img/icons/health.png"><p>Health Helpline</p></div>        <div class="emergency-item" onclick="callNumber('91 8589 0404 94')"><img decoding="async" loading="lazy" src="img/icons/blood.png"><p>Blood Donors</p></div>        <div class="emergency-item" onclick="callNumber('98461 00100')"><img decoding="async" loading="lazy" src="img/icons/highway.png"><p>Highway Alert</p></div>      </div>      <div class="tips-slider">        <div class="tips-track" id="tipsTrack">          <div class="tip-card"><div class="tip-inner"><h4>🩺 Health Tips</h4><p>Drink bottled or purified water. Carry ORS and essential medicines. Use mosquito repellent in monsoon. Wear light cotton clothing. Ensure travel insurance coverage.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>🚗 Travel Safety</h4><p>Use ride apps or prepaid taxis. Always wear helmets and seatbelts. Avoid isolated places at night. Check weather alerts during monsoon. Follow beach & backwater safety rules.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>🌿 Natural Safety</h4><p>Swim only in lifeguard zones. Beware of strong currents in rivers and backwaters. Avoid trekking during heavy rain. Stay away from cliff edges. Carry flashlight during forest or night trips.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4>💊 Pharmacies & First Aid</h4><p>Locate nearest pharmacies using maps. Carry basic first aid kit. Store medicines properly. Keep contact of local doctors & hospitals. Check expiry dates before use.</p></div></div>        </div>      </div>    </div>    <button class="close-btn" onclick="closeEmergencyPopup()">Close</button>  </div></div>
+<div class="emergency-popup" id="emergencyPopup" onclick="closeEmergencyPopup()">  <div class="emergency-box" onclick="event.stopPropagation()">    <div class="drag-bar"></div><h3 style="text-align:center;">Emergency Help</h3>    <div class="popup-content">      <div class="emergency-grid">        <div class="emergency-item" onclick="callNumber('102')"><img src="img/icons/ambulance.png"><p>Ambulance</p></div>        <div class="emergency-item" onclick="findNearbyHospital()"><img src="img/icons/hospital.png"><p>Hospital</p></div>        <div class="emergency-item" onclick="callNumber('100')"><img src="img/icons/police.png"><p>Police</p></div>        <div class="emergency-item" onclick="callNumber('101')"><img src="img/icons/fire.png"><p>Fire</p></div>        <div class="emergency-item" onclick="callNumber('1091')"><img src="img/icons/women.png"><p>Women Helpline</p></div>        <div class="emergency-item" onclick="callNumber('1098')"><img src="img/icons/child.png"><p>Child Helpline</p></div>        <div class="emergency-item" onclick="callNumber('108')"><img src="img/icons/disaster.png"><p>Disaster Mgmt</p></div>        <div class="emergency-item" onclick="callNumber('112')"><img src="img/icons/tourist police.png"><p>Tourist Police</p></div>        <div class="emergency-item" onclick="callNumber('1363')"><img src="img/icons/tourism helpline.png"><p>Tourism Helpline</p></div>        <div class="emergency-item" onclick="callNumber('0471-2518255')"><img src="img/icons/health.png"><p>Health Helpline</p></div>        <div class="emergency-item" onclick="callNumber('91 8589 0404 94')"><img src="img/icons/blood.png"><p>Blood Donors</p></div>        <div class="emergency-item" onclick="callNumber('98461 00100')"><img src="img/icons/highway.png"><p>Highway Alert</p></div>      </div>      <div class="tips-slider">        <div class="tips-track" id="tipsTrack">          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/health tips.png" style="height: 12px; width: 12px;"> Health Tips</h4><p>Drink bottled or purified water. Carry ORS and essential medicines. Use mosquito repellent in monsoon. Wear light cotton clothing. Ensure travel insurance coverage.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/car taxi.png" style="height: 15px; width: 15px;"> Travel Safety</h4><p>Use ride apps or prepaid taxis. Always wear helmets and seatbelts. Avoid isolated places at night. Check weather alerts during monsoon. Follow beach & backwater safety rules.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/nature.png" style="height: 12px; width: 12px;"> Natural Safety</h4><p>Swim only in lifeguard zones. Beware of strong currents in rivers and backwaters. Avoid trekking during heavy rain. Stay away from cliff edges. Carry flashlight during forest or night trips.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/pharmacies.png" style="height: 12px; width: 12px;"> Pharmacies & First Aid</h4><p>Locate nearest pharmacies using maps. Carry basic first aid kit. Store medicines properly. Keep contact of local doctors & hospitals. Check expiry dates before use.</p></div></div>        </div>      </div>    </div>    <button class="close-btn" onclick="closeEmergencyPopup()">Close</button>  </div></div>
 
 <div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img src="img/handpicked/varkala.jpg"><p>Varkala</p></div>    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg"><p>Fort Kochi</p></div>  </div>  </div>  </div></div>
 
@@ -636,24 +631,24 @@
     </div>
     <div class="toolbar-wrapper">
         <div class="toolbar-row" id="toolbarRow">
-            <div class="tool-btn" onclick="openWeatherPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/partly-cloudy-day--v1.png"><p>Weather</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/tour-guide.png"><p>Guides</p></div>
-            <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/camping-tent.png"><p>Camps</p></div>
-			<div class="tool-btn" onclick="openComingSoonPopup('Travel Partner')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/conference.png"><p>Travel Partner</p></div>
-			<div class="tool-btn" onclick="openClickMyTripPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/camera.png"><p>Click My Trip</p></div>
-            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/pass.png"><p>ePass</p></div>
-			<div class="tool-btn" onclick="openCurrencyPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/currency-exchange.png"><p>Currency</p></div>
-			<div class="tool-btn" onclick="openFuelPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/gas-station.png"><p>Fuel Cost</p></div>
-			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/atm.png"><p>ATM / CDM</p></div>
-            <div class="tool-btn" onclick="findNearby('Banks')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/bank.png"><p>Banks</p></div>
-            <div class="tool-btn" onclick="openCalendarPopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/calendar--v1.png"><p>Calendar</p></div>
-            <div class="tool-btn" onclick="openTranslatePopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/google-translate.png"><p>Translate</p></div>
-            <div class="tool-btn" onclick="openTimezonePopup()"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/time.png"><p>Time Zone</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Track Wildlife')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/tiger.png"><p>Track Wildlife</p></div>
-            <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/open-book.png"><p>Visa Requirements</p></div>
-			<div class="tool-btn" onclick="openComingSoonPopup('Bike Riders')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/motorbike.png"><p>Bike Riders</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('4x4 Offroad')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/jeep.png"><p>4x4 Offroad</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Movies')"><img decoding="async" loading="lazy" src="https://img.icons8.com/color/48/movie-projector.png"><p>Movies</p></div>
+            <div class="tool-btn" onclick="openWeatherPopup()"><img src="img/icons/weather.png"><p>Weather</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img src="img/icons/tour guide.png"><p>Guides</p></div>
+            <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="img/icons/camps.png"><p>Camps</p></div>
+			<div class="tool-btn" onclick="openComingSoonPopup('Travel Partner')"><img src="img/icons/travel partner.png"><p>Travel Partner</p></div>
+			<div class="tool-btn" onclick="openClickMyTripPopup()"><img src="img/icons/click my trip.png"><p>Click My Trip</p></div>
+            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="img/icons/e-pass.png"><p>ePass</p></div>
+			<div class="tool-btn" onclick="openCurrencyPopup()"><img src="img/icons/currency.png"><p>Currency</p></div>
+			<div class="tool-btn" onclick="openFuelPopup()"><img src="img/icons/fual cost.png"><p>Fuel Cost</p></div>
+			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img src="img/icons/atm.png"><p>ATM / CDM</p></div>
+            <div class="tool-btn" onclick="findNearby('Banks')"><img src="img/icons/bank.png"><p>Banks</p></div>
+            <div class="tool-btn" onclick="openCalendarPopup()"><img src="img/icons/calender.png"><p>Calendar</p></div>
+            <div class="tool-btn" onclick="openTranslatePopup()"><img src="img/icons/translate.png"><p>Translate</p></div>
+            <div class="tool-btn" onclick="openTimezonePopup()"><img src="img/icons/timezone.png"><p>Time Zone</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Track Wildlife')"><img src="img/icons/track wildlife.png"><p>Track Wildlife</p></div>
+            <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img src="img/icons/visa requirements.png"><p>Visa Requirements</p></div>
+			<div class="tool-btn" onclick="openComingSoonPopup('Bike Riders')"><img src="img/icons/bike rental.png"><p>Bike Riders</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('4x4 Offroad')"><img src="img/icons/four wheeler.png"><p>4x4 Offroad</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Movies')"><img src="img/icons/movies.png"><p>Movies</p></div>
         </div>
     </div>
 </div>
@@ -661,13 +656,13 @@
 <div class="activities-section">
   <div class="activities-slider-wrap">
     <div class="activities-cards" id="activitiesCards">
-      <div class="activity-card" onclick="findNearby('kayaking Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=440&q=80" alt="Kayaking"><div class="act-overlay"></div><p>🛶 Kayaking</p></div>
-      <div class="activity-card" onclick="findNearby('speed boating Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=440&q=80" alt="Speed Boating"><div class="act-overlay"></div><p>🚤 Speed Boating</p></div>
-      <div class="activity-card" onclick="findNearby('paragliding Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=440&q=80" alt="Paragliding"><div class="act-overlay"></div><p>🪂 Paragliding</p></div>
-      <div class="activity-card" onclick="findNearby('zipline Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=440&q=80" alt="Zipline"><div class="act-overlay"></div><p>🧗 Zipline</p></div>
-      <div class="activity-card" onclick="findNearby('bamboo rafting Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=440&q=80" alt="Bamboo Rafting"><div class="act-overlay"></div><p>🎋 Bamboo Rafting</p></div>
-      <div class="activity-card" onclick="findNearby('scuba diving Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=440&q=80" alt="Scuba Diving"><div class="act-overlay"></div><p>🤿 Scuba Diving</p></div>
-      <div class="activity-card" onclick="findNearby('off road jeep rides Kerala')"><img decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=440&q=80" alt="Off-Road Rides"><div class="act-overlay"></div><p>🚙 Off-Road Rides</p></div>
+      <div class="activity-card" onclick="findNearby('kayaking Kerala')"><img src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=440&q=80" alt="Kayaking"><div class="act-overlay"></div><p>🛶 Kayaking</p></div>
+      <div class="activity-card" onclick="findNearby('speed boating Kerala')"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=440&q=80" alt="Speed Boating"><div class="act-overlay"></div><p>🚤 Speed Boating</p></div>
+      <div class="activity-card" onclick="findNearby('paragliding Kerala')"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=440&q=80" alt="Paragliding"><div class="act-overlay"></div><p>🪂 Paragliding</p></div>
+      <div class="activity-card" onclick="findNearby('zipline Kerala')"><img src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=440&q=80" alt="Zipline"><div class="act-overlay"></div><p>🧗 Zipline</p></div>
+      <div class="activity-card" onclick="findNearby('bamboo rafting Kerala')"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=440&q=80" alt="Bamboo Rafting"><div class="act-overlay"></div><p>🎋 Bamboo Rafting</p></div>
+      <div class="activity-card" onclick="findNearby('scuba diving Kerala')"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=440&q=80" alt="Scuba Diving"><div class="act-overlay"></div><p>🤿 Scuba Diving</p></div>
+      <div class="activity-card" onclick="findNearby('off road jeep rides Kerala')"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=440&q=80" alt="Off-Road Rides"><div class="act-overlay"></div><p>🚙 Off-Road Rides</p></div>
     </div>
   </div>
 </div>
@@ -714,8 +709,8 @@
     <div class="escapes-layout">
       <!-- BIG MAIN IMAGE -->
       <div class="esc-main" id="escMain" onclick="if(escData[escActiveIdx])window.open(escData[escActiveIdx].map,'_blank')">
-        <img decoding="async" loading="lazy" class="esc-main-img-back" id="escMainImgBack" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'">
-        <img decoding="async" loading="lazy" class="esc-main-img-front" id="escMainImgFront" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'">
+        <img class="esc-main-img-back" id="escMainImgBack" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'">
+        <img class="esc-main-img-front" id="escMainImgFront" src="" alt="" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=800&q=80'">
         <div class="esc-main-overlay"></div>
         <div class="esc-main-info">
           <div class="esc-main-text">
@@ -785,11 +780,11 @@
 </div>
 
 <div class="bottom-nav">
-    <img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/camping-tent.png" alt="Home">
-	<img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/search.png" alt="Search">
-    <img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/plus-math.png" alt="Explore">
-    <img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/stack-of-photos.png" alt="Favorites">
-    <img decoding="async" loading="lazy" src="https://img.icons8.com/pulsar-line/48/guest-male.png" alt="Profile" style="width: 27px; height: 25px;">
+    <img src="img/icons/home.png" alt="Home">
+	<img src="img/icons/search.png" alt="Search">
+    <img src="img/icons/upload.png" alt="Explore">
+    <img src="img/icons/gallery.png" alt="Favorites">
+    <img src="img/icons/about.png" alt="Profile" style="width: 27px; height: 25px;">
 </div>
 
 <script>
@@ -827,7 +822,7 @@ function handleDynamicTrain(type) {
             html += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}')">
                 <div class="station-info">
                     <div class="station-icon">
-                    <img decoding="async" loading="lazy" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
+                    <img src="img/icons/nearby train.png" alt="train-icon">
                     </div>
                     <div class="station-details">
                         <h4>${s["Station Name"]}</h4>
@@ -835,7 +830,7 @@ function handleDynamicTrain(type) {
                     </div>
                 </div>
                 <div class="station-action-group">
-                    <img decoding="async" loading="lazy" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
+                    <img class="direction-arrow-pro" src="img/icons/up right.png">
                 </div>
             </div>`;
         });
@@ -853,7 +848,7 @@ function handleDynamicTrain(type) {
                     html2 += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&origin=${uLat},${uLng}&destination=${s.lat},${s.lng}')">
                         <div class="station-info">
                             <div class="station-icon">
-                            <img decoding="async" loading="lazy" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
+                            <img src="img/icons/nearby train.png" alt="train-icon">
                             </div>
                             <div class="station-details">
                                 <h4>${s["Station Name"]}</h4>
@@ -862,7 +857,7 @@ function handleDynamicTrain(type) {
                         </div>
                         <div class="station-action-group">
                             <span class="station-distance">${s.dist} KM</span>
-                            <img decoding="async" loading="lazy" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
+                            <img class="direction-arrow-pro" src="img/icons/up right.png">
 
                         </div>
                     </div>`;
@@ -895,7 +890,7 @@ function filterByDistrict(dist) {
         html += `<div class="station-card-pro" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}')">
             <div class="station-info">
                 <div class="station-icon">
-                  <img decoding="async" loading="lazy" src="https://img.icons8.com/plumpy/20/train.png" alt="train-icon">
+                  <img src="img/icons/nearby train.png" alt="train-icon">
                 </div>
                 <div class="station-details">
                     <h4>${s["Station Name"]}</h4>
@@ -903,7 +898,7 @@ function filterByDistrict(dist) {
                 </div>
             </div>
             <div class="station-action-group">
-                <img decoding="async" loading="lazy" class="direction-arrow-pro" src="https://img.icons8.com/android/24/up-right-arrow.png">
+                <img class="direction-arrow-pro" src="img/icons/up right.png">
             </div>
         </div>`;
     });
@@ -1085,7 +1080,7 @@ function findNearby(type){
   document.addEventListener("visibilitychange", function(){ document.hidden ? clearInterval(_hi) : (_hi = setInterval(next, 4000)); });
 })();
 
-/* --- KERALA'S HIDDEN GEMS: Infinite seamless auto-slider --- */
+/* --- KERALA'S HIDDEN GEMS: Infinite seamless auto-slider with swipe --- */
 (function(){
   const track = document.getElementById('handpickedCards');
   if (!track) return;
@@ -1103,7 +1098,6 @@ function findNearby(type){
     return origCards[0].offsetWidth + 12;
   }
 
-  // Total width of one full set of original cards
   function getSetWidth() {
     return getCardStep() * total;
   }
@@ -1118,11 +1112,23 @@ function findNearby(type){
     track.style.transform = `translateX(-${offsetX}px)`;
   }
 
+  function stepBack() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    offsetX -= getCardStep();
+    if (offsetX < 0) offsetX += getSetWidth();
+    track.style.transition = 'transform 0.5s ease';
+    track.style.transform = `translateX(-${offsetX}px)`;
+  }
+
   track.addEventListener('transitionend', () => {
-    // When we've scrolled past one full set, silently reset to equivalent position in first set
     const setWidth = getSetWidth();
     if (offsetX >= setWidth) {
       offsetX -= setWidth;
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${offsetX}px)`;
+    } else if (offsetX < 0) {
+      offsetX += setWidth;
       track.style.transition = 'none';
       track.style.transform = `translateX(-${offsetX}px)`;
     }
@@ -1134,10 +1140,30 @@ function findNearby(type){
 
   track.addEventListener('mouseenter', stopTimer);
   track.addEventListener('mouseleave', startTimer);
-  track.addEventListener('touchstart', stopTimer, {passive:true});
-  track.addEventListener('touchend', () => { setTimeout(startTimer, 2000); }, {passive:true});
 
-  // Wait for layout to be ready before starting (fixes cut-off last card)
+  // Touch / swipe support
+  let _hpTouchStartX = 0, _hpTouchStartY = 0, _hpSwiping = false;
+  track.addEventListener('touchstart', function(e) {
+    stopTimer();
+    _hpTouchStartX = e.touches[0].clientX;
+    _hpTouchStartY = e.touches[0].clientY;
+    _hpSwiping = false;
+  }, {passive: true});
+  track.addEventListener('touchmove', function(e) {
+    const dx = e.touches[0].clientX - _hpTouchStartX;
+    const dy = e.touches[0].clientY - _hpTouchStartY;
+    if (!_hpSwiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      _hpSwiping = true;
+    }
+  }, {passive: true});
+  track.addEventListener('touchend', function(e) {
+    const dx = e.changedTouches[0].clientX - _hpTouchStartX;
+    if (_hpSwiping && Math.abs(dx) > 40) {
+      if (dx < 0) step(); else stepBack();
+    }
+    setTimeout(startTimer, 2000);
+  }, {passive: true});
+
   if(document.readyState === 'complete'){
     requestAnimationFrame(startTimer);
   } else {
@@ -1145,7 +1171,7 @@ function findNearby(type){
   }
 })();
 
-/* --- ACTIVITIES: Infinite seamless auto-slider --- */
+/* --- ACTIVITIES: Infinite seamless auto-slider with swipe --- */
 (function(){
   const track = document.getElementById('activitiesCards');
   if (!track) return;
@@ -1170,9 +1196,22 @@ function findNearby(type){
     track.style.transform = `translateX(-${offsetX}px)`;
   }
 
+  function stepBack() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    offsetX -= getStep();
+    if (offsetX < 0) offsetX += getSetWidth();
+    track.style.transition = 'transform 0.5s ease';
+    track.style.transform = `translateX(-${offsetX}px)`;
+  }
+
   track.addEventListener('transitionend', () => {
     if (offsetX >= getSetWidth()) {
       offsetX -= getSetWidth();
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${offsetX}px)`;
+    } else if (offsetX < 0) {
+      offsetX += getSetWidth();
       track.style.transition = 'none';
       track.style.transform = `translateX(-${offsetX}px)`;
     }
@@ -1184,8 +1223,29 @@ function findNearby(type){
 
   track.addEventListener('mouseenter', stopTimer);
   track.addEventListener('mouseleave', startTimer);
-  track.addEventListener('touchstart', stopTimer, {passive:true});
-  track.addEventListener('touchend', () => { setTimeout(startTimer, 2000); }, {passive:true});
+
+  // Touch / swipe support
+  let _acTouchStartX = 0, _acTouchStartY = 0, _acSwiping = false;
+  track.addEventListener('touchstart', function(e) {
+    stopTimer();
+    _acTouchStartX = e.touches[0].clientX;
+    _acTouchStartY = e.touches[0].clientY;
+    _acSwiping = false;
+  }, {passive: true});
+  track.addEventListener('touchmove', function(e) {
+    const dx = e.touches[0].clientX - _acTouchStartX;
+    const dy = e.touches[0].clientY - _acTouchStartY;
+    if (!_acSwiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      _acSwiping = true;
+    }
+  }, {passive: true});
+  track.addEventListener('touchend', function(e) {
+    const dx = e.changedTouches[0].clientX - _acTouchStartX;
+    if (_acSwiping && Math.abs(dx) > 40) {
+      if (dx < 0) step(); else stepBack();
+    }
+    setTimeout(startTimer, 2000);
+  }, {passive: true});
 
   if(document.readyState === 'complete'){
     requestAnimationFrame(startTimer);
@@ -1412,7 +1472,7 @@ var escPageStart = 0;
     div.className = 'ny-card';
     div.onclick = () => window.open('https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng, '_blank');
     div.innerHTML =
-      '<img decoding="async" src="' + imgSrc + '" alt="' + name + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=80\'">' +
+      '<img src="' + imgSrc + '" alt="' + name + '" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=80\'">' +
       '<div class="ny-card-overlay"></div>' +
       '<div class="ny-card-body">' +
         '<div class="ny-top-row">' +
@@ -1634,7 +1694,7 @@ var escPageStart = 0;
       // Escape single quotes in place name for safe HTML attribute use
       var safeName = place["Place Name"].replace(/'/g, "&#39;");
       html += '<div class="ktp-card" style="animation-delay:' + (i * 0.03) + 's" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
-        '<img decoding="async" loading="lazy" src="' + ktpImgSrc(place["Place Name"]) + '" alt="' + safeName + '" style="height:' + imgH + 'px;width:100%;object-fit:cover;display:block;">' +
+        '<img src="' + ktpImgSrc(place["Place Name"]) + '" alt="' + safeName + '" style="height:' + imgH + 'px;width:100%;object-fit:cover;display:block;">' +
         '<div class="ktp-card-overlay"></div>' +
         '<div class="ktp-card-body">' +
           '<div class="ktp-card-left">' +
