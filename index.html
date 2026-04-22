@@ -31,7 +31,7 @@
         .railway-item:hover img{transform:scale(1.2) rotate(5deg);}.railway-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
 
         .emergency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.emergency-box{width:100%;max-width:600px;height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;}@media(max-width:600px){.emergency-box{width:94%;margin-bottom:10px;border-radius:18px;}}.drag-bar{width:45px;height:5px;background:#ccc;border-radius:10px;margin:0 auto;}.popup-content{overflow-y:auto;scrollbar-width:none;}.popup-content::-webkit-scrollbar{display:none;}.popup-content::after{content:'';position:sticky;bottom:0;height:40px;display:block;background:linear-gradient(to top,#fff,transparent);}.emergency-grid{display:grid;gap:12px;}@media(max-width:480px){.emergency-grid{grid-template-columns:repeat(2,1fr);}}@media(min-width:481px){.emergency-grid{grid-template-columns:repeat(3,1fr);}}@media(min-width:900px){.emergency-grid{grid-template-columns:repeat(4,1fr);}}.emergency-item{background:#f7f7f7;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;}.emergency-item img{width:30px;margin-bottom:6px;transition:transform 0.25s ease;}.emergency-item:hover img{transform:scale(1.25) rotate(5deg);}.emergency-item p{font-size:12px;font-weight:500;}.tips-slider{overflow:hidden;}.tips-track{display:flex;transition:transform 0.6s ease-in-out;}.tip-card{min-width:100%;padding:10px;}.tip-inner{background:#f9f9f9;border-radius:14px;padding:14px;}.tip-inner h4{font-size:13px;margin-bottom:6px;}.tip-inner p{font-size:11px;line-height:1.6;}.close-btn{background:#007b7f;color:#fff;border:none;padding:12px;border-radius:12px;font-size:13px;margin-top:8px;cursor:pointer;transition:all 0.3s ease;}.close-btn:hover{background:#005f61;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,0.15);}
-        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
+        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:8px 4px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;padding:4px 2px;border-radius:10px;transition:background 0.2s;color:#aaa;}.bnav-btn svg{width:22px;height:22px;display:block;transition:stroke 0.2s;}.bnav-btn span{font-size:9px;font-weight:500;font-family:'Poppins',sans-serif;}.bnav-btn.active{color:#007b7f;}.bnav-btn:active{background:rgba(0,123,127,0.07);}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
         .handpicked{margin:40px var(--side-space) 30px;}
         /* card wrapper for Hidden Gems */
         .handpicked-inner{background:#fff;border-radius:22px;box-shadow:0 4px 24px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.06);padding:16px 16px 16px;overflow:hidden;}
@@ -55,7 +55,7 @@
         @media(min-width:480px){.hp-seeall-grid{grid-template-columns:repeat(3,1fr);}}
         .handpicked-slider-wrap{overflow:hidden;width:100%;}
         .handpicked-cards{display:flex;gap:12px;transition:transform 0.5s ease;will-change:transform;}
-        .handpicked-card{flex:0 0 140px;height:200px;position:relative;border-radius:12px;}.handpicked-card img{width:100%;height:100%;object-fit:cover;border-radius:12px;}.handpicked-card p{position:absolute;bottom:8px;left:8px;color:#fff;font-weight:600;font-size:13px;text-shadow:0 0 5px rgba(0,0,0,0.6);margin:0;}
+        .handpicked-card{flex:0 0 140px;height:200px;position:relative;border-radius:12px;background:#e8e8e8;}.handpicked-card img{width:100%;height:100%;object-fit:cover;border-radius:12px;}.handpicked-card p{position:absolute;bottom:8px;left:8px;color:#fff;font-weight:600;font-size:13px;text-shadow:0 0 5px rgba(0,0,0,0.6);margin:0;}
         .internal-popup { position:fixed; inset:0; display:none; justify-content:center; align-items:center; background:rgba(0,0,0,0.7); backdrop-filter:blur(10px); z-index:11000; }
         .internal-box { width:92%; max-width:420px; background:#f8f9fa; border-radius:28px; padding:0; max-height:82vh; overflow-y:auto; scrollbar-width:none; position:relative; box-shadow:0 15px 35px rgba(0,0,0,0.3); }
         .internal-box::-webkit-scrollbar { display:none; }
@@ -231,6 +231,7 @@
         .nearyou-arrows button:hover { background: #007b7f; border-color: #007b7f; color: #fff; }
         .nearyou-track { display: flex; gap: 9px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
         .nearyou-track::-webkit-scrollbar { display: none; }
+        .ny-card img { background: #e8e8e8; }
         .ny-card { flex: 0 0 calc((100% - 9px*6) / 7); min-width: 82px; max-width: 115px; border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; scroll-snap-align: start; background: #ccc; aspect-ratio: 3/4; box-shadow: 0 2px 8px rgba(0,0,0,0.13); transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), box-shadow 0.28s ease; }
         .ny-card:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 10px 22px rgba(0,0,0,0.18); }
         .ny-card:active { transform: scale(0.97); }
@@ -273,13 +274,16 @@
         .ktp-filter-scroll::-webkit-scrollbar { display: none; }
         .ktp-filter-btn { flex: 0 0 auto; padding: 6px 14px; border-radius: 50px; border: 1.5px solid #000; background: transparent; font-size: 11px; font-weight: 600; color: #111; cursor: pointer; white-space: nowrap; transition: background 0.2s, color 0.2s; }
         .ktp-filter-btn.active { background: #111; color: #fff; }
-        .ktp-masonry { columns: 2; column-gap: 10px; }
-        @media (min-width: 600px) { .ktp-masonry { columns: 3; } }
-        @media (min-width: 900px) { .ktp-masonry { columns: 4; } }
-        .ktp-card { break-inside: avoid; margin-bottom: 10px; position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; display: block; background: #e0e0e0; }
-        .ktp-card img { width: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
+
+        /* Instagram-style 2-col grid (Pinterest/Reels feel) */
+        .ktp-masonry { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        @media (min-width: 600px) { .ktp-masonry { grid-template-columns: repeat(3, 1fr); gap: 10px; } }
+        @media (min-width: 900px) { .ktp-masonry { grid-template-columns: repeat(4, 1fr); gap: 12px; } }
+
+        .ktp-card { position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; display: block; background: #e0e0e0; break-inside: avoid; margin-bottom: 0; }
+        .ktp-card img { width: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; background: #e8e8e8; }
         .ktp-card:hover img { transform: scale(1.06); }
-        .ktp-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.1) 55%, transparent 100%); pointer-events: none; }
+        .ktp-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.08) 55%, transparent 100%); pointer-events: none; }
         .ktp-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px 10px; display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; }
         .ktp-card-left { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
         .ktp-card-name { font-size: 11px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
@@ -289,8 +293,15 @@
         .ktp-dir-btn { width: 24px; height: 24px; min-width: 24px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; overflow: hidden; }
         .ktp-card:hover .ktp-dir-btn { background: #007b7f; border-color: transparent; }
         .ktp-dir-btn svg { width: 11px; height: 11px; min-width: 11px; display: block; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-        @keyframes ktpFadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-        .ktp-card { animation: ktpFadeUp 0.35s ease both; }
+
+        /* Instagram bottom-load fade-up animation */
+        @keyframes ktpFadeUp { from { opacity: 0; transform: translateY(18px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .ktp-card { animation: ktpFadeUp 0.38s cubic-bezier(0.22,1,0.36,1) both; }
+
+        /* Loading spinner shown below KTP section while fetching more */
+        .ktp-load-spinner { display: flex; align-items: center; justify-content: center; padding: 18px; }
+        .ktp-load-spinner::after { content: ''; width: 22px; height: 22px; border: 2px solid #eee; border-top-color: #007b7f; border-radius: 50%; animation: spin .75s linear infinite; }
+        @keyframes ktpSpin { to { transform: rotate(360deg); } }
 
         /* --- CURRENCY POPUP --- */
         .currency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.38);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:12000;padding:clamp(10px,4vw,24px);}
@@ -814,11 +825,26 @@
 </div>
 
 <div class="bottom-nav">
-    <img src="img/icons/home.png" alt="Home">
-	<img src="img/icons/search.png" alt="Search">
-    <img src="img/icons/upload.png" alt="Explore">
-    <img src="img/icons/gallery.png" alt="Favorites">
-    <img src="img/icons/about.png" alt="Profile" style="width: 27px; height: 25px;">
+    <button class="bnav-btn active" title="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="bnav-btn" title="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      <span>Search</span>
+    </button>
+    <button class="bnav-btn" title="Explore">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      <span>Explore</span>
+    </button>
+    <button class="bnav-btn" title="Gallery">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>Feed</span>
+    </button>
+    <button class="bnav-btn" title="Profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>About</span>
+    </button>
 </div>
 
 <script>
@@ -1354,6 +1380,28 @@ var escPageStart = 0;
       .catch(function(){ escInit(); });
   }
 
+  /* Lazy-load observer for esc-thumb images */
+  var _escImgObserver = null;
+  function escObserveImages(container) {
+    if (!('IntersectionObserver' in window)) {
+      container.querySelectorAll('img[data-src]').forEach(function(img){ img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); });
+      return;
+    }
+    if (!_escImgObserver) {
+      _escImgObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            var img = entry.target;
+            var s = img.getAttribute('data-src');
+            if (s) { img.src = s; img.removeAttribute('data-src'); }
+            _escImgObserver.unobserve(img);
+          }
+        });
+      }, { rootMargin: '300px 0px' });
+    }
+    container.querySelectorAll('img[data-src]').forEach(function(img){ _escImgObserver.observe(img); });
+  }
+
   /* Build all thumb elements once — never rebuild, never wipe */
   function escBuildGrid() {
     var grid = document.getElementById('escGrid');
@@ -1364,11 +1412,11 @@ var escPageStart = 0;
       thumb.className = 'esc-thumb' + (i === escActiveIdx ? ' esc-thumb-active' : '');
       var imgBack = document.createElement('img');
       imgBack.className = 'esc-thumb-img-back';
-      imgBack.src = d.img; imgBack.alt = d.name;
+      imgBack.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='; imgBack.setAttribute('data-src', d.img); imgBack.alt = d.name;
       imgBack.onerror = function(){ this.onerror=null; this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'; };
       var imgFront = document.createElement('img');
       imgFront.className = 'esc-thumb-img-front';
-      imgFront.src = d.img; imgFront.alt = d.name; imgFront.loading = 'lazy'; imgFront.decoding = 'async';
+      imgFront.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='; imgFront.setAttribute('data-src', d.img); imgFront.alt = d.name;
       imgFront.onerror = function(){ this.onerror=null; this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'; };
       var label = document.createElement('div');
       label.className = 'esc-thumb-label';
@@ -1384,6 +1432,7 @@ var escPageStart = 0;
       }; })(i));
       grid.appendChild(thumb);
     });
+    escObserveImages(grid);
   }
 
   /* Update active highlight on existing thumbs — no rebuild, no flash */
@@ -1398,6 +1447,8 @@ var escPageStart = 0;
   function escSetImgSrc(imgEl, src) {
     if (!imgEl) return;
     imgEl.onerror = function(){ this.onerror=null; this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=600&q=70&fm=webp'; };
+    // Swap data-src to src for the active image immediately
+    imgEl.removeAttribute('data-src');
     imgEl.src = src;
   }
 
@@ -1477,14 +1528,27 @@ var escPageStart = 0;
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(escLoadJSON,300); });
+    document.addEventListener('DOMContentLoaded', function(){
+      var escSection = document.querySelector('.escapes-section');
+      if ('IntersectionObserver' in window && escSection) {
+        var escInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ escInitObs.disconnect(); escLoadJSON(); } }, { rootMargin:'600px 0px' });
+        escInitObs.observe(escSection);
+        setTimeout(function(){ escInitObs.disconnect(); escLoadJSON(); }, 2500);
+      } else { setTimeout(escLoadJSON,300); }
+    });
   } else {
-    setTimeout(escLoadJSON,300);
+    var escSection = document.querySelector('.escapes-section');
+    if ('IntersectionObserver' in window && escSection) {
+      var escInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ escInitObs.disconnect(); escLoadJSON(); } }, { rootMargin:'600px 0px' });
+      escInitObs.observe(escSection);
+      setTimeout(function(){ escInitObs.disconnect(); escLoadJSON(); }, 2500);
+    } else { setTimeout(escLoadJSON,300); }
   }
 })();
 
 /* --- NEAR YOU SECTION LOGIC --- */
 (function() {
+
 
   let _nyPlaces = null;
 
@@ -1494,6 +1558,27 @@ var escPageStart = 0;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
     return (R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))).toFixed(1);
+  }
+
+  var _nyImgObserver = null;
+  function nyObserveImages(container) {
+    if (!('IntersectionObserver' in window)) {
+      container.querySelectorAll('img[data-src]').forEach(function(img){ img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); });
+      return;
+    }
+    if (!_nyImgObserver) {
+      _nyImgObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var img = entry.target;
+            img.src = img.getAttribute('data-src');
+            img.removeAttribute('data-src');
+            _nyImgObserver.unobserve(img);
+          }
+        });
+      }, { rootMargin: '250px 0px' });
+    }
+    container.querySelectorAll('img[data-src]').forEach(function(img){ _nyImgObserver.observe(img); });
   }
 
   function nyBuildCard(place, km) {
@@ -1506,7 +1591,7 @@ var escPageStart = 0;
     div.className = 'ny-card';
     div.onclick = () => window.open('https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng, '_blank');
     div.innerHTML =
-      '<img src="' + imgSrc + '" alt="' + name + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp\'">' +
+      '<img data-src="' + imgSrc + '" alt="' + name + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="width:100%;height:100%;object-fit:cover;display:block;background:#e8e8e8;" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp\'">' +
       '<div class="ny-card-overlay"></div>' +
       '<div class="ny-card-body">' +
         '<div class="ny-top-row">' +
@@ -1545,6 +1630,7 @@ var escPageStart = 0;
     track.innerHTML = '';
     sorted.forEach(function(p) { track.appendChild(nyBuildCard(p, p._km)); });
     subtext.textContent = 'Tourist spots closest to you';
+    nyObserveImages(track);
   }
 
   function nyRenderAll(places) {
@@ -1557,6 +1643,7 @@ var escPageStart = 0;
       track.appendChild(nyBuildCard(Object.assign({}, p, { lat: lat, lng: lng }), '—'));
     });
     subtext.textContent = 'Tap Allow Location to show nearest places';
+    nyObserveImages(track);
   }
 
   function nySetLabel(text, granted) {
@@ -1685,9 +1772,21 @@ var escPageStart = 0;
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(nyInit,600); });
+    document.addEventListener('DOMContentLoaded', function(){
+      var nySection = document.querySelector('.nearyou-section');
+      if ('IntersectionObserver' in window && nySection) {
+        var nyInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ nyInitObs.disconnect(); nyInit(); } }, { rootMargin:'500px 0px' });
+        nyInitObs.observe(nySection);
+        setTimeout(function(){ nyInitObs.disconnect(); nyInit(); }, 2000);
+      } else { setTimeout(nyInit,600); }
+    });
   } else {
-    setTimeout(nyInit,600);
+    var nySection = document.querySelector('.nearyou-section');
+    if ('IntersectionObserver' in window && nySection) {
+      var nyInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ nyInitObs.disconnect(); nyInit(); } }, { rootMargin:'500px 0px' });
+      nyInitObs.observe(nySection);
+      setTimeout(function(){ nyInitObs.disconnect(); nyInit(); }, 2000);
+    } else { setTimeout(nyInit,600); }
   }
 
 })();
@@ -1718,36 +1817,99 @@ var escPageStart = 0;
     return (R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))).toFixed(1);
   }
 
-  // Varied heights for Instagram masonry look
-  var ktpHeights = [160, 200, 240, 175, 210, 155, 230, 180, 195, 165, 220, 185, 170, 205, 245];
+  // Instagram-style varied aspect ratios for 2-col grid
+  var ktpAspects = ['3/4','2/3','4/5','3/4','1/1','3/4','2/3','4/5','3/4','2/3','1/1','3/4','4/5','2/3','3/4'];
+
+  var _ktpFiltered = [];
+  var _ktpRenderedCount = 0;
+  var _ktpBatchSize = 12;
+  var _ktpObserver = null;
+  var _ktpImgObserver = null;
+  var _ktpSpinner = null;
+
+  function ktpCardHTML(place, i) {
+    var km = (ktpUserLat !== null) ? ktpHaversine(ktpUserLat, ktpUserLng, place.lat, place.lng) + ' km' : '';
+    var aspect = ktpAspects[i % ktpAspects.length];
+    var mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + place.lat + ',' + place.lng;
+    var safeName = place["Place Name"].replace(/'/g, "&#39;");
+    var imgSrc = ktpImgSrc(place["Place Name"]);
+    var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
+    return '<div class="ktp-card" style="animation-delay:' + (i % _ktpBatchSize * 0.04) + 's" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
+      '<img data-src="' + imgSrc + '" alt="' + safeName + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:' + aspect + ';width:100%;object-fit:cover;display:block;background:#e8e8e8;" onerror="this.onerror=null;this.src=\'' + fallback + '\'">' +
+      '<div class="ktp-card-overlay"></div>' +
+      '<div class="ktp-card-body">' +
+        '<div class="ktp-card-left">' +
+          '<span class="ktp-card-name">' + place["Place Name"] + '</span>' +
+          '<span class="ktp-card-district">' + place.District + '</span>' +
+        '</div>' +
+        '<div class="ktp-card-right">' +
+          (km ? '<span class="ktp-card-km">' + km + '</span>' : '') +
+          '<div class="ktp-dir-btn"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function ktpObserveImages(masonry) {
+    if (!('IntersectionObserver' in window)) {
+      masonry.querySelectorAll('img[data-src]').forEach(function(img){ img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); });
+      return;
+    }
+    if (!_ktpImgObserver) {
+      _ktpImgObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var img = entry.target;
+            img.src = img.getAttribute('data-src');
+            img.removeAttribute('data-src');
+            _ktpImgObserver.unobserve(img);
+          }
+        });
+      }, { rootMargin: '300px 0px' });
+    }
+    masonry.querySelectorAll('img[data-src]').forEach(function(img){ _ktpImgObserver.observe(img); });
+  }
+
+  function ktpLoadMore() {
+    var masonry = document.getElementById('ktpMasonry');
+    if (!masonry) return;
+    var end = Math.min(_ktpRenderedCount + _ktpBatchSize, _ktpFiltered.length);
+    var html = '';
+    for (var i = _ktpRenderedCount; i < end; i++) { html += ktpCardHTML(_ktpFiltered[i], i); }
+    masonry.insertAdjacentHTML('beforeend', html);
+    ktpObserveImages(masonry);
+    _ktpRenderedCount = end;
+    if (_ktpRenderedCount >= _ktpFiltered.length) {
+      if (_ktpObserver) { _ktpObserver.disconnect(); _ktpObserver = null; }
+      var s = document.getElementById('ktpSentinel'); if (s) s.remove();
+      if (_ktpSpinner) { _ktpSpinner.remove(); _ktpSpinner = null; }
+    }
+  }
 
   function ktpRender(filtered) {
     var masonry = document.getElementById('ktpMasonry');
     if (!masonry) return;
-    var html = '';
-    filtered.forEach(function(place, i) {
-      var km = (ktpUserLat !== null) ? ktpHaversine(ktpUserLat, ktpUserLng, place.lat, place.lng) + ' km' : '';
-      var imgH = ktpHeights[i % ktpHeights.length];
-      var mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + place.lat + ',' + place.lng;
-      // Escape single quotes in place name for safe HTML attribute use
-      var safeName = place["Place Name"].replace(/'/g, "&#39;");
-      html += '<div class="ktp-card" style="animation-delay:' + (i * 0.03) + 's" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
-        ktpImgTag(place["Place Name"], safeName, 'style="height:' + imgH + 'px;width:100%;object-fit:cover;display:block;"') +
-        '<div class="ktp-card-overlay"></div>' +
-        '<div class="ktp-card-body">' +
-          '<div class="ktp-card-left">' +
-            '<span class="ktp-card-name">' + place["Place Name"] + '</span>' +
-            '<span class="ktp-card-district">' + place.District + '</span>' +
-          '</div>' +
-          '<div class="ktp-card-right">' +
-            (km ? '<span class="ktp-card-km">' + km + '</span>' : '') +
-            '<div class="ktp-dir-btn"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-    });
-    masonry.innerHTML = html;
-
+    _ktpFiltered = filtered; _ktpRenderedCount = 0;
+    masonry.innerHTML = '';
+    if (_ktpObserver) { _ktpObserver.disconnect(); _ktpObserver = null; }
+    if (_ktpImgObserver) { _ktpImgObserver.disconnect(); _ktpImgObserver = null; }
+    var s = document.getElementById('ktpSentinel'); if (s) s.remove();
+    if (_ktpSpinner) { _ktpSpinner.remove(); _ktpSpinner = null; }
+    ktpLoadMore();
+    if (_ktpRenderedCount < _ktpFiltered.length && 'IntersectionObserver' in window) {
+      // Add spinner below the masonry
+      _ktpSpinner = document.createElement('div');
+      _ktpSpinner.className = 'ktp-load-spinner';
+      masonry.parentNode.appendChild(_ktpSpinner);
+      var sentinel = document.createElement('div');
+      sentinel.id = 'ktpSentinel';
+      sentinel.style.cssText = 'height:1px;width:100%;';
+      masonry.parentNode.appendChild(sentinel);
+      _ktpObserver = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) ktpLoadMore();
+      }, { rootMargin: '400px 0px' });
+      _ktpObserver.observe(sentinel);
+    }
   }
 
   window.ktpFilter = function(btn, district) {
@@ -1782,11 +1944,25 @@ var escPageStart = 0;
       .catch(function(e) { console.warn('tourist places.json not loaded', e); });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(ktpInit,900); });
-  } else {
-    setTimeout(ktpInit,900);
+  function ktpInitDeferred() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function(){ setTimeout(ktpInit, 800); });
+    } else {
+      // Defer until idle or user scrolls near the section
+      var ktpSection = document.getElementById('ktpSection');
+      if ('IntersectionObserver' in window && ktpSection) {
+        var ktpInitObs = new IntersectionObserver(function(entries) {
+          if (entries[0].isIntersecting) { ktpInitObs.disconnect(); ktpInit(); }
+        }, { rootMargin: '500px 0px' });
+        ktpInitObs.observe(ktpSection);
+        // Fallback: init after 3s even if not scrolled to
+        setTimeout(function(){ ktpInitObs.disconnect(); ktpInit(); }, 3000);
+      } else {
+        setTimeout(ktpInit, 800);
+      }
+    }
   }
+  ktpInitDeferred();
 })();
 </script>
 
