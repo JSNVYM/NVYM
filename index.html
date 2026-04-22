@@ -31,7 +31,7 @@
         .railway-item:hover img{transform:scale(1.2) rotate(5deg);}.railway-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
 
         .emergency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.emergency-box{width:100%;max-width:600px;height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;}@media(max-width:600px){.emergency-box{width:94%;margin-bottom:10px;border-radius:18px;}}.drag-bar{width:45px;height:5px;background:#ccc;border-radius:10px;margin:0 auto;}.popup-content{overflow-y:auto;scrollbar-width:none;}.popup-content::-webkit-scrollbar{display:none;}.popup-content::after{content:'';position:sticky;bottom:0;height:40px;display:block;background:linear-gradient(to top,#fff,transparent);}.emergency-grid{display:grid;gap:12px;}@media(max-width:480px){.emergency-grid{grid-template-columns:repeat(2,1fr);}}@media(min-width:481px){.emergency-grid{grid-template-columns:repeat(3,1fr);}}@media(min-width:900px){.emergency-grid{grid-template-columns:repeat(4,1fr);}}.emergency-item{background:#f7f7f7;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;}.emergency-item img{width:30px;margin-bottom:6px;transition:transform 0.25s ease;}.emergency-item:hover img{transform:scale(1.25) rotate(5deg);}.emergency-item p{font-size:12px;font-weight:500;}.tips-slider{overflow:hidden;}.tips-track{display:flex;transition:transform 0.6s ease-in-out;}.tip-card{min-width:100%;padding:10px;}.tip-inner{background:#f9f9f9;border-radius:14px;padding:14px;}.tip-inner h4{font-size:13px;margin-bottom:6px;}.tip-inner p{font-size:11px;line-height:1.6;}.close-btn{background:#007b7f;color:#fff;border:none;padding:12px;border-radius:12px;font-size:13px;margin-top:8px;cursor:pointer;transition:all 0.3s ease;}.close-btn:hover{background:#005f61;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,0.15);}
-        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:8px 4px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;padding:4px 2px;border-radius:10px;transition:background 0.2s;color:#aaa;}.bnav-btn svg{width:22px;height:22px;display:block;transition:stroke 0.2s;}.bnav-btn span{font-size:9px;font-weight:500;font-family:'Poppins',sans-serif;}.bnav-btn.active{color:#007b7f;}.bnav-btn:active{background:rgba(0,123,127,0.07);}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
+        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
         .handpicked{margin:40px var(--side-space) 30px;}
         /* card wrapper for Hidden Gems */
         .handpicked-inner{background:#fff;border-radius:22px;box-shadow:0 4px 24px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.06);padding:16px 16px 16px;overflow:hidden;}
@@ -41,18 +41,24 @@
         .handpicked-see-all{font-size:11px;font-weight:600;color:#007b7f;cursor:pointer;white-space:nowrap;padding-top:3px;text-decoration:none;}
         .handpicked-see-all:hover{text-decoration:underline;}
         /* See All popup */
-        .hp-seeall-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12000;}
-        .hp-seeall-box{width:94%;max-width:600px;background:#fff;border-radius:24px 24px 0 0;padding:20px 16px 30px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;max-height:80vh;}
-        .hp-seeall-header{display:flex;justify-content:space-between;align-items:center;}
-        .hp-seeall-header h3{font-size:17px;font-weight:700;color:#111;}
-        .hp-seeall-close{font-size:22px;color:#aaa;cursor:pointer;line-height:1;background:none;border:none;padding:0;}
-        .hp-seeall-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;overflow-y:auto;scrollbar-width:none;flex:1;}
+        /* ── Popular Places Instagram Popup ── */
+        .hp-seeall-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);z-index:12000;}
+        .hp-seeall-box{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:slideUp .3s ease;max-height:92vh;}
+        .hp-seeall-header{display:flex;justify-content:space-between;align-items:center;padding:16px 16px 12px;border-bottom:1px solid #f0f0f0;flex-shrink:0;}
+        .hp-seeall-header h3{font-size:16px;font-weight:700;color:#111;margin:0;}
+        .hp-seeall-close{font-size:24px;color:#aaa;cursor:pointer;line-height:1;background:none;border:none;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;}
+        .hp-seeall-close:hover{background:#f0f0f0;color:#333;}
+        .hp-seeall-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;overflow-y:auto;scrollbar-width:none;flex:1;padding-bottom:24px;}
         .hp-seeall-grid::-webkit-scrollbar{display:none;}
-        .hp-place-item{background:#f8f9fa;border-radius:14px;padding:12px 14px;cursor:pointer;border:1px solid #eee;transition:0.2s;}
-        .hp-place-item:hover{background:#e8f6f6;border-color:#007b7f;}
-        .hp-place-item h4{font-size:13px;font-weight:600;color:#222;margin:0 0 2px;}
-        .hp-place-item p{font-size:10px;color:#888;margin:0;}
-        @media(min-width:480px){.hp-seeall-grid{grid-template-columns:repeat(3,1fr);}}
+        .hp-insta-card{position:relative;aspect-ratio:1/1;overflow:hidden;cursor:pointer;background:#e8e8e8;}
+        .hp-insta-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease;}
+        .hp-insta-card:hover img,.hp-insta-card:active img{transform:scale(1.06);}
+        .hp-insta-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,transparent 55%);opacity:0;transition:opacity 0.25s;pointer-events:none;}
+        .hp-insta-card:hover .hp-insta-overlay,.hp-insta-card:active .hp-insta-overlay{opacity:1;}
+        .hp-insta-label{position:absolute;bottom:0;left:0;right:0;padding:8px 8px 10px;color:#fff;font-size:11px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,0.7);opacity:0;transition:opacity 0.25s;}
+        .hp-insta-card:hover .hp-insta-label,.hp-insta-card:active .hp-insta-label{opacity:1;}
+        .hp-insta-dist{font-size:9px;font-weight:400;color:rgba(255,255,255,0.8);display:block;margin-top:1px;}
+        @media(min-width:500px){.hp-seeall-grid{grid-template-columns:repeat(4,1fr);}}
         .handpicked-slider-wrap{overflow:hidden;width:100%;}
         .handpicked-cards{display:flex;gap:12px;transition:transform 0.5s ease;will-change:transform;}
         .handpicked-card{flex:0 0 140px;height:200px;position:relative;border-radius:12px;background:#e8e8e8;}.handpicked-card img{width:100%;height:100%;object-fit:cover;border-radius:12px;}.handpicked-card p{position:absolute;bottom:8px;left:8px;color:#fff;font-weight:600;font-size:13px;text-shadow:0 0 5px rgba(0,0,0,0.6);margin:0;}
@@ -274,16 +280,14 @@
         .ktp-filter-scroll::-webkit-scrollbar { display: none; }
         .ktp-filter-btn { flex: 0 0 auto; padding: 6px 14px; border-radius: 50px; border: 1.5px solid #000; background: transparent; font-size: 11px; font-weight: 600; color: #111; cursor: pointer; white-space: nowrap; transition: background 0.2s, color 0.2s; }
         .ktp-filter-btn.active { background: #111; color: #fff; }
-
-        /* Instagram-style 2-col grid (Pinterest/Reels feel) */
-        .ktp-masonry { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        @media (min-width: 600px) { .ktp-masonry { grid-template-columns: repeat(3, 1fr); gap: 10px; } }
-        @media (min-width: 900px) { .ktp-masonry { grid-template-columns: repeat(4, 1fr); gap: 12px; } }
-
-        .ktp-card { position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; display: block; background: #e0e0e0; break-inside: avoid; margin-bottom: 0; }
-        .ktp-card img { width: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; background: #e8e8e8; }
+        .ktp-masonry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+        @media (min-width: 700px) { .ktp-masonry { grid-template-columns: repeat(4, 1fr); gap: 4px; } }
+        @media (min-width: 1100px) { .ktp-masonry { grid-template-columns: repeat(5, 1fr); gap: 4px; } }
+        .ktp-card { position: relative; aspect-ratio: 1/1; overflow: hidden; cursor: pointer; display: block; background: #e0e0e0; border-radius: 0; }
+        @media (max-width: 699px) { .ktp-section { margin: 40px 0 30px; } }
+        .ktp-card img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; background: #e8e8e8; }
         .ktp-card:hover img { transform: scale(1.06); }
-        .ktp-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.08) 55%, transparent 100%); pointer-events: none; }
+        .ktp-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.1) 55%, transparent 100%); pointer-events: none; }
         .ktp-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px 10px; display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; }
         .ktp-card-left { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
         .ktp-card-name { font-size: 11px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
@@ -293,15 +297,8 @@
         .ktp-dir-btn { width: 24px; height: 24px; min-width: 24px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; overflow: hidden; }
         .ktp-card:hover .ktp-dir-btn { background: #007b7f; border-color: transparent; }
         .ktp-dir-btn svg { width: 11px; height: 11px; min-width: 11px; display: block; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-
-        /* Instagram bottom-load fade-up animation */
-        @keyframes ktpFadeUp { from { opacity: 0; transform: translateY(18px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        .ktp-card { animation: ktpFadeUp 0.38s cubic-bezier(0.22,1,0.36,1) both; }
-
-        /* Loading spinner shown below KTP section while fetching more */
-        .ktp-load-spinner { display: flex; align-items: center; justify-content: center; padding: 18px; }
-        .ktp-load-spinner::after { content: ''; width: 22px; height: 22px; border: 2px solid #eee; border-top-color: #007b7f; border-radius: 50%; animation: spin .75s linear infinite; }
-        @keyframes ktpSpin { to { transform: rotate(360deg); } }
+        @keyframes ktpFadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .ktp-card { animation: ktpFadeUp 0.35s ease both; }
 
         /* --- CURRENCY POPUP --- */
         .currency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.38);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:12000;padding:clamp(10px,4vw,24px);}
@@ -635,32 +632,104 @@
 
 <div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="lazy" decoding="async"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" decoding="async"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="lazy" decoding="async"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="lazy" decoding="async"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="lazy" decoding="async"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img src="img/handpicked/varkala.jpg" loading="lazy" decoding="async"><p>Varkala</p></div>    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="lazy" decoding="async"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="lazy" decoding="async"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" decoding="async"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="lazy" decoding="async"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="lazy" decoding="async"><p>Fort Kochi</p></div>  </div>  </div>  </div></div>
 
-<!-- SEE ALL POPUP -->
+<!-- SEE ALL POPUP — Instagram style -->
 <div class="hp-seeall-popup" id="hpSeeAllPopup" onclick="closeHpSeeAll()">
   <div class="hp-seeall-box" onclick="event.stopPropagation()">
     <div class="hp-seeall-header">
-      <h3>All Popular Places</h3>
+      <h3>Popular Places</h3>
       <button class="hp-seeall-close" onclick="closeHpSeeAll()">×</button>
     </div>
     <div class="hp-seeall-grid">
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Munnar+Kerala','_blank')"><h4>Munnar</h4><p>Idukki</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Periyar+Wildlife+Sanctuary','_blank')"><h4>Periyar Wildlife</h4><p>Idukki</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Chembra+Peak+Wayanad','_blank')"><h4>Chembra Peak</h4><p>Wayanad</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Alappuzha+Kerala','_blank')"><h4>Alappuzha</h4><p>Alappuzha</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Fort+Kochi','_blank')"><h4>Fort Kochi</h4><p>Ernakulam</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Varkala+Beach+Kerala','_blank')"><h4>Varkala</h4><p>Thiruvananthapuram</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Thekkady+Kerala','_blank')"><h4>Thekkady</h4><p>Idukki</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Kovalam+Beach+Kerala','_blank')"><h4>Kovalam Beach</h4><p>Thiruvananthapuram</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Bekal+Fort+Kerala','_blank')"><h4>Bekal Fort</h4><p>Kasaragod</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Kumarakom+Kerala','_blank')"><h4>Kumarakom</h4><p>Kottayam</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Athirappilly+Waterfalls','_blank')"><h4>Athirappilly</h4><p>Thrissur</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Silent+Valley+National+Park','_blank')"><h4>Silent Valley</h4><p>Palakkad</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Vagamon+Kerala','_blank')"><h4>Vagamon</h4><p>Idukki</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Ponmudi+Kerala','_blank')"><h4>Ponmudi</h4><p>Thiruvananthapuram</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Kannur+Beach+Kerala','_blank')"><h4>Kannur</h4><p>Kannur</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Kozhikode+Beach','_blank')"><h4>Kozhikode</h4><p>Kozhikode</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Poovar+Island+Kerala','_blank')"><h4>Poovar Island</h4><p>Thiruvananthapuram</p></div>
-      <div class="hp-place-item" onclick="window.open('https://www.google.com/maps/search/Neliyampathy+Kerala','_blank')"><h4>Neliyampathy</h4><p>Palakkad</p></div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Munnar+Kerala','_blank')">
+        <img src="img/handpicked/munnar.jpg" loading="lazy" decoding="async" alt="Munnar" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Munnar<span class="hp-insta-dist">Idukki</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Periyar+Wildlife+Sanctuary','_blank')">
+        <img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" decoding="async" alt="Periyar Wildlife" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Periyar Wildlife<span class="hp-insta-dist">Idukki</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Chembra+Peak+Wayanad','_blank')">
+        <img src="img/handpicked/chembra peak.jpg" loading="lazy" decoding="async" alt="Chembra Peak" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Chembra Peak<span class="hp-insta-dist">Wayanad</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Alappuzha+Kerala','_blank')">
+        <img src="img/handpicked/alappuzha.jpg" loading="lazy" decoding="async" alt="Alappuzha" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Alappuzha<span class="hp-insta-dist">Alappuzha</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Fort+Kochi','_blank')">
+        <img src="img/handpicked/fort kochi.jpg" loading="lazy" decoding="async" alt="Fort Kochi" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Fort Kochi<span class="hp-insta-dist">Ernakulam</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Varkala+Beach+Kerala','_blank')">
+        <img src="img/handpicked/varkala.jpg" loading="lazy" decoding="async" alt="Varkala" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Varkala<span class="hp-insta-dist">Thiruvananthapuram</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Thekkady+Kerala','_blank')">
+        <img src="img/tourist places/Thekkady.jpg" loading="lazy" decoding="async" alt="Thekkady" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Thekkady<span class="hp-insta-dist">Idukki</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Kovalam+Beach+Kerala','_blank')">
+        <img src="img/tourist places/Kovalam Beach.jpg" loading="lazy" decoding="async" alt="Kovalam Beach" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Kovalam Beach<span class="hp-insta-dist">Thiruvananthapuram</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Bekal+Fort+Kerala','_blank')">
+        <img src="img/tourist places/Bekal Fort.jpg" loading="lazy" decoding="async" alt="Bekal Fort" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Bekal Fort<span class="hp-insta-dist">Kasaragod</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Kumarakom+Kerala','_blank')">
+        <img src="img/tourist places/Kumarakom.jpg" loading="lazy" decoding="async" alt="Kumarakom" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Kumarakom<span class="hp-insta-dist">Kottayam</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Athirappilly+Waterfalls','_blank')">
+        <img src="img/tourist places/Athirappilly Waterfalls.jpg" loading="lazy" decoding="async" alt="Athirappilly" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Athirappilly<span class="hp-insta-dist">Thrissur</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Silent+Valley+National+Park','_blank')">
+        <img src="img/tourist places/Silent Valley National Park.jpg" loading="lazy" decoding="async" alt="Silent Valley" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Silent Valley<span class="hp-insta-dist">Palakkad</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Vagamon+Kerala','_blank')">
+        <img src="img/tourist places/Vagamon.jpg" loading="lazy" decoding="async" alt="Vagamon" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Vagamon<span class="hp-insta-dist">Idukki</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Ponmudi+Kerala','_blank')">
+        <img src="img/tourist places/Ponmudi.jpg" loading="lazy" decoding="async" alt="Ponmudi" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Ponmudi<span class="hp-insta-dist">Thiruvananthapuram</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Kannur+Beach+Kerala','_blank')">
+        <img src="img/tourist places/Kannur Beach.jpg" loading="lazy" decoding="async" alt="Kannur" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Kannur<span class="hp-insta-dist">Kannur</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Kozhikode+Beach','_blank')">
+        <img src="img/tourist places/Kozhikode Beach.jpg" loading="lazy" decoding="async" alt="Kozhikode" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Kozhikode<span class="hp-insta-dist">Kozhikode</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Poovar+Island+Kerala','_blank')">
+        <img src="img/tourist places/Poovar Island.jpg" loading="lazy" decoding="async" alt="Poovar Island" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Poovar Island<span class="hp-insta-dist">Thiruvananthapuram</span></div>
+      </div>
+      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Neliyampathy+Kerala','_blank')">
+        <img src="img/tourist places/Neliyampathy.jpg" loading="lazy" decoding="async" alt="Neliyampathy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
+        <div class="hp-insta-overlay"></div>
+        <div class="hp-insta-label">Neliyampathy<span class="hp-insta-dist">Palakkad</span></div>
+      </div>
     </div>
   </div>
 </div>
@@ -825,26 +894,11 @@
 </div>
 
 <div class="bottom-nav">
-    <button class="bnav-btn active" title="Home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
-      <span>Home</span>
-    </button>
-    <button class="bnav-btn" title="Search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-      <span>Search</span>
-    </button>
-    <button class="bnav-btn" title="Explore">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-      <span>Explore</span>
-    </button>
-    <button class="bnav-btn" title="Gallery">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-      <span>Feed</span>
-    </button>
-    <button class="bnav-btn" title="Profile">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>About</span>
-    </button>
+    <img src="img/icons/home.png" alt="Home">
+	<img src="img/icons/search.png" alt="Search">
+    <img src="img/icons/upload.png" alt="Explore">
+    <img src="img/icons/gallery.png" alt="Favorites">
+    <img src="img/icons/about.png" alt="Profile" style="width: 27px; height: 25px;">
 </div>
 
 <script>
@@ -1140,7 +1194,7 @@ function findNearby(type){
   document.addEventListener("visibilitychange", function(){ document.hidden ? clearInterval(_hi) : (_hi = setInterval(next, 4000)); });
 })();
 
-/* --- KERALA'S HIDDEN GEMS: Infinite seamless auto-slider with swipe --- */
+/* --- POPULAR PLACES: Auto-slide desktop only, swipe-only on mobile --- */
 (function(){
   const track = document.getElementById('handpickedCards');
   if (!track) return;
@@ -1149,31 +1203,44 @@ function findNearby(type){
   if (!total) return;
   let timer;
   let isTransitioning = false;
+  const isMobile = () => window.innerWidth < 700;
 
-  // Clone all cards twice so blank space is always filled
-  origCards.forEach(c => track.appendChild(c.cloneNode(true)));
-  origCards.forEach(c => track.appendChild(c.cloneNode(true)));
-
-  function getCardStep() {
-    return origCards[0].offsetWidth + 12;
+  // On mobile: enable native scroll snap instead of JS transform
+  function setupMobile() {
+    track.style.transform = 'none';
+    track.style.transition = 'none';
+    track.style.overflowX = 'auto';
+    track.style.scrollSnapType = 'x mandatory';
+    track.style.webkitOverflowScrolling = 'touch';
+    track.querySelectorAll('.handpicked-card').forEach(function(c){
+      c.style.scrollSnapAlign = 'start';
+    });
   }
 
-  function getSetWidth() {
-    return getCardStep() * total;
+  // On desktop: use JS infinite loop as before (clone cards)
+  function setupDesktop() {
+    // Only clone if not already done
+    if (track.querySelectorAll('.handpicked-card').length === total) {
+      origCards.forEach(c => track.appendChild(c.cloneNode(true)));
+      origCards.forEach(c => track.appendChild(c.cloneNode(true)));
+    }
+    track.style.overflowX = 'visible';
+    track.style.scrollSnapType = 'none';
   }
 
+  function getCardStep() { return origCards[0].offsetWidth + 12; }
+  function getSetWidth() { return getCardStep() * total; }
   let offsetX = 0;
 
   function step() {
-    if (isTransitioning) return;
+    if (isMobile() || isTransitioning) return;
     isTransitioning = true;
     offsetX += getCardStep();
     track.style.transition = 'transform 0.5s ease';
     track.style.transform = `translateX(-${offsetX}px)`;
   }
-
   function stepBack() {
-    if (isTransitioning) return;
+    if (isMobile() || isTransitioning) return;
     isTransitioning = true;
     offsetX -= getCardStep();
     if (offsetX < 0) offsetX += getSetWidth();
@@ -1183,52 +1250,56 @@ function findNearby(type){
 
   track.addEventListener('transitionend', () => {
     const setWidth = getSetWidth();
-    if (offsetX >= setWidth) {
-      offsetX -= setWidth;
-      track.style.transition = 'none';
-      track.style.transform = `translateX(-${offsetX}px)`;
-    } else if (offsetX < 0) {
-      offsetX += setWidth;
-      track.style.transition = 'none';
-      track.style.transform = `translateX(-${offsetX}px)`;
-    }
+    if (offsetX >= setWidth) { offsetX -= setWidth; track.style.transition = 'none'; track.style.transform = `translateX(-${offsetX}px)`; }
+    else if (offsetX < 0) { offsetX += setWidth; track.style.transition = 'none'; track.style.transform = `translateX(-${offsetX}px)`; }
     isTransitioning = false;
   });
 
-  function startTimer() { timer = setInterval(step, 3000); }
+  function startTimer() { if (!isMobile()) timer = setInterval(step, 3000); }
   function stopTimer() { clearInterval(timer); }
 
   track.addEventListener('mouseenter', stopTimer);
   track.addEventListener('mouseleave', startTimer);
 
-  // Touch / swipe support
-  let _hpTouchStartX = 0, _hpTouchStartY = 0, _hpSwiping = false;
+  // Swipe on mobile — just let native scroll handle it
+  // But also support drag-step on desktop
+  let _hpTouchStartX = 0, _hpSwiping = false;
   track.addEventListener('touchstart', function(e) {
     stopTimer();
     _hpTouchStartX = e.touches[0].clientX;
-    _hpTouchStartY = e.touches[0].clientY;
     _hpSwiping = false;
   }, {passive: true});
   track.addEventListener('touchmove', function(e) {
-    const dx = e.touches[0].clientX - _hpTouchStartX;
-    const dy = e.touches[0].clientY - _hpTouchStartY;
-    if (!_hpSwiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
-      _hpSwiping = true;
-    }
+    const dx = Math.abs(e.touches[0].clientX - _hpTouchStartX);
+    if (!_hpSwiping && dx > 8) _hpSwiping = true;
   }, {passive: true});
   track.addEventListener('touchend', function(e) {
-    const dx = e.changedTouches[0].clientX - _hpTouchStartX;
-    if (_hpSwiping && Math.abs(dx) > 40) {
-      if (dx < 0) step(); else stepBack();
+    if (!isMobile()) {
+      const dx = e.changedTouches[0].clientX - _hpTouchStartX;
+      if (_hpSwiping && Math.abs(dx) > 40) { if (dx < 0) step(); else stepBack(); }
+      setTimeout(startTimer, 2000);
     }
-    setTimeout(startTimer, 2000);
   }, {passive: true});
 
-  if(document.readyState === 'complete'){
-    requestAnimationFrame(startTimer);
-  } else {
-    window.addEventListener('load', function(){ requestAnimationFrame(startTimer); });
+  function init() {
+    if (isMobile()) { setupMobile(); }
+    else { setupDesktop(); requestAnimationFrame(startTimer); }
   }
+
+  // Re-check on resize
+  let _resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(_resizeTimer);
+    _resizeTimer = setTimeout(function() {
+      stopTimer();
+      offsetX = 0;
+      track.style.transform = 'none';
+      init();
+    }, 200);
+  });
+
+  if (document.readyState === 'complete') { init(); }
+  else { window.addEventListener('load', init); }
 })();
 
 /* --- ACTIVITIES: Infinite seamless auto-slider with swipe --- */
@@ -1321,8 +1392,16 @@ let tIdx=0; const tTrk=document.getElementById("tipsTrack"), tSlds=document.quer
 setInterval(()=>{ tIdx++; tTrk.style.transition="transform 0.6s ease-in-out"; tTrk.style.transform=`translateX(-${tIdx*100}%)`; if(tIdx===tSlds.length-1){ setTimeout(()=>{ tTrk.style.transition="none"; tTrk.style.transform="translateX(0)"; tIdx=0; },600); } },5000);
 
 /* --- POPULAR PLACES SEE ALL POPUP --- */
-function openHpSeeAll() { document.getElementById('hpSeeAllPopup').style.display = 'flex'; }
-function closeHpSeeAll() { document.getElementById('hpSeeAllPopup').style.display = 'none'; }
+function openHpSeeAll() {
+  var popup = document.getElementById('hpSeeAllPopup');
+  popup.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  // Trigger lazy load for all images in popup
+  popup.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
+    if (img.getAttribute('data-src')) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); }
+  });
+}
+function closeHpSeeAll() { document.getElementById('hpSeeAllPopup').style.display = 'none'; document.body.style.overflow = ''; }
 
 /* --- NEARBY ESCAPES SPLIT LAYOUT --- */
 var escData = [];
@@ -1380,28 +1459,6 @@ var escPageStart = 0;
       .catch(function(){ escInit(); });
   }
 
-  /* Lazy-load observer for esc-thumb images */
-  var _escImgObserver = null;
-  function escObserveImages(container) {
-    if (!('IntersectionObserver' in window)) {
-      container.querySelectorAll('img[data-src]').forEach(function(img){ img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); });
-      return;
-    }
-    if (!_escImgObserver) {
-      _escImgObserver = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if (entry.isIntersecting) {
-            var img = entry.target;
-            var s = img.getAttribute('data-src');
-            if (s) { img.src = s; img.removeAttribute('data-src'); }
-            _escImgObserver.unobserve(img);
-          }
-        });
-      }, { rootMargin: '300px 0px' });
-    }
-    container.querySelectorAll('img[data-src]').forEach(function(img){ _escImgObserver.observe(img); });
-  }
-
   /* Build all thumb elements once — never rebuild, never wipe */
   function escBuildGrid() {
     var grid = document.getElementById('escGrid');
@@ -1432,7 +1489,6 @@ var escPageStart = 0;
       }; })(i));
       grid.appendChild(thumb);
     });
-    escObserveImages(grid);
   }
 
   /* Update active highlight on existing thumbs — no rebuild, no flash */
@@ -1499,6 +1555,12 @@ var escPageStart = 0;
 
   function escInit() {
     escBuildGrid();
+    // Load all thumb images immediately — the grid is visible above the fold
+    var thumbImgs = document.querySelectorAll('#escGrid img[data-src]');
+    thumbImgs.forEach(function(img) {
+      img.src = img.getAttribute('data-src');
+      img.removeAttribute('data-src');
+    });
     escUpdateMain(true);
     escStartTimer();
     var section = document.querySelector('.escapes-section');
@@ -1548,7 +1610,6 @@ var escPageStart = 0;
 
 /* --- NEAR YOU SECTION LOGIC --- */
 (function() {
-
 
   let _nyPlaces = null;
 
@@ -1817,25 +1878,24 @@ var escPageStart = 0;
     return (R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))).toFixed(1);
   }
 
-  // Instagram-style varied aspect ratios for 2-col grid
-  var ktpAspects = ['3/4','2/3','4/5','3/4','1/1','3/4','2/3','4/5','3/4','2/3','1/1','3/4','4/5','2/3','3/4'];
+  // Varied heights for Instagram masonry look
+  var ktpHeights = [160, 200, 240, 175, 210, 155, 230, 180, 195, 165, 220, 185, 170, 205, 245];
 
   var _ktpFiltered = [];
   var _ktpRenderedCount = 0;
   var _ktpBatchSize = 12;
   var _ktpObserver = null;
   var _ktpImgObserver = null;
-  var _ktpSpinner = null;
 
   function ktpCardHTML(place, i) {
     var km = (ktpUserLat !== null) ? ktpHaversine(ktpUserLat, ktpUserLng, place.lat, place.lng) + ' km' : '';
-    var aspect = ktpAspects[i % ktpAspects.length];
+    var imgH = ktpHeights[i % ktpHeights.length];
     var mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + place.lat + ',' + place.lng;
     var safeName = place["Place Name"].replace(/'/g, "&#39;");
     var imgSrc = ktpImgSrc(place["Place Name"]);
     var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
-    return '<div class="ktp-card" style="animation-delay:' + (i % _ktpBatchSize * 0.04) + 's" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
-      '<img data-src="' + imgSrc + '" alt="' + safeName + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:' + aspect + ';width:100%;object-fit:cover;display:block;background:#e8e8e8;" onerror="this.onerror=null;this.src=\'' + fallback + '\'">' +
+    return '<div class="ktp-card" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
+      '<img data-src="' + imgSrc + '" alt="' + safeName + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="width:100%;height:100%;object-fit:cover;display:block;background:#e8e8e8;" onerror="this.onerror=null;this.src=\'' + fallback + '\'">' +
       '<div class="ktp-card-overlay"></div>' +
       '<div class="ktp-card-body">' +
         '<div class="ktp-card-left">' +
@@ -1879,10 +1939,9 @@ var escPageStart = 0;
     masonry.insertAdjacentHTML('beforeend', html);
     ktpObserveImages(masonry);
     _ktpRenderedCount = end;
-    if (_ktpRenderedCount >= _ktpFiltered.length) {
-      if (_ktpObserver) { _ktpObserver.disconnect(); _ktpObserver = null; }
+    if (_ktpRenderedCount >= _ktpFiltered.length && _ktpObserver) {
+      _ktpObserver.disconnect(); _ktpObserver = null;
       var s = document.getElementById('ktpSentinel'); if (s) s.remove();
-      if (_ktpSpinner) { _ktpSpinner.remove(); _ktpSpinner = null; }
     }
   }
 
@@ -1894,13 +1953,8 @@ var escPageStart = 0;
     if (_ktpObserver) { _ktpObserver.disconnect(); _ktpObserver = null; }
     if (_ktpImgObserver) { _ktpImgObserver.disconnect(); _ktpImgObserver = null; }
     var s = document.getElementById('ktpSentinel'); if (s) s.remove();
-    if (_ktpSpinner) { _ktpSpinner.remove(); _ktpSpinner = null; }
     ktpLoadMore();
     if (_ktpRenderedCount < _ktpFiltered.length && 'IntersectionObserver' in window) {
-      // Add spinner below the masonry
-      _ktpSpinner = document.createElement('div');
-      _ktpSpinner.className = 'ktp-load-spinner';
-      masonry.parentNode.appendChild(_ktpSpinner);
       var sentinel = document.createElement('div');
       sentinel.id = 'ktpSentinel';
       sentinel.style.cssText = 'height:1px;width:100%;';
