@@ -42,23 +42,38 @@
         .handpicked-see-all:hover{text-decoration:underline;}
         /* See All popup */
         /* ── Popular Places Instagram Popup ── */
-        .hp-seeall-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);z-index:12000;}
-        .hp-seeall-box{width:100%;max-width:600px;background:#fff;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:slideUp .3s ease;max-height:92vh;}
-        .hp-seeall-header{display:flex;justify-content:space-between;align-items:center;padding:16px 16px 12px;border-bottom:1px solid #f0f0f0;flex-shrink:0;}
+        .hp-seeall-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.52);backdrop-filter:blur(8px);z-index:12000;padding:0 0 16px;}
+        .hp-seeall-box{width:100%;max-width:600px;background:#fff;border-radius:22px;display:flex;flex-direction:column;animation:slideUp .3s ease;max-height:88vh;overflow:hidden;}
+        .hp-seeall-header{display:flex;justify-content:space-between;align-items:center;padding:15px 16px 13px;background:#fff;flex-shrink:0;}
         .hp-seeall-header h3{font-size:16px;font-weight:700;color:#111;margin:0;}
-        .hp-seeall-close{font-size:24px;color:#aaa;cursor:pointer;line-height:1;background:none;border:none;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;}
-        .hp-seeall-close:hover{background:#f0f0f0;color:#333;}
-        .hp-seeall-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;overflow-y:auto;scrollbar-width:none;flex:1;padding-bottom:24px;}
-        .hp-seeall-grid::-webkit-scrollbar{display:none;}
-        .hp-insta-card{position:relative;aspect-ratio:1/1;overflow:hidden;cursor:pointer;background:#e8e8e8;}
-        .hp-insta-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease;}
-        .hp-insta-card:hover img,.hp-insta-card:active img{transform:scale(1.06);}
-        .hp-insta-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,transparent 55%);opacity:0;transition:opacity 0.25s;pointer-events:none;}
-        .hp-insta-card:hover .hp-insta-overlay,.hp-insta-card:active .hp-insta-overlay{opacity:1;}
-        .hp-insta-label{position:absolute;bottom:0;left:0;right:0;padding:8px 8px 10px;color:#fff;font-size:11px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,0.7);opacity:0;transition:opacity 0.25s;}
-        .hp-insta-card:hover .hp-insta-label,.hp-insta-card:active .hp-insta-label{opacity:1;}
-        .hp-insta-dist{font-size:9px;font-weight:400;color:rgba(255,255,255,0.8);display:block;margin-top:1px;}
-        @media(min-width:500px){.hp-seeall-grid{grid-template-columns:repeat(4,1fr);}}
+        .hp-seeall-header p{font-size:10px;color:#999;margin:2px 0 0;}
+        .hp-seeall-close{font-size:18px;color:#666;cursor:pointer;background:#f2f2f2;border:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:background .2s;}
+        .hp-seeall-close:hover{background:#e5e5e5;}
+        .hp-masonry-scroll{overflow-y:auto;scrollbar-width:none;flex:1;padding:10px 10px 0;background:#fff;}
+        .hp-masonry-scroll::-webkit-scrollbar{display:none;}
+        /* fixed white bottom bar with CTA button */
+        .hp-seeall-footer{flex-shrink:0;padding:10px 14px 14px;background:#fff;border-radius:0 0 22px 22px;}
+        .hp-all-btn{width:100%;padding:13px 16px;background:#007b7f;color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:-0.2px;transition:background .2s,transform .15s;}
+        .hp-all-btn:hover{background:#005f62;}
+        .hp-all-btn:active{transform:scale(0.98);}
+        .hp-all-btn svg{width:16px;height:16px;flex-shrink:0;}
+        .hp-masonry{columns:2;column-gap:8px;}
+        /* card: fixed height set on the card itself, img fills it */
+        .hpc{display:block;width:100%;break-inside:avoid;position:relative;cursor:pointer;border-radius:14px;margin-bottom:8px;overflow:hidden;background:#ddd;}
+        .hpc img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;position:absolute;inset:0;}
+        .hpc:hover img,.hpc:active img{transform:scale(1.07);}
+        .hpc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.80) 0%,rgba(0,0,0,0.04) 50%,transparent 100%);pointer-events:none;}
+        .hpc-body{position:absolute;bottom:0;left:0;right:0;padding:7px 9px 10px;display:flex;align-items:flex-end;justify-content:space-between;gap:5px;}
+        .hpc-txt{min-width:0;flex:1;}
+        .hpc-name{display:block;font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3;}
+        .hpc-dist{display:block;font-size:9px;color:rgba(255,255,255,.72);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .hpc-dir{width:24px;height:24px;min-width:24px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,border-color .2s;backdrop-filter:blur(4px);}
+        .hpc:hover .hpc-dir,.hpc:active .hpc-dir{background:#007b7f;border-color:transparent;}
+        .hpc-dir svg{width:10px;height:10px;display:block;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+        /* heights on the card element itself */
+        .hpc.h-tall{height:210px;}
+        .hpc.h-med{height:150px;}
+        .hpc.h-sm{height:110px;}
         .handpicked-slider-wrap{overflow:hidden;width:100%;}
         .handpicked-cards{display:flex;gap:12px;transition:transform 0.5s ease;will-change:transform;}
         .handpicked-card{flex:0 0 140px;height:200px;position:relative;border-radius:12px;background:#e8e8e8;}.handpicked-card img{width:100%;height:100%;object-fit:cover;border-radius:12px;}.handpicked-card p{position:absolute;bottom:8px;left:8px;color:#fff;font-weight:600;font-size:13px;text-shadow:0 0 5px rgba(0,0,0,0.6);margin:0;}
@@ -280,12 +295,37 @@
         .ktp-filter-scroll::-webkit-scrollbar { display: none; }
         .ktp-filter-btn { flex: 0 0 auto; padding: 6px 14px; border-radius: 50px; border: 1.5px solid #000; background: transparent; font-size: 11px; font-weight: 600; color: #111; cursor: pointer; white-space: nowrap; transition: background 0.2s, color 0.2s; }
         .ktp-filter-btn.active { background: #111; color: #fff; }
-        .ktp-masonry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
-        @media (min-width: 700px) { .ktp-masonry { grid-template-columns: repeat(4, 1fr); gap: 4px; } }
-        @media (min-width: 1100px) { .ktp-masonry { grid-template-columns: repeat(5, 1fr); gap: 4px; } }
-        .ktp-card { position: relative; aspect-ratio: 1/1; overflow: hidden; cursor: pointer; display: block; background: #e0e0e0; border-radius: 0; }
-        @media (max-width: 699px) { .ktp-section { margin: 40px 0 30px; } }
-        .ktp-card img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; background: #e8e8e8; }
+        /* Kerala All Tourist Places - Masonry grid with varied card heights */
+        .ktp-section { margin: 40px var(--side-space) 30px; }
+        @media (max-width: 699px) { .ktp-section { margin: 40px var(--side-space) 30px; } }
+        @media (max-width: 400px) { .ktp-section { margin: 32px 10px 28px; } }
+        .ktp-masonry {
+          columns: 3;
+          column-gap: 6px;
+        }
+        @media (min-width: 700px) {
+          .ktp-masonry { columns: 4; column-gap: 8px; }
+        }
+        @media (min-width: 1100px) {
+          .ktp-masonry { columns: 5; column-gap: 10px; }
+        }
+        @media (max-width: 400px) {
+          .ktp-masonry { columns: 2; column-gap: 5px; }
+        }
+        .ktp-card {
+          position: relative;
+          display: block;
+          overflow: hidden;
+          cursor: pointer;
+          background: #e0e0e0;
+          border-radius: 10px;
+          break-inside: avoid;
+          margin-bottom: 6px;
+          width: 100%;
+        }
+        @media (min-width: 700px) { .ktp-card { border-radius: 12px; margin-bottom: 8px; } }
+        @media (min-width: 1100px) { .ktp-card { border-radius: 14px; margin-bottom: 10px; } }
+        .ktp-card img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; background: #e8e8e8; position: absolute; inset: 0; }
         .ktp-card:hover img { transform: scale(1.06); }
         .ktp-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.1) 55%, transparent 100%); pointer-events: none; }
         .ktp-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px 10px; display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; }
@@ -474,7 +514,10 @@
             display: block !important;
         }
         .ktp-card img {
+            position: absolute !important;
+            inset: 0 !important;
             width: 100% !important;
+            height: 100% !important;
             object-fit: cover !important;
             object-position: center center !important;
             display: block !important;
@@ -632,104 +675,95 @@
 
 <div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="lazy" decoding="async"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" decoding="async"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="lazy" decoding="async"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="lazy" decoding="async"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="lazy" decoding="async"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img src="img/handpicked/varkala.jpg" loading="lazy" decoding="async"><p>Varkala</p></div>    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="lazy" decoding="async"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="lazy" decoding="async"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" decoding="async"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="lazy" decoding="async"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="lazy" decoding="async"><p>Fort Kochi</p></div>  </div>  </div>  </div></div>
 
-<!-- SEE ALL POPUP — Instagram style -->
+<!-- SEE ALL POPUP -->
 <div class="hp-seeall-popup" id="hpSeeAllPopup" onclick="closeHpSeeAll()">
   <div class="hp-seeall-box" onclick="event.stopPropagation()">
     <div class="hp-seeall-header">
-      <h3>Popular Places</h3>
+      <div><h3>Popular Places</h3><p>Must-visit spots across Kerala</p></div>
       <button class="hp-seeall-close" onclick="closeHpSeeAll()">×</button>
     </div>
-    <div class="hp-seeall-grid">
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Munnar+Kerala','_blank')">
-        <img src="img/handpicked/munnar.jpg" loading="lazy" decoding="async" alt="Munnar" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Munnar<span class="hp-insta-dist">Idukki</span></div>
+    <div class="hp-masonry-scroll">
+      <div class="hp-masonry">
+
+        <div class="hpc h-tall" onclick="window.open('https://www.google.com/maps/search/Munnar+Kerala','_blank')">
+          <img src="img/handpicked/munnar.jpg" loading="lazy" decoding="async" alt="Munnar">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Munnar</span><span class="hpc-dist">Idukki · Hill Station</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Alappuzha+Kerala','_blank')">
+          <img src="img/handpicked/alappuzha.jpg" loading="lazy" decoding="async" alt="Alappuzha">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Alappuzha</span><span class="hpc-dist">Backwaters</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Varkala+Beach+Kerala','_blank')">
+          <img src="img/handpicked/varkala.jpg" loading="lazy" decoding="async" alt="Varkala">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Varkala</span><span class="hpc-dist">Beach · TVM</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-med" onclick="window.open('https://www.google.com/maps/search/Periyar+Wildlife+Sanctuary','_blank')">
+          <img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" decoding="async" alt="Periyar Wildlife">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Periyar Wildlife</span><span class="hpc-dist">Idukki · Sanctuary</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-tall" onclick="window.open('https://www.google.com/maps/search/Fort+Kochi','_blank')">
+          <img src="img/handpicked/fort kochi.jpg" loading="lazy" decoding="async" alt="Fort Kochi">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Fort Kochi</span><span class="hpc-dist">Ernakulam · Heritage</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-med" onclick="window.open('https://www.google.com/maps/search/Chembra+Peak+Wayanad','_blank')">
+          <img src="img/handpicked/chembra peak.jpg" loading="lazy" decoding="async" alt="Chembra Peak">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Chembra Peak</span><span class="hpc-dist">Wayanad · Trek</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Alappuzha+Kerala','_blank')">
+          <img src="img/handpicked/alappuzha.jpg" loading="lazy" decoding="async" alt="Alappuzha">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Alappuzha</span><span class="hpc-dist">Houseboats</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-tall" onclick="window.open('https://www.google.com/maps/search/Varkala+Beach+Kerala','_blank')">
+          <img src="img/handpicked/varkala.jpg" loading="lazy" decoding="async" alt="Varkala">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Varkala</span><span class="hpc-dist">Cliff Beach · TVM</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-med" onclick="window.open('https://www.google.com/maps/search/Munnar+Kerala','_blank')">
+          <img src="img/handpicked/munnar.jpg" loading="lazy" decoding="async" alt="Munnar">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Munnar</span><span class="hpc-dist">Idukki · Hills</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Periyar+Wildlife+Sanctuary','_blank')">
+          <img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" decoding="async" alt="Periyar Wildlife">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Periyar</span><span class="hpc-dist">Idukki</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Fort+Kochi','_blank')">
+          <img src="img/handpicked/fort kochi.jpg" loading="lazy" decoding="async" alt="Fort Kochi">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Fort Kochi</span><span class="hpc-dist">Ernakulam</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
+        <div class="hpc h-tall" onclick="window.open('https://www.google.com/maps/search/Chembra+Peak+Wayanad','_blank')">
+          <img src="img/handpicked/chembra peak.jpg" loading="lazy" decoding="async" alt="Chembra Peak">
+          <div class="hpc-ov"></div>
+          <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Chembra Peak</span><span class="hpc-dist">Wayanad · Trekking</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+        </div>
+
       </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Periyar+Wildlife+Sanctuary','_blank')">
-        <img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" decoding="async" alt="Periyar Wildlife" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Periyar Wildlife<span class="hp-insta-dist">Idukki</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Chembra+Peak+Wayanad','_blank')">
-        <img src="img/handpicked/chembra peak.jpg" loading="lazy" decoding="async" alt="Chembra Peak" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Chembra Peak<span class="hp-insta-dist">Wayanad</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Alappuzha+Kerala','_blank')">
-        <img src="img/handpicked/alappuzha.jpg" loading="lazy" decoding="async" alt="Alappuzha" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Alappuzha<span class="hp-insta-dist">Alappuzha</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Fort+Kochi','_blank')">
-        <img src="img/handpicked/fort kochi.jpg" loading="lazy" decoding="async" alt="Fort Kochi" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Fort Kochi<span class="hp-insta-dist">Ernakulam</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Varkala+Beach+Kerala','_blank')">
-        <img src="img/handpicked/varkala.jpg" loading="lazy" decoding="async" alt="Varkala" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Varkala<span class="hp-insta-dist">Thiruvananthapuram</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Thekkady+Kerala','_blank')">
-        <img src="img/tourist places/Thekkady.jpg" loading="lazy" decoding="async" alt="Thekkady" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Thekkady<span class="hp-insta-dist">Idukki</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Kovalam+Beach+Kerala','_blank')">
-        <img src="img/tourist places/Kovalam Beach.jpg" loading="lazy" decoding="async" alt="Kovalam Beach" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Kovalam Beach<span class="hp-insta-dist">Thiruvananthapuram</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Bekal+Fort+Kerala','_blank')">
-        <img src="img/tourist places/Bekal Fort.jpg" loading="lazy" decoding="async" alt="Bekal Fort" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Bekal Fort<span class="hp-insta-dist">Kasaragod</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Kumarakom+Kerala','_blank')">
-        <img src="img/tourist places/Kumarakom.jpg" loading="lazy" decoding="async" alt="Kumarakom" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Kumarakom<span class="hp-insta-dist">Kottayam</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Athirappilly+Waterfalls','_blank')">
-        <img src="img/tourist places/Athirappilly Waterfalls.jpg" loading="lazy" decoding="async" alt="Athirappilly" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Athirappilly<span class="hp-insta-dist">Thrissur</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Silent+Valley+National+Park','_blank')">
-        <img src="img/tourist places/Silent Valley National Park.jpg" loading="lazy" decoding="async" alt="Silent Valley" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Silent Valley<span class="hp-insta-dist">Palakkad</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Vagamon+Kerala','_blank')">
-        <img src="img/tourist places/Vagamon.jpg" loading="lazy" decoding="async" alt="Vagamon" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Vagamon<span class="hp-insta-dist">Idukki</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Ponmudi+Kerala','_blank')">
-        <img src="img/tourist places/Ponmudi.jpg" loading="lazy" decoding="async" alt="Ponmudi" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Ponmudi<span class="hp-insta-dist">Thiruvananthapuram</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Kannur+Beach+Kerala','_blank')">
-        <img src="img/tourist places/Kannur Beach.jpg" loading="lazy" decoding="async" alt="Kannur" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Kannur<span class="hp-insta-dist">Kannur</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Kozhikode+Beach','_blank')">
-        <img src="img/tourist places/Kozhikode Beach.jpg" loading="lazy" decoding="async" alt="Kozhikode" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Kozhikode<span class="hp-insta-dist">Kozhikode</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Poovar+Island+Kerala','_blank')">
-        <img src="img/tourist places/Poovar Island.jpg" loading="lazy" decoding="async" alt="Poovar Island" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Poovar Island<span class="hp-insta-dist">Thiruvananthapuram</span></div>
-      </div>
-      <div class="hp-insta-card" onclick="window.open('https://www.google.com/maps/search/Neliyampathy+Kerala','_blank')">
-        <img src="img/tourist places/Neliyampathy.jpg" loading="lazy" decoding="async" alt="Neliyampathy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp'">
-        <div class="hp-insta-overlay"></div>
-        <div class="hp-insta-label">Neliyampathy<span class="hp-insta-dist">Palakkad</span></div>
-      </div>
+    </div>
+    <div class="hp-seeall-footer">
+      <button class="hp-all-btn" onclick="closeHpSeeAll();document.getElementById('ktpSection').scrollIntoView({behavior:'smooth'});">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Kerala All Tourist Places
+      </button>
     </div>
   </div>
 </div>
@@ -1071,6 +1105,7 @@ function openMetroPopup(type) {
     lb.style.background = "#333333"; lb.style.color = "#ffffff";
     mb.style.display = "flex"; mb.style.background = "#000000"; mb.style.color = "#ffffff";
     if(type === 'Metro'){
+
         ub.style.background = "#25D366"; ub.querySelector('span').innerText = "WhatsApp Ticket"; ub.onclick = function() { window.open("https://wa.me/918129928888", "_blank"); };
         rb.querySelector('span').innerText = "Time Table"; rb.onclick = function() { document.getElementById('metroTimingPopup').style.display='flex'; };
         lb.querySelector('span').innerText = "Station List"; lb.onclick = function() { document.getElementById('metroStationPopup').style.display='flex'; };
@@ -1879,7 +1914,7 @@ var escPageStart = 0;
   }
 
   // Varied heights for Instagram masonry look
-  var ktpHeights = [160, 200, 240, 175, 210, 155, 230, 180, 195, 165, 220, 185, 170, 205, 245];
+  var ktpHeights = [160, 220, 140, 200, 175, 240, 155, 190, 260, 145, 210, 170, 250, 180, 135, 215, 165, 235, 150, 195];
 
   var _ktpFiltered = [];
   var _ktpRenderedCount = 0;
@@ -1894,7 +1929,7 @@ var escPageStart = 0;
     var safeName = place["Place Name"].replace(/'/g, "&#39;");
     var imgSrc = ktpImgSrc(place["Place Name"]);
     var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
-    return '<div class="ktp-card" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
+    return '<div class="ktp-card" style="height:' + imgH + 'px;" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
       '<img data-src="' + imgSrc + '" alt="' + safeName + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="width:100%;height:100%;object-fit:cover;display:block;background:#e8e8e8;" onerror="this.onerror=null;this.src=\'' + fallback + '\'">' +
       '<div class="ktp-card-overlay"></div>' +
       '<div class="ktp-card-body">' +
@@ -2067,6 +2102,7 @@ var escPageStart = 0;
         <div class="wx-main-row">
           <div class="wx-temp-block">
             <span class="wx-emoji" id="wxEmoji">⛅</span>
+
             <span class="wx-temp" id="wxTemp">—</span>
           </div>
           <div class="wx-meta-block">
