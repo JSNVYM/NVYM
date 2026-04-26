@@ -8,13 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://api.mymemory.translated.net">
+    <!-- Only preload the first visible hero image — preloading many images at once starves bandwidth on mobile -->
     <link rel="preload" as="image" href="img/hero1.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="img/handpicked/munnar.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="img/handpicked/alappuzha.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="img/handpicked/varkala.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="img/handpicked/fort kochi.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="img/handpicked/chembra peak.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="img/handpicked/periyar Wildlife Sanctuary.jpg" fetchpriority="high">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"></noscript>
 
@@ -511,6 +506,43 @@
         .tz-close-btn:hover{background:#005f61;}
 
 
+        /* ── IMAGE PERFORMANCE FIXES ──────────────────────────────────
+           Core fixes for slow image loading on mobile/tablet.
+        ─────────────────────────────────────────────────────────────── */
+
+        /* 1. Smooth fade-in when images load — like Netflix/Unsplash effect */
+        .handpicked-card img,
+        .ny-card img,
+        .activity-card img,
+        .ktp-card img,
+        .hpc img,
+        .esc-main-img-front,
+        .esc-main-img-back {
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .handpicked-card img.img-loaded,
+        .ny-card img.img-loaded,
+        .activity-card img.img-loaded,
+        .ktp-card img.img-loaded,
+        .hpc img.img-loaded,
+        .esc-main-img-front.img-loaded,
+        .esc-main-img-back.img-loaded { opacity: 1; }
+        /* Hero always visible — above the fold */
+        .hero-slide img { opacity: 1 !important; transition: none !important; }
+
+        /* 2. GPU compositing for sliders — prevents paint stalls during image decode */
+        .hero-track, .handpicked-cards, .activities-cards, .nearyou-track {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* 3. content-visibility on heavy below-fold section */
+        .ktp-section {
+            content-visibility: auto;
+            contain-intrinsic-size: 0 1200px;
+        }
+
         /* --- MOBILE IMAGE FIX: ensure images never clip/cutoff --- */
         .hero-slide img,
         .handpicked-card img,
@@ -549,7 +581,7 @@
 </head>
 <body>
 
-<div class="navbar"><div class="nav-inner"><div class="logo"><img src="img/logo/Yathra Map Logo PNG.png" loading="eager" fetchpriority="high" decoding="sync"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span>About</span></div><div class="search-icon">🔍</div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg" fetchpriority="high" decoding="sync"></div>    <div class="hero-slide"><img src="img/hero6.jpg" loading="eager" decoding="async"></div>    <div class="hero-slide"><img src="img/hero7.png" loading="eager" decoding="async"></div>    <div class="hero-slide"><img src="img/hero9.jpg" loading="eager" decoding="async"></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img src="img/icons/beach.png" loading="eager" decoding="sync"><p>Beaches</p></div>    <div class="card-btn"><img src="img/icons/mountain.png" loading="eager" decoding="sync"><p>Mountains</p></div>    <div class="card-btn"><img src="img/icons/backwater.png" loading="eager" decoding="sync"><p>Backwater</p></div>    <div class="card-btn"><img src="img/icons/wildlife.png" loading="eager" decoding="sync"><p>Wildlife</p></div>    <div class="card-btn"><img src="img/icons/adventure.png" loading="eager" decoding="sync"><p>Adventure</p></div>    <div class="card-btn"><img src="img/icons/waterfall.png" loading="eager" decoding="sync"><p>Waterfalls</p></div>    <div class="card-btn"><img src="img/icons/culture.png" loading="eager" decoding="sync"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img src="img/icons/fuel.png" loading="eager" decoding="sync"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img src="img/icons/emergency.png" loading="eager" decoding="sync"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img src="img/icons/pit stop.png" loading="eager" decoding="sync"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img src="img/icons/eat.png" loading="eager" decoding="sync"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img src="img/icons/stay.png" loading="eager" decoding="sync"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img src="img/icons/help.png" loading="eager" decoding="sync"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img src="img/icons/transport.png" loading="eager" decoding="sync"><p>Transport</p></div>  </div></div>
+<div class="navbar"><div class="nav-inner"><div class="logo"><img src="img/logo/Yathra Map Logo PNG.png" loading="eager" fetchpriority="high" decoding="sync"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span>About</span></div><div class="search-icon">🔍</div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg" fetchpriority="high" decoding="sync" loading="eager"></div>    <div class="hero-slide"><img src="img/hero6.jpg" loading="lazy" decoding="async" fetchpriority="low"></div>    <div class="hero-slide"><img src="img/hero7.png" loading="lazy" decoding="async" fetchpriority="low"></div>    <div class="hero-slide"><img src="img/hero9.jpg" loading="lazy" decoding="async" fetchpriority="low"></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img src="img/icons/beach.png" loading="eager" decoding="sync"><p>Beaches</p></div>    <div class="card-btn"><img src="img/icons/mountain.png" loading="eager" decoding="sync"><p>Mountains</p></div>    <div class="card-btn"><img src="img/icons/backwater.png" loading="eager" decoding="sync"><p>Backwater</p></div>    <div class="card-btn"><img src="img/icons/wildlife.png" loading="eager" decoding="sync"><p>Wildlife</p></div>    <div class="card-btn"><img src="img/icons/adventure.png" loading="eager" decoding="sync"><p>Adventure</p></div>    <div class="card-btn"><img src="img/icons/waterfall.png" loading="eager" decoding="sync"><p>Waterfalls</p></div>    <div class="card-btn"><img src="img/icons/culture.png" loading="eager" decoding="sync"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img src="img/icons/fuel.png" loading="eager" decoding="sync"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img src="img/icons/emergency.png" loading="eager" decoding="sync"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img src="img/icons/pit stop.png" loading="eager" decoding="sync"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img src="img/icons/eat.png" loading="eager" decoding="sync"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img src="img/icons/stay.png" loading="eager" decoding="sync"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img src="img/icons/help.png" loading="eager" decoding="sync"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img src="img/icons/transport.png" loading="eager" decoding="sync"><p>Transport</p></div>  </div></div>
 
 <div class="internal-popup" id="metroTimingPopup" onclick="this.style.display='none'">
     <div class="internal-box" onclick="event.stopPropagation()">
@@ -682,7 +714,7 @@
 
 <div class="emergency-popup" id="emergencyPopup" onclick="closeEmergencyPopup()">  <div class="emergency-box" onclick="event.stopPropagation()">    <div class="drag-bar"></div><h3 style="text-align:center;">Emergency Help</h3>    <div class="popup-content">      <div class="emergency-grid">        <div class="emergency-item" onclick="callNumber('102')"><img src="img/icons/ambulance.png"><p>Ambulance</p></div>        <div class="emergency-item" onclick="findNearbyHospital()"><img src="img/icons/hospital.png"><p>Hospital</p></div>        <div class="emergency-item" onclick="callNumber('100')"><img src="img/icons/police.png"><p>Police</p></div>        <div class="emergency-item" onclick="callNumber('101')"><img src="img/icons/fire.png"><p>Fire</p></div>        <div class="emergency-item" onclick="callNumber('1091')"><img src="img/icons/women.png"><p>Women Helpline</p></div>        <div class="emergency-item" onclick="callNumber('1098')"><img src="img/icons/child.png"><p>Child Helpline</p></div>        <div class="emergency-item" onclick="callNumber('108')"><img src="img/icons/disaster.png"><p>Disaster Mgmt</p></div>        <div class="emergency-item" onclick="callNumber('112')"><img src="img/icons/tourist police.png"><p>Tourist Police</p></div>        <div class="emergency-item" onclick="callNumber('1363')"><img src="img/icons/tourism helpline.png"><p>Tourism Helpline</p></div>        <div class="emergency-item" onclick="callNumber('0471-2518255')"><img src="img/icons/health.png"><p>Health Helpline</p></div>        <div class="emergency-item" onclick="callNumber('91 8589 0404 94')"><img src="img/icons/blood.png"><p>Blood Donors</p></div>        <div class="emergency-item" onclick="callNumber('98461 00100')"><img src="img/icons/highway.png"><p>Highway Alert</p></div>      </div>      <div class="tips-slider">        <div class="tips-track" id="tipsTrack">          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/health tips.png" style="height: 12px; width: 12px;"> Health Tips</h4><p>Drink bottled or purified water. Carry ORS and essential medicines. Use mosquito repellent in monsoon. Wear light cotton clothing. Ensure travel insurance coverage.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/car taxi.png" style="height: 15px; width: 15px;"> Travel Safety</h4><p>Use ride apps or prepaid taxis. Always wear helmets and seatbelts. Avoid isolated places at night. Check weather alerts during monsoon. Follow beach & backwater safety rules.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/nature.png" style="height: 12px; width: 12px;"> Natural Safety</h4><p>Swim only in lifeguard zones. Beware of strong currents in rivers and backwaters. Avoid trekking during heavy rain. Stay away from cliff edges. Carry flashlight during forest or night trips.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/pharmacies.png" style="height: 12px; width: 12px;"> Pharmacies & First Aid</h4><p>Locate nearest pharmacies using maps. Carry basic first aid kit. Store medicines properly. Keep contact of local doctors & hospitals. Check expiry dates before use.</p></div></div>        </div>      </div>    </div>    <button class="close-btn" onclick="closeEmergencyPopup()">Close</button>  </div></div>
 
-<div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="eager" fetchpriority="high" decoding="sync"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="eager" fetchpriority="high" decoding="sync"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="eager" fetchpriority="high" decoding="sync"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="eager" fetchpriority="high" decoding="sync"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="eager" fetchpriority="high" decoding="sync"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img src="img/handpicked/varkala.jpg" loading="eager" fetchpriority="high" decoding="sync"><p>Varkala</p></div>    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="eager" decoding="async"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="eager" decoding="async"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="eager" decoding="async"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="eager" decoding="async"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="eager" decoding="async"><p>Fort Kochi</p></div>  </div>  </div>  </div></div>
+<div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="eager" fetchpriority="auto" decoding="async" onload="this.classList.add('img-loaded')"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="eager" fetchpriority="auto" decoding="async" onload="this.classList.add('img-loaded')"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img src="img/handpicked/varkala.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Varkala</p></div>  </div>  </div>  </div></div>
 
 <!-- SEE ALL POPUP -->
 <div class="hp-seeall-popup" id="hpSeeAllPopup" onclick="closeHpSeeAll()">
@@ -695,73 +727,73 @@
       <div class="hp-masonry">
 
         <div class="hpc h-tall" onclick="window.open('https://www.google.com/maps/search/Munnar+Kerala','_blank')">
-          <img src="img/handpicked/munnar.jpg" fetchpriority="high" decoding="sync" alt="Munnar">
+          <img src="img/handpicked/munnar.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Munnar">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Munnar</span><span class="hpc-dist">Idukki · Hill Station</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Alappuzha+Kerala','_blank')">
-          <img src="img/handpicked/alappuzha.jpg" fetchpriority="high" decoding="sync" alt="Alappuzha">
+          <img src="img/handpicked/alappuzha.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Alappuzha">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Alappuzha</span><span class="hpc-dist">Backwaters</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Varkala+Beach+Kerala','_blank')">
-          <img src="img/handpicked/varkala.jpg" fetchpriority="high" decoding="sync" alt="Varkala">
+          <img src="img/handpicked/varkala.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Varkala">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Varkala</span><span class="hpc-dist">Beach · TVM</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-med" onclick="window.open('https://www.google.com/maps/search/Periyar+Wildlife+Sanctuary','_blank')">
-          <img src="img/handpicked/periyar Wildlife Sanctuary.jpg" fetchpriority="high" decoding="sync" alt="Periyar Wildlife">
+          <img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Periyar Wildlife">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Periyar Wildlife</span><span class="hpc-dist">Idukki · Sanctuary</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-tall" onclick="window.open('https://www.google.com/maps/search/Fort+Kochi','_blank')">
-          <img src="img/handpicked/fort kochi.jpg" fetchpriority="high" decoding="sync" alt="Fort Kochi">
+          <img src="img/handpicked/fort kochi.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Fort Kochi">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Fort Kochi</span><span class="hpc-dist">Ernakulam · Heritage</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-med" onclick="window.open('https://www.google.com/maps/search/Chembra+Peak+Wayanad','_blank')">
-          <img src="img/handpicked/chembra peak.jpg" fetchpriority="high" decoding="sync" alt="Chembra Peak">
+          <img src="img/handpicked/chembra peak.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Chembra Peak">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Chembra Peak</span><span class="hpc-dist">Wayanad · Trek</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Alappuzha+Kerala','_blank')">
-          <img src="img/handpicked/alappuzha.jpg" fetchpriority="high" decoding="sync" alt="Alappuzha">
+          <img src="img/handpicked/alappuzha.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Alappuzha">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Alappuzha</span><span class="hpc-dist">Houseboats</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-tall" onclick="window.open('https://www.google.com/maps/search/Varkala+Beach+Kerala','_blank')">
-          <img src="img/handpicked/varkala.jpg" fetchpriority="high" decoding="sync" alt="Varkala">
+          <img src="img/handpicked/varkala.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Varkala">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Varkala</span><span class="hpc-dist">Cliff Beach · TVM</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-med" onclick="window.open('https://www.google.com/maps/search/Munnar+Kerala','_blank')">
-          <img src="img/handpicked/munnar.jpg" fetchpriority="high" decoding="sync" alt="Munnar">
+          <img src="img/handpicked/munnar.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Munnar">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Munnar</span><span class="hpc-dist">Idukki · Hills</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Periyar+Wildlife+Sanctuary','_blank')">
-          <img src="img/handpicked/periyar Wildlife Sanctuary.jpg" fetchpriority="high" decoding="sync" alt="Periyar Wildlife">
+          <img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Periyar Wildlife">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Periyar</span><span class="hpc-dist">Idukki</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-sm" onclick="window.open('https://www.google.com/maps/search/Fort+Kochi','_blank')">
-          <img src="img/handpicked/fort kochi.jpg" fetchpriority="high" decoding="sync" alt="Fort Kochi">
+          <img src="img/handpicked/fort kochi.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Fort Kochi">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Fort Kochi</span><span class="hpc-dist">Ernakulam</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
 
         <div class="hpc h-tall" onclick="window.open('https://www.google.com/maps/search/Chembra+Peak+Wayanad','_blank')">
-          <img src="img/handpicked/chembra peak.jpg" fetchpriority="high" decoding="sync" alt="Chembra Peak">
+          <img src="img/handpicked/chembra peak.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')" alt="Chembra Peak">
           <div class="hpc-ov"></div>
           <div class="hpc-body"><div class="hpc-txt"><span class="hpc-name">Chembra Peak</span><span class="hpc-dist">Wayanad · Trekking</span></div><div class="hpc-dir"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </div>
@@ -788,24 +820,24 @@
     </div>
     <div class="toolbar-wrapper">
         <div class="toolbar-row" id="toolbarRow">
-            <div class="tool-btn" onclick="openWeatherPopup()"><img src="img/icons/weather.png"><p>Weather</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img src="img/icons/tour guide.png"><p>Guides</p></div>
-            <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="img/icons/camps.png"><p>Camps</p></div>
-			<div class="tool-btn" onclick="openComingSoonPopup('Travel Partner')"><img src="img/icons/travel partner.png"><p>Travel Partner</p></div>
-			<div class="tool-btn" onclick="openClickMyTripPopup()"><img src="img/icons/click my trip.png"><p>Click My Trip</p></div>
-            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="img/icons/e-pass.png"><p>ePass</p></div>
-			<div class="tool-btn" onclick="openCurrencyPopup()"><img src="img/icons/currency.png"><p>Currency</p></div>
-			<div class="tool-btn" onclick="openFuelPopup()"><img src="img/icons/fual cost.png"><p>Fuel Cost</p></div>
-			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img src="img/icons/atm.png"><p>ATM / CDM</p></div>
-            <div class="tool-btn" onclick="findNearby('Banks')"><img src="img/icons/bank.png"><p>Banks</p></div>
-            <div class="tool-btn" onclick="openCalendarPopup()"><img src="img/icons/calender.png"><p>Calendar</p></div>
-            <div class="tool-btn" onclick="openTranslatePopup()"><img src="img/icons/translate.png"><p>Translate</p></div>
-            <div class="tool-btn" onclick="openTimezonePopup()"><img src="img/icons/timezone.png"><p>Time Zone</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Track Wildlife')"><img src="img/icons/track wildlife.png"><p>Track Wildlife</p></div>
-            <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img src="img/icons/visa requirements.png"><p>Visa Requirements</p></div>
-			<div class="tool-btn" onclick="openComingSoonPopup('Bike Riders')"><img src="img/icons/bike rental.png"><p>Bike Riders</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('4x4 Offroad')"><img src="img/icons/four wheeler.png"><p>4x4 Offroad</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('Movies')"><img src="img/icons/movies.png"><p>Movies</p></div>
+            <div class="tool-btn" onclick="openWeatherPopup()"><img src="img/icons/weather.png" loading="lazy" decoding="async"><p>Weather</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img src="img/icons/tour guide.png" loading="lazy" decoding="async"><p>Guides</p></div>
+            <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="img/icons/camps.png" loading="lazy" decoding="async"><p>Camps</p></div>
+			<div class="tool-btn" onclick="openComingSoonPopup('Travel Partner')"><img src="img/icons/travel partner.png" loading="lazy" decoding="async"><p>Travel Partner</p></div>
+			<div class="tool-btn" onclick="openClickMyTripPopup()"><img src="img/icons/click my trip.png" loading="lazy" decoding="async"><p>Click My Trip</p></div>
+            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="img/icons/e-pass.png" loading="lazy" decoding="async"><p>ePass</p></div>
+			<div class="tool-btn" onclick="openCurrencyPopup()"><img src="img/icons/currency.png" loading="lazy" decoding="async"><p>Currency</p></div>
+			<div class="tool-btn" onclick="openFuelPopup()"><img src="img/icons/fual cost.png" loading="lazy" decoding="async"><p>Fuel Cost</p></div>
+			<div class="tool-btn" onclick="findNearby('ATM CDM')"><img src="img/icons/atm.png" loading="lazy" decoding="async"><p>ATM / CDM</p></div>
+            <div class="tool-btn" onclick="findNearby('Banks')"><img src="img/icons/bank.png" loading="lazy" decoding="async"><p>Banks</p></div>
+            <div class="tool-btn" onclick="openCalendarPopup()"><img src="img/icons/calender.png" loading="lazy" decoding="async"><p>Calendar</p></div>
+            <div class="tool-btn" onclick="openTranslatePopup()"><img src="img/icons/translate.png" loading="lazy" decoding="async"><p>Translate</p></div>
+            <div class="tool-btn" onclick="openTimezonePopup()"><img src="img/icons/timezone.png" loading="lazy" decoding="async"><p>Time Zone</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Track Wildlife')"><img src="img/icons/track wildlife.png" loading="lazy" decoding="async"><p>Track Wildlife</p></div>
+            <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img src="img/icons/visa requirements.png" loading="lazy" decoding="async"><p>Visa Requirements</p></div>
+			<div class="tool-btn" onclick="openComingSoonPopup('Bike Riders')"><img src="img/icons/bike rental.png" loading="lazy" decoding="async"><p>Bike Riders</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('4x4 Offroad')"><img src="img/icons/four wheeler.png" loading="lazy" decoding="async"><p>4x4 Offroad</p></div>
+            <div class="tool-btn" onclick="openComingSoonPopup('Movies')"><img src="img/icons/movies.png" loading="lazy" decoding="async"><p>Movies</p></div>
         </div>
     </div>
 </div>
@@ -813,13 +845,13 @@
 <div class="activities-section">
   <div class="activities-slider-wrap">
     <div class="activities-cards" id="activitiesCards">
-      <div class="activity-card" onclick="findNearby('kayaking Kerala')"><img src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=400&q=70&fm=webp" alt="Kayaking" loading="eager" decoding="async" width="220" height="110"><div class="act-overlay"></div><p>🛶 Kayaking</p></div>
-      <div class="activity-card" onclick="findNearby('speed boating Kerala')"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70&fm=webp" alt="Speed Boating" loading="eager" decoding="async" width="220" height="110"><div class="act-overlay"></div><p>🚤 Speed Boating</p></div>
-      <div class="activity-card" onclick="findNearby('paragliding Kerala')"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&q=70&fm=webp" alt="Paragliding" loading="eager" decoding="async" width="220" height="110"><div class="act-overlay"></div><p>🪂 Paragliding</p></div>
-      <div class="activity-card" onclick="findNearby('zipline Kerala')"><img src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&q=70&fm=webp" alt="Zipline" loading="eager" decoding="async" width="220" height="110"><div class="act-overlay"></div><p>🧗 Zipline</p></div>
-      <div class="activity-card" onclick="findNearby('bamboo rafting Kerala')"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70&fm=webp" alt="Bamboo Rafting" loading="eager" decoding="async" width="220" height="110"><div class="act-overlay"></div><p>🎋 Bamboo Rafting</p></div>
-      <div class="activity-card" onclick="findNearby('scuba diving Kerala')"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&q=70&fm=webp" alt="Scuba Diving" loading="eager" decoding="async" width="220" height="110"><div class="act-overlay"></div><p>🤿 Scuba Diving</p></div>
-      <div class="activity-card" onclick="findNearby('off road jeep rides Kerala')"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&q=70&fm=webp" alt="Off-Road Rides" loading="eager" decoding="async" width="220" height="110"><div class="act-overlay"></div><p>🚙 Off-Road Rides</p></div>
+      <div class="activity-card" onclick="findNearby('kayaking Kerala')"><img src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=300&q=65&fm=webp&auto=format&fit=crop" alt="Kayaking" loading="lazy" decoding="async" width="220" height="110" onload="this.classList.add('img-loaded')"><div class="act-overlay"></div><p>🛶 Kayaking</p></div>
+      <div class="activity-card" onclick="findNearby('speed boating Kerala')"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=65&fm=webp&auto=format&fit=crop" alt="Speed Boating" loading="lazy" decoding="async" width="220" height="110" onload="this.classList.add('img-loaded')"><div class="act-overlay"></div><p>🚤 Speed Boating</p></div>
+      <div class="activity-card" onclick="findNearby('paragliding Kerala')"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=300&q=65&fm=webp&auto=format&fit=crop" alt="Paragliding" loading="lazy" decoding="async" width="220" height="110" onload="this.classList.add('img-loaded')"><div class="act-overlay"></div><p>🪂 Paragliding</p></div>
+      <div class="activity-card" onclick="findNearby('zipline Kerala')"><img src="https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=300&q=65&fm=webp&auto=format&fit=crop" alt="Zipline" loading="lazy" decoding="async" width="220" height="110" onload="this.classList.add('img-loaded')"><div class="act-overlay"></div><p>🧗 Zipline</p></div>
+      <div class="activity-card" onclick="findNearby('bamboo rafting Kerala')"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=65&fm=webp&auto=format&fit=crop" alt="Bamboo Rafting" loading="lazy" decoding="async" width="220" height="110" onload="this.classList.add('img-loaded')"><div class="act-overlay"></div><p>🎋 Bamboo Rafting</p></div>
+      <div class="activity-card" onclick="findNearby('scuba diving Kerala')"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=300&q=65&fm=webp&auto=format&fit=crop" alt="Scuba Diving" loading="lazy" decoding="async" width="220" height="110" onload="this.classList.add('img-loaded')"><div class="act-overlay"></div><p>🤿 Scuba Diving</p></div>
+      <div class="activity-card" onclick="findNearby('off road jeep rides Kerala')"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=300&q=65&fm=webp&auto=format&fit=crop" alt="Off-Road Rides" loading="lazy" decoding="async" width="220" height="110" onload="this.classList.add('img-loaded')"><div class="act-overlay"></div><p>🚙 Off-Road Rides</p></div>
     </div>
   </div>
 </div>
@@ -937,12 +969,44 @@
 </div>
 
 <div class="bottom-nav">
-    <img src="img/icons/home.png" alt="Home">
-	<img src="img/icons/search.png" alt="Search">
-    <img src="img/icons/upload.png" alt="Explore">
-    <img src="img/icons/gallery.png" alt="Favorites">
-    <img src="img/icons/about.png" alt="Profile" style="width: 27px; height: 25px;">
+    <img src="img/icons/home.png" alt="Home" loading="eager" decoding="async">
+	<img src="img/icons/search.png" alt="Search" loading="eager" decoding="async">
+    <img src="img/icons/upload.png" alt="Explore" loading="eager" decoding="async">
+    <img src="img/icons/gallery.png" alt="Favorites" loading="eager" decoding="async">
+    <img src="img/icons/about.png" alt="Profile" loading="eager" decoding="async" style="width: 27px; height: 25px;">
 </div>
+
+<script>
+/* ── GLOBAL IMAGE FADE-IN HANDLER ────────────────────────────────────────
+   When an image is already in browser cache it fires 'load' synchronously,
+   before our onload="" attributes are parsed. This catches those images and
+   also handles newly loaded ones — giving a Netflix-style fade-in effect.
+────────────────────────────────────────────────────────────────────────── */
+(function(){
+  function markLoaded(img) { img.classList.add('img-loaded'); }
+  document.addEventListener('DOMContentLoaded', function(){
+    // Mark any images that finished loading before JS ran
+    document.querySelectorAll('img').forEach(function(img){
+      if (img.complete && img.naturalWidth > 0) markLoaded(img);
+      else img.addEventListener('load', function(){ markLoaded(img); }, { once: true });
+    });
+    // Use a MutationObserver to handle dynamically injected images
+    var obs = new MutationObserver(function(mutations){
+      mutations.forEach(function(m){
+        m.addedNodes.forEach(function(node){
+          if (node.nodeType !== 1) return;
+          var imgs = node.tagName === 'IMG' ? [node] : node.querySelectorAll('img');
+          imgs.forEach(function(img){
+            if (img.complete && img.naturalWidth > 0) markLoaded(img);
+            else img.addEventListener('load', function(){ markLoaded(img); }, { once: true });
+          });
+        });
+      });
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  });
+})();
+</script>
 
 <script>
 /* --- DYNAMIC DATA LOGIC --- */
@@ -1542,8 +1606,8 @@ var escPageStart = 0;
   /* Attach/re-attach onerror so fallback fires even after dynamic src changes */
   function escSetImgSrc(imgEl, src) {
     if (!imgEl) return;
-    imgEl.onerror = function(){ this.onerror=null; this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=600&q=70&fm=webp'; };
-    // Swap data-src to src for the active image immediately
+    imgEl.onload = function(){ imgEl.classList.add('img-loaded'); };
+    imgEl.onerror = function(){ this.onerror=null; this.classList.add('img-loaded'); this.src='https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=600&q=65&fm=webp&auto=format&fit=crop'; };
     imgEl.removeAttribute('data-src');
     imgEl.src = src;
   }
@@ -1674,10 +1738,12 @@ var escPageStart = 0;
             var img = entry.target;
             img.src = img.getAttribute('data-src');
             img.removeAttribute('data-src');
+            img.onload = function(){ img.classList.add('img-loaded'); };
+            if (img.complete) img.classList.add('img-loaded');
             _nyImgObserver.unobserve(img);
           }
         });
-      }, { rootMargin: '250px 0px' });
+      }, { rootMargin: '150px 0px' }); /* Reduced from 250px — less simultaneous loads on mobile */
     }
     container.querySelectorAll('img[data-src]').forEach(function(img){ _nyImgObserver.observe(img); });
   }
@@ -1692,7 +1758,7 @@ var escPageStart = 0;
     div.className = 'ny-card';
     div.onclick = () => window.open('https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng, '_blank');
     div.innerHTML =
-      '<img data-src="' + imgSrc + '" alt="' + name + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="width:100%;height:100%;object-fit:cover;display:block;background:#e8e8e8;" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp\'">' +
+      '<img data-src="' + imgSrc + '" alt="' + name + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="width:100%;height:100%;object-fit:cover;display:block;background:#e8e8e8;" onload="this.classList.add(\'img-loaded\')" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=65&fm=webp&auto=format&fit=crop\'">' +
       '<div class="ny-card-overlay"></div>' +
       '<div class="ny-card-body">' +
         '<div class="ny-top-row">' +
@@ -1876,7 +1942,7 @@ var escPageStart = 0;
     document.addEventListener('DOMContentLoaded', function(){
       var nySection = document.querySelector('.nearyou-section');
       if ('IntersectionObserver' in window && nySection) {
-        var nyInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ nyInitObs.disconnect(); nyInit(); } }, { rootMargin:'500px 0px' });
+        var nyInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ nyInitObs.disconnect(); nyInit(); } }, { rootMargin:'200px 0px' });
         nyInitObs.observe(nySection);
         setTimeout(function(){ nyInitObs.disconnect(); nyInit(); }, 2000);
       } else { setTimeout(nyInit,600); }
@@ -1884,7 +1950,7 @@ var escPageStart = 0;
   } else {
     var nySection = document.querySelector('.nearyou-section');
     if ('IntersectionObserver' in window && nySection) {
-      var nyInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ nyInitObs.disconnect(); nyInit(); } }, { rootMargin:'500px 0px' });
+      var nyInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ nyInitObs.disconnect(); nyInit(); } }, { rootMargin:'200px 0px' });
       nyInitObs.observe(nySection);
       setTimeout(function(){ nyInitObs.disconnect(); nyInit(); }, 2000);
     } else { setTimeout(nyInit,600); }
@@ -1939,7 +2005,7 @@ var escPageStart = 0;
     var imgSrc = ktpImgSrc(place["Place Name"]);
     var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
     return '<div class="ktp-card ' + sz + '" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
-      '<img data-src="' + imgSrc + '" alt="' + safeName + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onerror="this.onerror=null;this.src=\'' + fallback + '\'">' +
+      '<img data-src="' + imgSrc + '" alt="' + safeName + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onload="this.classList.add(\'img-loaded\')" onerror="this.onerror=null;this.classList.add(\'img-loaded\');this.src=\'' + fallback + '\'">' +
       '<div class="ktp-card-overlay"></div>' +
       '<div class="ktp-card-body">' +
         '<div class="ktp-card-left">' +
@@ -1966,10 +2032,12 @@ var escPageStart = 0;
             var img = entry.target;
             img.src = img.getAttribute('data-src');
             img.removeAttribute('data-src');
+            img.onload = function(){ img.classList.add('img-loaded'); };
+            if (img.complete) img.classList.add('img-loaded');
             _ktpImgObserver.unobserve(img);
           }
         });
-      }, { rootMargin: '300px 0px' });
+      }, { rootMargin: '150px 0px' }); /* Reduced from 300px — prevents flooding mobile connection */
     }
     masonry.querySelectorAll('img[data-src]').forEach(function(img){ _ktpImgObserver.observe(img); });
   }
@@ -2051,7 +2119,7 @@ var escPageStart = 0;
       if ('IntersectionObserver' in window && ktpSection) {
         var ktpInitObs = new IntersectionObserver(function(entries) {
           if (entries[0].isIntersecting) { ktpInitObs.disconnect(); ktpInit(); }
-        }, { rootMargin: '500px 0px' });
+        }, { rootMargin: '200px 0px' });
         ktpInitObs.observe(ktpSection);
         // Fallback: init after 3s even if not scrolled to
         setTimeout(function(){ ktpInitObs.disconnect(); ktpInit(); }, 3000);
