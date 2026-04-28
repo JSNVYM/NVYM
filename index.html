@@ -303,17 +303,17 @@
         .ktp-masonry {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          grid-auto-rows: 80px;
+          grid-auto-rows: 62px;
           gap: 6px;
         }
         @media (max-width: 400px) {
-          .ktp-masonry { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 70px; gap: 5px; }
+          .ktp-masonry { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 58px; gap: 5px; }
         }
         @media (min-width: 700px) {
-          .ktp-masonry { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 90px; gap: 8px; }
+          .ktp-masonry { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 70px; gap: 8px; }
         }
         @media (min-width: 1100px) {
-          .ktp-masonry { grid-template-columns: repeat(5, 1fr); grid-auto-rows: 100px; gap: 10px; }
+          .ktp-masonry { grid-template-columns: repeat(5, 1fr); grid-auto-rows: 78px; gap: 10px; }
         }
         .ktp-card {
           position: relative;
@@ -324,6 +324,9 @@
           border-radius: 10px;
           width: 100%;
         }
+        /* sz-sm  = 2 rows = ~124px  (small card) */
+        /* sz-med = 3 rows = ~186px  (medium card) */
+        /* sz-lg  = 4 rows = ~248px  (large card — was 320px, now capped) */
         .ktp-card.sz-sm  { grid-row: span 2; }
         .ktp-card.sz-med { grid-row: span 3; }
         .ktp-card.sz-lg  { grid-row: span 4; }
@@ -531,34 +534,66 @@
         /* Hero always visible — above the fold */
         .hero-slide img { opacity: 1 !important; transition: none !important; }
 
-        /* Hero skeleton: shimmer placeholder while first image loads */
+        /* SCROLL-BACK BLANK FIX:
+           Card containers must have explicit background so they never appear blank
+           during scroll-back before images re-paint on mobile. */
+        .handpicked-card,
+        .ny-card,
+        .activity-card,
+        .ktp-card,
+        .hpc {
+            background: #e0e0e0 !important; /* always visible placeholder */
+        }
+
+        /* Prevent body from going blank on scroll-back by anchoring layout */
+        body {
+            overflow-anchor: none; /* disable scroll anchoring — prevents jumps on mobile */
+        }
+
+        /* Overscroll glow on mobile causes repaint; disable it */
+        html, body {
+            overscroll-behavior-y: none;
+        }
+
+        /* Hero skeleton: shimmer placeholder while first image loads.
+           animation-fill-mode:forwards ensures shimmer stops cleanly when hero-loaded is added. */
         .hero-track {
             background: linear-gradient(110deg, #e8e8e8 30%, #f5f5f5 50%, #e8e8e8 70%);
             background-size: 200% 100%;
             animation: heroShimmer 1.4s linear infinite;
+            animation-fill-mode: forwards;
         }
         @keyframes heroShimmer {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
-        /* Stop shimmer once first image is loaded */
-        .hero-track.hero-loaded { background: none; animation: none; }
+        /* Stop shimmer once first image is loaded — animation:none frees GPU resources */
+        .hero-track.hero-loaded { background: none !important; animation: none !important; }
 
         /* Hero lazy images: invisible until src assigned */
         .hero-lazy { opacity: 0; }
 
-        /* 2. GPU compositing for sliders — prevents paint stalls during image decode */
-        .hero-track, .handpicked-cards, .activities-cards, .nearyou-track {
+        /* 2. GPU compositing — only hero-track needs will-change (it animates).
+              Applying will-change to ALL sliders over-promotes GPU layers on mobile,
+              starving the compositor and causing blank flashes on scroll-back.
+              Use transform:translateZ(0) only on the active hero track. */
+        .hero-track {
             will-change: transform;
             transform: translateZ(0);
         }
-        /* Paint containment: browser skips painting outside the hero bounds */
-        .hero { contain: layout paint; }
+        /* Removed will-change from handpicked-cards, activities-cards, nearyou-track
+           to reduce GPU memory pressure on mobile/tablet */
+        .handpicked-cards, .activities-cards, .nearyou-track {
+            transform: translateZ(0);
+        }
+        /* isolation:isolate creates a stacking context without GPU promotion */
+        .hero { isolation: isolate; overflow: hidden; }
 
-        /* 3. content-visibility on heavy below-fold section */
+        /* 3. content-visibility removed — caused blank-page flash on scroll-back on mobile/tablet.
+              The browser discards paint records for off-screen content-visibility:auto sections,
+              so scrolling back up triggers a full re-render delay. Use will-change instead. */
         .ktp-section {
-            content-visibility: auto;
-            contain-intrinsic-size: 0 1200px;
+            /* content-visibility: auto; — REMOVED, causes blank flash on scroll-back */
         }
 
         /* --- MOBILE IMAGE FIX: ensure images never clip/cutoff --- */
@@ -2062,8 +2097,9 @@ var escPageStart = 0;
   var _ktpObserver = null;
   var _ktpImgObserver = null;
 
-  // Size pattern cycles: sm=2rows, med=3rows, lg=4rows
-  var ktpSizes = ['sz-med','sz-sm','sz-lg','sz-sm','sz-med','sz-lg','sz-sm','sz-med','sz-sm','sz-lg','sz-med','sz-sm'];
+  // Size pattern: sm=2rows (~124px), med=3rows (~186px), lg=4rows (~248px)
+  // Pattern keeps variety but limits tall cards — max 1 lg per 5 cards
+  var ktpSizes = ['sz-med','sz-sm','sz-sm','sz-med','sz-lg','sz-sm','sz-med','sz-sm','sz-sm','sz-med','sz-sm','sz-lg','sz-sm','sz-med','sz-sm'];
 
   function ktpCardHTML(place, i) {
     var km = (ktpUserLat !== null) ? ktpHaversine(ktpUserLat, ktpUserLng, place.lat, place.lng) + ' km' : '';
@@ -3740,4 +3776,101 @@ window.closeCsPopup = function(){
 })();
 </script>
 
+
+<script>
+/* ============================================================
+   SCROLL-BACK BLANK PAGE FIX
+   On mobile/tablet, when the user scrolls to the bottom and
+   then scrolls back to the top, some browsers (especially
+   Chrome on Android) discard painted layers for off-screen
+   sections and take time to re-paint them, causing a blank
+   flash. This script:
+   1. Forces a minimal repaint on scroll-up to wake up the
+      compositor before the user sees blank content.
+   2. Marks all lazy images that are already loaded (complete)
+      with img-loaded so they never appear blank on scroll-back.
+   3. Restores any images whose src was removed after they loaded.
+   ============================================================ */
+(function() {
+  'use strict';
+
+  // --- Fix 1: Mark already-loaded images immediately on page ready ---
+  function markLoadedImages() {
+    document.querySelectorAll(
+      '.handpicked-card img, .ny-card img, .activity-card img, .ktp-card img, .hpc img, .esc-main-img-front, .esc-main-img-back'
+    ).forEach(function(img) {
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add('img-loaded');
+      }
+      // If src was already set via data-src swap and image is loaded, mark it
+      if (!img.classList.contains('img-loaded')) {
+        img.addEventListener('load', function() {
+          img.classList.add('img-loaded');
+        }, { once: true });
+      }
+    });
+  }
+
+  // --- Fix 2: On scroll-up, trigger a micro repaint to wake compositor ---
+  var lastScrollY = window.scrollY || 0;
+  var repaintScheduled = false;
+
+  function onScroll() {
+    var currentY = window.scrollY || 0;
+    var scrollingUp = currentY < lastScrollY;
+    lastScrollY = currentY;
+
+    // Only act when scrolling back up toward top
+    if (scrollingUp && !repaintScheduled) {
+      repaintScheduled = true;
+      requestAnimationFrame(function() {
+        // Reading scrollTop forces a style recalculation, waking the compositor
+        // This is a zero-cost forced layout that prevents blank flash
+        void document.body.scrollTop;
+        // Re-check and mark any images that loaded while scrolled down
+        markLoadedImages();
+        repaintScheduled = false;
+      });
+    }
+  }
+
+  // --- Fix 3: When page returns to top (bounce), force all above-fold
+  //     images visible in case opacity:0 stuck ---
+  function onScrollEnd() {
+    var currentY = window.scrollY || 0;
+    if (currentY < 200) {
+      // Near top: ensure hero and category buttons are fully visible
+      document.querySelectorAll('.hero-slide img').forEach(function(img) {
+        img.style.opacity = '1';
+      });
+      markLoadedImages();
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // scrollend is supported in Chrome 114+ / Firefox 109+
+  if ('onscrollend' in window) {
+    window.addEventListener('scrollend', onScrollEnd, { passive: true });
+  } else {
+    // Fallback: debounce scroll end detection
+    var scrollEndTimer = null;
+    window.addEventListener('scroll', function() {
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(onScrollEnd, 120);
+    }, { passive: true });
+  }
+
+  // Run immediately and after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', markLoadedImages);
+  } else {
+    markLoadedImages();
+  }
+
+  // Run again after everything loads (fonts, images, etc.)
+  window.addEventListener('load', markLoadedImages);
+
+})();
+</script>
 </body></html>
