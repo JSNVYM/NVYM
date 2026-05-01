@@ -1022,12 +1022,646 @@
 </div>
 
 <div class="bottom-nav">
-    <img src="img/icons/home.png" alt="Home" loading="eager" decoding="async">
-	<img src="img/icons/search.png" alt="Search" loading="eager" decoding="async">
+    <img src="img/icons/home.png" alt="Home" loading="eager" decoding="async" onclick="window.scrollTo({top:0,behavior:'smooth'});" style="cursor:pointer;">
+	<img src="img/icons/search.png" alt="Search" loading="eager" decoding="async" onclick="openSearchPopup();" style="cursor:pointer;">
     <img src="img/icons/upload.png" alt="Explore" loading="eager" decoding="async">
-    <img src="img/icons/gallery.png" alt="Favorites" loading="eager" decoding="async">
-    <img src="img/icons/about.png" alt="Profile" loading="eager" decoding="async" style="width: 27px; height: 25px;">
+    <img src="img/icons/gallery.png" alt="Gallery" loading="eager" decoding="async" onclick="window.open('https://www.instagram.com/yathramap','_blank');" style="cursor:pointer;">
+    <img src="img/icons/about.png" alt="About" loading="eager" decoding="async" onclick="openAboutPopup();" style="cursor:pointer;width: 27px; height: 25px;">
 </div>
+
+<!-- SEARCH POPUP -->
+<div id="searchPopupOverlay" style="display:none;position:fixed;inset:0;z-index:20000;background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeSearchPopup()">
+  <div id="searchPopupBox" style="width:100%;max-width:640px;background:#fff;border-radius:22px;padding:20px 16px 24px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);max-height:85vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 4px;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <h3 style="font-size:17px;font-weight:700;color:#111;margin:0;">Search Places</h3>
+      <button onclick="closeSearchPopup()" style="width:30px;height:30px;border-radius:50%;background:#f2f2f2;border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666;">✕</button>
+    </div>
+    <!-- Text search bar -->
+    <div style="display:flex;align-items:center;gap:10px;background:#f5f5f5;border-radius:14px;padding:12px 14px;border:1.5px solid #ebebeb;transition:border-color .2s;" id="searchBarWrap">
+      <span style="font-size:17px;flex-shrink:0;">🔍</span>
+      <input id="ktpSearchInput" type="text" placeholder="Search Kerala tourist places…" autocomplete="off" style="flex:1;border:none;background:none;outline:none;font-size:14px;font-family:'Poppins',sans-serif;color:#111;" oninput="ktpSearchOnInput(this.value)" onkeydown="if(event.key==='Enter')ktpSearchGo()">
+      <button id="ktpSearchClearBtn" onclick="ktpSearchClear()" style="display:none;border:none;background:none;font-size:16px;color:#aaa;cursor:pointer;padding:0;">✕</button>
+      <button id="ktpVoiceBtn" onclick="ktpVoiceSearch()" title="Voice Search" style="border:none;background:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#007b7f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+      </button>
+    </div>
+    <!-- Voice status -->
+    <div id="ktpVoiceStatus" style="display:none;text-align:center;font-size:12px;color:#007b7f;font-weight:500;animation:ktpPulse 1s ease-in-out infinite;">🎙️ Listening… speak now</div>
+    <!-- Suggestions list -->
+    <div id="ktpSearchSuggestions" style="overflow-y:auto;max-height:40vh;display:flex;flex-direction:column;gap:4px;scrollbar-width:none;"></div>
+    <!-- Search button -->
+    <button onclick="ktpSearchGo()" style="width:100%;padding:13px;border-radius:14px;background:#007b7f;color:#fff;border:none;font-size:14px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:background .2s;letter-spacing:.1px;" onmouseover="this.style.background='#005f61'" onmouseout="this.style.background='#007b7f'">Search Places</button>
+  </div>
+</div>
+<style>
+@keyframes ktpPulse{0%,100%{opacity:1;}50%{opacity:.45;}}
+#ktpSearchSuggestions::-webkit-scrollbar{display:none;}
+.ktp-sug-item{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:12px;cursor:pointer;transition:background .15s;border:1px solid #f1f1f1;background:#fafafa;}
+.ktp-sug-item:hover,.ktp-sug-item:active{background:#f0f9f9;border-color:#b2dfe0;}
+.ktp-sug-icon{font-size:18px;flex-shrink:0;}
+.ktp-sug-text{flex:1;min-width:0;}
+.ktp-sug-name{font-size:13px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ktp-sug-district{font-size:10px;color:#aaa;margin-top:1px;}
+.ktp-sug-arrow{font-size:13px;color:#ccc;flex-shrink:0;}
+</style>
+
+<!-- ABOUT POPUP -->
+<style>
+  /* ── Overlay ── */
+  #aboutPopupOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 clamp(8px,3vw,16px) clamp(8px,3vw,16px);
+    box-sizing: border-box;
+  }
+
+  /* ── Card ── */
+  .about-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border-radius: clamp(16px,4vw,24px);
+    display: flex;
+    flex-direction: column;
+    animation: slideUp .3s cubic-bezier(0.22,1,0.36,1);
+    max-height: 92dvh;
+    max-height: 92vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+
+  /* ── Header ── */
+  .about-header {
+    position: relative;
+    padding: clamp(14px,3vw,20px) clamp(14px,4vw,20px) clamp(12px,2.5vw,16px);
+    text-align: center;
+    border-bottom: 1px solid #f1f1f1;
+    flex-shrink: 0;
+  }
+  .about-header h3 {
+    font-size: clamp(15px,4vw,18px);
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  .about-header p {
+    font-size: clamp(9px,2.5vw,11px);
+    color: #aaa;
+    margin: 3px 0 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  .about-close-btn {
+    position: absolute;
+    top: 50%;
+    right: clamp(10px,3vw,16px);
+    transform: translateY(-50%);
+    width: clamp(28px,7vw,32px);
+    height: clamp(28px,7vw,32px);
+    border-radius: 50%;
+    background: #f2f2f2;
+    border: none;
+    font-size: clamp(13px,3.5vw,15px);
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .2s;
+  }
+  .about-close-btn:hover { background: #e5e5e5; }
+
+  /* ── Scrollable body ── */
+  .about-body {
+    overflow-y: auto;
+    flex: 1;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: clamp(14px,4vw,20px) clamp(14px,4vw,20px) clamp(16px,4vw,24px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px,4vw,20px);
+    box-sizing: border-box;
+  }
+  .about-body::-webkit-scrollbar { display: none; }
+
+  /* ── Brand card ── */
+  .about-brand-card {
+    border-radius: clamp(14px,4vw,18px);
+    padding: clamp(18px,5vw,26px) clamp(12px,4vw,20px) clamp(16px,4vw,22px);
+    text-align: center;
+    background: #f7f8fa;
+    border: 1px solid #ebebeb;
+  }
+  .about-logo {
+    height: clamp(40px,10vw,58px);
+    max-width: min(200px, 55vw);
+    object-fit: contain;
+    display: block;
+    margin: 0 auto clamp(10px,3vw,14px);
+  }
+  .about-logo-fallback {
+    display: none;
+    font-size: clamp(16px,4vw,20px);
+    font-weight: 700;
+    color: #111;
+    margin-bottom: clamp(10px,3vw,14px);
+    font-family: 'Poppins', sans-serif;
+  }
+  .about-tagline {
+    font-size: clamp(10.5px,2.8vw,12.5px);
+    color: #888;
+    line-height: 1.7;
+    margin: 0 auto;
+    max-width: 280px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* ── App store buttons ── */
+  .about-store-row {
+    display: flex;
+    gap: clamp(8px,2.5vw,12px);
+    justify-content: center;
+    margin-top: clamp(14px,4vw,20px);
+    flex-wrap: wrap;
+  }
+  .about-store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(6px,2vw,9px);
+    padding: clamp(9px,2.5vw,12px) clamp(14px,4vw,20px);
+    background: #111;
+    border-radius: clamp(10px,3vw,14px);
+    text-decoration: none;
+    transition: opacity .2s, transform .18s;
+    flex-shrink: 0;
+  }
+  .about-store-btn:hover { opacity: .82; transform: translateY(-1px); }
+  .about-store-btn:active { transform: scale(0.97); }
+  .about-store-btn svg { flex-shrink: 0; width: clamp(15px,4vw,18px); height: clamp(15px,4vw,18px); }
+  .about-store-label-small {
+    font-size: clamp(7.5px,2vw,9px);
+    color: rgba(255,255,255,.65);
+    line-height: 1;
+    font-family: 'Poppins', sans-serif;
+  }
+  .about-store-label-big {
+    font-size: clamp(11px,3vw,13px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* ── Section label ── */
+  .about-section-label {
+    font-size: clamp(9px,2.5vw,10.5px);
+    font-weight: 600;
+    color: #bbb;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    margin: 0 0 clamp(8px,2.5vw,12px);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* ── Pill buttons grid ── */
+  .about-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(6px,2vw,10px);
+  }
+  .about-social-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(6px,2vw,10px);
+  }
+
+  /* ── Individual pill ── */
+  .about-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(5px,1.5vw,7px);
+    padding: clamp(10px,3vw,14px) clamp(4px,1.5vw,8px);
+    border-radius: clamp(12px,3vw,16px);
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(9.5px,2.5vw,11.5px);
+    font-weight: 600;
+    border: 1.5px solid transparent;
+    transition: transform .18s, box-shadow .18s;
+    cursor: pointer;
+    text-align: center;
+    line-height: 1.2;
+    box-sizing: border-box;
+  }
+  .about-pill svg {
+    flex-shrink: 0;
+    width: clamp(16px,4.5vw,20px);
+    height: clamp(16px,4.5vw,20px);
+  }
+  .about-pill:hover  { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.10); }
+  .about-pill:active { transform: scale(0.96); }
+
+  /* pill colour variants */
+  .ap-teal   { background:#f0f9f9; border-color:#b8e4e5; color:#007b7f; }
+  .ap-green  { background:#f0fff6; border-color:#a8e6c1; color:#1a7a45; }
+  .ap-purple { background:#f4f0ff; border-color:#cdb8f8; color:#6a1ab1; }
+  .ap-insta  { background:#fff0f7; border-color:#f8c0d8; color:#c2185b; }
+  .ap-fb     { background:#f0f4ff; border-color:#c0d0f8; color:#1565c0; }
+  .ap-yt     { background:#fff4f0; border-color:#fbc8b8; color:#c62828; }
+  .ap-tw     { background:#f0f8ff; border-color:#b0d8f8; color:#0277bd; }
+
+  /* ── Version ── */
+  .about-version {
+    text-align: center;
+    font-size: clamp(9px,2.5vw,10px);
+    color: #ccc;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* ── Very small screens (≤320px) ── */
+  @media (max-width: 320px) {
+    .about-contact-grid { grid-template-columns: repeat(3,1fr); }
+    .about-social-grid  { grid-template-columns: repeat(4,1fr); }
+    .about-pill { font-size: 8.5px; padding: 9px 2px; }
+    .about-pill svg { width: 14px; height: 14px; }
+  }
+
+  /* ── Tablet / desktop: center popup with margins top & sides ── */
+  @media (min-width: 600px) {
+    #aboutPopupOverlay {
+      align-items: center;
+      padding: clamp(16px,3vw,32px);
+    }
+    .about-card { border-radius: 24px; }
+  }
+</style>
+
+<div id="aboutPopupOverlay" onclick="if(event.target===this)closeAboutPopup()">
+  <div class="about-card">
+
+    <!-- Header -->
+    <div class="about-header">
+      <h3>About Yathra Map</h3>
+      <p>Your Kerala travel companion</p>
+      <button class="about-close-btn" onclick="closeAboutPopup()">✕</button>
+    </div>
+
+    <!-- Scrollable body -->
+    <div class="about-body">
+
+      <!-- Brand card -->
+      <div class="about-brand-card">
+        <img src="img/logo/Yathra Map Logo txt.png" alt="Yathra Map" class="about-logo"
+             onerror="this.style.display='none';document.getElementById('aboutLogoFallback').style.display='block'">
+        <div id="aboutLogoFallback" class="about-logo-fallback">Yathra Map</div>
+        <p class="about-tagline">
+          Explore Kerala's hidden gems, tourist places,<br>
+          transport, emergency help &amp; more — all in one place.
+        </p>
+        <!-- App store buttons -->
+        <div class="about-store-row">
+          <a href="https://apps.apple.com/app/yathramap" target="_blank" rel="noopener" class="about-store-btn">
+            <svg viewBox="0 0 24 24" fill="#fff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.18 1.27-2.16 3.8.03 3.02 2.65 4.03 2.68 4.04l-.07.28zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <div>
+              <div class="about-store-label-small">Download on the</div>
+              <div class="about-store-label-big">App Store</div>
+            </div>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.yathramap" target="_blank" rel="noopener" class="about-store-btn">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3.18 23.76c.3.17.64.22.99.13l11.65-6.73-2.48-2.49-10.16 9.09z" fill="#EA4335"/><path d="M22.54 10.27L19.76 8.7l-2.79 2.79 2.79 2.79 2.8-1.58c.8-.45.8-1.98-.02-2.43z" fill="#FBBC04"/><path d="M2.17.24C1.8.45 1.54.86 1.54 1.4v21.2c0 .54.26.95.63 1.16l11.66-11.66L2.17.24z" fill="#4285F4"/><path d="M3.18.24L13.83 10.9l-2.48 2.49L3.18.24z" fill="#34A853"/></svg>
+            <div>
+              <div class="about-store-label-small">Get it on</div>
+              <div class="about-store-label-big">Google Play</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Us -->
+      <div>
+        <p class="about-section-label">Contact Us</p>
+        <div class="about-contact-grid">
+          <a href="mailto:yathramap@gmail.com" class="about-pill ap-teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#007b7f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Email
+          </a>
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="about-pill ap-green">
+            <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.89.525 3.655 1.436 5.163L2 22l4.946-1.418A9.948 9.948 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+            WhatsApp
+          </a>
+          <a href="tel:+919876543210" class="about-pill ap-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6a1ab1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call Us
+          </a>
+        </div>
+      </div>
+
+      <!-- Follow Us -->
+      <div>
+        <p class="about-section-label">Follow Us</p>
+        <div class="about-social-grid">
+          <a href="https://www.instagram.com/yathramap" target="_blank" rel="noopener" class="about-pill ap-insta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="#c2185b"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/yathramap" target="_blank" rel="noopener" class="about-pill ap-fb">
+            <svg viewBox="0 0 24 24" fill="#1565c0"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook
+          </a>
+          <a href="https://www.youtube.com/@yathramap" target="_blank" rel="noopener" class="about-pill ap-yt">
+            <svg viewBox="0 0 24 24" fill="#c62828"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+            YouTube
+          </a>
+          <a href="https://twitter.com/yathramap" target="_blank" rel="noopener" class="about-pill ap-tw">
+            <svg viewBox="0 0 24 24" fill="#0277bd"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Twitter
+          </a>
+        </div>
+      </div>
+
+      <!-- Version -->
+      <div class="about-version">Yathra Map · Kerala Travel Guide · v1.0</div>
+
+    </div><!-- end body -->
+  </div>
+</div>
+
+<script>
+window.openAboutPopup = function() {
+  var el = document.getElementById('aboutPopupOverlay');
+  el.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+};
+window.closeAboutPopup = function() {
+  document.getElementById('aboutPopupOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+};
+</script>
+
+<script>
+/* ── SEARCH POPUP ─────────────────────────────────────────────── */
+(function(){
+  var _ktpAllData = [];
+  var _recognition = null;
+  var _voiceActive = false;
+
+  // Mirror of ktpData — we sniff it from the existing ktp section after load
+  function getKtpData() {
+    // Attempt to access the already-loaded ktpData via the window-exposed ktpFilter btn clicks
+    // We read from the rendered cards as fallback; best approach: re-fetch the same JSON
+    return _ktpAllData;
+  }
+
+  // Fetch tourist places JSON once when popup first opens
+  function ensureData(cb) {
+    if (_ktpAllData.length) { cb(_ktpAllData); return; }
+    fetch('tourist places.json')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ _ktpAllData = d; cb(d); })
+      .catch(function(){ cb([]); });
+  }
+
+  window.openSearchPopup = function() {
+    var overlay = document.getElementById('searchPopupOverlay');
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){
+      var inp = document.getElementById('ktpSearchInput');
+      if (inp) inp.focus();
+    }, 350);
+    ensureData(function(){});
+  };
+
+  window.closeSearchPopup = function() {
+    document.getElementById('searchPopupOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+    ktpSearchClear();
+    stopVoice();
+  };
+
+  window.ktpSearchOnInput = function(val) {
+    var clearBtn = document.getElementById('ktpSearchClearBtn');
+    clearBtn.style.display = val ? 'block' : 'none';
+    if (!val.trim()) { renderSuggestions([]); return; }
+    ensureData(function(data){
+      var q = val.trim().toLowerCase();
+      var matches = data.filter(function(p){
+        var name = (p['Place Name'] || '').toLowerCase();
+        var dist = (p['District'] || '').toLowerCase();
+        return name.includes(q) || dist.includes(q);
+      }).slice(0, 10);
+      renderSuggestions(matches, q);
+    });
+  };
+
+  function renderSuggestions(matches, q) {
+    var box = document.getElementById('ktpSearchSuggestions');
+    if (!matches.length) { box.innerHTML = q ? '<div style="text-align:center;padding:18px;color:#aaa;font-size:13px;">No results for "'+q+'"</div>' : ''; return; }
+    box.innerHTML = matches.map(function(p){
+      var name = p['Place Name'] || '';
+      var district = p['District'] || '';
+      return '<div class="ktp-sug-item" onclick="ktpPickPlace(\''+name.replace(/'/g,"\\'")+'\')">'
+        +'<span class="ktp-sug-icon">📍</span>'
+        +'<div class="ktp-sug-text"><div class="ktp-sug-name">'+name+'</div><div class="ktp-sug-district">'+district+'</div></div>'
+        +'<span class="ktp-sug-arrow">›</span>'
+        +'</div>';
+    }).join('');
+  }
+
+  window.ktpPickPlace = function(placeName) {
+    document.getElementById('ktpSearchInput').value = placeName;
+    document.getElementById('ktpSearchClearBtn').style.display = 'block';
+    ktpSearchGo();
+  };
+
+  window.ktpSearchGo = function() {
+    var val = (document.getElementById('ktpSearchInput').value || '').trim();
+    if (!val) return;
+    closeSearchPopup();
+    // Scroll to KTP section
+    var section = document.getElementById('ktpSection');
+    if (!section) return;
+    var navH = (document.querySelector('.navbar')||{offsetHeight:70}).offsetHeight || 70;
+    var top = section.getBoundingClientRect().top + window.pageYOffset - navH - 8;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+
+    // Wait a tick then filter & prioritize matching cards
+    setTimeout(function(){
+      ensureData(function(data){
+        if (!data.length) return;
+        var q = val.toLowerCase();
+        // Reset filter to "All"
+        document.querySelectorAll('.ktp-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+        var allBtn = document.querySelector('.ktp-filter-btn[data-district="All"]');
+        if (allBtn) allBtn.classList.add('active');
+
+        // Partition: matched first, rest after
+        var matched = [], rest = [];
+        data.forEach(function(p){
+          var name = (p['Place Name']||'').toLowerCase();
+          var dist = (p['District']||'').toLowerCase();
+          (name.includes(q)||dist.includes(q) ? matched : rest).push(p);
+        });
+        var reordered = matched.concat(rest);
+
+        // Use the global ktpRender (exposed via window scope by wrapping)
+        if (window._ktpRenderSearch) {
+          window._ktpRenderSearch(reordered);
+        }
+      });
+    }, 600);
+  };
+
+  window.ktpSearchClear = function() {
+    var inp = document.getElementById('ktpSearchInput');
+    if (inp) inp.value = '';
+    var btn = document.getElementById('ktpSearchClearBtn');
+    if (btn) btn.style.display = 'none';
+    renderSuggestions([]);
+  };
+
+  /* ── VOICE SEARCH ── */
+  function stopVoice() {
+    if (_recognition) { try { _recognition.stop(); } catch(e){} }
+    _voiceActive = false;
+    var vs = document.getElementById('ktpVoiceStatus');
+    if (vs) vs.style.display = 'none';
+    var vb = document.getElementById('ktpVoiceBtn');
+    if (vb) vb.querySelector('svg').style.stroke = '#007b7f';
+  }
+
+  window.ktpVoiceSearch = function() {
+    var SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRec) { alert('Voice search is not supported in this browser. Please use Chrome.'); return; }
+    if (_voiceActive) { stopVoice(); return; }
+
+    _recognition = new SpeechRec();
+    _recognition.lang = 'en-IN';
+    _recognition.interimResults = false;
+    _recognition.maxAlternatives = 1;
+
+    _voiceActive = true;
+    var vs = document.getElementById('ktpVoiceStatus');
+    vs.style.display = 'block';
+    var vb = document.getElementById('ktpVoiceBtn');
+    vb.querySelector('svg').style.stroke = '#e63946';
+
+    _recognition.onresult = function(e) {
+      var transcript = e.results[0][0].transcript;
+      var inp = document.getElementById('ktpSearchInput');
+      inp.value = transcript;
+      document.getElementById('ktpSearchClearBtn').style.display = 'block';
+      ktpSearchOnInput(transcript);
+      stopVoice();
+    };
+    _recognition.onerror = function(e) {
+      stopVoice();
+      if (e.error !== 'no-speech') alert('Voice search error: ' + e.error);
+    };
+    _recognition.onend = function() { stopVoice(); };
+    _recognition.start();
+  };
+})();
+</script>
+
+<script>
+/* ── EXPOSE _ktpRenderSearch so the search popup can call ktpRender ─── */
+// We patch ktpRender after the original KTP script has run.
+// Use a MutationObserver + deferred approach — just re-fetch and render.
+(function(){
+  window._ktpRenderSearch = function(reorderedData) {
+    // We'll replicate the ktp render logic here using the same DOM
+    var masonry = document.getElementById('ktpMasonry');
+    if (!masonry) return;
+    var ktpSizes = ['sz-med','sz-sm','sz-sm','sz-med','sz-lg','sz-sm','sz-med','sz-sm','sz-sm','sz-med','sz-sm','sz-lg','sz-sm','sz-med','sz-sm'];
+    var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
+    var batchSize = 12;
+    var rendered = 0;
+
+    function cardHTML(place, i) {
+      var sz = ktpSizes[i % ktpSizes.length];
+      var mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + place.lat + ',' + place.lng;
+      var safeName = (place['Place Name']||'').replace(/'/g,"&#39;");
+      var imgSrc = 'img/tourist places/' + (place['Place Name']||'') + '.jpg';
+      return '<div class="ktp-card ' + sz + '" onclick="window.open(\''+mapUrl+'\',\'_blank\')">'
+        +'<img data-src="'+imgSrc+'" alt="'+safeName+'" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onload="this.classList.add(\'img-loaded\')" onerror="this.onerror=null;this.classList.add(\'img-loaded\');this.src=\''+fallback+'\'">'
+        +'<div class="ktp-card-overlay"></div>'
+        +'<div class="ktp-card-body">'
+          +'<div class="ktp-card-left">'
+            +'<span class="ktp-card-name">'+(place['Place Name']||'')+'</span>'
+            +'<span class="ktp-card-district">'+(place['District']||'')+'</span>'
+          +'</div>'
+          +'<div class="ktp-card-right">'
+            +'<div class="ktp-dir-btn"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>'
+          +'</div>'
+        +'</div>'
+      +'</div>';
+    }
+
+    function observeImgs(container) {
+      if (!('IntersectionObserver' in window)) {
+        container.querySelectorAll('img[data-src]').forEach(function(img){ img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); });
+        return;
+      }
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting) {
+            var img = e.target;
+            img.src = img.getAttribute('data-src');
+            img.removeAttribute('data-src');
+            img.onload = function(){ img.classList.add('img-loaded'); };
+            if (img.complete) img.classList.add('img-loaded');
+            obs.unobserve(img);
+          }
+        });
+      }, { rootMargin: '150px 0px' });
+      container.querySelectorAll('img[data-src]').forEach(function(img){ obs.observe(img); });
+    }
+
+    // Remove old sentinel
+    var oldSentinel = document.getElementById('ktpSentinel');
+    if (oldSentinel) oldSentinel.remove();
+
+    masonry.innerHTML = '';
+    var end = Math.min(batchSize, reorderedData.length);
+    var html = '';
+    for (var i = 0; i < end; i++) { html += cardHTML(reorderedData[i], i); }
+    masonry.innerHTML = html;
+    observeImgs(masonry);
+    rendered = end;
+
+    if (rendered < reorderedData.length && 'IntersectionObserver' in window) {
+      var sentinel = document.createElement('div');
+      sentinel.id = 'ktpSentinel';
+      sentinel.style.cssText = 'height:1px;width:100%;';
+      masonry.parentNode.appendChild(sentinel);
+      var scrollObs = new IntersectionObserver(function(entries){
+        if (!entries[0].isIntersecting) return;
+        var nextEnd = Math.min(rendered + batchSize, reorderedData.length);
+        var moreHtml = '';
+        for (var j = rendered; j < nextEnd; j++) { moreHtml += cardHTML(reorderedData[j], j); }
+        masonry.insertAdjacentHTML('beforeend', moreHtml);
+        observeImgs(masonry);
+        rendered = nextEnd;
+        if (rendered >= reorderedData.length) { scrollObs.disconnect(); sentinel.remove(); }
+      }, { rootMargin: '400px 0px' });
+      scrollObs.observe(sentinel);
+    }
+  };
+})();
+</script>
 
 <script>
 /* ── GLOBAL IMAGE FADE-IN HANDLER ────────────────────────────────────────
@@ -2033,6 +2667,7 @@ var escPageStart = 0;
         nyShowShimmer();
         document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
         nyGetPosition(nyHandlePosition, nyHandleDenied);
+
       });
     } else {
       nyShowShimmer();
@@ -2589,6 +3224,7 @@ var escPageStart = 0;
     } else {
       evs.forEach(e=>{
         html+=`<div class="kcal-event-item">
+
           <span class="kcal-event-badge">${e.emoji}</span>
           <div class="kcal-event-text">
             <h4>${e.name}</h4>
