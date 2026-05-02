@@ -32,7 +32,7 @@
         .railway-item:hover img{transform:scale(1.2) rotate(5deg);}.railway-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
 
         .emergency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.emergency-box{width:100%;max-width:600px;height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;}@media(max-width:600px){.emergency-box{width:94%;margin-bottom:10px;border-radius:18px;}}.drag-bar{width:45px;height:5px;background:#ccc;border-radius:10px;margin:0 auto;}.popup-content{overflow-y:auto;scrollbar-width:none;}.popup-content::-webkit-scrollbar{display:none;}.popup-content::after{content:'';position:sticky;bottom:0;height:40px;display:block;background:linear-gradient(to top,#fff,transparent);}.emergency-grid{display:grid;gap:12px;}@media(max-width:480px){.emergency-grid{grid-template-columns:repeat(2,1fr);}}@media(min-width:481px){.emergency-grid{grid-template-columns:repeat(3,1fr);}}@media(min-width:900px){.emergency-grid{grid-template-columns:repeat(4,1fr);}}.emergency-item{background:#f7f7f7;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;}.emergency-item img{width:30px;margin-bottom:6px;transition:transform 0.25s ease;}.emergency-item:hover img{transform:scale(1.25) rotate(5deg);}.emergency-item p{font-size:12px;font-weight:500;}.tips-slider{overflow:hidden;}.tips-track{display:flex;transition:transform 0.6s ease-in-out;}.tip-card{min-width:100%;padding:10px;}.tip-inner{background:#f9f9f9;border-radius:14px;padding:14px;}.tip-inner h4{font-size:13px;margin-bottom:6px;}.tip-inner p{font-size:11px;line-height:1.6;}.close-btn{background:#007b7f;color:#fff;border:none;padding:12px;border-radius:12px;font-size:13px;margin-top:8px;cursor:pointer;transition:all 0.3s ease;}.close-btn:hover{background:#005f61;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,0.15);}
-        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center,.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
+        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center{display:none;}.search-icon{display:flex;align-items:center;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
         .handpicked{margin:40px var(--side-space) 30px;}
         /* card wrapper for Hidden Gems */
         .handpicked-inner{background:#fff;border-radius:22px;box-shadow:0 4px 24px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.06);padding:16px 16px 16px;overflow:hidden;}
@@ -174,7 +174,7 @@
         /* layout row */
         .escapes-layout { display: flex; gap: 18px; align-items: flex-start; }
         /* LEFT — big featured image */
-        .esc-main { flex: 0 0 54%; position: relative; border-radius: 14px; overflow: hidden; background: #1a1a1a; cursor: pointer; height: 270px; }
+        .esc-main { flex: 0 0 54%; position: relative; border-radius: 14px; overflow: hidden; background: #1a1a1a; cursor: pointer; height: 300px; }
         .esc-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
         /* two-layer crossfade: back img stays, front img fades in on top */
         .esc-main-img-back { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 0; }
@@ -214,7 +214,7 @@
         /* ≥700px: right col stretches to match main image height */
         @media (min-width: 700px) {
           .escapes-layout { align-items: stretch; }
-          .esc-right { max-height: 270px; }
+          .esc-right { max-height: 300px; }
           .esc-grid { overflow: hidden; }
         }
         /* ≥700px: show right column, hide mobile-header */
@@ -226,7 +226,7 @@
           .esc-mobile-header h2 { font-size: 16px; font-weight: 700; color: #111; letter-spacing: -0.3px; margin: 0; }
           .esc-mobile-header p { font-size: 10px; color: #aaa; margin: 3px 0 0; }
           .esc-right { display: none; }
-          .esc-main { flex: none; width: 100%; height: 220px; border-radius: 14px; }
+          .esc-main { flex: none; width: 100%; height: 250px; border-radius: 14px; }
           .escapes-layout { flex-direction: column; }
         }
 
@@ -634,7 +634,7 @@
 </head>
 <body>
 
-<div class="navbar"><div class="nav-inner"><div class="logo"><img src="img/logo/Yathra Map Logo PNG.png" loading="eager" fetchpriority="high" decoding="sync"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span>About</span></div><div class="search-icon">🔍</div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg" fetchpriority="high" decoding="async" loading="eager" width="1200" height="450"></div>    <div class="hero-slide"><img data-src="img/hero6.jpg" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>    <div class="hero-slide"><img data-src="img/hero7.png" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>    <div class="hero-slide"><img data-src="img/hero9.jpg" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img src="img/icons/beach.png" loading="eager" decoding="sync"><p>Beaches</p></div>    <div class="card-btn"><img src="img/icons/mountain.png" loading="eager" decoding="sync"><p>Mountains</p></div>    <div class="card-btn"><img src="img/icons/backwater.png" loading="eager" decoding="sync"><p>Backwater</p></div>    <div class="card-btn"><img src="img/icons/wildlife.png" loading="eager" decoding="sync"><p>Wildlife</p></div>    <div class="card-btn"><img src="img/icons/adventure.png" loading="eager" decoding="sync"><p>Adventure</p></div>    <div class="card-btn"><img src="img/icons/waterfall.png" loading="eager" decoding="sync"><p>Waterfalls</p></div>    <div class="card-btn"><img src="img/icons/culture.png" loading="eager" decoding="sync"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img src="img/icons/fuel.png" loading="eager" decoding="sync"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img src="img/icons/emergency.png" loading="eager" decoding="sync"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img src="img/icons/pit stop.png" loading="eager" decoding="sync"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img src="img/icons/eat.png" loading="eager" decoding="sync"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img src="img/icons/stay.png" loading="eager" decoding="sync"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img src="img/icons/help.png" loading="eager" decoding="sync"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img src="img/icons/transport.png" loading="eager" decoding="sync"><p>Transport</p></div>  </div></div>
+<div class="navbar"><div class="nav-inner"><div class="logo"><img src="img/logo/Yathra Map Logo PNG.png" loading="eager" fetchpriority="high" decoding="sync"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span onclick="openAboutPopup()">About</span></div><div class="search-icon" onclick="openSearchPopup()"><img src="img/icons/search.png" alt="Search" width="24" height="24" style="display:block;"></div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg" fetchpriority="high" decoding="async" loading="eager" width="1200" height="450"></div>    <div class="hero-slide"><img data-src="img/hero6.jpg" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>    <div class="hero-slide"><img data-src="img/hero7.png" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>    <div class="hero-slide"><img data-src="img/hero9.jpg" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img src="img/icons/beach.png" loading="eager" decoding="sync"><p>Beaches</p></div>    <div class="card-btn"><img src="img/icons/mountain.png" loading="eager" decoding="sync"><p>Mountains</p></div>    <div class="card-btn"><img src="img/icons/backwater.png" loading="eager" decoding="sync"><p>Backwater</p></div>    <div class="card-btn"><img src="img/icons/wildlife.png" loading="eager" decoding="sync"><p>Wildlife</p></div>    <div class="card-btn"><img src="img/icons/adventure.png" loading="eager" decoding="sync"><p>Adventure</p></div>    <div class="card-btn"><img src="img/icons/waterfall.png" loading="eager" decoding="sync"><p>Waterfalls</p></div>    <div class="card-btn"><img src="img/icons/culture.png" loading="eager" decoding="sync"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img src="img/icons/fuel.png" loading="eager" decoding="sync"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img src="img/icons/emergency.png" loading="eager" decoding="sync"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img src="img/icons/pit stop.png" loading="eager" decoding="sync"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img src="img/icons/eat.png" loading="eager" decoding="sync"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img src="img/icons/stay.png" loading="eager" decoding="sync"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img src="img/icons/help.png" loading="eager" decoding="sync"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img src="img/icons/transport.png" loading="eager" decoding="sync"><p>Transport</p></div>  </div></div>
 
 <div class="internal-popup" id="metroTimingPopup" onclick="this.style.display='none'">
     <div class="internal-box" onclick="event.stopPropagation()">
@@ -1068,8 +1068,8 @@
 
 <!-- ABOUT POPUP -->
 <style>
-  /* ── Overlay ── */
-  #aboutPopupOverlay {
+  /* ── About popup overlay ── */
+  .about-overlay {
     display: none;
     position: fixed;
     inset: 0;
@@ -1079,63 +1079,84 @@
     -webkit-backdrop-filter: blur(8px);
     align-items: flex-end;
     justify-content: center;
-    padding: 0 clamp(8px,3vw,16px) clamp(8px,3vw,16px);
-    box-sizing: border-box;
+    padding: 0 12px 12px;
+  }
+  @media (min-width: 700px) {
+    .about-overlay {
+      align-items: center;
+      padding: 20px;
+    }
   }
 
-  /* ── Card ── */
-  .about-card {
+  /* ── Popup box ── */
+  .about-box {
     width: 100%;
-    max-width: 520px;
+    max-width: 480px;
     background: #fff;
-    border-radius: clamp(16px,4vw,24px);
+    border-radius: 22px;
     display: flex;
     flex-direction: column;
     animation: slideUp .3s cubic-bezier(0.22,1,0.36,1);
-    max-height: 92dvh;
-    max-height: 92vh;
+    max-height: 90vh;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  @media (min-width: 700px) {
+    .about-box {
+      max-width: 560px;
+      border-radius: 26px;
+      animation: aboutPopIn .3s cubic-bezier(0.22,1,0.36,1);
+    }
+  }
+  @media (min-width: 1024px) {
+    .about-box {
+      max-width: 640px;
+    }
+  }
+  @keyframes aboutPopIn {
+    from { transform: scale(0.94); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
   }
 
   /* ── Header ── */
   .about-header {
     position: relative;
-    padding: clamp(14px,3vw,20px) clamp(14px,4vw,20px) clamp(12px,2.5vw,16px);
+    padding: 16px 18px 14px;
     text-align: center;
     border-bottom: 1px solid #f1f1f1;
     flex-shrink: 0;
   }
   .about-header h3 {
-    font-size: clamp(15px,4vw,18px);
+    font-size: 17px;
     font-weight: 700;
     color: #111;
     margin: 0;
-    font-family: 'Poppins', sans-serif;
   }
   .about-header p {
-    font-size: clamp(9px,2.5vw,11px);
+    font-size: 10px;
     color: #aaa;
     margin: 3px 0 0;
-    font-family: 'Poppins', sans-serif;
+  }
+  @media (min-width: 700px) {
+    .about-header { padding: 20px 22px 16px; }
+    .about-header h3 { font-size: 19px; }
+    .about-header p  { font-size: 11px; }
   }
   .about-close-btn {
     position: absolute;
     top: 50%;
-    right: clamp(10px,3vw,16px);
+    right: 14px;
     transform: translateY(-50%);
-    width: clamp(28px,7vw,32px);
-    height: clamp(28px,7vw,32px);
+    width: 30px; height: 30px;
     border-radius: 50%;
     background: #f2f2f2;
     border: none;
-    font-size: clamp(13px,3.5vw,15px);
+    font-size: 14px;
     cursor: pointer;
     color: #666;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
     transition: background .2s;
   }
   .about-close-btn:hover { background: #e5e5e5; }
@@ -1146,176 +1167,149 @@
     flex: 1;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: clamp(14px,4vw,20px) clamp(14px,4vw,20px) clamp(16px,4vw,24px);
+    padding: 18px 18px 22px;
     display: flex;
     flex-direction: column;
-    gap: clamp(14px,4vw,20px);
-    box-sizing: border-box;
+    gap: 20px;
   }
   .about-body::-webkit-scrollbar { display: none; }
+  @media (min-width: 700px) {
+    .about-body { padding: 22px 24px 26px; gap: 24px; }
+  }
 
   /* ── Brand card ── */
   .about-brand-card {
-    border-radius: clamp(14px,4vw,18px);
-    padding: clamp(18px,5vw,26px) clamp(12px,4vw,20px) clamp(16px,4vw,22px);
+    border-radius: 18px;
+    padding: 24px 16px 20px;
     text-align: center;
     background: #f7f8fa;
     border: 1px solid #ebebeb;
   }
-  .about-logo {
-    height: clamp(40px,10vw,58px);
-    max-width: min(200px, 55vw);
+  .about-brand-card img {
+    height: 52px;
+    max-width: 220px;
     object-fit: contain;
     display: block;
-    margin: 0 auto clamp(10px,3vw,14px);
+    margin: 0 auto 12px;
   }
-  .about-logo-fallback {
-    display: none;
-    font-size: clamp(16px,4vw,20px);
-    font-weight: 700;
-    color: #111;
-    margin-bottom: clamp(10px,3vw,14px);
-    font-family: 'Poppins', sans-serif;
+  @media (min-width: 700px) {
+    .about-brand-card { padding: 28px 20px 24px; border-radius: 20px; }
+    .about-brand-card img { height: 60px; }
   }
-  .about-tagline {
-    font-size: clamp(10.5px,2.8vw,12.5px);
+  .about-brand-tagline {
+    font-size: 11.5px;
     color: #888;
     line-height: 1.7;
     margin: 0 auto;
-    max-width: 280px;
-    font-family: 'Poppins', sans-serif;
+    max-width: 260px;
+  }
+  @media (min-width: 700px) {
+    .about-brand-tagline { font-size: 13px; max-width: 340px; }
   }
 
   /* ── App store buttons ── */
   .about-store-row {
     display: flex;
-    gap: clamp(8px,2.5vw,12px);
+    gap: 10px;
     justify-content: center;
-    margin-top: clamp(14px,4vw,20px);
+    margin-top: 18px;
     flex-wrap: wrap;
   }
   .about-store-btn {
     display: inline-flex;
     align-items: center;
-    gap: clamp(6px,2vw,9px);
-    padding: clamp(9px,2.5vw,12px) clamp(14px,4vw,20px);
+    gap: 8px;
+    padding: 10px 18px;
     background: #111;
-    border-radius: clamp(10px,3vw,14px);
+    border-radius: 13px;
     text-decoration: none;
-    transition: opacity .2s, transform .18s;
-    flex-shrink: 0;
+    transition: opacity .2s, transform .15s;
   }
-  .about-store-btn:hover { opacity: .82; transform: translateY(-1px); }
-  .about-store-btn:active { transform: scale(0.97); }
-  .about-store-btn svg { flex-shrink: 0; width: clamp(15px,4vw,18px); height: clamp(15px,4vw,18px); }
-  .about-store-label-small {
-    font-size: clamp(7.5px,2vw,9px);
-    color: rgba(255,255,255,.65);
-    line-height: 1;
-    font-family: 'Poppins', sans-serif;
-  }
-  .about-store-label-big {
-    font-size: clamp(11px,3vw,13px);
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.25;
-    font-family: 'Poppins', sans-serif;
+  .about-store-btn:hover { opacity: .8; transform: translateY(-1px); }
+  .about-store-btn-sub  { font-size: 8.5px; color: rgba(255,255,255,.65); line-height: 1; }
+  .about-store-btn-main { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.25; font-family: 'Poppins', sans-serif; }
+  @media (min-width: 700px) {
+    .about-store-btn { padding: 12px 22px; border-radius: 14px; }
+    .about-store-btn-sub  { font-size: 9.5px; }
+    .about-store-btn-main { font-size: 14px; }
   }
 
   /* ── Section label ── */
   .about-section-label {
-    font-size: clamp(9px,2.5vw,10.5px);
+    font-size: 10px;
     font-weight: 600;
     color: #bbb;
     letter-spacing: .6px;
     text-transform: uppercase;
-    margin: 0 0 clamp(8px,2.5vw,12px);
-    font-family: 'Poppins', sans-serif;
+    margin: 0 0 11px;
   }
+  @media (min-width: 700px) { .about-section-label { font-size: 11px; } }
 
-  /* ── Pill buttons grid ── */
+  /* ── Contact grid ── */
   .about-contact-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(6px,2vw,10px);
+    gap: 8px;
   }
+  @media (min-width: 700px) {
+    .about-contact-grid { gap: 10px; }
+  }
+
+  /* ── Social grid ── */
   .about-social-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: clamp(6px,2vw,10px);
+    gap: 8px;
+  }
+  @media (min-width: 700px) {
+    .about-social-grid { gap: 10px; }
   }
 
-  /* ── Individual pill ── */
-  .about-pill {
-    display: flex;
-    flex-direction: column;
+  /* ── Pill buttons ── */
+  .about-pill-btn {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(5px,1.5vw,7px);
-    padding: clamp(10px,3vw,14px) clamp(4px,1.5vw,8px);
-    border-radius: clamp(12px,3vw,16px);
+    gap: 6px;
+    padding: 9px 10px;
+    border-radius: 50px;
     text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(9.5px,2.5vw,11.5px);
+    font-size: 11px;
     font-weight: 600;
+    font-family: 'Poppins', sans-serif;
     border: 1.5px solid transparent;
-    transition: transform .18s, box-shadow .18s;
+    transition: transform .18s, box-shadow .18s, opacity .18s;
+    white-space: nowrap;
+    flex-shrink: 0;
     cursor: pointer;
-    text-align: center;
-    line-height: 1.2;
+    width: 100%;
     box-sizing: border-box;
   }
-  .about-pill svg {
-    flex-shrink: 0;
-    width: clamp(16px,4.5vw,20px);
-    height: clamp(16px,4.5vw,20px);
+  .about-pill-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+  .about-pill-btn:active { transform: scale(0.96); }
+  .about-pill-btn svg { flex-shrink: 0; }
+  @media (min-width: 700px) {
+    .about-pill-btn { font-size: 12px; padding: 10px 14px; gap: 7px; }
   }
-  .about-pill:hover  { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.10); }
-  .about-pill:active { transform: scale(0.96); }
-
-  /* pill colour variants */
-  .ap-teal   { background:#f0f9f9; border-color:#b8e4e5; color:#007b7f; }
-  .ap-green  { background:#f0fff6; border-color:#a8e6c1; color:#1a7a45; }
-  .ap-purple { background:#f4f0ff; border-color:#cdb8f8; color:#6a1ab1; }
-  .ap-insta  { background:#fff0f7; border-color:#f8c0d8; color:#c2185b; }
-  .ap-fb     { background:#f0f4ff; border-color:#c0d0f8; color:#1565c0; }
-  .ap-yt     { background:#fff4f0; border-color:#fbc8b8; color:#c62828; }
-  .ap-tw     { background:#f0f8ff; border-color:#b0d8f8; color:#0277bd; }
 
   /* ── Version ── */
   .about-version {
     text-align: center;
-    font-size: clamp(9px,2.5vw,10px);
+    font-size: 10px;
     color: #ccc;
     font-family: 'Poppins', sans-serif;
   }
-
-  /* ── Very small screens (≤320px) ── */
-  @media (max-width: 320px) {
-    .about-contact-grid { grid-template-columns: repeat(3,1fr); }
-    .about-social-grid  { grid-template-columns: repeat(4,1fr); }
-    .about-pill { font-size: 8.5px; padding: 9px 2px; }
-    .about-pill svg { width: 14px; height: 14px; }
-  }
-
-  /* ── Tablet / desktop: center popup with margins top & sides ── */
-  @media (min-width: 600px) {
-    #aboutPopupOverlay {
-      align-items: center;
-      padding: clamp(16px,3vw,32px);
-    }
-    .about-card { border-radius: 24px; }
-  }
+  @media (min-width: 700px) { .about-version { font-size: 11px; } }
 </style>
 
-<div id="aboutPopupOverlay" onclick="if(event.target===this)closeAboutPopup()">
-  <div class="about-card">
+<div id="aboutPopupOverlay" class="about-overlay" onclick="if(event.target===this)closeAboutPopup()">
+  <div class="about-box">
 
     <!-- Header -->
     <div class="about-header">
       <h3>About Yathra Map</h3>
       <p>Your Kerala travel companion</p>
-      <button class="about-close-btn" onclick="closeAboutPopup()">✕</button>
+      <button class="about-close-btn" onclick="closeAboutPopup()">&#10005;</button>
     </div>
 
     <!-- Scrollable body -->
@@ -1323,78 +1317,82 @@
 
       <!-- Brand card -->
       <div class="about-brand-card">
-        <img src="img/logo/Yathra Map Logo txt.png" alt="Yathra Map" class="about-logo"
+        <img src="img/logo/Yathra Map Logo txt.png" alt="Yathra Map"
              onerror="this.style.display='none';document.getElementById('aboutLogoFallback').style.display='block'">
-        <div id="aboutLogoFallback" class="about-logo-fallback">Yathra Map</div>
-        <p class="about-tagline">
-          Explore Kerala's hidden gems, tourist places,<br>
-          transport, emergency help &amp; more — all in one place.
+        <div id="aboutLogoFallback" style="display:none;font-size:18px;font-weight:700;color:#111;margin-bottom:12px;">Yathra Map</div>
+        <p class="about-brand-tagline">
+          Explore Kerala's hidden gems, tourist places,<br>transport, emergency help &amp; more — all in one place.
         </p>
-        <!-- App store buttons -->
         <div class="about-store-row">
           <a href="https://apps.apple.com/app/yathramap" target="_blank" rel="noopener" class="about-store-btn">
-            <svg viewBox="0 0 24 24" fill="#fff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.18 1.27-2.16 3.8.03 3.02 2.65 4.03 2.68 4.04l-.07.28zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            <div>
-              <div class="about-store-label-small">Download on the</div>
-              <div class="about-store-label-big">App Store</div>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.18 1.27-2.16 3.8.03 3.02 2.65 4.03 2.68 4.04l-.07.28zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <div style="text-align:left;">
+              <div class="about-store-btn-sub">Download on the</div>
+              <div class="about-store-btn-main">App Store</div>
             </div>
           </a>
           <a href="https://play.google.com/store/apps/details?id=com.yathramap" target="_blank" rel="noopener" class="about-store-btn">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M3.18 23.76c.3.17.64.22.99.13l11.65-6.73-2.48-2.49-10.16 9.09z" fill="#EA4335"/><path d="M22.54 10.27L19.76 8.7l-2.79 2.79 2.79 2.79 2.8-1.58c.8-.45.8-1.98-.02-2.43z" fill="#FBBC04"/><path d="M2.17.24C1.8.45 1.54.86 1.54 1.4v21.2c0 .54.26.95.63 1.16l11.66-11.66L2.17.24z" fill="#4285F4"/><path d="M3.18.24L13.83 10.9l-2.48 2.49L3.18.24z" fill="#34A853"/></svg>
-            <div>
-              <div class="about-store-label-small">Get it on</div>
-              <div class="about-store-label-big">Google Play</div>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3.18 23.76c.3.17.64.22.99.13l11.65-6.73-2.48-2.49-10.16 9.09z" fill="#EA4335"/><path d="M22.54 10.27L19.76 8.7l-2.79 2.79 2.79 2.79 2.8-1.58c.8-.45.8-1.98-.02-2.43z" fill="#FBBC04"/><path d="M2.17.24C1.8.45 1.54.86 1.54 1.4v21.2c0 .54.26.95.63 1.16l11.66-11.66L2.17.24z" fill="#4285F4"/><path d="M3.18.24L13.83 10.9l-2.48 2.49L3.18.24z" fill="#34A853"/></svg>
+            <div style="text-align:left;">
+              <div class="about-store-btn-sub">Get it on</div>
+              <div class="about-store-btn-main">Google Play</div>
             </div>
           </a>
         </div>
       </div>
 
-      <!-- Contact Us -->
+      <!-- Contact Us + Follow Us -->
       <div>
-        <p class="about-section-label">Contact Us</p>
+        <p class="about-section-label">Contact Us &amp; Follow Us</p>
         <div class="about-contact-grid">
-          <a href="mailto:yathramap@gmail.com" class="about-pill ap-teal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#007b7f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <a href="mailto:yathramap@gmail.com" class="about-pill-btn"
+             style="background:#f0f9f9;border-color:#b8e4e5;color:#007b7f;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#007b7f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             Email
           </a>
-          <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="about-pill ap-green">
-            <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.89.525 3.655 1.436 5.163L2 22l4.946-1.418A9.948 9.948 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="about-pill-btn"
+             style="background:#f0fff6;border-color:#a8e6c1;color:#1a7a45;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.89.525 3.655 1.436 5.163L2 22l4.946-1.418A9.948 9.948 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill-rule="evenodd" clip-rule="evenodd"/></svg>
             WhatsApp
           </a>
-          <a href="tel:+919876543210" class="about-pill ap-purple">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6a1ab1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:+919876543210" class="about-pill-btn"
+             style="background:#f4f0ff;border-color:#cdb8f8;color:#6a1ab1;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6a1ab1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             Call Us
           </a>
         </div>
       </div>
 
-      <!-- Follow Us -->
+      <!-- Follow Us grid (heading merged above) -->
       <div>
-        <p class="about-section-label">Follow Us</p>
         <div class="about-social-grid">
-          <a href="https://www.instagram.com/yathramap" target="_blank" rel="noopener" class="about-pill ap-insta">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="#c2185b"/></svg>
+          <a href="https://www.instagram.com/yathramap" target="_blank" rel="noopener" class="about-pill-btn"
+             style="background:#fff0f7;border-color:#f8c0d8;color:#c2185b;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="#c2185b"/></svg>
             Instagram
           </a>
-          <a href="https://www.facebook.com/yathramap" target="_blank" rel="noopener" class="about-pill ap-fb">
-            <svg viewBox="0 0 24 24" fill="#1565c0"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <a href="https://www.facebook.com/yathramap" target="_blank" rel="noopener" class="about-pill-btn"
+             style="background:#f0f4ff;border-color:#c0d0f8;color:#1565c0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#1565c0"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
             Facebook
           </a>
-          <a href="https://www.youtube.com/@yathramap" target="_blank" rel="noopener" class="about-pill ap-yt">
-            <svg viewBox="0 0 24 24" fill="#c62828"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+          <a href="https://www.youtube.com/@yathramap" target="_blank" rel="noopener" class="about-pill-btn"
+             style="background:#fff4f0;border-color:#fbc8b8;color:#c62828;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#c62828"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
             YouTube
           </a>
-          <a href="https://twitter.com/yathramap" target="_blank" rel="noopener" class="about-pill ap-tw">
-            <svg viewBox="0 0 24 24" fill="#0277bd"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <a href="https://twitter.com/yathramap" target="_blank" rel="noopener" class="about-pill-btn"
+             style="background:#f0f8ff;border-color:#b0d8f8;color:#0277bd;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#0277bd"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             Twitter
           </a>
         </div>
       </div>
 
       <!-- Version -->
-      <div class="about-version">Yathra Map · Kerala Travel Guide · v1.0</div>
+      <div class="about-version">Yathra Map &middot; Kerala Travel Guide &middot; v1.0</div>
 
-    </div><!-- end body -->
+    </div><!-- end scrollable body -->
   </div>
 </div>
 
@@ -1462,19 +1460,50 @@ window.closeAboutPopup = function() {
         var dist = (p['District'] || '').toLowerCase();
         return name.includes(q) || dist.includes(q);
       }).slice(0, 10);
-      renderSuggestions(matches, q);
+
+      // Also collect names from Near You cards and Weekend Getaways
+      var extraMatches = [];
+      var seen = new Set(matches.map(function(p){ return (p['Place Name']||'').toLowerCase(); }));
+
+      // Near You cards (ny-name spans)
+      document.querySelectorAll('.ny-name').forEach(function(el){
+        var name = el.textContent.trim();
+        var card = el.closest('.ny-card');
+        var distEl = card && card.querySelector('.ny-dist-label');
+        var dist = distEl ? distEl.textContent.trim() : '';
+        if (name.toLowerCase().includes(q) && !seen.has(name.toLowerCase())) {
+          seen.add(name.toLowerCase());
+          extraMatches.push({ 'Place Name': name, 'District': dist, _section: 'nearyou' });
+        }
+      });
+
+      // Weekend Getaways — search full escData array (all loaded places, not just visible DOM)
+      if (window.escData && window.escData.length) {
+        window.escData.forEach(function(d){
+          var name = (d.name || '').trim();
+          var dist = (d.district || '').trim();
+          if (name && (name.toLowerCase().includes(q) || dist.toLowerCase().includes(q)) && !seen.has(name.toLowerCase())) {
+            seen.add(name.toLowerCase());
+            extraMatches.push({ 'Place Name': name, 'District': dist, _section: 'escapes', _escItem: d });
+          }
+        });
+      }
+
+      renderSuggestions(matches.concat(extraMatches), q);
     });
   };
 
   function renderSuggestions(matches, q) {
     var box = document.getElementById('ktpSearchSuggestions');
     if (!matches.length) { box.innerHTML = q ? '<div style="text-align:center;padding:18px;color:#aaa;font-size:13px;">No results for "'+q+'"</div>' : ''; return; }
+    var sectionLabel = { nearyou: '📍 Near You', escapes: '🌿 Weekend Getaways' };
     box.innerHTML = matches.map(function(p){
       var name = p['Place Name'] || '';
       var district = p['District'] || '';
+      var badge = p._section ? '<span style="font-size:9px;background:#f0f9f9;color:#007b7f;border-radius:6px;padding:2px 6px;margin-left:6px;font-weight:600;">'+sectionLabel[p._section]+'</span>' : '';
       return '<div class="ktp-sug-item" onclick="ktpPickPlace(\''+name.replace(/'/g,"\\'")+'\')">'
         +'<span class="ktp-sug-icon">📍</span>'
-        +'<div class="ktp-sug-text"><div class="ktp-sug-name">'+name+'</div><div class="ktp-sug-district">'+district+'</div></div>'
+        +'<div class="ktp-sug-text"><div class="ktp-sug-name">'+name+badge+'</div><div class="ktp-sug-district">'+district+'</div></div>'
         +'<span class="ktp-sug-arrow">›</span>'
         +'</div>';
     }).join('');
@@ -1490,38 +1519,87 @@ window.closeAboutPopup = function() {
     var val = (document.getElementById('ktpSearchInput').value || '').trim();
     if (!val) return;
     closeSearchPopup();
-    // Scroll to KTP section
-    var section = document.getElementById('ktpSection');
-    if (!section) return;
+    var q = val.toLowerCase();
+
     var navH = (document.querySelector('.navbar')||{offsetHeight:70}).offsetHeight || 70;
-    var top = section.getBoundingClientRect().top + window.pageYOffset - navH - 8;
-    window.scrollTo({ top: top, behavior: 'smooth' });
+    function scrollToEl(el) {
+      var top = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
 
-    // Wait a tick then filter & prioritize matching cards
-    setTimeout(function(){
-      ensureData(function(data){
-        if (!data.length) return;
-        var q = val.toLowerCase();
-        // Reset filter to "All"
-        document.querySelectorAll('.ktp-filter-btn').forEach(function(b){ b.classList.remove('active'); });
-        var allBtn = document.querySelector('.ktp-filter-btn[data-district="All"]');
-        if (allBtn) allBtn.classList.add('active');
-
-        // Partition: matched first, rest after
-        var matched = [], rest = [];
-        data.forEach(function(p){
-          var name = (p['Place Name']||'').toLowerCase();
-          var dist = (p['District']||'').toLowerCase();
-          (name.includes(q)||dist.includes(q) ? matched : rest).push(p);
-        });
-        var reordered = matched.concat(rest);
-
-        // Use the global ktpRender (exposed via window scope by wrapping)
-        if (window._ktpRenderSearch) {
-          window._ktpRenderSearch(reordered);
+    // --- Check Weekend Getaways (escData) for a match ---
+    var escMatch = null;
+    var escMatchIdx = -1;
+    if (window.escData && window.escData.length) {
+      window.escData.forEach(function(d, i){
+        var name = (d.name || '').toLowerCase();
+        var dist = (d.district || '').toLowerCase();
+        if ((name.includes(q) || dist.includes(q)) && escMatchIdx === -1) {
+          escMatch = d;
+          escMatchIdx = i;
         }
       });
-    }, 600);
+    }
+
+    // --- Check Near You section for a match ---
+    var nyCards = document.querySelectorAll('.ny-card');
+    var nyMatch = null;
+    nyCards.forEach(function(card){
+      var nameEl = card.querySelector('.ny-name');
+      if (nameEl && nameEl.textContent.trim().toLowerCase().includes(q)) {
+        if (!nyMatch) nyMatch = card;
+        card.style.outline = '2.5px solid #007b7f';
+        card.style.boxShadow = '0 0 0 4px rgba(0,123,127,0.15)';
+        setTimeout(function(){ card.style.outline = ''; card.style.boxShadow = ''; }, 3000);
+      }
+    });
+
+    // --- Check KTP data for a match ---
+    var ktpHasMatch = false;
+    // We'll determine this during the ensureData call below
+
+    // --- Decide scroll target ---
+    // Priority: KTP match > Weekend Getaways match > Near You match
+    // We check KTP first asynchronously; for scroll priority we start with escapes/nearyou
+    // then override with KTP scroll if KTP has a match
+    ensureData(function(data){
+      var matched = data.filter(function(p){
+        return (p['Place Name']||'').toLowerCase().includes(q) || (p['District']||'').toLowerCase().includes(q);
+      });
+      ktpHasMatch = matched.length > 0;
+
+      if (ktpHasMatch) {
+        // Scroll to KTP section and reorder cards
+        var section = document.getElementById('ktpSection');
+        if (section) scrollToEl(section);
+        setTimeout(function(){
+          document.querySelectorAll('.ktp-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+          var allBtn = document.querySelector('.ktp-filter-btn[data-district="All"]');
+          if (allBtn) allBtn.classList.add('active');
+          var rest = data.filter(function(p){
+            return !(p['Place Name']||'').toLowerCase().includes(q) && !(p['District']||'').toLowerCase().includes(q);
+          });
+          if (window._ktpRenderSearch) window._ktpRenderSearch(matched.concat(rest));
+        }, 600);
+      } else if (escMatchIdx !== -1) {
+        // Scroll to Weekend Getaways section and activate matched place as main card
+        var escSection = document.querySelector('.escapes-section');
+        if (escSection) scrollToEl(escSection);
+        setTimeout(function(){
+          if (typeof window.escGoToIndex === 'function') window.escGoToIndex(escMatchIdx);
+        }, 400);
+      } else if (nyMatch) {
+        var nySection = document.querySelector('.nearyou-section');
+        if (nySection) scrollToEl(nySection);
+        setTimeout(function(){
+          nyMatch.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }, 400);
+      } else {
+        // No match anywhere — scroll to KTP section as fallback
+        var section = document.getElementById('ktpSection');
+        if (section) scrollToEl(section);
+      }
+    });
   };
 
   window.ktpSearchClear = function() {
@@ -2392,6 +2470,12 @@ var escPageStart = 0;
     if (!escData.length) return;
     escActiveIdx = ((escActiveIdx - 1) + escData.length) % escData.length;
     escUpdateMain(false); escUpdateGrid();
+  };
+  window.escGoToIndex = function(idx){
+    if (!escData.length || idx < 0 || idx >= escData.length) return;
+    escActiveIdx = idx;
+    escUpdateMain(false);
+    escUpdateGrid();
   };
 
   function escInit() {
@@ -3509,6 +3593,7 @@ var escPageStart = 0;
     </div>
     <div class="curr-divider"></div>
 
+
     <!-- Scrollable content -->
     <div class="curr-body">
 
@@ -4020,6 +4105,7 @@ window.closeCsPopup = function(){
         <button class="tr-copy-btn" onclick="trCopy()">📋 Copy</button>
       </div>
     </div>
+
   </div>
 </div>
 
