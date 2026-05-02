@@ -32,7 +32,7 @@
         .railway-item:hover img{transform:scale(1.2) rotate(5deg);}.railway-item:hover{background:#fff;box-shadow: 0 4px 10px rgba(0,0,0,0.08);}
 
         .emergency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}.emergency-box{width:100%;max-width:600px;height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;}@media(max-width:600px){.emergency-box{width:94%;margin-bottom:10px;border-radius:18px;}}.drag-bar{width:45px;height:5px;background:#ccc;border-radius:10px;margin:0 auto;}.popup-content{overflow-y:auto;scrollbar-width:none;}.popup-content::-webkit-scrollbar{display:none;}.popup-content::after{content:'';position:sticky;bottom:0;height:40px;display:block;background:linear-gradient(to top,#fff,transparent);}.emergency-grid{display:grid;gap:12px;}@media(max-width:480px){.emergency-grid{grid-template-columns:repeat(2,1fr);}}@media(min-width:481px){.emergency-grid{grid-template-columns:repeat(3,1fr);}}@media(min-width:900px){.emergency-grid{grid-template-columns:repeat(4,1fr);}}.emergency-item{background:#f7f7f7;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;}.emergency-item img{width:30px;margin-bottom:6px;transition:transform 0.25s ease;}.emergency-item:hover img{transform:scale(1.25) rotate(5deg);}.emergency-item p{font-size:12px;font-weight:500;}.tips-slider{overflow:hidden;}.tips-track{display:flex;transition:transform 0.6s ease-in-out;}.tip-card{min-width:100%;padding:10px;}.tip-inner{background:#f9f9f9;border-radius:14px;padding:14px;}.tip-inner h4{font-size:13px;margin-bottom:6px;}.tip-inner p{font-size:11px;line-height:1.6;}.close-btn{background:#007b7f;color:#fff;border:none;padding:12px;border-radius:12px;font-size:13px;margin-top:8px;cursor:pointer;transition:all 0.3s ease;}.close-btn:hover{background:#005f61;transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,0.15);}
-        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center{display:none;}.search-icon{display:flex;align-items:center;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
+        .bottom-nav{display:none;}@media(max-width:1024px){.nav-center{display:none;}.search-icon{display:none;}.logo{position:absolute;left:50%;transform:translateX(-50%);}.bottom-nav{display:flex;position:fixed;bottom:var(--gap);left:var(--gap);width:calc(100% - (var(--gap)*2));justify-content:space-around;background:#fff;padding:12px;border-radius:13px;box-shadow:0 -2px 10px rgba(0,0,0,0.08);z-index:999;}.bottom-nav img{width:24px; height:24px; cursor:pointer;}}@media(max-width:700px){.escapes-section{margin-bottom:calc(70px + var(--gap) * 2);}}
         .handpicked{margin:40px var(--side-space) 30px;}
         /* card wrapper for Hidden Gems */
         .handpicked-inner{background:#fff;border-radius:22px;box-shadow:0 4px 24px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.06);padding:16px 16px 16px;overflow:hidden;}
@@ -46,8 +46,8 @@
         .hp-seeall-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.52);z-index:12000;padding:0 0 16px;}
         .hp-seeall-box{width:100%;max-width:600px;background:#fff;border-radius:22px;display:flex;flex-direction:column;animation:slideUp .25s cubic-bezier(0.22,1,0.36,1);max-height:88vh;overflow:hidden;will-change:transform;}
         .hp-seeall-header{display:flex;justify-content:space-between;align-items:center;padding:15px 16px 13px;background:#fff;flex-shrink:0;}
-        .hp-seeall-header h3{font-size:16px;font-weight:700;color:#111;margin:0;}
-        .hp-seeall-header p{font-size:10px;color:#999;margin:2px 0 0;}
+        .hp-seeall-header h3{font-size:16px;font-weight:700;color:#111;margin:0;text-align:center;}
+        .hp-seeall-header p{font-size:10px;color:#999;margin:2px 0 0;text-align:center;}
         .hp-seeall-close{font-size:18px;color:#666;cursor:pointer;background:#f2f2f2;border:none;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;transition:background .2s;}
         .hp-seeall-close:hover{background:#e5e5e5;}
         .hp-masonry-scroll{overflow-y:auto;scrollbar-width:none;flex:1;padding:10px 10px 0;background:#fff;}
@@ -773,7 +773,7 @@
 <div class="hp-seeall-popup" id="hpSeeAllPopup" onclick="closeHpSeeAll()">
   <div class="hp-seeall-box" onclick="event.stopPropagation()">
     <div class="hp-seeall-header">
-      <div><h3>Popular Places</h3><p>Must-visit spots across Kerala</p></div>
+      <div style="flex:1;text-align:center;"><h3>Popular Places</h3><p>Must-visit spots across Kerala</p></div>
       <button class="hp-seeall-close" onclick="closeHpSeeAll()">×</button>
     </div>
     <div class="hp-masonry-scroll">
