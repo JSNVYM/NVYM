@@ -3886,16 +3886,16 @@ var escPageStart = 0;
     sessionStorage.setItem('yathra_uid', _uid);
   }
   let _myName = localStorage.getItem('yathra_name') || '';
-
   let _tpMode   = 'partner';
   let _tpAction = 'join';
   let _activeChatId   = null;
   let _activeChatName = '';
-
-  let _ws        = null;
-  let _wsRoom    = null;
-  let _wsRetries = 0;
+  let _ws = null, _wsRoom = null, _wsRetries = 0;
   const WS_MAX_RETRIES = 5;
+
+  // Filters state
+  let _filterDest = '', _filterDate = '', _filterMode = '', _filterType = '';
+  let _allListings = [];
 
   function show(id) { const el = document.getElementById(id); if (el) el.style.display = 'flex'; }
   function hide(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
@@ -3903,30 +3903,30 @@ var escPageStart = 0;
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
   function formatTime(tsVal) {
-    try {
-      const d = tsVal instanceof Date ? tsVal : new Date(tsVal);
-      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    } catch { return ''; }
+    try { const d = tsVal instanceof Date ? tsVal : new Date(tsVal); return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+    catch { return ''; }
+  }
+  function formatDate(d) {
+    if (!d) return '';
+    try { return new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); }
+    catch { return d; }
   }
 
   function closeAll() {
-    ['tpMainPopup','tpSubPopup','tpActionPopup','tpChatPopup'].forEach(hide);
+    ['tpMainPopup','tpSubPopup','tpActionPopup','tpDetailPopup','tpChatPopup'].forEach(hide);
     document.body.style.overflow = '';
     disconnectWS();
     _activeChatId = null;
   }
 
-  window.openTravelPartnerPopup = function () {
-    show('tpMainPopup');
-    document.body.style.overflow = 'hidden';
-  };
+  window.openTravelPartnerPopup = function () { show('tpMainPopup'); document.body.style.overflow = 'hidden'; };
   window.closeTravelPartnerPopup = closeAll;
 
   window.openTpSub = function (mode) {
     _tpMode = mode;
     const isP = mode === 'partner';
     document.getElementById('tpSubTitle').textContent = isP ? 'Find Travel Partner' : 'Strangers Meetup';
-    document.getElementById('tpSubDesc').textContent  = isP ? 'Match with fellow travellers' : 'Join or create group meetups';
+    document.getElementById('tpSubDesc').textContent  = isP ? 'Match with fellow travellers on your route' : 'Join or create group meetups near you';
     hide('tpMainPopup'); show('tpSubPopup');
   };
   window.closeTpSub = function () { hide('tpSubPopup'); show('tpMainPopup'); };
@@ -3934,16 +3934,14 @@ var escPageStart = 0;
   window.openTpAction = function (action) {
     _tpAction = action;
     const isP = _tpMode === 'partner', isJ = action === 'join';
-    document.getElementById('tpActionTitle').textContent = isJ
-      ? (isP ? 'Find a Travel Partner' : 'Join a Meetup')
-      : (isP ? 'Post Your Trip'        : 'Create a Meetup');
-    document.getElementById('tpActionDesc').textContent = isJ
-      ? 'Browse available listings' : 'Fill in the details below';
+    document.getElementById('tpActionTitle').textContent = isJ ? (isP ? 'Find a Travel Partner' : 'Join a Meetup') : (isP ? 'Post Your Trip' : 'Create a Meetup');
+    document.getElementById('tpActionDesc').textContent  = isJ ? 'Browse available listings' : 'Fill in the details below';
     hide('tpSubPopup'); show('tpActionPopup');
     renderTpActionBody();
   };
   window.closeTpAction = function () { hide('tpActionPopup'); show('tpSubPopup'); };
 
+  // ── RENDER ACTION BODY ─────────────────────────────────────
   async function renderTpActionBody() {
     const body = document.getElementById('tpActionBody');
     const isP  = _tpMode === 'partner', isJ = _tpAction === 'join';
@@ -3952,100 +3950,241 @@ var escPageStart = 0;
       body.innerHTML = '<div class="tp-loading"><div class="tp-spinner"></div><p>Loading...</p></div>';
       try {
         const endpoint = isP ? `${API_BASE}/api/listings/partners` : `${API_BASE}/api/listings/meetups`;
-        const res  = await fetch(endpoint, { method: 'GET', headers: { 'Accept': 'application/json' } });
+        const res  = await fetch(endpoint, { headers: { 'Accept': 'application/json' } });
         if (!res.ok) throw new Error('Server error');
         const json = await res.json();
-
-        if (!json.ok || !json.data || json.data.length === 0) {
-          body.innerHTML = '<div class="tp-empty">😶 No listings yet.<br>Be the first to post!</div>';
-          return;
-        }
-
-        let html = '<div class="tp-results">';
-        json.data.forEach(d => {
-          const id = d._id;
-          if (isP) {
-            html += `<div class="tp-result-card">
-              <div class="tp-result-avatar">${escHtml(d.emoji || '🧭')}</div>
-              <div class="tp-result-info">
-                <div class="tp-result-name">${escHtml(d.name)}</div>
-                <div class="tp-result-meta">${escHtml(d.from)} → ${escHtml(d.dest)} &nbsp;·&nbsp; ${escHtml(d.date)} &nbsp;·&nbsp; ${d.seats} seat${d.seats > 1 ? 's' : ''}</div>
-              </div>
-              <button class="tp-result-btn" onclick="openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
-            </div>`;
-          } else {
-            html += `<div class="tp-result-card">
-              <div class="tp-result-avatar">${escHtml(d.emoji || '🎯')}</div>
-              <div class="tp-result-info">
-                <div class="tp-result-name">${escHtml(d.mname || d.name)}</div>
-                <div class="tp-result-meta">${escHtml(d.place)} &nbsp;·&nbsp; ${escHtml(d.date)} &nbsp;·&nbsp; ${d.members || 1}/${d.max} joined</div>
-              </div>
-              <button class="tp-result-btn blue" onclick="openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join Chat</button>
-            </div>`;
-          }
-        });
-        html += '</div>';
-        body.innerHTML = html;
+        _allListings = (json.ok && json.data) ? json.data : [];
+        if (!_allListings.length) { body.innerHTML = '<div class="tp-empty">😶 No listings yet.<br>Be the first to post!</div>'; return; }
+        renderFilteredListings(body, isP);
       } catch (e) {
         console.error(e);
         body.innerHTML = '<div class="tp-empty">⚠️ Could not load listings.<br>Check your connection.</div>';
       }
     } else {
-      if (isP) {
-        body.innerHTML = `<div class="tp-form" id="tpCreateForm">
-          <div class="tp-form-2col">
-            <div class="tp-form-row"><label class="tp-form-label">Your Name</label><input class="tp-form-input" id="tpf_name" placeholder="e.g. Arjun M." maxlength="60"></div>
-            <div class="tp-form-row"><label class="tp-form-label">WhatsApp</label><input class="tp-form-input" id="tpf_phone" type="tel" placeholder="+91 XXXXX XXXXX"></div>
-          </div>
-          <div class="tp-form-2col">
-            <div class="tp-form-row"><label class="tp-form-label">From</label><input class="tp-form-input" id="tpf_from" placeholder="Starting city"></div>
-            <div class="tp-form-row"><label class="tp-form-label">Destination</label><input class="tp-form-input" id="tpf_dest" placeholder="e.g. Munnar"></div>
-          </div>
-          <div class="tp-form-2col">
-            <div class="tp-form-row"><label class="tp-form-label">Travel Date</label><input class="tp-form-input" id="tpf_date" type="date"></div>
-            <div class="tp-form-row"><label class="tp-form-label">Seats Available</label><input class="tp-form-input" id="tpf_seats" type="number" min="1" max="20" placeholder="2"></div>
-          </div>
-          <div class="tp-form-row"><label class="tp-form-label">About Your Trip</label><textarea class="tp-form-textarea" id="tpf_desc" placeholder="Brief description, preferences..." maxlength="400"></textarea></div>
-          <div id="tpFormErr" style="color:#e53935;font-size:11px;display:none;margin-top:4px;"></div>
-          <button class="tp-submit-btn" onclick="tpSubmitCreate()">Post Trip 🚀</button>
-        </div>`;
-      } else {
-        body.innerHTML = `<div class="tp-form" id="tpCreateForm">
-          <div class="tp-form-2col">
-            <div class="tp-form-row"><label class="tp-form-label">Your Name</label><input class="tp-form-input" id="tpf_name" placeholder="e.g. Priya S." maxlength="60"></div>
-            <div class="tp-form-row"><label class="tp-form-label">WhatsApp</label><input class="tp-form-input" id="tpf_phone" type="tel" placeholder="+91 XXXXX XXXXX"></div>
-          </div>
-          <div class="tp-form-row"><label class="tp-form-label">Meetup Name</label><input class="tp-form-input" id="tpf_mname" placeholder="e.g. Kerala Hikers Group" maxlength="80"></div>
-          <div class="tp-form-2col">
-            <div class="tp-form-row"><label class="tp-form-label">Location</label><input class="tp-form-input" id="tpf_place" placeholder="e.g. Chembra Peak"></div>
-            <div class="tp-form-row"><label class="tp-form-label">Date</label><input class="tp-form-input" id="tpf_date" type="date"></div>
-          </div>
-          <div class="tp-form-2col">
-            <div class="tp-form-row"><label class="tp-form-label">Max Members</label><input class="tp-form-input" id="tpf_max" type="number" min="2" max="100" placeholder="10"></div>
-            <div class="tp-form-row"><label class="tp-form-label">Type</label>
-              <select class="tp-form-select" id="tpf_type"><option>Trekking</option><option>Beach Trip</option><option>Heritage Tour</option><option>Backwater</option><option>Wildlife</option><option>General</option></select>
-            </div>
-          </div>
-          <div class="tp-form-row"><label class="tp-form-label">Description</label><textarea class="tp-form-textarea" id="tpf_desc" placeholder="What's the plan?" maxlength="400"></textarea></div>
-          <div id="tpFormErr" style="color:#e53935;font-size:11px;display:none;margin-top:4px;"></div>
-          <button class="tp-submit-btn blue" onclick="tpSubmitCreate()">Create Meetup 🎯</button>
-        </div>`;
-      }
+      renderCreateForm(body, _tpMode === 'partner');
     }
   }
 
+  // ── FILTERS ────────────────────────────────────────────────
+  function renderFilteredListings(body, isP) {
+    let filtered = _allListings.filter(d => {
+      if (isP) {
+        if (_filterDest && !d.dest.toLowerCase().includes(_filterDest.toLowerCase())) return false;
+        if (_filterDate && d.date !== _filterDate) return false;
+        if (_filterMode && d.mode !== _filterMode) return false;
+      } else {
+        if (_filterDest && !d.place.toLowerCase().includes(_filterDest.toLowerCase())) return false;
+        if (_filterDate && d.date !== _filterDate) return false;
+        if (_filterType && d.type !== _filterType) return false;
+      }
+      return true;
+    });
+
+    const modeEmojis = { Car: '🚗', Bus: '🚌', Train: '🚆', Bike: '🏍️', Flight: '✈️', Any: '🚀' };
+    const typeEmojis  = { Trekking: '🥾', 'Beach Trip': '🏖️', 'Heritage Tour': '🏛️', Backwater: '🛶', Wildlife: '🦁', 'Food Tour': '🍛', 'Night Trek': '🌙', Pilgrimage: '🙏', 'Road Trip': '🚗', General: '🎯' };
+
+    let html = `<div class="tp-filter-bar">
+      <input class="tp-filter-input" id="tpFilterDest" placeholder="${isP ? '🔍 Destination' : '🔍 Location'}" value="${escHtml(isP ? _filterDest : _filterDest)}" oninput="tpApplyFilter()" maxlength="40">
+      <input class="tp-filter-input" id="tpFilterDate" type="date" value="${escHtml(_filterDate)}" onchange="tpApplyFilter()" title="Filter by date">
+      ${isP
+        ? `<select class="tp-filter-select" id="tpFilterMode" onchange="tpApplyFilter()"><option value="">🚀 All Modes</option><option>Car</option><option>Bus</option><option>Train</option><option>Bike</option><option>Flight</option><option>Any</option></select>`
+        : `<select class="tp-filter-select" id="tpFilterType" onchange="tpApplyFilter()"><option value="">🗂️ All Types</option><option>Trekking</option><option>Beach Trip</option><option>Heritage Tour</option><option>Backwater</option><option>Wildlife</option><option>Food Tour</option><option>Night Trek</option><option>Pilgrimage</option><option>Road Trip</option><option>General</option></select>`
+      }
+    </div>`;
+
+    if (!filtered.length) {
+      html += '<div class="tp-empty">🔍 No results match your filters.<br>Try clearing filters.</div>';
+    } else {
+      html += `<div class="tp-results-count">${filtered.length} listing${filtered.length !== 1 ? 's' : ''} found</div><div class="tp-results">`;
+      filtered.forEach(d => {
+        const id = d._id;
+        if (isP) {
+          const modeIcon = modeEmojis[d.mode] || '🚀';
+          const genderBadge = d.gender && d.gender !== 'Any' ? `<span class="tp-badge ${d.gender === 'Male' ? 'blue' : 'pink'}">${d.gender} only</span>` : '';
+          const budgetBadge = d.budget ? `<span class="tp-badge green">₹${escHtml(d.budget)}</span>` : '';
+          const ageBadge    = d.age    ? `<span class="tp-badge gray">${escHtml(d.age)} yrs</span>` : '';
+          html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
+            <div class="tp-result-avatar">${modeIcon}</div>
+            <div class="tp-result-info">
+              <div class="tp-result-name">${escHtml(d.name)}</div>
+              <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats > 1 ? 's' : ''}</div>
+              <div class="tp-badge-row">${genderBadge}${budgetBadge}${ageBadge}</div>
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,60))}${d.desc.length > 60 ? '...' : ''}</div>` : ''}
+            </div>
+            <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
+          </div>`;
+        } else {
+          const typeIcon  = typeEmojis[d.type]  || '🎯';
+          const spotsLeft = d.max - (d.members || 1);
+          const fullBadge = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
+          html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
+            <div class="tp-result-avatar">${typeIcon}</div>
+            <div class="tp-result-info">
+              <div class="tp-result-name">${escHtml(d.mname || d.name)}</div>
+              <div class="tp-result-route">📍 ${escHtml(d.place)}</div>
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members || 1}/${d.max} joined</div>
+              <div class="tp-badge-row">${fullBadge}<span class="tp-badge gray">${escHtml(d.type || 'General')}</span></div>
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,60))}${d.desc.length > 60 ? '...' : ''}</div>` : ''}
+            </div>
+            <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join</button>
+          </div>`;
+        }
+      });
+      html += '</div>';
+    }
+    body.innerHTML = html;
+
+    // Restore filter values
+    const fd = document.getElementById('tpFilterDate');
+    if (fd && _filterDate) fd.value = _filterDate;
+    const fm = document.getElementById('tpFilterMode');
+    if (fm && _filterMode) fm.value = _filterMode;
+    const ft = document.getElementById('tpFilterType');
+    if (ft && _filterType) ft.value = _filterType;
+  }
+
+  window.tpApplyFilter = function () {
+    const isP = _tpMode === 'partner';
+    _filterDest = (document.getElementById('tpFilterDest') || {}).value || '';
+    _filterDate = (document.getElementById('tpFilterDate') || {}).value || '';
+    _filterMode = (document.getElementById('tpFilterMode') || {}).value || '';
+    _filterType = (document.getElementById('tpFilterType') || {}).value || '';
+    const body  = document.getElementById('tpActionBody');
+    renderFilteredListings(body, isP);
+  };
+
+  // ── DETAIL POPUP ───────────────────────────────────────────
+  window.openTpDetail = function (id) {
+    const isP = _tpMode === 'partner';
+    const d   = _allListings.find(x => x._id === id);
+    if (!d) return;
+    const modeEmojis = { Car: '🚗', Bus: '🚌', Train: '🚆', Bike: '🏍️', Flight: '✈️', Any: '🚀' };
+    const typeEmojis  = { Trekking: '🥾', 'Beach Trip': '🏖️', 'Heritage Tour': '🏛️', Backwater: '🛶', Wildlife: '🦁', 'Food Tour': '🍛', 'Night Trek': '🌙', Pilgrimage: '🙏', 'Road Trip': '🚗', General: '🎯' };
+
+    let html = '';
+    if (isP) {
+      const modeIcon = modeEmojis[d.mode] || '🧭';
+      html = `<div class="tp-detail-hero">${modeIcon}</div>
+        <div class="tp-detail-name">${escHtml(d.name)}</div>
+        <div class="tp-detail-route">${escHtml(d.from)} → ${escHtml(d.dest)}</div>
+        <div class="tp-detail-grid">
+          <div class="tp-detail-item"><div class="tp-detail-label">📅 Date</div><div class="tp-detail-val">${formatDate(d.date)}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">💺 Seats</div><div class="tp-detail-val">${d.seats}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🚀 Mode</div><div class="tp-detail-val">${escHtml(d.mode || 'Any')}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">💰 Budget</div><div class="tp-detail-val">${d.budget ? '₹' + escHtml(d.budget) : 'Not set'}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🧑 Age</div><div class="tp-detail-val">${escHtml(d.age || 'Any')}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">👤 Gender</div><div class="tp-detail-val">${escHtml(d.gender || 'Any')}</div></div>
+        </div>
+        ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
+        ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp ${escHtml(d.name)}</a>` : ''}
+        <button class="tp-submit-btn" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Open Group Chat 💬</button>`;
+    } else {
+      const typeIcon  = typeEmojis[d.type] || '🎯';
+      const spotsLeft = d.max - (d.members || 1);
+      html = `<div class="tp-detail-hero">${typeIcon}</div>
+        <div class="tp-detail-name">${escHtml(d.mname || d.name)}</div>
+        <div class="tp-detail-route">📍 ${escHtml(d.place)}</div>
+        <div class="tp-detail-grid">
+          <div class="tp-detail-item"><div class="tp-detail-label">📅 Date</div><div class="tp-detail-val">${formatDate(d.date)}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">👥 Members</div><div class="tp-detail-val">${d.members || 1}/${d.max}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🗂️ Type</div><div class="tp-detail-val">${escHtml(d.type || 'General')}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🟢 Spots Left</div><div class="tp-detail-val">${spotsLeft > 0 ? spotsLeft : 'Full'}</div></div>
+        </div>
+        ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
+        ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp Organiser</a>` : ''}
+        ${spotsLeft > 0
+          ? `<button class="tp-submit-btn blue" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join Group Chat 🎯</button>`
+          : `<button class="tp-submit-btn" disabled style="background:#ccc;cursor:not-allowed;">Meetup Full</button>`
+        }`;
+    }
+    document.getElementById('tpDetailBody').innerHTML = html;
+    hide('tpActionPopup');
+    show('tpDetailPopup');
+  };
+  window.closeTpDetail = function () { hide('tpDetailPopup'); show('tpActionPopup'); };
+
+  // ── CREATE FORM ────────────────────────────────────────────
+  function renderCreateForm(body, isP) {
+    if (isP) {
+      body.innerHTML = `<div class="tp-form" id="tpCreateForm">
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Your Name *</label><input class="tp-form-input" id="tpf_name" placeholder="e.g. Arjun M." maxlength="60"></div>
+          <div class="tp-form-row"><label class="tp-form-label">WhatsApp No.</label><input class="tp-form-input" id="tpf_phone" type="tel" placeholder="+91 XXXXX XXXXX"></div>
+        </div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">From *</label><input class="tp-form-input" id="tpf_from" placeholder="Starting city"></div>
+          <div class="tp-form-row"><label class="tp-form-label">Destination *</label><input class="tp-form-input" id="tpf_dest" placeholder="e.g. Munnar"></div>
+        </div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Travel Date *</label><input class="tp-form-input" id="tpf_date" type="date"></div>
+          <div class="tp-form-row"><label class="tp-form-label">Seats Available *</label><input class="tp-form-input" id="tpf_seats" type="number" min="1" max="20" placeholder="2"></div>
+        </div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Travel Mode</label>
+            <select class="tp-form-select" id="tpf_mode"><option value="Any">Any</option><option>Car</option><option>Bus</option><option>Train</option><option>Bike</option><option>Flight</option></select>
+          </div>
+          <div class="tp-form-row"><label class="tp-form-label">Budget (₹)</label><input class="tp-form-input" id="tpf_budget" type="number" placeholder="e.g. 2000" min="0"></div>
+        </div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Preferred Gender</label>
+            <select class="tp-form-select" id="tpf_gender"><option value="Any">Any</option><option>Male</option><option>Female</option></select>
+          </div>
+          <div class="tp-form-row"><label class="tp-form-label">Age Preference</label><input class="tp-form-input" id="tpf_age" placeholder="e.g. 20-30" maxlength="10"></div>
+        </div>
+        <div class="tp-form-row"><label class="tp-form-label">About Your Trip</label><textarea class="tp-form-textarea" id="tpf_desc" placeholder="Describe your trip, preferences, what kind of partner you're looking for..." maxlength="400"></textarea></div>
+        <div id="tpFormErr" class="tp-form-err"></div>
+        <button class="tp-submit-btn" onclick="tpSubmitCreate()">Post Trip 🚀</button>
+      </div>`;
+    } else {
+      body.innerHTML = `<div class="tp-form" id="tpCreateForm">
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Your Name *</label><input class="tp-form-input" id="tpf_name" placeholder="e.g. Priya S." maxlength="60"></div>
+          <div class="tp-form-row"><label class="tp-form-label">WhatsApp No.</label><input class="tp-form-input" id="tpf_phone" type="tel" placeholder="+91 XXXXX XXXXX"></div>
+        </div>
+        <div class="tp-form-row"><label class="tp-form-label">Meetup Name *</label><input class="tp-form-input" id="tpf_mname" placeholder="e.g. Kerala Hikers Weekend Group" maxlength="80"></div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Location *</label><input class="tp-form-input" id="tpf_place" placeholder="e.g. Chembra Peak"></div>
+          <div class="tp-form-row"><label class="tp-form-label">Date *</label><input class="tp-form-input" id="tpf_date" type="date"></div>
+        </div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Max Members *</label><input class="tp-form-input" id="tpf_max" type="number" min="2" max="100" placeholder="10"></div>
+          <div class="tp-form-row"><label class="tp-form-label">Meetup Type</label>
+            <select class="tp-form-select" id="tpf_type">
+              <option>Trekking</option><option>Beach Trip</option><option>Heritage Tour</option>
+              <option>Backwater</option><option>Wildlife</option><option>Food Tour</option>
+              <option>Night Trek</option><option>Pilgrimage</option><option>Road Trip</option><option>General</option>
+            </select>
+          </div>
+        </div>
+        <div class="tp-form-row"><label class="tp-form-label">Description</label><textarea class="tp-form-textarea" id="tpf_desc" placeholder="What's the plan? Mention meeting point, what to bring, any requirements..." maxlength="400"></textarea></div>
+        <div id="tpFormErr" class="tp-form-err"></div>
+        <button class="tp-submit-btn blue" onclick="tpSubmitCreate()">Create Meetup 🎯</button>
+      </div>`;
+    }
+  }
+
+  // ── SUBMIT CREATE ──────────────────────────────────────────
   window.tpSubmitCreate = async function () {
     const isP = _tpMode === 'partner';
     const err = document.getElementById('tpFormErr');
     err.style.display = 'none';
-
     const g = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
 
     let payload = { uid: _uid };
     if (isP) {
-      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), from: g('tpf_from'), dest: g('tpf_dest'), date: g('tpf_date'), seats: g('tpf_seats'), desc: g('tpf_desc') });
+      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), from: g('tpf_from'), dest: g('tpf_dest'), date: g('tpf_date'), seats: g('tpf_seats'), mode: g('tpf_mode') || 'Any', budget: g('tpf_budget'), gender: g('tpf_gender') || 'Any', age: g('tpf_age'), desc: g('tpf_desc') });
     } else {
-      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), mname: g('tpf_mname'), place: g('tpf_place'), date: g('tpf_date'), max: g('tpf_max'), type: g('tpf_type'), desc: g('tpf_desc') });
+      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), mname: g('tpf_mname'), place: g('tpf_place'), date: g('tpf_date'), max: g('tpf_max'), type: g('tpf_type') || 'General', desc: g('tpf_desc') });
+    }
+
+    // Basic client-side validation
+    const required = isP ? ['name','from','dest','date','seats'] : ['name','mname','place','date','max'];
+    for (const f of required) {
+      if (!payload[f]) {
+        err.textContent = 'Please fill in all required fields (marked with *).';
+        err.style.display = 'block'; return;
+      }
     }
 
     const btn = document.querySelector('.tp-submit-btn');
@@ -4053,11 +4192,7 @@ var escPageStart = 0;
 
     try {
       const endpoint = isP ? `${API_BASE}/api/listings/partners` : `${API_BASE}/api/listings/meetups`;
-      const res  = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      const res  = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) });
       const json = await res.json();
 
       if (!json.ok) {
@@ -4069,13 +4204,18 @@ var escPageStart = 0;
 
       const newId   = json.id;
       const newName = payload.name || payload.mname || 'My Listing';
-
-      const body = document.getElementById('tpActionBody');
+      const body    = document.getElementById('tpActionBody');
       body.innerHTML = `<div class="tp-success">
         <div class="tp-success-emoji">${isP ? '🤝' : '🎉'}</div>
         <h4>${isP ? 'Trip Posted!' : 'Meetup Created!'}</h4>
-        <p>${isP ? 'Your trip is live. Others can find and chat with you.' : 'Your meetup is live! Others can now join.'}</p>
-        <button class="tp-result-btn" style="width:100%;margin-top:6px;" onclick="openTpChat('${escHtml(newId)}','${escHtml(newName)}')">Open Group Chat 💬</button>
+        <p>${isP ? 'Your trip is live. Others can find and contact you.' : 'Your meetup is live! Others can now join and chat.'}</p>
+        <div class="tp-success-share">
+          <div class="tp-success-share-label">Share this listing</div>
+          <div class="tp-success-share-row">
+            <a class="tp-share-btn whatsapp" href="https://wa.me/?text=${encodeURIComponent((isP ? '🧭 Travel Partner needed: ' + payload.from + ' → ' + payload.dest + ' on ' + payload.date : '🎯 Join our meetup: ' + payload.mname + ' at ' + payload.place + ' on ' + payload.date) + ' — Find more at https://jsnvym.github.io/NVYM/')}" target="_blank">💬 WhatsApp</a>
+          </div>
+        </div>
+        <button class="tp-result-btn" style="width:100%;padding:12px;font-size:13px;margin-top:4px;" onclick="openTpChat('${escHtml(newId)}','${escHtml(newName)}')">Open Group Chat 💬</button>
         <button class="tp-done-btn" onclick="closeTravelPartnerPopup()">Done</button>
       </div>`;
     } catch (e) {
@@ -4086,42 +4226,65 @@ var escPageStart = 0;
     }
   };
 
+  // ── CHAT ───────────────────────────────────────────────────
   window.openTpChat = function (chatId, chatName) {
     _activeChatId   = chatId;
     _activeChatName = chatName;
     document.getElementById('tpChatTitle').textContent = chatName;
-    hide('tpActionPopup'); hide('tpSubPopup'); hide('tpMainPopup');
+    ['tpActionPopup','tpSubPopup','tpMainPopup','tpDetailPopup'].forEach(hide);
     show('tpChatPopup');
     loadChat(chatId);
   };
   window.closeTpChat = function () {
-    disconnectWS();
-    _activeChatId = null;
-    hide('tpChatPopup');
-    show('tpActionPopup');
+    disconnectWS(); _activeChatId = null;
+    hide('tpChatPopup'); show('tpActionPopup');
   };
 
   async function loadChat(chatId) {
+    if (_myName) { showChatArea(chatId); } else { showNameScreen(chatId); }
+  }
+
+  function showNameScreen(chatId) {
+    const ns = document.getElementById('tpNameScreen');
     const box = document.getElementById('tpChatMessages');
-    box.innerHTML = '<div class="tp-loading"><div class="tp-spinner"></div></div>';
+    const row = document.getElementById('tpChatInputRow');
+    const err = document.getElementById('tpNameErr');
+    if (ns) ns.style.display = 'flex';
+    if (box) box.style.display = 'none';
+    if (row) row.style.display = 'none';
+    if (err) err.style.display = 'none';
+    window._pendingChatId = chatId;
+    setTimeout(() => { const inp = document.getElementById('tpNameInput'); if (inp) inp.focus(); }, 100);
+    const inp = document.getElementById('tpNameInput');
+    if (inp) inp.onkeydown = (e) => { if (e.key === 'Enter') submitChatName(); };
+  }
 
-    if (!_myName) {
-      _myName = prompt('Your name in chat:', 'Traveller') || 'Traveller';
-      localStorage.setItem('yathra_name', _myName);
-    }
+  window.submitChatName = function () {
+    const inp = document.getElementById('tpNameInput');
+    const err = document.getElementById('tpNameErr');
+    const name = inp ? inp.value.trim() : '';
+    if (!name) { if (err) { err.textContent = 'Please enter your name to continue'; err.style.display = 'block'; } if (inp) inp.focus(); return; }
+    if (name.length > 60) { if (err) { err.textContent = 'Name too long (max 60 chars)'; err.style.display = 'block'; } return; }
+    _myName = name;
+    localStorage.setItem('yathra_name', _myName);
+    const ns = document.getElementById('tpNameScreen');
+    if (ns) ns.style.display = 'none';
+    showChatArea(window._pendingChatId);
+  };
 
+  async function showChatArea(chatId) {
+    const box = document.getElementById('tpChatMessages');
+    const row = document.getElementById('tpChatInputRow');
+    const ns  = document.getElementById('tpNameScreen');
+    if (ns)  ns.style.display  = 'none';
+    if (box) { box.style.display = 'flex'; box.innerHTML = '<div class="tp-loading"><div class="tp-spinner"></div></div>'; }
+    if (row) row.style.display = 'flex';
     try {
       const res  = await fetch(`${API_BASE}/api/chat/${chatId}/messages`, { headers: { 'Accept': 'application/json' } });
       const json = await res.json();
-      if (json.ok && Array.isArray(json.data)) {
-        renderMessages(json.data, box);
-      } else {
-        box.innerHTML = '<div class="tp-chat-empty">👋 Say hello! Be the first to chat.</div>';
-      }
-    } catch {
-      box.innerHTML = '<div class="tp-chat-empty">⚠️ Could not load messages.</div>';
-    }
-
+      if (json.ok && Array.isArray(json.data)) { renderMessages(json.data, box); }
+      else { box.innerHTML = '<div class="tp-chat-empty">👋 Say hello! Be the first to chat.</div>'; }
+    } catch { box.innerHTML = '<div class="tp-chat-empty">⚠️ Could not load messages.</div>'; }
     connectWS(chatId, box);
     wireInput();
   }
@@ -4147,90 +4310,58 @@ var escPageStart = 0;
   }
 
   function connectWS(roomId, box) {
-    disconnectWS();
-    _wsRoom    = roomId;
-    _wsRetries = 0;
-
+    disconnectWS(); _wsRoom = roomId; _wsRetries = 0;
     function tryConnect() {
       try {
         _ws = new WebSocket(WS_BASE);
-
-        _ws.onopen = () => {
-          _wsRetries = 0;
-          _ws.send(JSON.stringify({ type: 'join', roomId, uid: _uid }));
-        };
-
+        _ws.onopen = () => { _wsRetries = 0; _ws.send(JSON.stringify({ type: 'join', roomId, uid: _uid })); };
         _ws.onmessage = (event) => {
-          let msg;
-          try { msg = JSON.parse(event.data); } catch { return; }
+          let msg; try { msg = JSON.parse(event.data); } catch { return; }
           if (msg.type === 'message' && msg.roomId === _wsRoom) {
             if (msg.mine) return;
-            const currentBox = document.getElementById('tpChatMessages');
-            if (currentBox) appendMessage(msg, currentBox);
+            const b = document.getElementById('tpChatMessages');
+            if (b) appendMessage(msg, b);
           }
         };
-
         _ws.onclose = (evt) => {
           if (evt.code === 4003) return;
-          if (_wsRoom && _wsRetries < WS_MAX_RETRIES) {
-            const delay = Math.min(1000 * Math.pow(2, _wsRetries), 16000);
-            _wsRetries++;
-            setTimeout(tryConnect, delay);
-          }
+          if (_wsRoom && _wsRetries < WS_MAX_RETRIES) { const delay = Math.min(1000 * Math.pow(2, _wsRetries), 16000); _wsRetries++; setTimeout(tryConnect, delay); }
         };
-
         _ws.onerror = (e) => { console.error('[WS]', e); };
-      } catch (e) {
-        console.error('[WS connect]', e);
-      }
+      } catch (e) { console.error('[WS connect]', e); }
     }
-
     tryConnect();
   }
 
   function disconnectWS() {
     _wsRoom = null;
-    if (_ws) {
-      try { _ws.close(); } catch {}
-      _ws = null;
-    }
+    if (_ws) { try { _ws.close(); } catch {} _ws = null; }
   }
 
   function wireInput() {
     const input   = document.getElementById('tpChatInput');
     const sendBtn = document.getElementById('tpChatSend');
     if (!input || !sendBtn) return;
-
+    const row = document.getElementById('tpChatInputRow');
+    if (row) row.style.display = 'flex';
     const ni = input.cloneNode(true);
     const nb = sendBtn.cloneNode(true);
     input.parentNode.replaceChild(ni, input);
     sendBtn.parentNode.replaceChild(nb, sendBtn);
-
     async function sendMsg() {
       const text = ni.value.trim();
-      if (!text || !_activeChatId) return;
-      if (text.length > 500) return;
-
-      ni.value = '';
-      ni.focus();
-
+      if (!text || !_activeChatId || text.length > 500) return;
+      ni.value = ''; ni.focus();
       const optimistic = { text, sender: _myName, uid: _uid, ts: new Date(), mine: true };
       const box = document.getElementById('tpChatMessages');
       if (box) appendMessage(optimistic, box);
-
       if (_ws && _ws.readyState === WebSocket.OPEN) {
         _ws.send(JSON.stringify({ type: 'message', text, sender: _myName, uid: _uid }));
       } else {
         const box2 = document.getElementById('tpChatMessages');
-        if (box2) {
-          const warn = document.createElement('div');
-          warn.style.cssText = 'text-align:center;font-size:10px;color:#e53935;padding:4px;';
-          warn.textContent = '⚠️ Connection lost. Reconnecting...';
-          box2.appendChild(warn);
-        }
+        if (box2) { const w = document.createElement('div'); w.style.cssText = 'text-align:center;font-size:10px;color:#e53935;padding:4px;'; w.textContent = '⚠️ Reconnecting...'; box2.appendChild(w); }
       }
     }
-
     nb.addEventListener('click', sendMsg);
     ni.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); } });
   }
@@ -4239,26 +4370,21 @@ var escPageStart = 0;
 </script>
 
 <style>
-/* ── Shared overlay base ── */
+/* ── Shared overlay ── */
 .tp-overlay{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-end;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);z-index:12010;padding:0 12px 12px;}
 @media(min-width:600px){.tp-overlay{align-items:center;padding:20px;}}
-
-/* ── Box ── */
 .tp-box{width:100%;max-width:480px;background:#fff;border-radius:24px;display:flex;flex-direction:column;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.22);}
 @media(min-width:600px){.tp-box{animation:tpPopIn .3s cubic-bezier(0.22,1,0.36,1);border-radius:26px;}}
 @keyframes tpPopIn{from{transform:scale(0.93);opacity:0;}to{transform:scale(1);opacity:1;}}
-
-/* ── Header ── */
+@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 .tp-header{position:relative;padding:18px 16px 14px;text-align:center;border-bottom:1px solid #f1f1f1;flex-shrink:0;}
 .tp-header h3{font-size:16px;font-weight:700;color:#111;margin:0;}
 .tp-header p{font-size:10px;color:#aaa;margin:3px 0 0;}
 .tp-close{position:absolute;top:50%;right:14px;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:#f2f2f2;border:none;font-size:14px;cursor:pointer;color:#666;display:flex;align-items:center;justify-content:center;transition:background .2s;}
 .tp-close:hover{background:#e5e5e5;}
-.tp-back{position:absolute;top:50%;left:14px;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:#f2f2f2;border:none;font-size:16px;cursor:pointer;color:#666;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1;}
+.tp-back{position:absolute;top:50%;left:14px;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:#f2f2f2;border:none;font-size:18px;cursor:pointer;color:#666;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1;}
 .tp-back:hover{background:#e5e5e5;}
-
-/* ── Body ── */
-.tp-body{padding:18px 16px 22px;display:flex;flex-direction:column;gap:12px;max-height:68vh;overflow-y:auto;scrollbar-width:none;}
+.tp-body{padding:16px 16px 20px;display:flex;flex-direction:column;gap:12px;max-height:72vh;overflow-y:auto;scrollbar-width:none;}
 .tp-body::-webkit-scrollbar{display:none;}
 
 /* ── Main option cards ── */
@@ -4274,14 +4400,40 @@ var escPageStart = 0;
 .tp-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .tp-action-card{background:#f8f9fa;border:1.5px solid #efefef;border-radius:18px;padding:20px 12px;text-align:center;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px;}
 .tp-action-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.1);}
-.tp-action-card:active{transform:scale(0.97);}
-.tp-action-card.join{border-color:#b2dfe0;}
-.tp-action-card.join:hover{background:#e8f6f7;border-color:#007b7f;}
-.tp-action-card.create{border-color:#c8d8f8;}
-.tp-action-card.create:hover{background:#eef3ff;border-color:#3a5fc8;}
-.tp-action-emoji{font-size:30px;line-height:1;}
-.tp-action-label{font-size:14px;font-weight:700;color:#111;}
-.tp-action-desc{font-size:10px;color:#999;line-height:1.4;}
+.tp-action-card.join{border-color:#b2dfe0;}.tp-action-card.join:hover{background:#e8f6f7;border-color:#007b7f;}
+.tp-action-card.create{border-color:#c8d8f8;}.tp-action-card.create:hover{background:#eef3ff;border-color:#3a5fc8;}
+.tp-action-emoji{font-size:30px;line-height:1;}.tp-action-label{font-size:14px;font-weight:700;color:#111;}.tp-action-desc{font-size:10px;color:#999;line-height:1.4;}
+
+/* ── Filters ── */
+.tp-filter-bar{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid #f1f1f1;margin-bottom:4px;}
+.tp-filter-input{flex:1;min-width:90px;border:1.5px solid #e5e5e5;border-radius:10px;padding:8px 10px;font-size:12px;font-family:'Poppins',sans-serif;outline:none;background:#f8f9fa;color:#111;transition:border-color .2s;}
+.tp-filter-input:focus{border-color:#007b7f;background:#fff;}
+.tp-filter-select{flex:1;min-width:90px;border:1.5px solid #e5e5e5;border-radius:10px;padding:8px 8px;font-size:12px;font-family:'Poppins',sans-serif;outline:none;background:#f8f9fa;color:#111;cursor:pointer;}
+.tp-results-count{font-size:11px;color:#aaa;text-align:right;margin-bottom:-4px;}
+
+/* ── Results ── */
+.tp-results{display:flex;flex-direction:column;gap:10px;}
+.tp-result-card{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1.5px solid #f0f0f0;border-radius:16px;padding:14px;cursor:pointer;transition:all .2s;}
+.tp-result-card:hover{border-color:#a8d8d9;box-shadow:0 4px 14px rgba(0,123,127,0.1);transform:translateY(-1px);}
+.tp-result-avatar{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#007b7f,#34c9ce);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.tp-result-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+.tp-result-name{font-size:14px;font-weight:700;color:#111;}
+.tp-result-route{font-size:12px;color:#007b7f;font-weight:600;}
+.tp-result-meta{font-size:11px;color:#888;}
+.tp-result-desc{font-size:11px;color:#999;margin-top:2px;font-style:italic;}
+.tp-result-btn{background:#007b7f;color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:11px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;flex-shrink:0;transition:background .2s;margin-top:2px;}
+.tp-result-btn:hover{background:#005f61;}.tp-result-btn.blue{background:#3a5fc8;}.tp-result-btn.blue:hover{background:#2a4ab0;}
+.tp-arrow{color:#007b7f;}
+
+/* ── Badges ── */
+.tp-badge-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;}
+.tp-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;}
+.tp-badge.green{background:#e8f5e9;color:#2e7d32;}
+.tp-badge.blue{background:#e3f2fd;color:#1565c0;}
+.tp-badge.pink{background:#fce4ec;color:#c2185b;}
+.tp-badge.orange{background:#fff3e0;color:#e65100;}
+.tp-badge.red{background:#ffebee;color:#c62828;}
+.tp-badge.gray{background:#f5f5f5;color:#555;}
 
 /* ── Form ── */
 .tp-form{display:flex;flex-direction:column;gap:10px;}
@@ -4289,104 +4441,112 @@ var escPageStart = 0;
 .tp-form-label{font-size:11px;font-weight:600;color:#555;}
 .tp-form-input,.tp-form-select,.tp-form-textarea{width:100%;border:1.5px solid #e5e5e5;border-radius:12px;padding:10px 12px;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;box-sizing:border-box;background:#fff;color:#111;}
 .tp-form-input:focus,.tp-form-select:focus,.tp-form-textarea:focus{border-color:#007b7f;}
-.tp-form-textarea{resize:none;min-height:64px;line-height:1.5;}
+.tp-form-textarea{resize:none;min-height:70px;line-height:1.5;}
 .tp-form-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.tp-form-err{font-size:11px;color:#e53935;display:none;background:#fff5f5;border-radius:8px;padding:8px 10px;border-left:3px solid #e53935;}
 .tp-submit-btn{width:100%;padding:13px;border-radius:14px;background:#007b7f;color:#fff;border:none;font-size:14px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:background .2s,transform .15s;margin-top:4px;}
-.tp-submit-btn:hover{background:#005f61;}
-.tp-submit-btn:active{transform:scale(0.98);}
-.tp-submit-btn.blue{background:#3a5fc8;}
-.tp-submit-btn.blue:hover{background:#2a4ab0;}
+.tp-submit-btn:hover{background:#005f61;}.tp-submit-btn:active{transform:scale(0.98);}
+.tp-submit-btn.blue{background:#3a5fc8;}.tp-submit-btn.blue:hover{background:#2a4ab0;}
+.tp-submit-btn:disabled{background:#ccc;cursor:not-allowed;}
 
-/* ── Results list ── */
-.tp-results{display:flex;flex-direction:column;gap:8px;}
-.tp-result-card{display:flex;align-items:center;gap:12px;background:#f8f9fa;border:1px solid #efefef;border-radius:14px;padding:12px 14px;}
-.tp-result-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#007b7f,#34c9ce);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:#fff;font-weight:700;}
-.tp-result-info{flex:1;min-width:0;}
-.tp-result-name{font-size:13px;font-weight:700;color:#111;}
-.tp-result-meta{font-size:10px;color:#888;margin-top:2px;}
-.tp-result-btn{background:#007b7f;color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;flex-shrink:0;transition:background .2s;}
-.tp-result-btn:hover{background:#005f61;}
-.tp-result-btn.blue{background:#3a5fc8;}
-.tp-result-btn.blue:hover{background:#2a4ab0;}
+/* ── Detail popup ── */
+.tp-detail-hero{font-size:52px;text-align:center;margin:8px 0 4px;}
+.tp-detail-name{font-size:18px;font-weight:700;color:#111;text-align:center;margin-bottom:4px;}
+.tp-detail-route{font-size:13px;color:#007b7f;font-weight:600;text-align:center;margin-bottom:14px;}
+.tp-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.tp-detail-item{background:#f8f9fa;border-radius:12px;padding:10px 12px;}
+.tp-detail-label{font-size:10px;color:#888;margin-bottom:3px;}
+.tp-detail-val{font-size:13px;font-weight:600;color:#111;}
+.tp-detail-desc{background:#f8f9fa;border-radius:12px;padding:12px;font-size:12px;color:#555;line-height:1.6;margin-bottom:10px;}
+.tp-whatsapp-btn{display:block;text-align:center;background:#25d366;color:#fff;text-decoration:none;border-radius:14px;padding:12px;font-size:14px;font-weight:600;font-family:'Poppins',sans-serif;margin-bottom:8px;transition:background .2s;}
+.tp-whatsapp-btn:hover{background:#128c7e;}
 
-/* ── Loading / empty states ── */
+/* ── Loading / empty / success ── */
 .tp-loading{display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px;color:#aaa;font-size:12px;}
 .tp-spinner{width:26px;height:26px;border:2px solid #eee;border-top-color:#007b7f;border-radius:50%;animation:tpSpin .8s linear infinite;}
 @keyframes tpSpin{to{transform:rotate(360deg);}}
 .tp-empty{text-align:center;padding:28px 16px;color:#aaa;font-size:13px;line-height:1.7;}
-
-/* ── Success state ── */
 .tp-success{text-align:center;padding:8px 0 4px;display:flex;flex-direction:column;align-items:center;gap:8px;}
-.tp-success-emoji{font-size:44px;}
-.tp-success h4{font-size:16px;font-weight:700;color:#111;margin:0;}
-.tp-success p{font-size:12px;color:#888;margin:0;line-height:1.6;}
-.tp-done-btn{margin-top:6px;width:100%;padding:12px;border-radius:14px;background:#007b7f;color:#fff;border:none;font-size:14px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:background .2s;}
-.tp-done-btn:hover{background:#005f61;}
+.tp-success-emoji{font-size:44px;}.tp-success h4{font-size:16px;font-weight:700;color:#111;margin:0;}.tp-success p{font-size:12px;color:#888;margin:0;line-height:1.6;}
+.tp-success-share{width:100%;background:#f8f9fa;border-radius:12px;padding:12px;text-align:center;}
+.tp-success-share-label{font-size:11px;color:#888;margin-bottom:8px;}
+.tp-success-share-row{display:flex;gap:8px;justify-content:center;}
+.tp-share-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:12px;font-weight:600;text-decoration:none;transition:opacity .2s;}
+.tp-share-btn:hover{opacity:0.85;}
+.tp-share-btn.whatsapp{background:#25d366;color:#fff;}
+.tp-done-btn{margin-top:4px;width:100%;padding:12px;border-radius:14px;background:#f2f2f2;color:#555;border:none;font-size:14px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:background .2s;}
+.tp-done-btn:hover{background:#e5e5e5;}
 
-/* ═══════════════════════════════
-   CHAT POPUP
-═══════════════════════════════ */
+/* ═══ CHAT POPUP ═══ */
 .tp-chat-box{width:100%;max-width:480px;background:#fff;border-radius:24px;display:flex;flex-direction:column;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.22);height:88vh;max-height:640px;}
 @media(min-width:600px){.tp-chat-box{animation:tpPopIn .3s cubic-bezier(0.22,1,0.36,1);height:75vh;}}
-
 .tp-chat-header{position:relative;padding:16px 50px;text-align:center;border-bottom:1px solid #f1f1f1;flex-shrink:0;background:#fff;}
 .tp-chat-header h3{font-size:15px;font-weight:700;color:#111;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .tp-chat-header p{font-size:10px;color:#aaa;margin:2px 0 0;}
-
 .tp-chat-messages{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;scrollbar-color:#e5e5e5 transparent;background:#fafafa;}
-.tp-chat-messages::-webkit-scrollbar{width:4px;}
-.tp-chat-messages::-webkit-scrollbar-thumb{background:#e0e0e0;border-radius:4px;}
-
+.tp-chat-messages::-webkit-scrollbar{width:4px;}.tp-chat-messages::-webkit-scrollbar-thumb{background:#e0e0e0;border-radius:4px;}
 .tp-chat-empty{text-align:center;margin:auto;color:#bbb;font-size:13px;padding:20px;line-height:1.7;}
-
 .tp-msg{display:flex;flex-direction:column;max-width:78%;}
-.tp-msg-mine{align-self:flex-end;align-items:flex-end;}
-.tp-msg-other{align-self:flex-start;align-items:flex-start;}
+.tp-msg-mine{align-self:flex-end;align-items:flex-end;}.tp-msg-other{align-self:flex-start;align-items:flex-start;}
 .tp-msg-sender{font-size:10px;color:#888;font-weight:600;margin-bottom:2px;padding-left:4px;}
 .tp-msg-bubble{padding:9px 13px;border-radius:18px;font-size:13px;line-height:1.5;word-break:break-word;}
 .tp-msg-mine .tp-msg-bubble{background:#007b7f;color:#fff;border-bottom-right-radius:4px;}
 .tp-msg-other .tp-msg-bubble{background:#fff;color:#111;border:1px solid #eee;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
 .tp-msg-time{font-size:9px;color:#bbb;margin-top:3px;padding:0 4px;}
-
 .tp-chat-input-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid #f1f1f1;background:#fff;flex-shrink:0;}
-.tp-chat-input{flex:1;border:1.5px solid #e5e5e5;border-radius:22px;padding:9px 14px;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;resize:none;background:#f8f9fa;line-height:1.4;}
+.tp-chat-input{flex:1;border:1.5px solid #e5e5e5;border-radius:22px;padding:9px 14px;font-size:13px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;background:#f8f9fa;line-height:1.4;}
 .tp-chat-input:focus{border-color:#007b7f;background:#fff;}
 .tp-chat-send{width:38px;height:38px;border-radius:50%;background:#007b7f;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,transform .15s;}
-.tp-chat-send:hover{background:#005f61;}
-.tp-chat-send:active{transform:scale(0.93);}
+.tp-chat-send:hover{background:#005f61;}.tp-chat-send:active{transform:scale(0.93);}
 .tp-chat-send svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── Name screen ── */
+.tp-name-screen{flex:1;display:flex;align-items:center;justify-content:center;background:#fafafa;padding:24px;}
+.tp-name-inner{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;}
+.tp-name-icon{font-size:44px;margin-bottom:4px;}
+.tp-name-title{font-size:17px;font-weight:700;color:#111;margin:0;}
+.tp-name-sub{font-size:12px;color:#888;margin:0;line-height:1.5;}
+.tp-name-input{width:100%;border:2px solid #e5e5e5;border-radius:14px;padding:13px 16px;font-size:15px;font-family:'Poppins',sans-serif;outline:none;text-align:center;transition:border-color .2s;background:#fff;margin-top:6px;}
+.tp-name-input:focus{border-color:#007b7f;}
+.tp-name-err{font-size:11px;color:#e53935;display:none;margin-top:-4px;}
+.tp-name-btn{width:100%;background:#007b7f;color:#fff;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:background .2s,transform .15s;margin-top:4px;}
+.tp-name-btn:hover{background:#005f61;}.tp-name-btn:active{transform:scale(0.97);}
 </style>
 
-<!-- Level 1: Main menu -->
+<!-- Level 1: Main popup -->
 <div class="tp-overlay" id="tpMainPopup" onclick="if(event.target===this)closeTravelPartnerPopup()">
   <div class="tp-box" onclick="event.stopPropagation()">
     <div class="tp-header">
-      <h3>Travel Partner</h3>
-      <p>Connect with fellow travellers across Kerala</p>
+      <h3>Travel Connect</h3>
+      <p>Find your perfect travel companion</p>
       <button class="tp-close" onclick="closeTravelPartnerPopup()">&#10005;</button>
     </div>
     <div class="tp-body">
       <div class="tp-option" onclick="openTpSub('partner')">
-        <div class="tp-option-icon" style="background:#e8f6f7;">🤝</div>
+        <div class="tp-option-icon" style="background:#e8f6f7;">🧭</div>
         <div class="tp-option-text">
           <h4>Find Travel Partner</h4>
-          <p>Match with someone heading to the same destination</p>
+          <p>Match with fellow travellers on your route. Share costs, share experiences.</p>
         </div>
-        <span class="tp-option-arrow">›</span>
+        <div class="tp-option-arrow">›</div>
       </div>
       <div class="tp-option" onclick="openTpSub('meetup')">
         <div class="tp-option-icon" style="background:#eef3ff;">🎯</div>
         <div class="tp-option-text">
           <h4>Strangers Meetup</h4>
-          <p>Create or join group meetups with new travellers</p>
+          <p>Join group trips and meetups with travellers near you. Make new friends.</p>
         </div>
-        <span class="tp-option-arrow">›</span>
+        <div class="tp-option-arrow">›</div>
+      </div>
+      <div style="background:#fffbeb;border-radius:14px;padding:12px 14px;border-left:3px solid #f59e0b;">
+        <div style="font-size:11px;font-weight:700;color:#92400e;margin-bottom:3px;">⚠️ Safety Reminder</div>
+        <div style="font-size:11px;color:#78350f;line-height:1.5;">Always meet in public places first. Verify identity before travel. Share your itinerary with family.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Level 2: Join or Create chooser -->
+<!-- Level 2: Sub popup -->
 <div class="tp-overlay" id="tpSubPopup" onclick="if(event.target===this)closeTravelPartnerPopup()">
   <div class="tp-box" onclick="event.stopPropagation()">
     <div class="tp-header">
@@ -4399,47 +4559,68 @@ var escPageStart = 0;
       <div class="tp-action-grid">
         <div class="tp-action-card join" onclick="openTpAction('join')">
           <div class="tp-action-emoji">🔍</div>
-          <div class="tp-action-label">Join</div>
-          <div class="tp-action-desc">Browse & join existing trips or meetups</div>
+          <div class="tp-action-label">Browse</div>
+          <div class="tp-action-desc">Find & join existing trips or meetups</div>
         </div>
         <div class="tp-action-card create" onclick="openTpAction('create')">
           <div class="tp-action-emoji">✏️</div>
           <div class="tp-action-label">Create</div>
-          <div class="tp-action-desc">Post your trip and invite others to join</div>
+          <div class="tp-action-desc">Post your trip and invite others</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Level 3: Action popup (Join list or Create form) -->
+<!-- Level 3: Action popup -->
 <div class="tp-overlay" id="tpActionPopup" onclick="if(event.target===this)closeTpAction()">
   <div class="tp-box" onclick="event.stopPropagation()">
     <div class="tp-header">
       <button class="tp-back" onclick="closeTpAction()">&#8249;</button>
-      <h3 id="tpActionTitle">Join a Trip</h3>
+      <h3 id="tpActionTitle">Find a Travel Partner</h3>
       <p id="tpActionDesc">Browse available listings</p>
       <button class="tp-close" onclick="closeTravelPartnerPopup()">&#10005;</button>
     </div>
-    <div class="tp-body" id="tpActionBody">
-      <!-- filled dynamically by Firebase -->
-    </div>
+    <div class="tp-body" id="tpActionBody"></div>
   </div>
 </div>
 
-<!-- Level 4: Real-time Chat -->
+<!-- Level 3b: Detail popup -->
+<div class="tp-overlay" id="tpDetailPopup" onclick="if(event.target===this)closeTpDetail()">
+  <div class="tp-box" onclick="event.stopPropagation()">
+    <div class="tp-header">
+      <button class="tp-back" onclick="closeTpDetail()">&#8249;</button>
+      <h3>Details</h3>
+      <p>Full listing information</p>
+      <button class="tp-close" onclick="closeTravelPartnerPopup()">&#10005;</button>
+    </div>
+    <div class="tp-body" id="tpDetailBody"></div>
+  </div>
+</div>
+
+<!-- Level 4: Chat popup -->
 <div class="tp-overlay" id="tpChatPopup" onclick="if(event.target===this)closeTpChat()">
   <div class="tp-chat-box" onclick="event.stopPropagation()">
     <div class="tp-chat-header">
       <button class="tp-back" onclick="closeTpChat()">&#8249;</button>
       <h3 id="tpChatTitle">Group Chat</h3>
-      <p>Real-time · Tap a message to reply</p>
+      <p>Real-time · End-to-end secured</p>
       <button class="tp-close" onclick="closeTravelPartnerPopup()">&#10005;</button>
     </div>
-    <div class="tp-chat-messages" id="tpChatMessages">
+    <div class="tp-name-screen" id="tpNameScreen">
+      <div class="tp-name-inner">
+        <div class="tp-name-icon">💬</div>
+        <h4 class="tp-name-title">Add your name to continue</h4>
+        <p class="tp-name-sub">Your name will be shown to others in this chat</p>
+        <input class="tp-name-input" id="tpNameInput" placeholder="Enter your name..." maxlength="60" autocomplete="off">
+        <div class="tp-name-err" id="tpNameErr">Please enter your name to continue</div>
+        <button class="tp-name-btn" onclick="submitChatName()">Join Chat →</button>
+      </div>
+    </div>
+    <div class="tp-chat-messages" id="tpChatMessages" style="display:none;">
       <div class="tp-chat-empty">Loading messages...</div>
     </div>
-    <div class="tp-chat-input-row">
+    <div class="tp-chat-input-row" id="tpChatInputRow" style="display:none;">
       <input class="tp-chat-input" id="tpChatInput" placeholder="Type a message..." autocomplete="off" maxlength="400">
       <button class="tp-chat-send" id="tpChatSend" aria-label="Send">
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
