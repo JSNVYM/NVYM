@@ -428,16 +428,16 @@
 
         /* ===== CLICK MY TRIP POPUP ===== */
         .cmt-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:12001;padding:16px;}
-        .cmt-box{width:100%;max-width:360px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+        .cmt-box{width:100%;max-width:360px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:slideUp .3s ease;box-shadow:0 10px 30px rgba(0,0,0,0.15);max-height:90vh;overflow:hidden;}.cmt-options{display:flex;flex-direction:column;gap:10px;overflow-y:auto;scrollbar-width:none;max-height:calc(90vh - 100px);}.cmt-options::-webkit-scrollbar{display:none;}
         .cmt-header{display:flex;align-items:center;justify-content:center;position:relative;}
         .cmt-title{font-size:15px;font-weight:700;color:#111;text-align:center;flex:1;}
         .cmt-x-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.06);border:none;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666;transition:all .18s;font-family:'Poppins',sans-serif;}
         .cmt-x-btn:hover{background:rgba(0,0,0,0.13);color:#111;}
         .cmt-subtitle{font-size:11px;color:#aaa;text-align:center;margin:-6px 0 2px;}
-        .cmt-options{display:flex;flex-direction:column;gap:10px;}
+
         .cmt-option-card{display:flex;align-items:center;gap:14px;background:#f8f9fa;border:1.5px solid #eee;border-radius:14px;padding:14px 14px;cursor:pointer;transition:all .2s;}
         .cmt-option-card:hover{background:#e8f6f6;border-color:#007b7f;}
-        .cmt-option-icon{font-size:26px;flex-shrink:0;width:36px;text-align:center;}
+        .cmt-option-icon{font-size:26px;flex-shrink:0;width:36px;text-align:center;display:flex;align-items:center;justify-content:center;}.cmt-option-icon img{width:32px;height:32px;display:block;}
         .cmt-option-info{flex:1;}
         .cmt-option-info h4{font-size:13px;font-weight:600;color:#111;margin:0 0 2px;}
         .cmt-option-info p{font-size:10px;color:#888;margin:0;line-height:1.4;}
@@ -944,8 +944,8 @@
   <div class="escapes-card-wrap">
     <!-- mobile heading (≤699px only) -->
     <div class="esc-mobile-header">
-      <h2>Weekend Getaways</h2>
-      <p>Top getaways within reach from Kerala</p>
+      <h2>Popular Escapes Near Kerala</h2>
+      <p>Most visited places within reach from Kerala</p>
     </div>
     <!-- desktop heading handled inside .esc-right-header -->
     <div class="escapes-layout">
@@ -969,8 +969,8 @@
       <div class="esc-right">
         <div class="esc-right-header">
           <div class="esc-right-header-text">
-            <h2>Weekend Getaways</h2>
-            <p>Top getaways within reach</p>
+            <h2>Popular Escapes Near Kerala</h2>
+            <p>Most visited places within reach</p>
           </div>
           <div class="escapes-arrows">
             <button onclick="escapesPrev()">&#8249;</button>
@@ -1151,6 +1151,7 @@
     border-radius: 50%;
     background: #f2f2f2;
     border: none;
+
 
 
     font-size: 14px;
@@ -1498,7 +1499,7 @@ window.closeAboutPopup = function() {
   function renderSuggestions(matches, q) {
     var box = document.getElementById('ktpSearchSuggestions');
     if (!matches.length) { box.innerHTML = q ? '<div style="text-align:center;padding:18px;color:#aaa;font-size:13px;">No results for "'+q+'"</div>' : ''; return; }
-    var sectionLabel = { nearyou: '📍 Near You', escapes: '🌿 Weekend Getaways' };
+    var sectionLabel = { nearyou: '📍 Near You', escapes: '🌿 Popular Escapes' };
     box.innerHTML = matches.map(function(p){
       var name = p['Place Name'] || '';
       var district = p['District'] || '';
@@ -2372,6 +2373,7 @@ var escPageStart = 0;
               var a = Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(uLat*Math.PI/180)*Math.cos(d.lat*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
               d.km  = '~'+Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)))+' km';
               d.map = 'https://www.google.com/maps/dir/?api=1&origin='+uLat+','+uLng+'&destination='+d.lat+','+d.lng;
+
             });
             escUpdateMain(true);
           }, function(){});
@@ -2623,19 +2625,6 @@ var escPageStart = 0;
     nyObserveImages(track);
   }
 
-  function nyRenderAll(places) {
-    var track = document.getElementById('nearyouTrack');
-    var subtext = document.getElementById('nearyouSubtext');
-    track.innerHTML = '';
-    places.slice(0, 15).forEach(function(p) {
-      var lat = parseFloat(p.lat || p.Lat || 0);
-      var lng = parseFloat(p.lng || p.Lng || p.lon || p.Lon || 0);
-      track.appendChild(nyBuildCard(Object.assign({}, p, { lat: lat, lng: lng }), '—'));
-    });
-    subtext.textContent = 'Tap Allow Location to show nearest places';
-    nyObserveImages(track);
-  }
-
   function nySetLabel(text, granted) {
     var lbl = document.getElementById('nearyouLocLabel');
     var lblInline = document.getElementById('nearyouLocLabelInline');
@@ -2675,10 +2664,8 @@ var escPageStart = 0;
       var lat = pos.coords.latitude, lng = pos.coords.longitude;
       var places = await nyFetchPlaces();
       if (!places.length) return;
-      // Render sorted places immediately — don't wait for reverse geocode
       nyRender(places, lat, lng);
       nySetLabel('Your Location', true);
-      // Update label with city name in background
       nyReverseGeocode(lat, lng, function(label) {
         nySetLabel(label, true);
       });
@@ -2687,78 +2674,115 @@ var escPageStart = 0;
     }
   }
 
-  async function nyHandleDenied() {
-    try {
-      var places = await nyFetchPlaces();
-      if (places.length) nyRenderAll(places);
-      nySetLabel('Allow Location', false);
-    } catch(e) {
-      document.getElementById('nearyouSubtext').textContent = 'Could not load places data';
-    }
+  // When denied: keep shimmer running, show "Allow Location" prompt — no dummy cards
+  function nyHandleDenied() {
+    nyShowShimmer();
+    nySetLabel('Allow Location', false);
+    document.getElementById('nearyouSubtext').textContent = 'Allow location to see nearest places';
   }
 
+  // Cross-browser position fetch: handles iOS Safari (no navigator.permissions),
+  // Android Chrome, Firefox, Samsung Internet, etc.
+  // Uses watchPosition with a short timeout to work around iOS quirks.
+  var _nyWatcher = null;
   function nyGetPosition(onSuccess, onFail) {
-    navigator.geolocation.getCurrentPosition(onSuccess, onFail, { timeout: 8000, maximumAge: 300000 });
+    var opts = { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 };
+    // iOS Safari: getCurrentPosition can silently hang — use watchPosition + clear
+    if (_nyWatcher !== null) {
+      try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
+      _nyWatcher = null;
+    }
+    var done = false;
+    var failTimer = setTimeout(function() {
+      if (!done) {
+        done = true;
+        try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
+        _nyWatcher = null;
+        onFail({ code: 3, message: 'Timeout' });
+      }
+    }, 14000);
+    _nyWatcher = navigator.geolocation.watchPosition(
+      function(pos) {
+        if (done) return;
+        done = true;
+        clearTimeout(failTimer);
+        try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
+        _nyWatcher = null;
+        onSuccess(pos);
+      },
+      function(err) {
+        if (done) return;
+        done = true;
+        clearTimeout(failTimer);
+        try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
+        _nyWatcher = null;
+        onFail(err);
+      },
+      opts
+    );
+  }
+
+  function nyTriggerLocation() {
+    nyShowShimmer();
+    document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
+    nySetLabel('Locating…', false);
+    nyGetPosition(nyHandlePosition, nyHandleDenied);
   }
 
   function nyInit() {
-    // Immediately render all places (no GPS wait) so user sees data right away
-    nyFetchPlaces().then(function(places) {
-      if (places && places.length) nyRenderAll(places);
-    }).catch(function(){});
+    // Keep shimmer showing — do NOT load dummy cards; wait for permission
+    if (!navigator.geolocation) {
+      nySetLabel('Not supported', false);
+      document.getElementById('nearyouSubtext').textContent = 'Geolocation not supported on this browser';
+      return;
+    }
 
-    if (!navigator.geolocation) { nySetLabel('Allow Location', false); return; }
-    if (navigator.permissions) {
+    // navigator.permissions is NOT available on iOS Safari — always fall through to else
+    if (navigator.permissions && navigator.permissions.query) {
       navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
         if (result.state === 'granted') {
-          nySetLabel('Locating…', false);
-          nyGetPosition(nyHandlePosition, function(){ nySetLabel('Allow Location', false); });
+          nyTriggerLocation();
         } else if (result.state === 'denied') {
-          nySetLabel('Allow Location', false);
+          nyHandleDenied();
         } else {
-          nySetLabel('Allow Location', false);
-          nyGetPosition(nyHandlePosition, function(){ nySetLabel('Allow Location', false); });
+          // 'prompt' — trigger silently; browser will show native dialog
+          nyTriggerLocation();
         }
-        result.onchange = function() {
-          if (this.state === 'granted') {
-            nyShowShimmer();
-            document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
-            nySetLabel('Locating…', false);
-            nyGetPosition(nyHandlePosition, nyHandleDenied);
-          } else if (this.state === 'denied') {
+        // React to live permission changes (e.g. user enables location mid-session)
+        result.addEventListener('change', function() {
+          if (result.state === 'granted') {
+            nyTriggerLocation();
+          } else if (result.state === 'denied') {
             nyHandleDenied();
           }
-        };
+        });
       }).catch(function() {
-        nyGetPosition(nyHandlePosition, function(){ nySetLabel('Allow Location', false); });
+        // permissions API failed — fall back to direct request (covers some Android WebViews)
+        nyTriggerLocation();
       });
     } else {
-      nyGetPosition(nyHandlePosition, function(){ nySetLabel('Allow Location', false); });
+      // iOS Safari, older browsers: just call geolocation directly
+      // The browser will show its own permission prompt
+      nyTriggerLocation();
     }
   }
 
   window.nyRequestLocation = function() {
     if (!navigator.geolocation) return;
-    if (navigator.permissions) {
+    // If permissions API available, check if already hard-denied
+    if (navigator.permissions && navigator.permissions.query) {
       navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
         if (result.state === 'denied') {
-          alert('Location is blocked.\n\nTo enable:\n1. Click the lock icon in your browser address bar\n2. Set Location → Allow\n3. Refresh the page');
+          alert('Location is blocked.\n\nTo enable:\n• iPhone/iPad: Settings → Safari → Location → Allow\n• Android Chrome: tap the lock icon in the address bar → Site settings → Location → Allow\n• Then refresh this page.');
         } else {
-          nyShowShimmer();
-          document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
-          nySetLabel('Locating…', false);
-          nyGetPosition(nyHandlePosition, nyHandleDenied);
+          nyTriggerLocation();
         }
       }).catch(function() {
-        nyShowShimmer();
-        document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
-        nyGetPosition(nyHandlePosition, nyHandleDenied);
-
+        nyTriggerLocation();
       });
     } else {
-      nyShowShimmer();
-      document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
-      nyGetPosition(nyHandlePosition, nyHandleDenied);
+      // iOS Safari — just re-trigger; iOS will show the prompt again if needed
+      nyTriggerLocation();
     }
   };
 
@@ -3852,7 +3876,9 @@ var escPageStart = 0;
     <p class="cmt-subtitle">What are you looking for?</p>
     <div class="cmt-options">
       <div class="cmt-option-card" onclick="openComingSoonPopup('Photographers')">
-        <div class="cmt-option-icon">📷</div>
+        <div class="cmt-option-icon">
+          <img src="https://img.icons8.com/fluency/48/camera.png" alt="Photographers" width="32" height="32">
+        </div>
         <div class="cmt-option-info">
           <h4>Photographers</h4>
           <p>Find professional trip photographers near you</p>
@@ -3860,10 +3886,22 @@ var escPageStart = 0;
         <span class="cmt-option-arrow">›</span>
       </div>
       <div class="cmt-option-card" onclick="openComingSoonPopup('Camera Rent')">
-        <div class="cmt-option-icon">🎥</div>
+        <div class="cmt-option-icon">
+          <img src="https://img.icons8.com/fluency/48/video-camera.png" alt="Camera Rent" width="32" height="32">
+        </div>
         <div class="cmt-option-info">
           <h4>Camera Rent</h4>
           <p>Rent cameras & gear for your journey</p>
+        </div>
+        <span class="cmt-option-arrow">›</span>
+      </div>
+      <div class="cmt-option-card" onclick="openComingSoonPopup('Editors')">
+        <div class="cmt-option-icon">
+          <img src="https://img.icons8.com/fluency/48/video-editing.png" alt="Editors" width="32" height="32">
+        </div>
+        <div class="cmt-option-info">
+          <h4>Editors</h4>
+          <p>Professional photo & video editors for your trip</p>
         </div>
         <span class="cmt-option-arrow">›</span>
       </div>
