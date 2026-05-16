@@ -920,7 +920,6 @@
           <span id="nearyouLocLabelInline" class="nearyou-loc-label-inline" onclick="nyRequestLocation()">Allow Location</span>
         </div>
       </div>
-
       <div class="nearyou-header-right">
         <span id="nearyouLocLabel" class="nearyou-loc-label" onclick="nyRequestLocation()">Allow Location</span>
         <div class="nearyou-arrows">
@@ -2367,20 +2366,17 @@ var escPageStart = 0;
         escInit();
         /* Get location in background — silently update km when ready */
         if (navigator.geolocation) {
-          var _escWatcher = null;
-          var _escDone = false;
-          _escWatcher = navigator.geolocation.watchPosition(function(pos){
-            if (_escDone) return; _escDone = true;
-            try { navigator.geolocation.clearWatch(_escWatcher); } catch(e) {}
+          navigator.geolocation.getCurrentPosition(function(pos){
             var uLat = pos.coords.latitude, uLng = pos.coords.longitude;
             escData.forEach(function(d){
               var R = 6371, dLat = (d.lat-uLat)*Math.PI/180, dLon = (d.lng-uLng)*Math.PI/180;
               var a = Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(uLat*Math.PI/180)*Math.cos(d.lat*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
               d.km  = '~'+Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)))+' km';
               d.map = 'https://www.google.com/maps/dir/?api=1&origin='+uLat+','+uLng+'&destination='+d.lat+','+d.lng;
+
             });
             escUpdateMain(true);
-          }, function(){}, { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 });
+          }, function(){});
         }
       })
       .catch(function(){ escInit(); });
@@ -4046,31 +4042,39 @@ var escPageStart = 0;
           const genderBadge = d.gender && d.gender !== 'Any' ? `<span class="tp-badge ${d.gender === 'Male' ? 'blue' : 'pink'}">${d.gender} only</span>` : '';
           const budgetBadge = d.budget ? `<span class="tp-badge green">₹${escHtml(d.budget)}</span>` : '';
           const ageBadge    = d.age    ? `<span class="tp-badge gray">${escHtml(d.age)} yrs</span>` : '';
+          const isMyP = d.uid === _uid;
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
             <div class="tp-result-avatar">${modeIcon}</div>
             <div class="tp-result-info">
-              <div class="tp-result-name">${escHtml(d.name)}</div>
+              <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.name)}</span>${isMyP ? '<span class="tp-mine-badge">My Post</span>' : ''}</div>
               <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
-              <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats > 1 ? 's' : ''}</div>
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats > 1 ? 's' : ''} · ${escHtml(d.mode||'Any')}</div>
               <div class="tp-badge-row">${genderBadge}${budgetBadge}${ageBadge}</div>
-              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,60))}${d.desc.length > 60 ? '...' : ''}</div>` : ''}
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,80))}${d.desc.length > 80 ? '...' : ''}</div>` : ''}
             </div>
-            <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
+            <div class="tp-result-actions">
+              <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
+              ${isMyP ? `<button class="tp-result-btn tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','partner')">Delete</button>` : ''}
+            </div>
           </div>`;
         } else {
           const typeIcon  = typeEmojis[d.type]  || '🎯';
           const spotsLeft = d.max - (d.members || 1);
           const fullBadge = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
+          const isMyM = d.uid === _uid;
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
             <div class="tp-result-avatar">${typeIcon}</div>
             <div class="tp-result-info">
-              <div class="tp-result-name">${escHtml(d.mname || d.name)}</div>
+              <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.mname || d.name)}</span>${isMyM ? '<span class="tp-mine-badge">My Post</span>' : ''}</div>
               <div class="tp-result-route">📍 ${escHtml(d.place)}</div>
-              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members || 1}/${d.max} joined</div>
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members || 1}/${d.max} joined · ${escHtml(d.type||'General')}</div>
               <div class="tp-badge-row">${fullBadge}<span class="tp-badge gray">${escHtml(d.type || 'General')}</span></div>
-              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,60))}${d.desc.length > 60 ? '...' : ''}</div>` : ''}
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,80))}${d.desc.length > 80 ? '...' : ''}</div>` : ''}
             </div>
-            <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join</button>
+            <div class="tp-result-actions">
+              <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join</button>
+              ${isMyM ? `<button class="tp-result-btn tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','meetup')">Delete</button>` : ''}
+            </div>
           </div>`;
         }
       });
@@ -4121,7 +4125,8 @@ var escPageStart = 0;
         </div>
         ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
         ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp ${escHtml(d.name)}</a>` : ''}
-        <button class="tp-submit-btn" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Open Group Chat 💬</button>`;
+        <button class="tp-submit-btn" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Open Group Chat 💬</button>
+        ${d.uid === _uid ? '<button class="tp-del-btn-full" onclick="closeTpDetail();tpDeletePost(\'' + escHtml(id) + '\',\'partner\')">Delete My Post</button>' : ''}`;
     } else {
       const typeIcon  = typeEmojis[d.type] || '🎯';
       const spotsLeft = d.max - (d.members || 1);
@@ -4139,13 +4144,45 @@ var escPageStart = 0;
         ${spotsLeft > 0
           ? `<button class="tp-submit-btn blue" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join Group Chat 🎯</button>`
           : `<button class="tp-submit-btn" disabled style="background:#ccc;cursor:not-allowed;">Meetup Full</button>`
-        }`;
+        }
+        ${d.uid === _uid ? '<button class="tp-del-btn-full" onclick="closeTpDetail();tpDeletePost(\'' + escHtml(id) + '\',\'meetup\')">Delete My Post</button>' : ''}`;
     }
     document.getElementById('tpDetailBody').innerHTML = html;
     hide('tpActionPopup');
     show('tpDetailPopup');
   };
   window.closeTpDetail = function () { hide('tpDetailPopup'); show('tpActionPopup'); };
+
+  window.tpDeletePost = async function (id, type) {
+    if (!confirm('Delete this post? This cannot be undone.')) return;
+    try {
+      const endpoint = type === 'partner'
+        ? API_BASE + '/api/listings/partners/' + id
+        : API_BASE + '/api/listings/meetups/' + id;
+      const res  = await fetch(endpoint, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ uid: _uid })
+      });
+      const json = await res.json();
+      if (json.ok) {
+        _allListings = _allListings.filter(function(d){ return d._id !== id; });
+        const body = document.getElementById('tpActionBody');
+        const isP  = type === 'partner';
+        if (_allListings.length === 0) {
+          body.innerHTML = '<div class="tp-empty">😶 No listings yet.<br>Be the first to post!</div>';
+        } else {
+          renderFilteredListings(body, isP);
+        }
+      } else {
+        alert(json.error || 'Could not delete. Try again.');
+      }
+    } catch (e) {
+      console.error(e);
+      alert('Connection failed. Please try again.');
+    }
+  };
+
 
   // ── CREATE FORM ────────────────────────────────────────────
   function renderCreateForm(body, isP) {
@@ -4466,6 +4503,14 @@ var escPageStart = 0;
 .tp-result-desc{font-size:11px;color:#999;margin-top:2px;font-style:italic;}
 .tp-result-btn{background:#007b7f;color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:11px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;flex-shrink:0;transition:background .2s;margin-top:2px;}
 .tp-result-btn:hover{background:#005f61;}.tp-result-btn.blue{background:#3a5fc8;}.tp-result-btn.blue:hover{background:#2a4ab0;}
+.tp-result-name-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.tp-mine-badge{font-size:9px;font-weight:700;background:#007b7f;color:#fff;padding:2px 7px;border-radius:20px;flex-shrink:0;}
+.tp-result-actions{display:flex;flex-direction:column;gap:5px;flex-shrink:0;align-items:flex-end;}
+.tp-del-btn{background:#fff0f0!important;color:#e53935!important;border:1.5px solid #ffcdd2!important;font-size:10px!important;padding:6px 10px!important;}
+.tp-del-btn:hover{background:#ffebee!important;border-color:#e53935!important;}
+.tp-del-btn-full{width:100%;padding:11px;border-radius:12px;background:#fff0f0;color:#e53935;border:1.5px solid #ffcdd2;font-size:13px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;margin-top:6px;transition:background .2s;}
+.tp-del-btn-full:hover{background:#ffebee;border-color:#e53935;}
+
 .tp-arrow{color:#007b7f;}
 
 /* ── Badges ── */
