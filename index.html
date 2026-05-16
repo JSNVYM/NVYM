@@ -2,8 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Yathra Map</title>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007b7f">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Yathra Map">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com">
@@ -4042,48 +4053,31 @@ var escPageStart = 0;
           const genderBadge = d.gender && d.gender !== 'Any' ? `<span class="tp-badge ${d.gender === 'Male' ? 'blue' : 'pink'}">${d.gender} only</span>` : '';
           const budgetBadge = d.budget ? `<span class="tp-badge green">₹${escHtml(d.budget)}</span>` : '';
           const ageBadge    = d.age    ? `<span class="tp-badge gray">${escHtml(d.age)} yrs</span>` : '';
-          const isMyP = d.uid === _uid;
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
             <div class="tp-result-avatar">${modeIcon}</div>
             <div class="tp-result-info">
-              <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.name)}</span>${isMyP ? '<span class="tp-mine-badge">My Post</span>' : ''}</div>
+              <div class="tp-result-name">${escHtml(d.name)}</div>
               <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
-              <div class="tp-result-meta">📅 ${formatDate(d.date)} &nbsp;·&nbsp; 💺 ${d.seats} seat${d.seats > 1 ? 's' : ''} &nbsp;·&nbsp; ${modeIcon} ${escHtml(d.mode||'Any')}</div>
-              <div class="tp-result-detail-row">
-                ${d.budget ? `<span class="tp-detail-chip">💰 ₹${escHtml(d.budget)}</span>` : ''}
-                ${d.gender && d.gender!=='Any' ? `<span class="tp-detail-chip">👤 ${escHtml(d.gender)} only</span>` : ''}
-                ${d.age ? `<span class="tp-detail-chip">🎂 ${escHtml(d.age)} yrs</span>` : ''}
-              </div>
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats > 1 ? 's' : ''}</div>
               <div class="tp-badge-row">${genderBadge}${budgetBadge}${ageBadge}</div>
-              ${d.desc ? `<div class="tp-result-desc">"${escHtml(d.desc.substring(0,80))}${d.desc.length > 80 ? '...' : ''}"</div>` : ''}
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,60))}${d.desc.length > 60 ? '...' : ''}</div>` : ''}
             </div>
-            <div class="tp-result-actions">
-              <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
-              ${isMyP ? `<button class="tp-result-btn tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','partner')">Delete</button>` : ''}
-            </div>
+            <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
           </div>`;
         } else {
           const typeIcon  = typeEmojis[d.type]  || '🎯';
           const spotsLeft = d.max - (d.members || 1);
           const fullBadge = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
-          const isMyM = d.uid === _uid;
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
             <div class="tp-result-avatar">${typeIcon}</div>
             <div class="tp-result-info">
-              <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.mname || d.name)}</span>${isMyM ? '<span class="tp-mine-badge">My Post</span>' : ''}</div>
+              <div class="tp-result-name">${escHtml(d.mname || d.name)}</div>
               <div class="tp-result-route">📍 ${escHtml(d.place)}</div>
-              <div class="tp-result-meta">📅 ${formatDate(d.date)} &nbsp;·&nbsp; 👥 ${d.members || 1}/${d.max} joined</div>
-              <div class="tp-result-detail-row">
-                <span class="tp-detail-chip">${typeIcon} ${escHtml(d.type||'General')}</span>
-                ${spotsLeft > 0 ? `<span class="tp-detail-chip 🟢">🟢 ${spotsLeft} spots open</span>` : '<span class="tp-detail-chip tp-chip-red">Full</span>'}
-              </div>
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members || 1}/${d.max} joined</div>
               <div class="tp-badge-row">${fullBadge}<span class="tp-badge gray">${escHtml(d.type || 'General')}</span></div>
-              ${d.desc ? `<div class="tp-result-desc">"${escHtml(d.desc.substring(0,80))}${d.desc.length > 80 ? '...' : ''}"</div>` : ''}
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,60))}${d.desc.length > 60 ? '...' : ''}</div>` : ''}
             </div>
-            <div class="tp-result-actions">
-              <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join</button>
-              ${isMyM ? `<button class="tp-result-btn tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','meetup')">Delete</button>` : ''}
-            </div>
+            <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join</button>
           </div>`;
         }
       });
@@ -4125,17 +4119,16 @@ var escPageStart = 0;
         <div class="tp-detail-name">${escHtml(d.name)}</div>
         <div class="tp-detail-route">${escHtml(d.from)} → ${escHtml(d.dest)}</div>
         <div class="tp-detail-grid">
-          <div class="tp-detail-item"><div class="tp-detail-label">📅 Travel Date</div><div class="tp-detail-val">${formatDate(d.date)}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">💺 Seats Available</div><div class="tp-detail-val">${d.seats}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">🚗 Travel Mode</div><div class="tp-detail-val">${modeIcon} ${escHtml(d.mode || 'Any')}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">💰 Budget</div><div class="tp-detail-val">${d.budget ? '₹' + escHtml(d.budget) : 'Not mentioned'}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">🎂 Age Preference</div><div class="tp-detail-val">${escHtml(d.age) || 'Any'}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">👤 Gender Pref.</div><div class="tp-detail-val">${escHtml(d.gender) || 'Any'}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">📅 Date</div><div class="tp-detail-val">${formatDate(d.date)}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">💺 Seats</div><div class="tp-detail-val">${d.seats}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🚀 Mode</div><div class="tp-detail-val">${escHtml(d.mode || 'Any')}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">💰 Budget</div><div class="tp-detail-val">${d.budget ? '₹' + escHtml(d.budget) : 'Not set'}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🧑 Age</div><div class="tp-detail-val">${escHtml(d.age || 'Any')}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">👤 Gender</div><div class="tp-detail-val">${escHtml(d.gender || 'Any')}</div></div>
         </div>
-        ${d.desc ? `<div class="tp-detail-desc"><strong>About the trip:</strong><br>${escHtml(d.desc)}</div>` : ''}
+        ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
         ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp ${escHtml(d.name)}</a>` : ''}
-        <button class="tp-submit-btn" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Open Group Chat 💬</button>
-        ${d.uid === _uid ? `<button class="tp-del-btn-full" onclick="closeTpDetail();tpDeletePost('${escHtml(id)}','partner')">Delete My Post</button>` : ''}`;
+        <button class="tp-submit-btn" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Open Group Chat 💬</button>`;
     } else {
       const typeIcon  = typeEmojis[d.type] || '🎯';
       const spotsLeft = d.max - (d.members || 1);
@@ -4144,47 +4137,22 @@ var escPageStart = 0;
         <div class="tp-detail-route">📍 ${escHtml(d.place)}</div>
         <div class="tp-detail-grid">
           <div class="tp-detail-item"><div class="tp-detail-label">📅 Date</div><div class="tp-detail-val">${formatDate(d.date)}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">👥 Members</div><div class="tp-detail-val">${d.members || 1} / ${d.max}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">🗂️ Meetup Type</div><div class="tp-detail-val">${typeIcon} ${escHtml(d.type || 'General')}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">🟢 Spots Left</div><div class="tp-detail-val">${spotsLeft > 0 ? spotsLeft + ' open' : 'Full'}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">👥 Members</div><div class="tp-detail-val">${d.members || 1}/${d.max}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🗂️ Type</div><div class="tp-detail-val">${escHtml(d.type || 'General')}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🟢 Spots Left</div><div class="tp-detail-val">${spotsLeft > 0 ? spotsLeft : 'Full'}</div></div>
         </div>
-        ${d.desc ? `<div class="tp-detail-desc"><strong>About the meetup:</strong><br>${escHtml(d.desc)}</div>` : ''}
+        ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
         ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp Organiser</a>` : ''}
         ${spotsLeft > 0
           ? `<button class="tp-submit-btn blue" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join Group Chat 🎯</button>`
           : `<button class="tp-submit-btn" disabled style="background:#ccc;cursor:not-allowed;">Meetup Full</button>`
-        }
-        ${d.uid === _uid ? `<button class="tp-del-btn-full" onclick="closeTpDetail();tpDeletePost('${escHtml(id)}','meetup')">Delete My Post</button>` : ''}`;
+        }`;
     }
     document.getElementById('tpDetailBody').innerHTML = html;
     hide('tpActionPopup');
     show('tpDetailPopup');
   };
   window.closeTpDetail = function () { hide('tpDetailPopup'); show('tpActionPopup'); };
-
-  window.tpDeletePost = async function (id, type) {
-    if (!confirm('Delete this post? This cannot be undone.')) return;
-    try {
-      const endpoint = type === 'partner'
-        ? API_BASE + '/api/listings/partners/' + id
-        : API_BASE + '/api/listings/meetups/' + id;
-      const res  = await fetch(endpoint, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ uid: _uid })
-      });
-      const json = await res.json();
-      if (json.ok) {
-        _allListings = _allListings.filter(function(d){ return d._id !== id; });
-        const body = document.getElementById('tpActionBody');
-        const isP  = type === 'partner';
-        if (_allListings.length === 0) {
-          body.innerHTML = '<div class="tp-empty">😶 No listings yet.<br>Be the first to post!</div>';
-        } else { renderFilteredListings(body, isP); }
-      } else { alert(json.error || 'Could not delete. Try again.'); }
-    } catch (e) { console.error(e); alert('Connection failed. Please try again.'); }
-  };
-
 
   // ── CREATE FORM ────────────────────────────────────────────
   function renderCreateForm(body, isP) {
@@ -4505,17 +4473,6 @@ var escPageStart = 0;
 .tp-result-desc{font-size:11px;color:#999;margin-top:2px;font-style:italic;}
 .tp-result-btn{background:#007b7f;color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:11px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;flex-shrink:0;transition:background .2s;margin-top:2px;}
 .tp-result-btn:hover{background:#005f61;}.tp-result-btn.blue{background:#3a5fc8;}.tp-result-btn.blue:hover{background:#2a4ab0;}
-.tp-result-name-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px;}
-.tp-mine-badge{font-size:9px;font-weight:700;background:#007b7f;color:#fff;padding:2px 7px;border-radius:20px;flex-shrink:0;}
-.tp-result-actions{display:flex;flex-direction:column;gap:5px;flex-shrink:0;align-items:flex-end;margin-top:2px;}
-.tp-result-detail-row{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0;}
-.tp-detail-chip{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:3px 9px;border-radius:20px;background:#f0f9f9;color:#007b7f;border:1px solid #c8e6e7;font-weight:500;}
-.tp-chip-red{background:#fff5f5!important;color:#e53935!important;border-color:#ffcdd2!important;}
-.tp-del-btn{background:#fff0f0!important;color:#e53935!important;border:1.5px solid #ffcdd2!important;font-size:10px!important;padding:6px 10px!important;}
-.tp-del-btn:hover{background:#ffebee!important;border-color:#e53935!important;}
-.tp-del-btn-full{width:100%;padding:11px;border-radius:12px;background:#fff0f0;color:#e53935;border:1.5px solid #ffcdd2;font-size:13px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;margin-top:6px;transition:background .2s;}
-.tp-del-btn-full:hover{background:#ffebee;border-color:#e53935;}
-
 .tp-arrow{color:#007b7f;}
 
 /* ── Badges ── */
@@ -5447,5 +5404,15 @@ window.closeCsPopup = function(){
   window.addEventListener('load', markLoadedImages);
 
 })();
+</script>
+<!-- PWA Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("sw.js")
+      .then(function() { console.log("[PWA] SW registered"); })
+      .catch(function(e) { console.log("[PWA] SW error:", e); });
+  });
+}
 </script>
 </body></html>
