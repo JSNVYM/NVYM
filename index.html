@@ -4060,7 +4060,7 @@ var escPageStart = 0;
               <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.name)}</span></div>
               <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
               <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats>1?'s':''}</div>
-              <div class="tp-badge-row">${d.mode&&d.mode!=='Any'?`<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode)}</span>`:''} ${genderBadge}${budgetBadge}${ageBadge}</div>
+              <div class="tp-badge-row">${d.mode&&d.mode!=='Any'?`<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode)}</span>`:''}${genderBadge}${budgetBadge}${ageBadge}</div>
               ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : ''}
             </div>
             <div class="tp-result-actions">
@@ -4119,10 +4119,9 @@ var escPageStart = 0;
     _filterType = (document.getElementById('tpFilterType')||{}).value||'';
     const body  = document.getElementById('tpActionBody');
     renderFilteredListings(body, isP);
-    // Restore focus after re-render
     requestAnimationFrame(function(){
       const nd = document.getElementById('tpFilterDest');
-      if (nd && document.activeElement !== nd) { nd.focus(); try{nd.setSelectionRange(cur,cur);}catch(e){} }
+      if (nd) { nd.focus(); try{nd.setSelectionRange(cur,cur);}catch(e){} }
     });
   };
 
@@ -4179,32 +4178,43 @@ var escPageStart = 0;
   window.closeTpDetail = function () { hide('tpDetailPopup'); show('tpActionPopup'); };
 
   window.tpDeletePost = function (id, type) {
-    var ex=document.getElementById('tpDelModal');if(ex)ex.remove();
-    var m=document.createElement('div');m.id='tpDelModal';
-    m.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,0.55);backdrop-filter:blur(5px);';
-    m.innerHTML='<div style="background:#fff;border-radius:22px;padding:28px 22px;max-width:290px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.25);">'
-      +'<div style="font-size:40px;margin-bottom:10px;">🗑️</div>'
-      +'<div style="font-size:17px;font-weight:700;color:#111;margin-bottom:6px;">Delete Post?</div>'
-      +'<div style="font-size:12px;color:#888;margin-bottom:22px;line-height:1.6;">This will permanently remove your post and all its chat messages.</div>'
-      +'<div style="display:flex;gap:10px;">'
-      +'<button onclick="document.getElementById(\'tpDelModal\').remove()" style="flex:1;padding:13px;border-radius:13px;border:1.5px solid #e0e0e0;background:#f5f5f5;font-size:13px;font-weight:600;cursor:pointer;color:#555;">Cancel</button>'
-      +'<button id="tpDelConfirmBtn" style="flex:1;padding:13px;border-radius:13px;border:none;background:#e53935;color:#fff;font-size:13px;font-weight:700;cursor:pointer;">Delete</button>'
-      +'</div></div>';
+    var ex = document.getElementById('tpDelModal'); if (ex) ex.remove();
+    var m = document.createElement('div'); m.id = 'tpDelModal';
+    m.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,0.55);backdrop-filter:blur(5px);';
+    m.innerHTML = '<div style="background:#fff;border-radius:22px;padding:28px 22px;max-width:290px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.25);">'
+      + '<div style="font-size:40px;margin-bottom:10px;">🗑️</div>'
+      + '<div style="font-size:17px;font-weight:700;color:#111;margin-bottom:6px;">Delete Post?</div>'
+      + '<div style="font-size:12px;color:#666;margin-bottom:22px;line-height:1.6;">This will permanently remove your post and all chat messages.</div>'
+      + '<div style="display:flex;gap:10px;">'
+      + '<button onclick="document.getElementById(\'tpDelModal\').remove()" style="flex:1;padding:13px;border-radius:13px;border:1.5px solid #e0e0e0;background:#f5f5f5;font-size:13px;font-weight:600;cursor:pointer;color:#555;font-family:Poppins,sans-serif;">Cancel</button>'
+      + '<button id="tpDelConfirmBtn" style="flex:1;padding:13px;border-radius:13px;border:none;background:#e53935;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Poppins,sans-serif;">Delete</button>'
+      + '</div></div>';
     document.body.appendChild(m);
-    document.getElementById('tpDelConfirmBtn').onclick = async function(){
+    document.getElementById('tpDelConfirmBtn').onclick = async function() {
       m.remove();
       try {
-    try {
-      const endpoint = type === 'partner' ? API_BASE+'/api/listings/partners/'+id : API_BASE+'/api/listings/meetups/'+id;
-      const res = await fetch(endpoint,{method:'DELETE',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({uid:_uid})});
-      const json = await res.json();
-      if (json.ok) {
-        _allListings = _allListings.filter(function(d){return d._id!==id;});
-        const body = document.getElementById('tpActionBody');
-        if (_allListings.length===0) { body.innerHTML='<div class="tp-empty">😶 No listings yet.<br>Be the first to post!</div>'; }
-        else { renderFilteredListings(body, type==='partner'); }
-      } else { alert(json.error||'Could not delete. Try again.'); }
-    } catch(e) { alert('Connection failed. Try again.'); }
+        const endpoint = type==='partner' ? API_BASE+'/api/listings/partners/'+id : API_BASE+'/api/listings/meetups/'+id;
+        const res = await fetch(endpoint,{method:'DELETE',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({uid:_uid})});
+        const json = await res.json();
+        if (json.ok) {
+          _allListings = _allListings.filter(function(d){return d._id!==id;});
+          const body = document.getElementById('tpActionBody');
+          hide('tpDetailPopup'); show('tpActionPopup');
+          if (_allListings.length===0){body.innerHTML='<div class="tp-empty">😶 No listings yet.<br>Be the first to post!</div>';}
+          else{renderFilteredListings(body,type==='partner');}
+        } else {
+          var eb=document.createElement('div');
+          eb.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#e53935;color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:99999;';
+          eb.textContent=json.error||'Could not delete.';
+          document.body.appendChild(eb); setTimeout(function(){eb.remove();},3000);
+        }
+      } catch(e) {
+        var eb=document.createElement('div');
+        eb.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#e53935;color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:99999;';
+        eb.textContent='Connection failed. Try again.';
+        document.body.appendChild(eb); setTimeout(function(){eb.remove();},3000);
+      }
+    };
   };
 
 
@@ -4592,7 +4602,7 @@ var escPageStart = 0;
   text-align:center;
 }
 
-/* "My Post" badge — pill top-right corner, fully responsive */
+/* "My Post" badge — small pill top-right, fully responsive */
 .tp-mine-ribbon{
   position:absolute;top:6px;right:6px;z-index:4;
   font-size:8px;font-weight:800;
