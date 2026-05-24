@@ -2,19 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yathra Map</title>
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#007b7f">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Yathra Map">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-192.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com">
@@ -3115,26 +3104,26 @@ var escPageStart = 0;
 <style>
 /* ===== KERALA CALENDAR POPUP ===== */
 .kcal-overlay{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(8,12,24,0.58);backdrop-filter:blur(10px);z-index:20001;padding:16px;}
-.kcal-sheet{width:100%;max-width:400px;background:#fff;border-radius:28px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:14px;animation:kcalPop .32s cubic-bezier(.32,1.2,.6,1);max-height:calc(100vh - 32px);overflow-y:auto;scrollbar-width:none;}
+.kcal-sheet{width:100%;max-width:400px;background:#fff;border-radius:28px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:14px;animation:kcalPop .32s cubic-bezier(.32,1.2,.6,1);max-height:calc(100vh - 32px);overflow-y:auto;scrollbar-width:none;color-scheme:light;}
 .kcal-sheet::-webkit-scrollbar{display:none;}
 @keyframes kcalPop{from{transform:scale(0.92) translateY(18px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
 
 /* Header */
 .kcal-header{display:flex;justify-content:space-between;align-items:flex-start;}
-.kcal-title{font-size:20px;font-weight:700;color:#111;letter-spacing:-.4px;margin:0;}
-.kcal-subtitle{font-size:11px;color:#aaa;margin:3px 0 0;}
-.kcal-close-btn{width:32px;height:32px;border-radius:50%;border:none;background:#f2f2f2;color:#555;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;}
+.kcal-title{font-size:20px;font-weight:700;color:#111 !important;letter-spacing:-.4px;margin:0;}
+.kcal-subtitle{font-size:11px;color:#888 !important;margin:3px 0 0;}
+.kcal-close-btn{width:32px;height:32px;border-radius:50%;border:none;background:#f2f2f2;color:#333 !important;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;}
 .kcal-close-btn:hover{background:#e0e0e0;}
 
 /* Month nav */
-.kcal-nav{display:flex;align-items:center;justify-content:space-between;background:#f5f6f8;border-radius:14px;padding:6px 8px;}
-.kcal-nav-btn{width:34px;height:34px;border:none;background:#fff;border-radius:10px;font-size:20px;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.07);transition:.18s;line-height:1;}
+.kcal-nav{display:flex;align-items:center;justify-content:space-between;background:#f5f6f8 !important;border-radius:14px;padding:6px 8px;}
+.kcal-nav-btn{width:34px;height:34px;border:none;background:#fff;border-radius:10px;font-size:20px;cursor:pointer;color:#333 !important;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.07);transition:.18s;line-height:1;}
 .kcal-nav-btn:hover{background:#007b7f;color:#fff;}
-.kcal-month-label{font-size:15px;font-weight:700;color:#111;letter-spacing:-.2px;}
+.kcal-month-label{font-size:15px;font-weight:700;color:#111 !important;letter-spacing:-.2px;}
 
 /* Weekday row */
 .kcal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;}
-.kcal-weekdays span{font-size:10px;font-weight:600;color:#aaa;padding:4px 0;text-transform:uppercase;letter-spacing:.3px;}
+.kcal-weekdays span{font-size:10px;font-weight:600;color:#888 !important;padding:4px 0;text-transform:uppercase;letter-spacing:.3px;}
 .kcal-weekdays span:first-child{color:#e55;}
 .kcal-weekdays span:last-child{color:#5580e5;}
 
@@ -3143,7 +3132,7 @@ var escPageStart = 0;
 .kcal-cell{aspect-ratio:1/1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .15s,transform .15s;gap:2px;}
 .kcal-cell:hover{background:#f0f9f9;transform:scale(1.06);}
 .kcal-cell.kcal-empty{pointer-events:none;}
-.kcal-cell-num{font-size:13px;font-weight:600;color:#222;line-height:1;}
+.kcal-cell-num{font-size:13px;font-weight:600;color:#222 !important;line-height:1;}
 .kcal-cell.kcal-sun .kcal-cell-num{color:#e05;}
 .kcal-cell.kcal-sat .kcal-cell-num{color:#448ef6;}
 .kcal-cell.kcal-today{background:linear-gradient(135deg,#007b7f,#00a89e);border-radius:12px;}
@@ -3160,22 +3149,22 @@ var escPageStart = 0;
 .kcal-dot-special{background:#8b5cf6;}
 
 /* Event box */
-.kcal-event-box{background:linear-gradient(135deg,#f0fafa,#e8f4fd);border-radius:16px;padding:14px 16px;border:1px solid #c7e8e9;}
+.kcal-event-box{background:linear-gradient(135deg,#f0fafa,#e8f4fd) !important;border-radius:16px;padding:14px 16px;border:1px solid #c7e8e9;}
 .kcal-event-inner{display:flex;flex-direction:column;gap:8px;}
-.kcal-event-date-row{font-size:11px;font-weight:700;color:#007b7f;text-transform:uppercase;letter-spacing:.5px;}
+.kcal-event-date-row{font-size:11px;font-weight:700;color:#007b7f !important;text-transform:uppercase;letter-spacing:.5px;}
 .kcal-event-item{display:flex;align-items:flex-start;gap:10px;}
 .kcal-event-badge{font-size:18px;flex-shrink:0;line-height:1.3;}
-.kcal-event-text h4{font-size:13px;font-weight:700;color:#111;margin:0 0 1px;}
-.kcal-event-text p{font-size:11px;color:#777;margin:0;line-height:1.4;}
+.kcal-event-text h4{font-size:13px;font-weight:700;color:#111 !important;margin:0 0 1px;}
+.kcal-event-text p{font-size:11px;color:#555 !important;margin:0;line-height:1.4;}
 .kcal-event-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;margin-top:3px;text-transform:uppercase;letter-spacing:.4px;}
 .kcal-tag-festival{background:#fff3e8;color:#f97316;}
 .kcal-tag-holiday{background:#fee2e2;color:#ef4444;}
 .kcal-tag-special{background:#ede9fe;color:#8b5cf6;}
-.kcal-no-event{font-size:12px;color:#aaa;text-align:center;padding:6px 0;}
+.kcal-no-event{font-size:12px;color:#888 !important;text-align:center;padding:6px 0;}
 
 /* Legend */
 .kcal-legend{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;}
-.kcal-legend span{font-size:10px;color:#777;}
+.kcal-legend span{font-size:10px;color:#555 !important;}
 .kcal-leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
 
 @media(max-width:380px){
@@ -4053,31 +4042,39 @@ var escPageStart = 0;
           const genderBadge = d.gender && d.gender !== 'Any' ? `<span class="tp-badge ${d.gender === 'Male' ? 'blue' : 'pink'}">${d.gender} only</span>` : '';
           const budgetBadge = d.budget ? `<span class="tp-badge green">₹${escHtml(d.budget)}</span>` : '';
           const ageBadge    = d.age    ? `<span class="tp-badge gray">${escHtml(d.age)} yrs</span>` : '';
+          const isMyP = d.uid === _uid;
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
             <div class="tp-result-avatar">${modeIcon}</div>
             <div class="tp-result-info">
-              <div class="tp-result-name">${escHtml(d.name)}</div>
+              <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.name)}</span>${isMyP ? '<span class="tp-mine-badge">My Post</span>' : ''}</div>
               <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
-              <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats > 1 ? 's' : ''}</div>
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats > 1 ? 's' : ''} · ${escHtml(d.mode||'Any')}</div>
               <div class="tp-badge-row">${genderBadge}${budgetBadge}${ageBadge}</div>
-              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,60))}${d.desc.length > 60 ? '...' : ''}</div>` : ''}
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,80))}${d.desc.length > 80 ? '...' : ''}</div>` : ''}
             </div>
-            <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
+            <div class="tp-result-actions">
+              <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
+              ${isMyP ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','partner')">Delete</button>` : ''}
+            </div>
           </div>`;
         } else {
           const typeIcon  = typeEmojis[d.type]  || '🎯';
           const spotsLeft = d.max - (d.members || 1);
           const fullBadge = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
+          const isMyM = d.uid === _uid;
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
             <div class="tp-result-avatar">${typeIcon}</div>
             <div class="tp-result-info">
-              <div class="tp-result-name">${escHtml(d.mname || d.name)}</div>
+              <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.mname || d.name)}</span>${isMyM ? '<span class="tp-mine-badge">My Post</span>' : ''}</div>
               <div class="tp-result-route">📍 ${escHtml(d.place)}</div>
-              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members || 1}/${d.max} joined</div>
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members || 1}/${d.max} joined · ${escHtml(d.type||'General')}</div>
               <div class="tp-badge-row">${fullBadge}<span class="tp-badge gray">${escHtml(d.type || 'General')}</span></div>
-              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,60))}${d.desc.length > 60 ? '...' : ''}</div>` : ''}
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,80))}${d.desc.length > 80 ? '...' : ''}</div>` : ''}
             </div>
-            <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join</button>
+            <div class="tp-result-actions">
+              <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join</button>
+              ${isMyM ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','meetup')">Delete</button>` : ''}
+            </div>
           </div>`;
         }
       });
@@ -4128,7 +4125,8 @@ var escPageStart = 0;
         </div>
         ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
         ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp ${escHtml(d.name)}</a>` : ''}
-        <button class="tp-submit-btn" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Open Group Chat 💬</button>`;
+        <button class="tp-submit-btn" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Open Group Chat 💬</button>
+        ${d.uid===_uid ? `<button class="tp-del-btn-full" onclick="closeTpDetail();tpDeletePost('${escHtml(id)}','partner')">Delete My Post</button>` : ''}`;
     } else {
       const typeIcon  = typeEmojis[d.type] || '🎯';
       const spotsLeft = d.max - (d.members || 1);
@@ -4146,13 +4144,43 @@ var escPageStart = 0;
         ${spotsLeft > 0
           ? `<button class="tp-submit-btn blue" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join Group Chat 🎯</button>`
           : `<button class="tp-submit-btn" disabled style="background:#ccc;cursor:not-allowed;">Meetup Full</button>`
-        }`;
+        }
+        ${d.uid===_uid ? `<button class="tp-del-btn-full" onclick="closeTpDetail();tpDeletePost('${escHtml(id)}','meetup')">Delete My Post</button>` : ''}`;
     }
     document.getElementById('tpDetailBody').innerHTML = html;
     hide('tpActionPopup');
     show('tpDetailPopup');
   };
   window.closeTpDetail = function () { hide('tpDetailPopup'); show('tpActionPopup'); };
+
+  window.tpDeletePost = async function (id, type) {
+    if (!confirm('Delete this post? This cannot be undone.')) return;
+    try {
+      const endpoint = type === 'partner'
+        ? API_BASE + '/api/listings/partners/' + id
+        : API_BASE + '/api/listings/meetups/' + id;
+      const res  = await fetch(endpoint, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ uid: _uid })
+      });
+      const json = await res.json();
+      if (json.ok) {
+        _allListings = _allListings.filter(function(d){ return d._id !== id; });
+        const body = document.getElementById('tpActionBody');
+        if (_allListings.length === 0) {
+          body.innerHTML = '<div class="tp-empty">😶 No listings yet.<br>Be the first to post!</div>';
+        } else {
+          renderFilteredListings(body, type === 'partner');
+        }
+      } else {
+        alert(json.error || 'Could not delete. Try again.');
+      }
+    } catch (e) {
+      alert('Connection failed. Please try again.');
+    }
+  };
+
 
   // ── CREATE FORM ────────────────────────────────────────────
   function renderCreateForm(body, isP) {
@@ -4473,6 +4501,14 @@ var escPageStart = 0;
 .tp-result-desc{font-size:11px;color:#999;margin-top:2px;font-style:italic;}
 .tp-result-btn{background:#007b7f;color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:11px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;flex-shrink:0;transition:background .2s;margin-top:2px;}
 .tp-result-btn:hover{background:#005f61;}.tp-result-btn.blue{background:#3a5fc8;}.tp-result-btn.blue:hover{background:#2a4ab0;}
+.tp-result-name-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px;}
+.tp-mine-badge{font-size:9px;font-weight:700;background:#007b7f;color:#fff;padding:2px 7px;border-radius:20px;}
+.tp-result-actions{display:flex;flex-direction:column;gap:5px;flex-shrink:0;align-items:flex-end;}
+.tp-del-btn{background:#fff0f0;color:#e53935;border:1.5px solid #ffcdd2;border-radius:10px;padding:6px 12px;font-size:11px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:background .2s;}
+.tp-del-btn:hover{background:#ffebee;}
+.tp-del-btn-full{width:100%;padding:11px;border-radius:12px;background:#fff0f0;color:#e53935;border:1.5px solid #ffcdd2;font-size:13px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;margin-top:6px;transition:background .2s;}
+.tp-del-btn-full:hover{background:#ffebee;}
+
 .tp-arrow{color:#007b7f;}
 
 /* ── Badges ── */
@@ -5404,15 +5440,5 @@ window.closeCsPopup = function(){
   window.addEventListener('load', markLoadedImages);
 
 })();
-</script>
-<!-- PWA Service Worker -->
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
-    navigator.serviceWorker.register("sw.js")
-      .then(function() { console.log("[PWA] SW registered"); })
-      .catch(function(e) { console.log("[PWA] SW error:", e); });
-  });
-}
 </script>
 </body></html>
