@@ -4008,7 +4008,7 @@ var escPageStart = 0;
   function renderFilteredListings(body, isP) {
     let filtered = _allListings.filter(d => {
       if (isP) {
-        if (_filterDest && !d.dest.toLowerCase().includes(_filterDest.toLowerCase())) return false;
+        if (_filterDest && !d.dest.toLowerCase().includes(_filterDest.toLowerCase()) && !d.from.toLowerCase().includes(_filterDest.toLowerCase())) return false;
         if (_filterDate && d.date !== _filterDate) return false;
         if (_filterMode && d.mode !== _filterMode) return false;
       } else {
@@ -4060,7 +4060,7 @@ var escPageStart = 0;
               <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.name)}</span></div>
               <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
               <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats>1?'s':''}</div>
-              <div class="tp-badge-row">${genderBadge}${budgetBadge}${ageBadge}</div>
+              <div class="tp-badge-row">${d.mode&&d.mode!=='Any'?`<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode)}</span>`:''} ${genderBadge}${budgetBadge}${ageBadge}</div>
               ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : ''}
             </div>
             <div class="tp-result-actions">
@@ -4111,12 +4111,19 @@ var escPageStart = 0;
 
   window.tpApplyFilter = function () {
     const isP = _tpMode === 'partner';
-    _filterDest = (document.getElementById('tpFilterDest') || {}).value || '';
-    _filterDate = (document.getElementById('tpFilterDate') || {}).value || '';
-    _filterMode = (document.getElementById('tpFilterMode') || {}).value || '';
-    _filterType = (document.getElementById('tpFilterType') || {}).value || '';
+    const destEl = document.getElementById('tpFilterDest');
+    const cur = destEl ? destEl.selectionStart : 0;
+    _filterDest = (destEl||{}).value||'';
+    _filterDate = (document.getElementById('tpFilterDate')||{}).value||'';
+    _filterMode = (document.getElementById('tpFilterMode')||{}).value||'';
+    _filterType = (document.getElementById('tpFilterType')||{}).value||'';
     const body  = document.getElementById('tpActionBody');
     renderFilteredListings(body, isP);
+    // Restore focus after re-render
+    requestAnimationFrame(function(){
+      const nd = document.getElementById('tpFilterDest');
+      if (nd && document.activeElement !== nd) { nd.focus(); try{nd.setSelectionRange(cur,cur);}catch(e){} }
+    });
   };
 
   // ── DETAIL POPUP ───────────────────────────────────────────
@@ -4171,8 +4178,22 @@ var escPageStart = 0;
   };
   window.closeTpDetail = function () { hide('tpDetailPopup'); show('tpActionPopup'); };
 
-  window.tpDeletePost = async function (id, type) {
-    if (!confirm('Delete this post? This cannot be undone.')) return;
+  window.tpDeletePost = function (id, type) {
+    var ex=document.getElementById('tpDelModal');if(ex)ex.remove();
+    var m=document.createElement('div');m.id='tpDelModal';
+    m.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,0.55);backdrop-filter:blur(5px);';
+    m.innerHTML='<div style="background:#fff;border-radius:22px;padding:28px 22px;max-width:290px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.25);">'
+      +'<div style="font-size:40px;margin-bottom:10px;">🗑️</div>'
+      +'<div style="font-size:17px;font-weight:700;color:#111;margin-bottom:6px;">Delete Post?</div>'
+      +'<div style="font-size:12px;color:#888;margin-bottom:22px;line-height:1.6;">This will permanently remove your post and all its chat messages.</div>'
+      +'<div style="display:flex;gap:10px;">'
+      +'<button onclick="document.getElementById(\'tpDelModal\').remove()" style="flex:1;padding:13px;border-radius:13px;border:1.5px solid #e0e0e0;background:#f5f5f5;font-size:13px;font-weight:600;cursor:pointer;color:#555;">Cancel</button>'
+      +'<button id="tpDelConfirmBtn" style="flex:1;padding:13px;border-radius:13px;border:none;background:#e53935;color:#fff;font-size:13px;font-weight:700;cursor:pointer;">Delete</button>'
+      +'</div></div>';
+    document.body.appendChild(m);
+    document.getElementById('tpDelConfirmBtn').onclick = async function(){
+      m.remove();
+      try {
     try {
       const endpoint = type === 'partner' ? API_BASE+'/api/listings/partners/'+id : API_BASE+'/api/listings/meetups/'+id;
       const res = await fetch(endpoint,{method:'DELETE',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({uid:_uid})});
@@ -4571,16 +4592,18 @@ var escPageStart = 0;
   text-align:center;
 }
 
-/* "My Post" ribbon — thin bar at very top of left panel */
+/* "My Post" badge — pill top-right corner, fully responsive */
 .tp-mine-ribbon{
-  position:absolute;top:0;left:0;right:0;z-index:3;
-  text-align:center;
-  font-size:7px;font-weight:800;
-  color:#fff;letter-spacing:0.3px;text-transform:uppercase;
-  background:rgba(0,0,0,0.35);
-  padding:3px 0;
-  backdrop-filter:blur(4px);
-  line-height:1;
+  position:absolute;top:6px;right:6px;z-index:4;
+  font-size:8px;font-weight:800;
+  color:#fff !important;letter-spacing:0.4px;text-transform:uppercase;
+  background:rgba(0,0,0,0.5);
+  padding:3px 8px;border-radius:20px;
+  backdrop-filter:blur(6px);
+  white-space:nowrap;line-height:1.4;
+  pointer-events:none;
+  max-width:calc(100% - 12px);
+  overflow:hidden;text-overflow:ellipsis;
 }
 
 /* ─ Card info — flex:1, all text fits with overflow safety ─ */
@@ -4689,6 +4712,7 @@ var escPageStart = 0;
 .tp-badge.orange{background:#fff3e0;color:#e65100 !important;}
 .tp-badge.red{background:#ffebee;color:#c62828 !important;}
 .tp-badge.gray{background:#f0f0f0;color:#444 !important;}
+.tp-badge.mode{background:#e8f0fe;color:#1565c0 !important;}
 .tp-mine-badge{font-size:8px;font-weight:700;background:rgba(0,0,0,0.30);color:#fff !important;padding:2px 7px;border-radius:20px;display:none;}
 /* tp-result-name-row defined in card section above */
 .tp-del-btn-full{width:100%;padding:11px;border-radius:12px;background:#fff5f5;color:#e53935 !important;border:1.5px solid #ffcdd2;font-size:13px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;margin-top:6px;transition:background .2s;}
