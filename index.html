@@ -1430,7 +1430,7 @@ window.closeAboutPopup = function() {
     if (_ktpAllData.length) { cb(_ktpAllData); return; }
     fetch('tourist places.json')
       .then(function(r){ return r.json(); })
-      .then(function(d){ _ktpAllData = d; cb(d); })
+      .then(function(d){ _ktpAllData = d; window._ktpAllData = d; cb(d); })
       .catch(function(){ cb([]); });
   }
 
@@ -2945,6 +2945,7 @@ var escPageStart = 0;
       .then(function(r) { return r.json(); })
       .then(function(data) {
         ktpData = data;
+        window._ktpAllData = data;
         ktpRender(ktpData);
         // Try to get location for km display
         if (navigator.geolocation) {
@@ -3958,7 +3959,17 @@ var escPageStart = 0;
     _activeChatId = null;
   }
 
-  window.openTravelPartnerPopup = function () { show('tpMainPopup'); document.body.style.overflow = 'hidden'; };
+  window.openTravelPartnerPopup = function () {
+    show('tpMainPopup');
+    document.body.style.overflow = 'hidden';
+    // Preload tourist places data for destination image matching
+    if (!window._ktpAllData || !window._ktpAllData.length) {
+      fetch('tourist places.json')
+        .then(function(r){ return r.json(); })
+        .then(function(d){ window._ktpAllData = d; })
+        .catch(function(){});
+    }
+  };
   window.closeTravelPartnerPopup = closeAll;
 
   window.openTpSub = function (mode) {
@@ -4039,40 +4050,39 @@ var escPageStart = 0;
       html += '<div class="tp-empty">🔍 No results match your filters.<br>Try clearing filters.</div>';
     } else {
       html += `<div class="tp-results-count">${filtered.length} listing${filtered.length !== 1 ? 's' : ''} found</div><div class="tp-results">`;
+
+      // ── tourist-places image lookup (uses the same JSON the KTP section loads) ──
+      const _tpPlaces = window._ktpAllData || [];
+      function getTouristImg(destText) {
+        if (!destText || !_tpPlaces.length) return null;
+        const dl = destText.toLowerCase().trim();
+        // exact match first, then starts-with, then includes
+        let hit = _tpPlaces.find(p => (p['Place Name']||'').toLowerCase() === dl)
+               || _tpPlaces.find(p => dl.startsWith((p['Place Name']||'').toLowerCase()))
+               || _tpPlaces.find(p => (p['Place Name']||'').toLowerCase().split(' ').some(w => w.length > 3 && dl.includes(w)));
+        if (!hit) return null;
+        return 'img/tourist places/' + hit['Place Name'] + '.jpg';
+      }
+      const fallbackImg = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
+
       filtered.forEach(d => {
         const id = d._id;
-        // ── destination → local image map ──────────────────────────────
-        const destImgMap = [
-          {keys:['munnar','munaar'],          img:'img/handpicked/munnar.jpg'},
-          {keys:['alappuzha','alleppey','alapuzha'], img:'img/handpicked/alappuzha.jpg'},
-          {keys:['varkala'],                  img:'img/handpicked/varkala.jpg'},
-          {keys:['periyar','thekkady'],        img:'img/handpicked/periyar Wildlife Sanctuary.jpg'},
-          {keys:['fort kochi','kochi','ernakulam','cochin'], img:'img/handpicked/fort kochi.jpg'},
-          {keys:['chembra','wayanad','kalpetta','mananthavady'], img:'img/handpicked/chembra peak.jpg'},
-        ];
-        function getDestImg(dest, fallbackIcon) {
-          const dl = (dest||'').toLowerCase();
-          for (const e of destImgMap) {
-            if (e.keys.some(k => dl.includes(k))) return `<img class="tp-dest-img" src="${e.img}" loading="lazy" decoding="async" alt="${escHtml(dest)}">`;
-          }
-          // No match → fallback gradient + emoji
-          return null;
-        }
         if (isP) {
-          const modeEmojis2 = { Car:'🚗',Bus:'🚌',Train:'🚆',Bike:'🏍️',Flight:'✈️',Any:'🚀' };
-          const modeIcon   = modeEmojis[d.mode] || '🚀';
-          const destImg    = getDestImg(d.dest, modeIcon);
+          const modeIcon  = modeEmojis[d.mode] || '🚀';
+          const imgSrc    = getTouristImg(d.dest);
           const genderBadge = d.gender && d.gender !== 'Any' ? `<span class="tp-badge ${d.gender==='Male'?'blue':'pink'}">${d.gender} only</span>` : '';
           const budgetBadge = d.budget ? `<span class="tp-badge green">₹${escHtml(d.budget)}</span>` : '';
           const ageBadge    = d.age    ? `<span class="tp-badge gray">${escHtml(d.age)} yrs</span>`   : '';
           const modeBadge   = `<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode||'Any')}</span>`;
           const isMyP = d.uid === _uid;
-          const avatarInner = destImg
-            ? `${isMyP ? '<span class="tp-mine-ribbon">My Post</span>' : ''}${destImg}<span class="tp-img-mode-chip">${escHtml(d.mode||'Any')}</span>`
-            : `${isMyP ? '<span class="tp-mine-ribbon">My Post</span>' : ''}<span class="tp-fallback-icon">${modeIcon}</span>`;
-          const avatarClass = destImg ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
+          const avatarContent = imgSrc
+            ? `${isMyP?'<span class="tp-mine-ribbon">My Post</span>':''}
+               <img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.dest)}" onerror="this.onerror=null;this.src='${fallbackImg}'">
+               <span class="tp-img-chip">${escHtml(d.mode||'Any')}</span>`
+            : `${isMyP?'<span class="tp-mine-ribbon">My Post</span>':''}<span class="tp-fallback-icon">${modeIcon}</span>`;
+          const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
-            <div class="${avatarClass}">${avatarInner}</div>
+            <div class="${avatarClass}">${avatarContent}</div>
             <div class="tp-result-info">
               <div class="tp-result-name-row">
                 <span class="tp-result-name">${escHtml(d.name)}</span>
@@ -4089,18 +4099,19 @@ var escPageStart = 0;
             </div>
           </div>`;
         } else {
-          const typeEmojis2 = { Trekking:'🥾','Beach Trip':'🏖️','Heritage Tour':'🏛️',Backwater:'🛶',Wildlife:'🦁','Food Tour':'🍛','Night Trek':'🌙',Pilgrimage:'🙏','Road Trip':'🚗',General:'🎯' };
-          const typeIcon   = typeEmojis[d.type] || '🎯';
-          const destImg    = getDestImg(d.place, typeIcon);
-          const spotsLeft  = d.max - (d.members || 1);
-          const fullBadge  = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
+          const typeIcon  = typeEmojis[d.type] || '🎯';
+          const imgSrc    = getTouristImg(d.place);
+          const spotsLeft = d.max - (d.members || 1);
+          const fullBadge = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
           const isMyM = d.uid === _uid;
-          const avatarInner = destImg
-            ? `${isMyM ? '<span class="tp-mine-ribbon">My Post</span>' : ''}${destImg}<span class="tp-img-mode-chip">${escHtml(d.type||'General')}</span>`
-            : `${isMyM ? '<span class="tp-mine-ribbon">My Post</span>' : ''}<span class="tp-fallback-icon">${typeIcon}</span>`;
-          const avatarClass = destImg ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
+          const avatarContent = imgSrc
+            ? `${isMyM?'<span class="tp-mine-ribbon">My Post</span>':''}
+               <img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.place)}" onerror="this.onerror=null;this.src='${fallbackImg}'">
+               <span class="tp-img-chip">${escHtml(d.type||'General')}</span>`
+            : `${isMyM?'<span class="tp-mine-ribbon">My Post</span>':''}<span class="tp-fallback-icon">${typeIcon}</span>`;
+          const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
-            <div class="${avatarClass}">${avatarInner}</div>
+            <div class="${avatarClass}">${avatarContent}</div>
             <div class="tp-result-info">
               <div class="tp-result-name-row">
                 <span class="tp-result-name">${escHtml(d.mname||d.name)}</span>
@@ -4141,10 +4152,9 @@ var escPageStart = 0;
     _filterType = (document.getElementById('tpFilterType')||{}).value||'';
     const body  = document.getElementById('tpActionBody');
     renderFilteredListings(body, isP);
-    // Restore focus and caret after DOM rebuild
     requestAnimationFrame(function(){
       const nd = document.getElementById('tpFilterDest');
-      if (nd) { nd.focus(); try{ nd.setSelectionRange(caretPos, caretPos); }catch(e){} }
+      if (nd) { nd.focus(); try{ nd.setSelectionRange(caretPos,caretPos); }catch(e){} }
     });
   };
   };
@@ -4576,70 +4586,62 @@ var escPageStart = 0;
 .tp-result-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,123,127,0.15),0 0 0 1px rgba(0,123,127,0.08);}
 .tp-result-card:active{transform:translateY(0);box-shadow:0 1px 4px rgba(0,0,0,0.08);}
 
-/* ─ Destination photo panel (right side of card) ─ */
+/* ─ Destination photo panel ─ */
 .tp-result-avatar{
-  width:clamp(72px,22%,96px);
-  min-width:clamp(72px,22%,96px);
+  width:clamp(76px,22%,100px);
+  min-width:clamp(76px,22%,100px);
   flex-shrink:0;
   position:relative;
   overflow:hidden;
-  background:#e8eff0;
+  background:#c8dfe0;
 }
 .tp-result-avatar img.tp-dest-img{
   width:100%;height:100%;
-  object-fit:cover;
-  display:block;
+  object-fit:cover;display:block;
   transition:transform .4s ease;
 }
 .tp-result-card:hover .tp-dest-img{transform:scale(1.07);}
-/* dark gradient overlay so "My Post" ribbon stays readable */
+/* bottom-to-top dark scrim so chip is always readable */
 .tp-result-avatar::after{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,0,0.28) 0%,rgba(0,0,0,0) 55%);
-  pointer-events:none;
-  z-index:1;
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.52) 0%,rgba(0,0,0,0) 55%);
+  pointer-events:none;z-index:1;
 }
-/* fallback shimmer when image is missing */
+/* fallback when no image match */
 .tp-result-avatar.tp-img-fallback{
   background:linear-gradient(160deg,#007b7f,#00c2cc);
   display:flex;align-items:center;justify-content:center;
 }
 .tp-result-avatar.tp-img-fallback::after{display:none;}
-.tp-fallback-icon{
-  font-size:clamp(22px,6vw,30px);
-  position:relative;z-index:2;
-  filter:drop-shadow(0 1px 3px rgba(0,0,0,0.3));
-}
-
-/* "My Post" ribbon — floats top-left over image */
-.tp-mine-ribbon{
-  position:absolute;top:0;left:0;right:0;z-index:3;
-  font-size:7.5px;font-weight:800;
-  color:#fff !important;letter-spacing:0.5px;text-transform:uppercase;
-  background:rgba(0,0,0,0.48);
-  padding:4px 0;
-  backdrop-filter:blur(4px);
-  text-align:center;line-height:1.2;
-  pointer-events:none;
-}
-
-/* mode label chip bottom of image */
-.tp-img-mode-chip{
-  position:absolute;bottom:5px;left:50%;transform:translateX(-50%);z-index:3;
-  font-size:7.5px;font-weight:700;
-  color:#fff !important;
-  background:rgba(0,0,0,0.42);
-  border-radius:20px;padding:2px 7px;
-  backdrop-filter:blur(3px);
-  white-space:nowrap;
-  pointer-events:none;
-  max-width:calc(100% - 8px);
-  overflow:hidden;text-overflow:ellipsis;
+.tp-fallback-icon{font-size:clamp(24px,6vw,32px);position:relative;z-index:2;}
+/* mode/type chip floating at bottom of image */
+.tp-img-chip{
+  position:absolute;bottom:5px;left:50%;transform:translateX(-50%);
+  z-index:2;font-size:7.5px;font-weight:700;color:#fff !important;
+  background:rgba(0,0,0,0.45);border-radius:20px;
+  padding:2px 7px;backdrop-filter:blur(4px);
+  white-space:nowrap;pointer-events:none;
+  max-width:calc(100% - 8px);overflow:hidden;text-overflow:ellipsis;
   text-transform:uppercase;letter-spacing:0.3px;
 }
-
-/* unused but keep for compat */
+/* "My Post" full-width bar at top of photo */
+.tp-mine-ribbon{
+  position:absolute;top:0;left:0;right:0;z-index:3;
+  text-align:center;
+  font-size:7.5px;font-weight:800;color:#fff !important;
+  background:rgba(0,123,127,0.82);
+  padding:4px 0;backdrop-filter:blur(4px);
+  letter-spacing:0.4px;text-transform:uppercase;pointer-events:none;
+}
+/* "My Post" inline pill in name row */
+.tp-mypost-tag{
+  display:inline-flex;align-items:center;flex-shrink:0;
+  font-size:clamp(7.5px,1.8vw,9px);font-weight:700;
+  color:#007b7f !important;background:#e0f4f4;
+  border:1px solid #b2e0e0;border-radius:20px;
+  padding:2px 7px;white-space:nowrap;line-height:1.4;
+}
+/* keep old class names harmless */
 .tp-result-avatar-inner,.tp-result-avatar-emoji,.tp-result-avatar-mode{display:none;}
 
 /* ─ Card info — flex:1, all text fits with overflow safety ─ */
@@ -4751,23 +4753,6 @@ var escPageStart = 0;
 .tp-badge.mode{background:#e8f0fe;color:#1565c0 !important;}
 .tp-mine-badge{font-size:8px;font-weight:700;background:rgba(0,0,0,0.30);color:#fff !important;padding:2px 7px;border-radius:20px;display:none;}
 /* tp-result-name-row defined in card section above */
-/* "My Post" inline pill in name row */
-.tp-mypost-tag{
-  display:inline-flex;align-items:center;
-  font-size:clamp(7.5px,1.8vw,9px);font-weight:700;
-  color:#007b7f !important;
-  background:#e0f4f4;
-  border:1px solid #b2e0e0;
-  border-radius:20px;padding:2px 7px;
-  white-space:nowrap;flex-shrink:0;line-height:1.4;
-}
-/* Inline delete confirm inside card actions */
-.tp-del-confirm{display:flex;flex-direction:column;align-items:stretch;gap:4px;width:100%;}
-.tp-del-confirm-msg{font-size:9.5px;font-weight:700;color:#e53935;text-align:center;margin-bottom:2px;white-space:nowrap;}
-.tp-del-confirm-yes{background:#e53935;color:#fff !important;border:none;border-radius:8px;padding:7px 4px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;width:100%;}
-.tp-del-confirm-yes:hover{background:#c62828;}
-.tp-del-confirm-no{background:#f5f5f5;color:#555 !important;border:1px solid #ddd;border-radius:8px;padding:6px 4px;font-size:10px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;width:100%;}
-.tp-del-confirm-no:hover{background:#e0e0e0;}
 .tp-del-btn-full{width:100%;padding:11px;border-radius:12px;background:#fff5f5;color:#e53935 !important;border:1.5px solid #ffcdd2;font-size:13px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;margin-top:6px;transition:background .2s;}
 .tp-del-btn-full:hover{background:#ffebee;}
 
