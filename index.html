@@ -4077,8 +4077,7 @@ var escPageStart = 0;
           const isMyP = d.uid === _uid;
           const avatarContent = imgSrc
             ? `${isMyP?'<span class="tp-mine-ribbon">My Post</span>':''}
-               <img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.dest)}" onerror="this.onerror=null;this.src='${fallbackImg}'">
-               <span class="tp-img-chip">${escHtml(d.mode||'Any')}</span>`
+               <img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.dest)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
             : `${isMyP?'<span class="tp-mine-ribbon">My Post</span>':''}<span class="tp-fallback-icon">${modeIcon}</span>`;
           const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
@@ -4106,8 +4105,7 @@ var escPageStart = 0;
           const isMyM = d.uid === _uid;
           const avatarContent = imgSrc
             ? `${isMyM?'<span class="tp-mine-ribbon">My Post</span>':''}
-               <img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.place)}" onerror="this.onerror=null;this.src='${fallbackImg}'">
-               <span class="tp-img-chip">${escHtml(d.type||'General')}</span>`
+               <img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.place)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
             : `${isMyM?'<span class="tp-mine-ribbon">My Post</span>':''}<span class="tp-fallback-icon">${typeIcon}</span>`;
           const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
@@ -4613,16 +4611,6 @@ var escPageStart = 0;
 }
 .tp-result-avatar.tp-img-fallback::after{display:none;}
 .tp-fallback-icon{font-size:clamp(24px,6vw,32px);position:relative;z-index:2;}
-/* mode/type chip floating at bottom of image */
-.tp-img-chip{
-  position:absolute;bottom:5px;left:50%;transform:translateX(-50%);
-  z-index:2;font-size:7.5px;font-weight:700;color:#fff !important;
-  background:rgba(0,0,0,0.45);border-radius:20px;
-  padding:2px 7px;backdrop-filter:blur(4px);
-  white-space:nowrap;pointer-events:none;
-  max-width:calc(100% - 8px);overflow:hidden;text-overflow:ellipsis;
-  text-transform:uppercase;letter-spacing:0.3px;
-}
 /* "My Post" full-width bar at top of photo */
 .tp-mine-ribbon{
   position:absolute;top:0;left:0;right:0;z-index:3;
