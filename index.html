@@ -4076,16 +4076,14 @@ var escPageStart = 0;
           const modeBadge   = `<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode||'Any')}</span>`;
           const isMyP = d.uid === _uid;
           const avatarContent = imgSrc
-            ? `${isMyP?'<span class="tp-mine-ribbon">My Post</span>':''}
-               <img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.dest)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
-            : `${isMyP?'<span class="tp-mine-ribbon">My Post</span>':''}<span class="tp-fallback-icon">${modeIcon}</span>`;
+            ? `<img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.dest)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
+            : `<span class="tp-fallback-icon">${modeIcon}</span>`;
           const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
             <div class="${avatarClass}">${avatarContent}</div>
             <div class="tp-result-info">
               <div class="tp-result-name-row">
                 <span class="tp-result-name">${escHtml(d.name)}</span>
-                ${isMyP ? '<span class="tp-mypost-tag">My Post</span>' : ''}
               </div>
               <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
               <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats>1?'s':''}</div>
@@ -4104,16 +4102,14 @@ var escPageStart = 0;
           const fullBadge = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
           const isMyM = d.uid === _uid;
           const avatarContent = imgSrc
-            ? `${isMyM?'<span class="tp-mine-ribbon">My Post</span>':''}
-               <img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.place)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
-            : `${isMyM?'<span class="tp-mine-ribbon">My Post</span>':''}<span class="tp-fallback-icon">${typeIcon}</span>`;
+            ? `<img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.place)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
+            : `<span class="tp-fallback-icon">${typeIcon}</span>`;
           const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
             <div class="${avatarClass}">${avatarContent}</div>
             <div class="tp-result-info">
               <div class="tp-result-name-row">
                 <span class="tp-result-name">${escHtml(d.mname||d.name)}</span>
-                ${isMyM ? '<span class="tp-mypost-tag">My Post</span>' : ''}
               </div>
               <div class="tp-result-route">📍 ${escHtml(d.place)}</div>
               <div class="tp-result-meta">${formatDate(d.date)} · ${d.members||1}/${d.max} joined</div>
@@ -4611,23 +4607,6 @@ var escPageStart = 0;
 }
 .tp-result-avatar.tp-img-fallback::after{display:none;}
 .tp-fallback-icon{font-size:clamp(24px,6vw,32px);position:relative;z-index:2;}
-/* "My Post" full-width bar at top of photo */
-.tp-mine-ribbon{
-  position:absolute;top:0;left:0;right:0;z-index:3;
-  text-align:center;
-  font-size:7.5px;font-weight:800;color:#fff !important;
-  background:rgba(0,123,127,0.82);
-  padding:4px 0;backdrop-filter:blur(4px);
-  letter-spacing:0.4px;text-transform:uppercase;pointer-events:none;
-}
-/* "My Post" inline pill in name row */
-.tp-mypost-tag{
-  display:inline-flex;align-items:center;flex-shrink:0;
-  font-size:clamp(7.5px,1.8vw,9px);font-weight:700;
-  color:#007b7f !important;background:#e0f4f4;
-  border:1px solid #b2e0e0;border-radius:20px;
-  padding:2px 7px;white-space:nowrap;line-height:1.4;
-}
 /* keep old class names harmless */
 .tp-result-avatar-inner,.tp-result-avatar-emoji,.tp-result-avatar-mode{display:none;}
 
