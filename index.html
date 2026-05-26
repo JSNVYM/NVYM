@@ -4112,9 +4112,9 @@ var escPageStart = 0;
                 <span class="tp-result-name">${escHtml(d.mname||d.name)}</span>
               </div>
               <div class="tp-result-route">📍 ${escHtml(d.place)}</div>
-              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members||1}/${d.max} joined</div>
-              <div class="tp-badge-row">${fullBadge}</div>
-              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : ''}
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members||1}/${d.max} joined${d.cost ? ' · ₹'+escHtml(d.cost) : ''}</div>
+              <div class="tp-badge-row">${fullBadge}${d.agegroup?`<span class="tp-badge gray">👤 ${escHtml(d.agegroup)}</span>`:''}${d.lang?`<span class="tp-badge blue">🗣️ ${escHtml(d.lang)}</span>`:''}</div>
+              ${d.meetpoint ? `<div class="tp-result-desc">📍 Meet at: ${escHtml(d.meetpoint)}</div>` : (d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : '')}
             </div>
             <div class="tp-result-actions">
               <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname||d.name)}')">Join</button>
@@ -4189,6 +4189,10 @@ var escPageStart = 0;
           <div class="tp-detail-item"><div class="tp-detail-label">👥 Members</div><div class="tp-detail-val">${d.members || 1}/${d.max}</div></div>
           <div class="tp-detail-item"><div class="tp-detail-label">🗂️ Type</div><div class="tp-detail-val">${escHtml(d.type || 'General')}</div></div>
           <div class="tp-detail-item"><div class="tp-detail-label">🟢 Spots Left</div><div class="tp-detail-val">${spotsLeft > 0 ? spotsLeft : 'Full'}</div></div>
+          ${d.cost ? `<div class="tp-detail-item"><div class="tp-detail-label">💰 Cost/Person</div><div class="tp-detail-val">₹${escHtml(d.cost)}</div></div>` : ''}
+          ${d.agegroup ? `<div class="tp-detail-item"><div class="tp-detail-label">👤 Age Group</div><div class="tp-detail-val">${escHtml(d.agegroup)}</div></div>` : ''}
+          ${d.lang ? `<div class="tp-detail-item"><div class="tp-detail-label">🗣️ Language</div><div class="tp-detail-val">${escHtml(d.lang)}</div></div>` : ''}
+          ${d.meetpoint ? `<div class="tp-detail-item" style="grid-column:1/-1"><div class="tp-detail-label">📍 Meeting Point</div><div class="tp-detail-val">${escHtml(d.meetpoint)}</div></div>` : ''}
         </div>
         ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
         ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp Organiser</a>` : ''}
@@ -4298,6 +4302,24 @@ var escPageStart = 0;
             </select>
           </div>
         </div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Meeting Point</label><input class="tp-form-input" id="tpf_meetpoint" placeholder="e.g. KSRTC Bus Stand, Munnar"></div>
+          <div class="tp-form-row"><label class="tp-form-label">Cost / Person</label><input class="tp-form-input" id="tpf_cost" type="number" placeholder="₹ approx." min="0"></div>
+        </div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Age Group</label>
+            <select class="tp-form-select" id="tpf_agegroup">
+              <option value="">Any Age</option>
+              <option>18–25</option><option>25–35</option><option>35–50</option><option>50+</option>
+            </select>
+          </div>
+          <div class="tp-form-row"><label class="tp-form-label">Language</label>
+            <select class="tp-form-select" id="tpf_lang">
+              <option value="">Any</option>
+              <option>Malayalam</option><option>English</option><option>Hindi</option><option>Tamil</option><option>Kannada</option>
+            </select>
+          </div>
+        </div>
         <div class="tp-form-row"><label class="tp-form-label">Description</label><textarea class="tp-form-textarea" id="tpf_desc" placeholder="What's the plan? Mention meeting point, what to bring, any requirements..." maxlength="400"></textarea></div>
         <div id="tpFormErr" class="tp-form-err"></div>
         <button class="tp-submit-btn blue" onclick="tpSubmitCreate()">Create Meetup 🎯</button>
@@ -4316,7 +4338,7 @@ var escPageStart = 0;
     if (isP) {
       Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), from: g('tpf_from'), dest: g('tpf_dest'), date: g('tpf_date'), seats: g('tpf_seats'), mode: g('tpf_mode') || 'Any', budget: g('tpf_budget'), gender: g('tpf_gender') || 'Any', age: g('tpf_age'), desc: g('tpf_desc') });
     } else {
-      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), mname: g('tpf_mname'), place: g('tpf_place'), date: g('tpf_date'), max: g('tpf_max'), type: g('tpf_type') || 'General', desc: g('tpf_desc') });
+      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), mname: g('tpf_mname'), place: g('tpf_place'), date: g('tpf_date'), max: g('tpf_max'), type: g('tpf_type') || 'General', desc: g('tpf_desc'), meetpoint: g('tpf_meetpoint'), cost: g('tpf_cost'), agegroup: g('tpf_agegroup'), lang: g('tpf_lang') });
     }
 
     // Basic client-side validation
@@ -4536,6 +4558,8 @@ var escPageStart = 0;
 .tp-option-text h4{font-size:14px;font-weight:700;color:#111;margin:0 0 3px;}
 .tp-option-text p{font-size:11px;color:#888;margin:0;line-height:1.4;}
 .tp-option-arrow{margin-left:auto;font-size:18px;color:#ccc;flex-shrink:0;}
+.tp-option-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
+.tp-option-tag{font-size:9.5px;font-weight:600;color:#5b6ef5;background:#eef0ff;border-radius:20px;padding:2px 8px;white-space:nowrap;}
 
 /* ── Join / Create cards ── */
 .tp-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -4822,6 +4846,13 @@ var escPageStart = 0;
         <div class="tp-option-text">
           <h4>Strangers Meetup</h4>
           <p>Join group trips and meetups with travellers near you. Make new friends.</p>
+          <div class="tp-option-tags">
+            <span class="tp-option-tag">🥾 Trekking</span>
+            <span class="tp-option-tag">🏖️ Beach</span>
+            <span class="tp-option-tag">🛶 Backwater</span>
+            <span class="tp-option-tag">🌙 Night Trek</span>
+            <span class="tp-option-tag">🍛 Food Tour</span>
+          </div>
         </div>
         <div class="tp-option-arrow">›</div>
       </div>
