@@ -4561,6 +4561,28 @@ var escPageStart = 0;
 .tp-option-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
 .tp-option-tag{font-size:9.5px;font-weight:600;color:#5b6ef5;background:#eef0ff;border-radius:20px;padding:2px 8px;white-space:nowrap;}
 
+/* Meetup option card enrichments */
+.tp-option-meetup{align-items:flex-start !important;}
+.tp-option-meetup .tp-option-icon{margin-top:2px;}
+.tp-meetup-activity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px;}
+.tp-mact{display:flex;flex-direction:column;align-items:center;gap:2px;background:#f3f4ff;border-radius:10px;padding:5px 3px;font-size:14px;}
+.tp-mact span{font-size:8px;font-weight:600;color:#5b6ef5;text-align:center;line-height:1.2;}
+.tp-meetup-perks{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.tp-meetup-perks span{font-size:9.5px;font-weight:600;color:#007b7f;background:#e6f6f6;border-radius:20px;padding:3px 9px;}
+
+/* How it works strip */
+.tp-howitworks{background:#f8f9ff;border-radius:14px;padding:13px 14px;margin-top:4px;}
+.tp-hiw-title{font-size:11px;font-weight:700;color:#333;margin-bottom:9px;letter-spacing:0.2px;}
+.tp-hiw-steps{display:flex;flex-direction:column;gap:7px;}
+.tp-hiw-step{display:flex;align-items:flex-start;gap:10px;}
+.tp-hiw-num{width:20px;height:20px;border-radius:50%;background:#5b6ef5;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.tp-hiw-text{font-size:11px;color:#555;line-height:1.45;}
+
+/* Tips row */
+.tp-meetup-tips{display:flex;flex-direction:column;gap:6px;margin-top:4px;background:#f0faf9;border-radius:14px;padding:11px 14px;}
+.tp-tip-row{display:flex;align-items:center;gap:8px;font-size:11px;color:#444;line-height:1.4;}
+.tp-tip-icon{font-size:14px;flex-shrink:0;}
+
 /* ── Join / Create cards ── */
 .tp-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .tp-action-card{background:#f8f9fa;border:1.5px solid #efefef;border-radius:18px;padding:20px 12px;text-align:center;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px;}
@@ -4841,17 +4863,25 @@ var escPageStart = 0;
         </div>
         <div class="tp-option-arrow">›</div>
       </div>
-      <div class="tp-option" onclick="openTpSub('meetup')">
+      <div class="tp-option tp-option-meetup" onclick="openTpSub('meetup')">
         <div class="tp-option-icon" style="background:#eef3ff;">🎯</div>
         <div class="tp-option-text">
           <h4>Strangers Meetup</h4>
-          <p>Join group trips and meetups with travellers near you. Make new friends.</p>
-          <div class="tp-option-tags">
-            <span class="tp-option-tag">🥾 Trekking</span>
-            <span class="tp-option-tag">🏖️ Beach</span>
-            <span class="tp-option-tag">🛶 Backwater</span>
-            <span class="tp-option-tag">🌙 Night Trek</span>
-            <span class="tp-option-tag">🍛 Food Tour</span>
+          <p>Create or join group adventures with travellers nearby. Meet, explore, bond.</p>
+          <div class="tp-meetup-activity-grid">
+            <div class="tp-mact">🥾<span>Trek</span></div>
+            <div class="tp-mact">🏖️<span>Beach</span></div>
+            <div class="tp-mact">🛶<span>Backwater</span></div>
+            <div class="tp-mact">🌙<span>Night Trek</span></div>
+            <div class="tp-mact">🍛<span>Food Tour</span></div>
+            <div class="tp-mact">🏛️<span>Heritage</span></div>
+            <div class="tp-mact">🦁<span>Wildlife</span></div>
+            <div class="tp-mact">🙏<span>Pilgrimage</span></div>
+          </div>
+          <div class="tp-meetup-perks">
+            <span>👥 Group trips</span>
+            <span>💬 Group chat</span>
+            <span>📍 Meet locally</span>
           </div>
         </div>
         <div class="tp-option-arrow">›</div>
@@ -4878,13 +4908,26 @@ var escPageStart = 0;
         <div class="tp-action-card join" onclick="openTpAction('join')">
           <div class="tp-action-emoji">🔍</div>
           <div class="tp-action-label">Browse</div>
-          <div class="tp-action-desc">Find & join existing trips or meetups</div>
+          <div class="tp-action-desc">Find & join existing meetups near you</div>
         </div>
         <div class="tp-action-card create" onclick="openTpAction('create')">
           <div class="tp-action-emoji">✏️</div>
           <div class="tp-action-label">Create</div>
-          <div class="tp-action-desc">Post your trip and invite others</div>
+          <div class="tp-action-desc">Organise a group trip and invite travellers</div>
         </div>
+      </div>
+      <div class="tp-howitworks" id="tpHowItWorks">
+        <div class="tp-hiw-title">How it works</div>
+        <div class="tp-hiw-steps">
+          <div class="tp-hiw-step"><div class="tp-hiw-num">1</div><div class="tp-hiw-text">Browse meetups or create your own group trip</div></div>
+          <div class="tp-hiw-step"><div class="tp-hiw-num">2</div><div class="tp-hiw-text">Join the group chat and coordinate with others</div></div>
+          <div class="tp-hiw-step"><div class="tp-hiw-num">3</div><div class="tp-hiw-text">Meet at the location and explore together 🎉</div></div>
+        </div>
+      </div>
+      <div class="tp-meetup-tips">
+        <div class="tp-tip-row"><span class="tp-tip-icon">🆓</span><span>Always free to join or create meetups</span></div>
+        <div class="tp-tip-row"><span class="tp-tip-icon">🔒</span><span>Chat is private to group members only</span></div>
+        <div class="tp-tip-row"><span class="tp-tip-icon">📣</span><span>Share on WhatsApp to fill spots faster</span></div>
       </div>
     </div>
   </div>
