@@ -2659,7 +2659,12 @@ var escPageStart = 0;
       .catch(function() { callback('Your Location'); });
   }
 
+  // Guard: once places are rendered, never re-render again this session
+  var _nyLoaded = false;
+
   async function nyHandlePosition(pos) {
+    if (_nyLoaded) return;          // already rendered — ignore any further position callbacks
+    _nyLoaded = true;
     try {
       var lat = pos.coords.latitude, lng = pos.coords.longitude;
       var places = await nyFetchPlaces();
