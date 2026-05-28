@@ -2728,6 +2728,7 @@ var escPageStart = 0;
   }
 
   function nyTriggerLocation() {
+    if (_nyLoaded) return;   // cards already rendered — never wipe them
     nyShowShimmer();
     document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
     nySetLabel('Locating…', false);
@@ -2761,6 +2762,7 @@ var escPageStart = 0;
         }
         // React to live permission changes (e.g. user enables location mid-session)
         result.addEventListener('change', function() {
+          if (_nyLoaded) return;
           if (result.state === 'granted') {
             nyTriggerLocation();
           } else if (result.state === 'denied') {
