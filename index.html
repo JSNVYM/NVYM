@@ -4192,7 +4192,7 @@ var escPageStart = 0;
           ${d.cost ? `<div class="tp-detail-item"><div class="tp-detail-label">💰 Cost/Person</div><div class="tp-detail-val">₹${escHtml(d.cost)}</div></div>` : ''}
           ${d.agegroup ? `<div class="tp-detail-item"><div class="tp-detail-label">👤 Age Group</div><div class="tp-detail-val">${escHtml(d.agegroup)}</div></div>` : ''}
           ${d.lang ? `<div class="tp-detail-item"><div class="tp-detail-label">🗣️ Language</div><div class="tp-detail-val">${escHtml(d.lang)}</div></div>` : ''}
-          ${d.meetpoint ? `<div class="tp-detail-item" style="grid-column:1/-1"><div class="tp-detail-label">📍 Meeting Point</div><div class="tp-detail-val">${escHtml(d.meetpoint)}</div></div>` : ''}
+          ${d.meetpoint ? `<div class="tp-detail-item"><div class="tp-detail-label">📍 Meeting Point</div><div class="tp-detail-val">${escHtml(d.meetpoint)}</div></div>` : ''}
         </div>
         ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
         ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp Organiser</a>` : ''}
