@@ -1430,7 +1430,7 @@ window.closeAboutPopup = function() {
     if (_ktpAllData.length) { cb(_ktpAllData); return; }
     fetch('tourist places.json')
       .then(function(r){ return r.json(); })
-      .then(function(d){ _ktpAllData = d; window._ktpAllData = d; cb(d); })
+      .then(function(d){ _ktpAllData = d; cb(d); })
       .catch(function(){ cb([]); });
   }
 
@@ -2729,7 +2729,13 @@ var escPageStart = 0;
     nyGetPosition(nyHandlePosition, nyHandleDenied);
   }
 
+  // Guard: nyInit must only ever run once per page load
+  var _nyInitDone = false;
+
   function nyInit() {
+    if (_nyInitDone) return;
+    _nyInitDone = true;
+
     // Keep shimmer showing — do NOT load dummy cards; wait for permission
     if (!navigator.geolocation) {
       nySetLabel('Not supported', false);
@@ -2745,7 +2751,7 @@ var escPageStart = 0;
         } else if (result.state === 'denied') {
           nyHandleDenied();
         } else {
-          // 'prompt' — trigger silently; browser will show native dialog
+          // 'prompt' — trigger once; browser will show native dialog
           nyTriggerLocation();
         }
         // React to live permission changes (e.g. user enables location mid-session)
@@ -2757,12 +2763,11 @@ var escPageStart = 0;
           }
         });
       }).catch(function() {
-        // permissions API failed — fall back to direct request (covers some Android WebViews)
+        // permissions API failed — fall back to direct request
         nyTriggerLocation();
       });
     } else {
-      // iOS Safari, older browsers: just call geolocation directly
-      // The browser will show its own permission prompt
+      // iOS Safari, older browsers: just call geolocation directly once
       nyTriggerLocation();
     }
   }
@@ -2786,23 +2791,29 @@ var escPageStart = 0;
     }
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function(){
+  // Trigger nyInit once — via IntersectionObserver if available, else after short delay.
+  // Never call nyInit more than once (guard flag above ensures this).
+  (function() {
+    function scheduleInit() {
       var nySection = document.querySelector('.nearyou-section');
       if ('IntersectionObserver' in window && nySection) {
-        var nyInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ nyInitObs.disconnect(); nyInit(); } }, { rootMargin:'200px 0px' });
+        var nyInitObs = new IntersectionObserver(function(e) {
+          if (e[0].isIntersecting) { nyInitObs.disconnect(); nyInit(); }
+        }, { rootMargin: '200px 0px' });
         nyInitObs.observe(nySection);
-        setTimeout(function(){ nyInitObs.disconnect(); nyInit(); }, 2000);
-      } else { setTimeout(nyInit,600); }
-    });
-  } else {
-    var nySection = document.querySelector('.nearyou-section');
-    if ('IntersectionObserver' in window && nySection) {
-      var nyInitObs = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ nyInitObs.disconnect(); nyInit(); } }, { rootMargin:'200px 0px' });
-      nyInitObs.observe(nySection);
-      setTimeout(function(){ nyInitObs.disconnect(); nyInit(); }, 2000);
-    } else { setTimeout(nyInit,600); }
-  }
+        // Fallback only if section never intersects (e.g. hidden by CSS)
+        // Use a long timeout — nyInit guard means it's safe even if both fire
+        setTimeout(function() { nyInitObs.disconnect(); nyInit(); }, 5000);
+      } else {
+        setTimeout(nyInit, 600);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scheduleInit);
+    } else {
+      scheduleInit();
+    }
+  })();
 
 })();
 </script>
@@ -2945,7 +2956,6 @@ var escPageStart = 0;
       .then(function(r) { return r.json(); })
       .then(function(data) {
         ktpData = data;
-        window._ktpAllData = data;
         ktpRender(ktpData);
         // Try to get location for km display
         if (navigator.geolocation) {
@@ -3959,17 +3969,7 @@ var escPageStart = 0;
     _activeChatId = null;
   }
 
-  window.openTravelPartnerPopup = function () {
-    show('tpMainPopup');
-    document.body.style.overflow = 'hidden';
-    // Preload tourist places data for destination image matching
-    if (!window._ktpAllData || !window._ktpAllData.length) {
-      fetch('tourist places.json')
-        .then(function(r){ return r.json(); })
-        .then(function(d){ window._ktpAllData = d; })
-        .catch(function(){});
-    }
-  };
+  window.openTravelPartnerPopup = function () { show('tpMainPopup'); document.body.style.overflow = 'hidden'; };
   window.closeTravelPartnerPopup = closeAll;
 
   window.openTpSub = function (mode) {
@@ -4050,75 +4050,59 @@ var escPageStart = 0;
       html += '<div class="tp-empty">🔍 No results match your filters.<br>Try clearing filters.</div>';
     } else {
       html += `<div class="tp-results-count">${filtered.length} listing${filtered.length !== 1 ? 's' : ''} found</div><div class="tp-results">`;
-
-      // ── tourist-places image lookup (uses the same JSON the KTP section loads) ──
-      const _tpPlaces = window._ktpAllData || [];
-      function getTouristImg(destText) {
-        if (!destText || !_tpPlaces.length) return null;
-        const dl = destText.toLowerCase().trim();
-        // exact match first, then starts-with, then includes
-        let hit = _tpPlaces.find(p => (p['Place Name']||'').toLowerCase() === dl)
-               || _tpPlaces.find(p => dl.startsWith((p['Place Name']||'').toLowerCase()))
-               || _tpPlaces.find(p => (p['Place Name']||'').toLowerCase().split(' ').some(w => w.length > 3 && dl.includes(w)));
-        if (!hit) return null;
-        return 'img/tourist places/' + hit['Place Name'] + '.jpg';
-      }
-      const fallbackImg = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
-
       filtered.forEach(d => {
         const id = d._id;
         if (isP) {
-          const modeIcon  = modeEmojis[d.mode] || '🚀';
-          const imgSrc    = getTouristImg(d.dest);
-          const genderBadge = d.gender && d.gender !== 'Any' ? `<span class="tp-badge ${d.gender==='Male'?'blue':'pink'}">${d.gender} only</span>` : '';
+          const modeIcon = modeEmojis[d.mode] || '🚀';
+          const modeGrad = {Car:'grad-teal',Bus:'grad-blue',Train:'grad-green',Bike:'grad-orange',Flight:'grad-sky',Any:'grad-purple'}[d.mode] || 'grad-teal';
+          const genderBadge = d.gender && d.gender !== 'Any' ? `<span class="tp-badge ${d.gender === 'Male' ? 'blue' : 'pink'}">${d.gender} only</span>` : '';
           const budgetBadge = d.budget ? `<span class="tp-badge green">₹${escHtml(d.budget)}</span>` : '';
-          const ageBadge    = d.age    ? `<span class="tp-badge gray">${escHtml(d.age)} yrs</span>`   : '';
-          const modeBadge   = `<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode||'Any')}</span>`;
+          const ageBadge    = d.age    ? `<span class="tp-badge gray">${escHtml(d.age)} yrs</span>` : '';
           const isMyP = d.uid === _uid;
-          const avatarContent = imgSrc
-            ? `<img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.dest)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
-            : `<span class="tp-fallback-icon">${modeIcon}</span>`;
-          const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
-            <div class="${avatarClass}">${avatarContent}</div>
-            <div class="tp-result-info">
-              <div class="tp-result-name-row">
-                <span class="tp-result-name">${escHtml(d.name)}</span>
+            <div class="tp-result-avatar ${modeGrad}">
+              ${isMyP ? '<span class="tp-mine-ribbon">My Post</span>' : ''}
+              <div class="tp-result-avatar-inner">
+                <span class="tp-result-avatar-emoji">${modeIcon}</span>
+                <span class="tp-result-avatar-mode">${escHtml(d.mode||'Any')}</span>
               </div>
+            </div>
+            <div class="tp-result-info">
+              <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.name)}</span></div>
               <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
               <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats>1?'s':''}</div>
-              <div class="tp-badge-row">${modeBadge}${genderBadge}${budgetBadge}${ageBadge}</div>
+              <div class="tp-badge-row">${d.mode&&d.mode!=='Any'?`<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode)}</span>`:''}${genderBadge}${budgetBadge}${ageBadge}</div>
               ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : ''}
             </div>
             <div class="tp-result-actions">
               <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
-              ${isMyP ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','partner')">Delete</button>` : ''}
+              ${isMyP ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','partner')">✕</button>` : ''}
             </div>
           </div>`;
         } else {
-          const typeIcon  = typeEmojis[d.type] || '🎯';
-          const imgSrc    = getTouristImg(d.place);
+          const typeIcon  = typeEmojis[d.type]  || '🎯';
+          const typeGrad = {Trekking:'grad-green','Beach Trip':'grad-sky','Heritage Tour':'grad-gold',Backwater:'grad-teal',Wildlife:'grad-orange','Food Tour':'grad-red','Night Trek':'grad-night',Pilgrimage:'grad-purple','Road Trip':'grad-blue',General:'grad-teal'}[d.type] || 'grad-teal';
           const spotsLeft = d.max - (d.members || 1);
           const fullBadge = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
           const isMyM = d.uid === _uid;
-          const avatarContent = imgSrc
-            ? `<img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.place)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
-            : `<span class="tp-fallback-icon">${typeIcon}</span>`;
-          const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
-            <div class="${avatarClass}">${avatarContent}</div>
-            <div class="tp-result-info">
-              <div class="tp-result-name-row">
-                <span class="tp-result-name">${escHtml(d.mname||d.name)}</span>
+            <div class="tp-result-avatar ${typeGrad}">
+              ${isMyM ? '<span class="tp-mine-ribbon">My Post</span>' : ''}
+              <div class="tp-result-avatar-inner">
+                <span class="tp-result-avatar-emoji">${typeIcon}</span>
+                <span class="tp-result-avatar-mode">${escHtml(d.type||'General')}</span>
               </div>
+            </div>
+            <div class="tp-result-info">
+              <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.mname||d.name)}</span></div>
               <div class="tp-result-route">📍 ${escHtml(d.place)}</div>
-              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members||1}/${d.max} joined${d.cost ? ' · ₹'+escHtml(d.cost) : ''}</div>
-              <div class="tp-badge-row">${fullBadge}${d.agegroup?`<span class="tp-badge gray">👤 ${escHtml(d.agegroup)}</span>`:''}${d.lang?`<span class="tp-badge blue">🗣️ ${escHtml(d.lang)}</span>`:''}</div>
-              ${d.meetpoint ? `<div class="tp-result-desc">📍 Meet at: ${escHtml(d.meetpoint)}</div>` : (d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : '')}
+              <div class="tp-result-meta">${formatDate(d.date)} · ${d.members||1}/${d.max} joined</div>
+              <div class="tp-badge-row">${fullBadge}</div>
+              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : ''}
             </div>
             <div class="tp-result-actions">
               <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname||d.name)}')">Join</button>
-              ${isMyM ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','meetup')">Delete</button>` : ''}
+              ${isMyM ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','meetup')">✕</button>` : ''}
             </div>
           </div>`;
         }
@@ -4139,7 +4123,7 @@ var escPageStart = 0;
   window.tpApplyFilter = function () {
     const isP = _tpMode === 'partner';
     const destEl = document.getElementById('tpFilterDest');
-    const caretPos = destEl ? destEl.selectionStart : 0;
+    const cur = destEl ? destEl.selectionStart : 0;
     _filterDest = (destEl||{}).value||'';
     _filterDate = (document.getElementById('tpFilterDate')||{}).value||'';
     _filterMode = (document.getElementById('tpFilterMode')||{}).value||'';
@@ -4148,7 +4132,7 @@ var escPageStart = 0;
     renderFilteredListings(body, isP);
     requestAnimationFrame(function(){
       const nd = document.getElementById('tpFilterDest');
-      if (nd) { nd.focus(); try{ nd.setSelectionRange(caretPos,caretPos); }catch(e){} }
+      if (nd) { nd.focus(); try{nd.setSelectionRange(cur,cur);}catch(e){} }
     });
   };
 
@@ -4189,10 +4173,6 @@ var escPageStart = 0;
           <div class="tp-detail-item"><div class="tp-detail-label">👥 Members</div><div class="tp-detail-val">${d.members || 1}/${d.max}</div></div>
           <div class="tp-detail-item"><div class="tp-detail-label">🗂️ Type</div><div class="tp-detail-val">${escHtml(d.type || 'General')}</div></div>
           <div class="tp-detail-item"><div class="tp-detail-label">🟢 Spots Left</div><div class="tp-detail-val">${spotsLeft > 0 ? spotsLeft : 'Full'}</div></div>
-          ${d.cost ? `<div class="tp-detail-item"><div class="tp-detail-label">💰 Cost/Person</div><div class="tp-detail-val">₹${escHtml(d.cost)}</div></div>` : ''}
-          ${d.agegroup ? `<div class="tp-detail-item"><div class="tp-detail-label">👤 Age Group</div><div class="tp-detail-val">${escHtml(d.agegroup)}</div></div>` : ''}
-          ${d.lang ? `<div class="tp-detail-item"><div class="tp-detail-label">🗣️ Language</div><div class="tp-detail-val">${escHtml(d.lang)}</div></div>` : ''}
-          ${d.meetpoint ? `<div class="tp-detail-item"><div class="tp-detail-label">📍 Meeting Point</div><div class="tp-detail-val">${escHtml(d.meetpoint)}</div></div>` : ''}
         </div>
         ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
         ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp Organiser</a>` : ''}
@@ -4302,24 +4282,6 @@ var escPageStart = 0;
             </select>
           </div>
         </div>
-        <div class="tp-form-2col">
-          <div class="tp-form-row"><label class="tp-form-label">Meeting Point</label><input class="tp-form-input" id="tpf_meetpoint" placeholder="e.g. KSRTC Bus Stand, Munnar"></div>
-          <div class="tp-form-row"><label class="tp-form-label">Cost / Person</label><input class="tp-form-input" id="tpf_cost" type="number" placeholder="₹ approx." min="0"></div>
-        </div>
-        <div class="tp-form-2col">
-          <div class="tp-form-row"><label class="tp-form-label">Age Group</label>
-            <select class="tp-form-select" id="tpf_agegroup">
-              <option value="">Any Age</option>
-              <option>18–25</option><option>25–35</option><option>35–50</option><option>50+</option>
-            </select>
-          </div>
-          <div class="tp-form-row"><label class="tp-form-label">Language</label>
-            <select class="tp-form-select" id="tpf_lang">
-              <option value="">Any</option>
-              <option>Malayalam</option><option>English</option><option>Hindi</option><option>Tamil</option><option>Kannada</option>
-            </select>
-          </div>
-        </div>
         <div class="tp-form-row"><label class="tp-form-label">Description</label><textarea class="tp-form-textarea" id="tpf_desc" placeholder="What's the plan? Mention meeting point, what to bring, any requirements..." maxlength="400"></textarea></div>
         <div id="tpFormErr" class="tp-form-err"></div>
         <button class="tp-submit-btn blue" onclick="tpSubmitCreate()">Create Meetup 🎯</button>
@@ -4338,7 +4300,7 @@ var escPageStart = 0;
     if (isP) {
       Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), from: g('tpf_from'), dest: g('tpf_dest'), date: g('tpf_date'), seats: g('tpf_seats'), mode: g('tpf_mode') || 'Any', budget: g('tpf_budget'), gender: g('tpf_gender') || 'Any', age: g('tpf_age'), desc: g('tpf_desc') });
     } else {
-      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), mname: g('tpf_mname'), place: g('tpf_place'), date: g('tpf_date'), max: g('tpf_max'), type: g('tpf_type') || 'General', desc: g('tpf_desc'), meetpoint: g('tpf_meetpoint'), cost: g('tpf_cost'), agegroup: g('tpf_agegroup'), lang: g('tpf_lang') });
+      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), mname: g('tpf_mname'), place: g('tpf_place'), date: g('tpf_date'), max: g('tpf_max'), type: g('tpf_type') || 'General', desc: g('tpf_desc') });
     }
 
     // Basic client-side validation
@@ -4558,30 +4520,6 @@ var escPageStart = 0;
 .tp-option-text h4{font-size:14px;font-weight:700;color:#111;margin:0 0 3px;}
 .tp-option-text p{font-size:11px;color:#888;margin:0;line-height:1.4;}
 .tp-option-arrow{margin-left:auto;font-size:18px;color:#ccc;flex-shrink:0;}
-.tp-option-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
-.tp-option-tag{font-size:9.5px;font-weight:600;color:#5b6ef5;background:#eef0ff;border-radius:20px;padding:2px 8px;white-space:nowrap;}
-
-/* Meetup option card enrichments */
-.tp-option-meetup{align-items:flex-start !important;}
-.tp-option-meetup .tp-option-icon{margin-top:2px;}
-.tp-meetup-activity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px;}
-.tp-mact{display:flex;flex-direction:column;align-items:center;gap:2px;background:#f3f4ff;border-radius:10px;padding:5px 3px;font-size:14px;}
-.tp-mact span{font-size:8px;font-weight:600;color:#5b6ef5;text-align:center;line-height:1.2;}
-.tp-meetup-perks{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
-.tp-meetup-perks span{font-size:9.5px;font-weight:600;color:#007b7f;background:#e6f6f6;border-radius:20px;padding:3px 9px;}
-
-/* How it works strip */
-.tp-howitworks{background:#f8f9ff;border-radius:14px;padding:13px 14px;margin-top:4px;}
-.tp-hiw-title{font-size:11px;font-weight:700;color:#333;margin-bottom:9px;letter-spacing:0.2px;}
-.tp-hiw-steps{display:flex;flex-direction:column;gap:7px;}
-.tp-hiw-step{display:flex;align-items:flex-start;gap:10px;}
-.tp-hiw-num{width:20px;height:20px;border-radius:50%;background:#5b6ef5;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.tp-hiw-text{font-size:11px;color:#555;line-height:1.45;}
-
-/* Tips row */
-.tp-meetup-tips{display:flex;flex-direction:column;gap:6px;margin-top:4px;background:#f0faf9;border-radius:14px;padding:11px 14px;}
-.tp-tip-row{display:flex;align-items:center;gap:8px;font-size:11px;color:#444;line-height:1.4;}
-.tp-tip-icon{font-size:14px;flex-shrink:0;}
 
 /* ── Join / Create cards ── */
 .tp-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -4625,36 +4563,69 @@ var escPageStart = 0;
 .tp-result-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,123,127,0.15),0 0 0 1px rgba(0,123,127,0.08);}
 .tp-result-card:active{transform:translateY(0);box-shadow:0 1px 4px rgba(0,0,0,0.08);}
 
-/* ─ Destination photo panel ─ */
+/* ─ Gradient left panel ─ */
 .tp-result-avatar{
-  width:clamp(76px,22%,100px);
-  min-width:clamp(76px,22%,100px);
+  /* fluid width: ~22% of popup (max-width 480px) — clamp keeps it sane on tiny/large screens */
+  width:clamp(64px,20%,88px);
+  min-width:clamp(64px,20%,88px);
   flex-shrink:0;
-  position:relative;
-  overflow:hidden;
-  background:#c8dfe0;
-}
-.tp-result-avatar img.tp-dest-img{
-  width:100%;height:100%;
-  object-fit:cover;display:block;
-  transition:transform .4s ease;
-}
-.tp-result-card:hover .tp-dest-img{transform:scale(1.07);}
-/* bottom-to-top dark scrim so chip is always readable */
-.tp-result-avatar::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,0.52) 0%,rgba(0,0,0,0) 55%);
-  pointer-events:none;z-index:1;
-}
-/* fallback when no image match */
-.tp-result-avatar.tp-img-fallback{
-  background:linear-gradient(160deg,#007b7f,#00c2cc);
   display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
 }
-.tp-result-avatar.tp-img-fallback::after{display:none;}
-.tp-fallback-icon{font-size:clamp(24px,6vw,32px);position:relative;z-index:2;}
-/* keep old class names harmless */
-.tp-result-avatar-inner,.tp-result-avatar-emoji,.tp-result-avatar-mode{display:none;}
+.tp-result-avatar.grad-teal   {background:linear-gradient(160deg,#007b7f,#00c2cc);}
+.tp-result-avatar.grad-blue   {background:linear-gradient(160deg,#1a56a8,#3a8ef6);}
+.tp-result-avatar.grad-green  {background:linear-gradient(160deg,#1b7a4a,#42d68a);}
+.tp-result-avatar.grad-orange {background:linear-gradient(160deg,#b34d00,#ff8c38);}
+.tp-result-avatar.grad-purple {background:linear-gradient(160deg,#5b2d8e,#a063d4);}
+.tp-result-avatar.grad-pink   {background:linear-gradient(160deg,#9c1a5a,#e85fa0);}
+.tp-result-avatar.grad-night  {background:linear-gradient(160deg,#1a1a2e,#4a4a8a);}
+.tp-result-avatar.grad-gold   {background:linear-gradient(160deg,#7a5000,#f0b429);}
+.tp-result-avatar.grad-red    {background:linear-gradient(160deg,#8b0000,#e84040);}
+.tp-result-avatar.grad-sky    {background:linear-gradient(160deg,#0a5c87,#38bdf8);}
+
+/* decorative circles */
+.tp-result-avatar::before{content:'';position:absolute;top:-14px;right:-14px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,0.12);pointer-events:none;}
+.tp-result-avatar::after {content:'';position:absolute;bottom:-12px;left:-8px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.09);pointer-events:none;}
+
+.tp-result-avatar-inner{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;padding:8px 4px;
+}
+.tp-result-avatar-emoji{
+  font-size:clamp(20px,5vw,26px);
+  line-height:1;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,0.25));
+}
+.tp-result-avatar-mode{
+  font-size:clamp(7px,1.8vw,8.5px);
+  font-weight:700;
+  color:rgba(255,255,255,0.92);
+  letter-spacing:0.3px;
+  text-transform:uppercase;
+  background:rgba(0,0,0,0.22);
+  border-radius:20px;
+  padding:2px 6px;
+  white-space:nowrap;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  text-align:center;
+}
+
+/* "My Post" badge — small pill top-right, fully responsive */
+.tp-mine-ribbon{
+  position:absolute;top:6px;right:6px;z-index:4;
+  font-size:8px;font-weight:800;
+  color:#fff !important;letter-spacing:0.4px;text-transform:uppercase;
+  background:rgba(0,0,0,0.5);
+  padding:3px 8px;border-radius:20px;
+  backdrop-filter:blur(6px);
+  white-space:nowrap;line-height:1.4;
+  pointer-events:none;
+  max-width:calc(100% - 12px);
+  overflow:hidden;text-overflow:ellipsis;
+}
 
 /* ─ Card info — flex:1, all text fits with overflow safety ─ */
 .tp-result-info{
@@ -4696,7 +4667,7 @@ var escPageStart = 0;
   line-height:1.3;
   overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
   min-width:0;
-  margin-top:7px;
+  margin-top:1px;
 }
 
 /* ─ Badge row — wraps tightly ─ */
@@ -4863,11 +4834,11 @@ var escPageStart = 0;
         </div>
         <div class="tp-option-arrow">›</div>
       </div>
-      <div class="tp-option tp-option-meetup" onclick="openTpSub('meetup')">
+      <div class="tp-option" onclick="openTpSub('meetup')">
         <div class="tp-option-icon" style="background:#eef3ff;">🎯</div>
         <div class="tp-option-text">
           <h4>Strangers Meetup</h4>
-          <p>Create or join group adventures with travellers nearby. Meet, explore, bond.</p>
+          <p>Join group trips and meetups with travellers near you. Make new friends.</p>
         </div>
         <div class="tp-option-arrow">›</div>
       </div>
@@ -4893,20 +4864,12 @@ var escPageStart = 0;
         <div class="tp-action-card join" onclick="openTpAction('join')">
           <div class="tp-action-emoji">🔍</div>
           <div class="tp-action-label">Browse</div>
-          <div class="tp-action-desc">Find & join existing meetups near you</div>
+          <div class="tp-action-desc">Find & join existing trips or meetups</div>
         </div>
         <div class="tp-action-card create" onclick="openTpAction('create')">
           <div class="tp-action-emoji">✏️</div>
           <div class="tp-action-label">Create</div>
-          <div class="tp-action-desc">Organise a group trip and invite travellers</div>
-        </div>
-      </div>
-      <div class="tp-howitworks" id="tpHowItWorks">
-        <div class="tp-hiw-title">How it works</div>
-        <div class="tp-hiw-steps">
-          <div class="tp-hiw-step"><div class="tp-hiw-num">1</div><div class="tp-hiw-text">Browse meetups or create your own group trip</div></div>
-          <div class="tp-hiw-step"><div class="tp-hiw-num">2</div><div class="tp-hiw-text">Join the group chat and coordinate with others</div></div>
-          <div class="tp-hiw-step"><div class="tp-hiw-num">3</div><div class="tp-hiw-text">Meet at the location and explore together 🎉</div></div>
+          <div class="tp-action-desc">Post your trip and invite others</div>
         </div>
       </div>
     </div>
