@@ -1430,7 +1430,7 @@ window.closeAboutPopup = function() {
     if (_ktpAllData.length) { cb(_ktpAllData); return; }
     fetch('tourist places.json')
       .then(function(r){ return r.json(); })
-      .then(function(d){ _ktpAllData = d; cb(d); })
+      .then(function(d){ _ktpAllData = d; window._ktpAllData = d; cb(d); })
       .catch(function(){ cb([]); });
   }
 
@@ -2964,6 +2964,7 @@ var escPageStart = 0;
       .then(function(r) { return r.json(); })
       .then(function(data) {
         ktpData = data;
+        window._ktpAllData = data;
         ktpRender(ktpData);
         // Try to get location for km display
         if (navigator.geolocation) {
@@ -3954,6 +3955,23 @@ var escPageStart = 0;
   // Filters state
   let _filterDest = '', _filterDate = '', _filterMode = '', _filterType = '';
   let _allListings = [];
+  let _tpPlacesCache = [];   // local cache of tourist places JSON for image lookup
+
+  // Fetch tourist places JSON for listing card images (cached after first load)
+  function _tpLoadPlaces(cb) {
+    if (window._ktpAllData && window._ktpAllData.length) {
+      _tpPlacesCache = window._ktpAllData; if (cb) cb(); return;
+    }
+    if (_tpPlacesCache.length) { if (cb) cb(); return; }
+    fetch('tourist places.json')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        _tpPlacesCache = Array.isArray(d) ? d : [];
+        window._ktpAllData = _tpPlacesCache;
+        if (cb) cb();
+      })
+      .catch(function(){ if (cb) cb(); });
+  }
 
   function show(id) { const el = document.getElementById(id); if (el) el.style.display = 'flex'; }
   function hide(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
@@ -3977,7 +3995,7 @@ var escPageStart = 0;
     _activeChatId = null;
   }
 
-  window.openTravelPartnerPopup = function () { show('tpMainPopup'); document.body.style.overflow = 'hidden'; };
+  window.openTravelPartnerPopup = function () { show('tpMainPopup'); document.body.style.overflow = 'hidden'; _tpLoadPlaces(); };
   window.closeTravelPartnerPopup = closeAll;
 
   window.openTpSub = function (mode) {
@@ -4065,18 +4083,16 @@ var escPageStart = 0;
       html += `<div class="tp-results-count">${filtered.length} listing${filtered.length !== 1 ? 's' : ''} found</div><div class="tp-results">`;
 
       // ── tourist-places image lookup ──────────────────────────────
-      const _tpPlaces = window._ktpAllData || [];
+      const _tpPlaces = window._ktpAllData || _tpPlacesCache;
       const fallbackImg = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
       function getTouristImg(destText) {
         if (!destText || !_tpPlaces.length) return null;
         const dl = destText.toLowerCase().trim();
-        return (_tpPlaces.find(p => (p['Place Name']||'').toLowerCase() === dl)
-             || _tpPlaces.find(p => dl.startsWith((p['Place Name']||'').toLowerCase()))
-             || _tpPlaces.find(p => (p['Place Name']||'').toLowerCase().split(' ').some(w => w.length > 3 && dl.includes(w))))
-          ? 'img/tourist places/' + (_tpPlaces.find(p => (p['Place Name']||'').toLowerCase() === dl)
-             || _tpPlaces.find(p => dl.startsWith((p['Place Name']||'').toLowerCase()))
-             || _tpPlaces.find(p => (p['Place Name']||'').toLowerCase().split(' ').some(w => w.length > 3 && dl.includes(w))))['Place Name'] + '.jpg'
-          : null;
+        const hit = _tpPlaces.find(p => (p['Place Name']||'').toLowerCase() === dl)
+                 || _tpPlaces.find(p => dl.startsWith((p['Place Name']||'').toLowerCase()))
+                 || _tpPlaces.find(p => dl.includes((p['Place Name']||'').toLowerCase()))
+                 || _tpPlaces.find(p => (p['Place Name']||'').toLowerCase().split(' ').some(w => w.length > 3 && dl.includes(w)));
+        return hit ? 'img/tourist places/' + hit['Place Name'] + '.jpg' : null;
       }
 
       filtered.forEach(d => {
