@@ -2871,8 +2871,9 @@ var escPageStart = 0;
     var safeName = place["Place Name"].replace(/'/g, "&#39;");
     var imgSrc = ktpImgSrc(place["Place Name"]);
     var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
+    var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
     return '<div class="ktp-card ' + sz + '" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
-      '<img data-src="' + imgSrc + '" alt="' + safeName + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" onload="this.classList.add(\'img-loaded\')" onerror="this.onerror=null;this.classList.add(\'img-loaded\');this.src=\'' + fallback + '\'">' +
+      '<img src="' + imgSrc + '" alt="' + safeName + '" loading="lazy" decoding="async" class="img-loaded" onerror="this.onerror=null;this.src=\'' + fallback + '\'">' +
       '<div class="ktp-card-overlay"></div>' +
       '<div class="ktp-card-body">' +
         '<div class="ktp-card-left">' +
@@ -4087,29 +4088,31 @@ var escPageStart = 0;
             </div>
           </div>`;
         } else {
-          const typeIcon  = typeEmojis[d.type]  || '🎯';
-          const typeGrad = {Trekking:'grad-green','Beach Trip':'grad-sky','Heritage Tour':'grad-gold',Backwater:'grad-teal',Wildlife:'grad-orange','Food Tour':'grad-red','Night Trek':'grad-night',Pilgrimage:'grad-purple','Road Trip':'grad-blue',General:'grad-teal'}[d.type] || 'grad-teal';
-          const spotsLeft = d.max - (d.members || 1);
-          const fullBadge = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
+          const typeIcon    = typeEmojis[d.type] || '🎯';
+          const imgSrc      = getTouristImg(d.place);
+          const spotsLeft   = d.max - (d.members || 1);
+          const fullBadge   = spotsLeft <= 0 ? '<span class="tp-badge red">Full</span>' : spotsLeft <= 3 ? `<span class="tp-badge orange">${spotsLeft} spots left</span>` : `<span class="tp-badge green">${spotsLeft} spots open</span>`;
+          const typeBadge   = `<span class="tp-badge gray">${escHtml(d.type||'General')}</span>`;
+          const costBadge   = d.cost     ? `<span class="tp-badge green">₹${escHtml(d.cost)}</span>`     : '';
+          const ageBadge    = d.agegroup ? `<span class="tp-badge gray">👤 ${escHtml(d.agegroup)}</span>` : '';
+          const langBadge   = d.lang     ? `<span class="tp-badge blue">🗣️ ${escHtml(d.lang)}</span>`    : '';
           const isMyM = d.uid === _uid;
+          const avatarContent = imgSrc
+            ? `<img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.place)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
+            : `<span class="tp-fallback-icon">${typeIcon}</span>`;
+          const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
-            <div class="tp-result-avatar ${typeGrad}">
-              ${isMyM ? '<span class="tp-mine-ribbon">My Post</span>' : ''}
-              <div class="tp-result-avatar-inner">
-                <span class="tp-result-avatar-emoji">${typeIcon}</span>
-                <span class="tp-result-avatar-mode">${escHtml(d.type||'General')}</span>
-              </div>
-            </div>
+            <div class="${avatarClass}">${avatarContent}</div>
             <div class="tp-result-info">
               <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.mname||d.name)}</span></div>
               <div class="tp-result-route">📍 ${escHtml(d.place)}</div>
               <div class="tp-result-meta">${formatDate(d.date)} · ${d.members||1}/${d.max} joined</div>
-              <div class="tp-badge-row">${fullBadge}</div>
-              ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : ''}
+              <div class="tp-badge-row">${fullBadge}${typeBadge}${costBadge}${ageBadge}${langBadge}</div>
+              ${d.meetpoint ? `<div class="tp-result-desc">📍 ${escHtml(d.meetpoint)}</div>` : d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : ''}
             </div>
             <div class="tp-result-actions">
               <button class="tp-result-btn blue" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.mname||d.name)}')">Join</button>
-              ${isMyM ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','meetup')">✕</button>` : ''}
+              ${isMyM ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','meetup')">Delete</button>` : ''}
             </div>
           </div>`;
         }
