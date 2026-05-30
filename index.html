@@ -4001,6 +4001,7 @@ var escPageStart = 0;
 
   // ── RENDER ACTION BODY ─────────────────────────────────────
   async function renderTpActionBody() {
+    window.renderTpActionBody = renderTpActionBody;
     const body = document.getElementById('tpActionBody');
     const isP  = _tpMode === 'partner', isJ = _tpAction === 'join';
 
@@ -4009,14 +4010,18 @@ var escPageStart = 0;
       try {
         const endpoint = isP ? `${API_BASE}/api/listings/partners` : `${API_BASE}/api/listings/meetups`;
         const res  = await fetch(endpoint, { headers: { 'Accept': 'application/json' } });
-        if (!res.ok) throw new Error('Server error');
+        if (!res.ok) {
+          let errMsg = `Server error ${res.status}`;
+          try { const j = await res.json(); errMsg = j.error || errMsg; } catch(e2) {}
+          throw new Error(errMsg);
+        }
         const json = await res.json();
         _allListings = (json.ok && json.data) ? json.data : [];
         if (!_allListings.length) { body.innerHTML = '<div class="tp-empty">😶 No listings yet.<br>Be the first to post!</div>'; return; }
         renderFilteredListings(body, isP);
       } catch (e) {
-        console.error(e);
-        body.innerHTML = '<div class="tp-empty">⚠️ Could not load listings.<br>Check your connection.</div>';
+        console.error('[Browse error]', e);
+        body.innerHTML = `<div class="tp-empty">⚠️ Could not load listings.<br><small style="color:#aaa;font-size:10px;">${e.message}</small><br><br><button class="tp-result-btn" style="width:auto;padding:8px 18px;font-size:12px;" onclick="renderTpActionBody()">Retry</button></div>`;
       }
     } else {
       renderCreateForm(body, _tpMode === 'partner');
