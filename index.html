@@ -4063,33 +4063,48 @@ var escPageStart = 0;
       html += '<div class="tp-empty">🔍 No results match your filters.<br>Try clearing filters.</div>';
     } else {
       html += `<div class="tp-results-count">${filtered.length} listing${filtered.length !== 1 ? 's' : ''} found</div><div class="tp-results">`;
+
+      // ── tourist-places image lookup ──────────────────────────────
+      const _tpPlaces = window._ktpAllData || [];
+      const fallbackImg = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
+      function getTouristImg(destText) {
+        if (!destText || !_tpPlaces.length) return null;
+        const dl = destText.toLowerCase().trim();
+        return (_tpPlaces.find(p => (p['Place Name']||'').toLowerCase() === dl)
+             || _tpPlaces.find(p => dl.startsWith((p['Place Name']||'').toLowerCase()))
+             || _tpPlaces.find(p => (p['Place Name']||'').toLowerCase().split(' ').some(w => w.length > 3 && dl.includes(w))))
+          ? 'img/tourist places/' + (_tpPlaces.find(p => (p['Place Name']||'').toLowerCase() === dl)
+             || _tpPlaces.find(p => dl.startsWith((p['Place Name']||'').toLowerCase()))
+             || _tpPlaces.find(p => (p['Place Name']||'').toLowerCase().split(' ').some(w => w.length > 3 && dl.includes(w))))['Place Name'] + '.jpg'
+          : null;
+      }
+
       filtered.forEach(d => {
         const id = d._id;
         if (isP) {
-          const modeIcon = modeEmojis[d.mode] || '🚀';
-          const modeGrad = {Car:'grad-teal',Bus:'grad-blue',Train:'grad-green',Bike:'grad-orange',Flight:'grad-sky',Any:'grad-purple'}[d.mode] || 'grad-teal';
+          const modeIcon    = modeEmojis[d.mode] || '🚀';
+          const imgSrc      = getTouristImg(d.dest);
           const genderBadge = d.gender && d.gender !== 'Any' ? `<span class="tp-badge ${d.gender === 'Male' ? 'blue' : 'pink'}">${d.gender} only</span>` : '';
           const budgetBadge = d.budget ? `<span class="tp-badge green">₹${escHtml(d.budget)}</span>` : '';
           const ageBadge    = d.age    ? `<span class="tp-badge gray">${escHtml(d.age)} yrs</span>` : '';
+          const modeBadge   = d.mode && d.mode !== 'Any' ? `<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode)}</span>` : '';
           const isMyP = d.uid === _uid;
+          const avatarContent = imgSrc
+            ? `<img class="tp-dest-img" src="${imgSrc}" loading="lazy" decoding="async" alt="${escHtml(d.dest)}" onerror="this.onerror=null;this.src='${fallbackImg}'">`
+            : `<span class="tp-fallback-icon">${modeIcon}</span>`;
+          const avatarClass = imgSrc ? 'tp-result-avatar' : 'tp-result-avatar tp-img-fallback';
           html += `<div class="tp-result-card" onclick="openTpDetail('${escHtml(id)}')">
-            <div class="tp-result-avatar ${modeGrad}">
-              ${isMyP ? '<span class="tp-mine-ribbon">My Post</span>' : ''}
-              <div class="tp-result-avatar-inner">
-                <span class="tp-result-avatar-emoji">${modeIcon}</span>
-                <span class="tp-result-avatar-mode">${escHtml(d.mode||'Any')}</span>
-              </div>
-            </div>
+            <div class="${avatarClass}">${avatarContent}</div>
             <div class="tp-result-info">
               <div class="tp-result-name-row"><span class="tp-result-name">${escHtml(d.name)}</span></div>
               <div class="tp-result-route">${escHtml(d.from)} <span class="tp-arrow">→</span> ${escHtml(d.dest)}</div>
               <div class="tp-result-meta">${formatDate(d.date)} · ${d.seats} seat${d.seats>1?'s':''}</div>
-              <div class="tp-badge-row">${d.mode&&d.mode!=='Any'?`<span class="tp-badge mode">${modeIcon} ${escHtml(d.mode)}</span>`:''}${genderBadge}${budgetBadge}${ageBadge}</div>
+              <div class="tp-badge-row">${modeBadge}${genderBadge}${budgetBadge}${ageBadge}</div>
               ${d.desc ? `<div class="tp-result-desc">${escHtml(d.desc.substring(0,70))}${d.desc.length>70?'...':''}</div>` : ''}
             </div>
             <div class="tp-result-actions">
               <button class="tp-result-btn" onclick="event.stopPropagation();openTpChat('${escHtml(id)}','${escHtml(d.name)}')">Chat</button>
-              ${isMyP ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','partner')">✕</button>` : ''}
+              ${isMyP ? `<button class="tp-del-btn" onclick="event.stopPropagation();tpDeletePost('${escHtml(id)}','partner')">Delete</button>` : ''}
             </div>
           </div>`;
         } else {
