@@ -4292,7 +4292,25 @@ var escPageStart = 0;
             </select>
           </div>
         </div>
-        <div class="tp-form-row"><label class="tp-form-label">Description</label><textarea class="tp-form-textarea" id="tpf_desc" placeholder="What's the plan? Mention meeting point, what to bring, any requirements..." maxlength="400"></textarea></div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Cost / Person (₹)</label><input class="tp-form-input" id="tpf_cost" type="number" placeholder="e.g. 500" min="0"></div>
+          <div class="tp-form-row"><label class="tp-form-label">Age Group</label>
+            <select class="tp-form-select" id="tpf_agegroup">
+              <option value="">Any Age</option>
+              <option>18–25</option><option>25–35</option><option>35–50</option><option>50+</option>
+            </select>
+          </div>
+        </div>
+        <div class="tp-form-2col">
+          <div class="tp-form-row"><label class="tp-form-label">Language</label>
+            <select class="tp-form-select" id="tpf_lang">
+              <option value="">Any</option>
+              <option>Malayalam</option><option>English</option><option>Hindi</option><option>Tamil</option><option>Kannada</option>
+            </select>
+          </div>
+          <div class="tp-form-row"><label class="tp-form-label">Meeting Point</label><input class="tp-form-input" id="tpf_meetpoint" placeholder="e.g. KSRTC Bus Stand"></div>
+        </div>
+        <div class="tp-form-row"><label class="tp-form-label">Description</label><textarea class="tp-form-textarea" id="tpf_desc" placeholder="What's the plan? What to bring, any requirements..." maxlength="400"></textarea></div>
         <div id="tpFormErr" class="tp-form-err"></div>
         <button class="tp-submit-btn blue" onclick="tpSubmitCreate()">Create Meetup 🎯</button>
       </div>`;
@@ -4310,7 +4328,7 @@ var escPageStart = 0;
     if (isP) {
       Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), from: g('tpf_from'), dest: g('tpf_dest'), date: g('tpf_date'), seats: g('tpf_seats'), mode: g('tpf_mode') || 'Any', budget: g('tpf_budget'), gender: g('tpf_gender') || 'Any', age: g('tpf_age'), desc: g('tpf_desc') });
     } else {
-      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), mname: g('tpf_mname'), place: g('tpf_place'), date: g('tpf_date'), max: g('tpf_max'), type: g('tpf_type') || 'General', desc: g('tpf_desc') });
+      Object.assign(payload, { name: g('tpf_name'), phone: g('tpf_phone'), mname: g('tpf_mname'), place: g('tpf_place'), date: g('tpf_date'), max: g('tpf_max'), type: g('tpf_type') || 'General', cost: g('tpf_cost'), agegroup: g('tpf_agegroup'), lang: g('tpf_lang'), meetpoint: g('tpf_meetpoint'), desc: g('tpf_desc') });
     }
 
     // Basic client-side validation
