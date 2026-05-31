@@ -4203,12 +4203,17 @@ var escPageStart = 0;
         <div class="tp-detail-name">${escHtml(d.mname || d.name)}</div>
         <div class="tp-detail-route">📍 ${escHtml(d.place)}</div>
         <div class="tp-detail-grid">
+          <div class="tp-detail-item"><div class="tp-detail-label">👤 Organiser</div><div class="tp-detail-val">${escHtml(d.name)}</div></div>
           <div class="tp-detail-item"><div class="tp-detail-label">📅 Date</div><div class="tp-detail-val">${formatDate(d.date)}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">👥 Members</div><div class="tp-detail-val">${d.members || 1}/${d.max}</div></div>
-          <div class="tp-detail-item"><div class="tp-detail-label">🗂️ Type</div><div class="tp-detail-val">${escHtml(d.type || 'General')}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">👥 Members</div><div class="tp-detail-val">${d.members||1}/${d.max}</div></div>
           <div class="tp-detail-item"><div class="tp-detail-label">🟢 Spots Left</div><div class="tp-detail-val">${spotsLeft > 0 ? spotsLeft : 'Full'}</div></div>
+          <div class="tp-detail-item"><div class="tp-detail-label">🗂️ Type</div><div class="tp-detail-val">${escHtml(d.type||'General')}</div></div>
+          ${d.cost     ? `<div class="tp-detail-item"><div class="tp-detail-label">💰 Cost/Person</div><div class="tp-detail-val">₹${escHtml(d.cost)}</div></div>` : ''}
+          ${d.agegroup ? `<div class="tp-detail-item"><div class="tp-detail-label">🎂 Age Group</div><div class="tp-detail-val">${escHtml(d.agegroup)}</div></div>` : ''}
+          ${d.lang     ? `<div class="tp-detail-item"><div class="tp-detail-label">🗣️ Language</div><div class="tp-detail-val">${escHtml(d.lang)}</div></div>` : ''}
+          ${d.meetpoint? `<div class="tp-detail-item" style="grid-column:1/-1"><div class="tp-detail-label">📍 Meeting Point</div><div class="tp-detail-val">${escHtml(d.meetpoint)}</div></div>` : ''}
         </div>
-        ${d.desc ? `<div class="tp-detail-desc">${escHtml(d.desc)}</div>` : ''}
+        ${d.desc ? `<div class="tp-detail-desc"><strong>📝 About</strong><br>${escHtml(d.desc)}</div>` : ''}
         ${d.phone ? `<a class="tp-whatsapp-btn" href="https://wa.me/${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp Organiser</a>` : ''}
         ${spotsLeft > 0
           ? `<button class="tp-submit-btn blue" onclick="closeTpDetail();openTpChat('${escHtml(id)}','${escHtml(d.mname || d.name)}')">Join Group Chat 🎯</button>`
