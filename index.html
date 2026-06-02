@@ -309,6 +309,9 @@
         @media (max-width: 400px) {
           .ktp-masonry { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 58px; gap: 5px; }
         }
+        @media (min-width: 401px) and (max-width: 599px) {
+          .ktp-masonry { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 62px; gap: 6px; }
+        }
         @media (min-width: 700px) {
           .ktp-masonry { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 70px; gap: 8px; }
         }
@@ -346,6 +349,22 @@
         .ktp-dir-btn svg { width: 11px; height: 11px; min-width: 11px; display: block; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
         @keyframes ktpFadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         .ktp-card { animation: ktpFadeUp 0.35s ease both; }
+        /* Shimmer skeleton while image lazy-loads */
+        @keyframes ktpShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+        .ktp-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, #e0e0e0 25%, #ececec 50%, #e0e0e0 75%);
+          background-size: 200% 100%;
+          animation: ktpShimmer 1.4s infinite;
+          border-radius: inherit;
+          z-index: 0;
+        }
+        .ktp-card img.img-loaded ~ .ktp-card-overlay,
+        .ktp-card img.img-loaded ~ .ktp-card-body { z-index: 2; }
+        .ktp-card-overlay, .ktp-card-body { z-index: 2; }
+        .ktp-card img { z-index: 1; }
 
         /* --- CURRENCY POPUP --- */
         .currency-popup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.38);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:12000;padding:clamp(10px,4vw,24px);}
@@ -2873,7 +2892,7 @@ var escPageStart = 0;
     var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
     var fallback = 'https://images.unsplash.com/photo-1580554996365-1409163f73e2?w=300&q=70&fm=webp';
     return '<div class="ktp-card ' + sz + '" onclick="window.open(\'' + mapUrl + '\',\'_blank\')">' +
-      '<img src="' + imgSrc + '" alt="' + safeName + '" loading="lazy" decoding="async" class="img-loaded" onerror="this.onerror=null;this.src=\'' + fallback + '\'">' +
+      '<img data-src="' + imgSrc + '" src="" alt="' + safeName + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'' + fallback + '\';this.classList.add(\'img-loaded\')">' +
       '<div class="ktp-card-overlay"></div>' +
       '<div class="ktp-card-body">' +
         '<div class="ktp-card-left">' +
