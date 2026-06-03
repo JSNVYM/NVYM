@@ -302,9 +302,12 @@
         @media (max-width: 400px) { .ktp-section { margin: 32px 10px 28px; } }
         .ktp-masonry {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           grid-auto-rows: 62px;
           gap: 6px;
+        }
+        @media (max-width: 699px) {
+          .ktp-masonry { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 60px; gap: 5px; }
         }
         @media (max-width: 400px) {
           .ktp-masonry { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 58px; gap: 5px; }
