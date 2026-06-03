@@ -2309,6 +2309,26 @@ function findNearby(type){
   } else {
     window.addEventListener('load', function(){ requestAnimationFrame(startTimer); });
   }
+
+  // Fix: snap to nearest whole card after orientation change or resize
+  function snapToCard() {
+    stopTimer();
+    requestAnimationFrame(function() {
+      var s = getStep(), sw = getSetWidth();
+      offsetX = offsetX % sw;
+      if (offsetX < 0) offsetX += sw;
+      offsetX = Math.round(offsetX / s) * s;
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(-' + offsetX + 'px)';
+      isTransitioning = false;
+      setTimeout(startTimer, 400);
+    });
+  }
+  window.addEventListener('orientationchange', function() { setTimeout(snapToCard, 300); });
+  window.addEventListener('resize', (function() {
+    var _rt;
+    return function() { clearTimeout(_rt); _rt = setTimeout(snapToCard, 250); };
+  })());
 })();
 
 /* --- TOOLBAR SCROLL FUNCTION --- */
