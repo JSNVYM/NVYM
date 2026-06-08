@@ -278,7 +278,6 @@
         .ny-card:nth-child(5){animation-delay:.20s} .ny-card:nth-child(6){animation-delay:.24s}
         .ny-card:nth-child(7){animation-delay:.28s} .ny-card:nth-child(n+8){animation-delay:.32s}
         @media (max-width: 400px) { .ny-card { min-width: 74px; } .ny-shimmer { min-width: 74px; } .ny-name { font-size: 10px; } }
-        @media (min-width: 401px) and (max-width: 699px) { .ny-card { min-width: 95px; } .ny-shimmer { min-width: 95px; } }
         @media (min-width: 700px) { .ny-card { min-width: 100px; max-width: 140px; } .ny-shimmer { min-width: 100px; max-width: 140px; } }
 
         /* --- KERALA TOURIST PLACES SECTION --- */
@@ -306,9 +305,6 @@
           grid-template-columns: repeat(3, 1fr);
           grid-auto-rows: 62px;
           gap: 6px;
-        }
-        @media (max-width: 699px) {
-          .ktp-masonry { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 60px; gap: 5px; }
         }
         @media (max-width: 400px) {
           .ktp-masonry { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 58px; gap: 5px; }
@@ -638,7 +634,7 @@
 </head>
 <body>
 
-<div class="navbar"><div class="nav-inner"><div class="logo"><img src="img/logo/Yathra Map Logo PNG.png" loading="eager" fetchpriority="high" decoding="sync"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span>Insta Feed</span><span onclick="openAboutPopup()">About</span></div><div class="search-icon" onclick="openSearchPopup()"><img src="img/icons/search.png" alt="Search" width="24" height="24" style="display:block;"></div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg" fetchpriority="high" decoding="async" loading="eager" width="1200" height="450"></div>    <div class="hero-slide"><img data-src="img/hero6.jpg" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>    <div class="hero-slide"><img data-src="img/hero7.png" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>    <div class="hero-slide"><img data-src="img/hero9.jpg" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img src="img/icons/beach.png" loading="eager" decoding="sync"><p>Beaches</p></div>    <div class="card-btn"><img src="img/icons/mountain.png" loading="eager" decoding="sync"><p>Mountains</p></div>    <div class="card-btn"><img src="img/icons/backwater.png" loading="eager" decoding="sync"><p>Backwater</p></div>    <div class="card-btn"><img src="img/icons/wildlife.png" loading="eager" decoding="sync"><p>Wildlife</p></div>    <div class="card-btn"><img src="img/icons/adventure.png" loading="eager" decoding="sync"><p>Adventure</p></div>    <div class="card-btn"><img src="img/icons/waterfall.png" loading="eager" decoding="sync"><p>Waterfalls</p></div>    <div class="card-btn"><img src="img/icons/culture.png" loading="eager" decoding="sync"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img src="img/icons/fuel.png" loading="eager" decoding="sync"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img src="img/icons/emergency.png" loading="eager" decoding="sync"><p>Emergency</p></div>    <div class="card-btn" onclick="openStayPopup()"><img src="img/icons/stay.png" loading="eager" decoding="sync"><p>Stay</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img src="img/icons/transport.png" loading="eager" decoding="sync"><p>Transport</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img src="img/icons/help.png" loading="eager" decoding="sync"><p>Help</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img src="img/icons/eat.png" loading="eager" decoding="sync"><p>Eat</p></div>    <div class="card-btn" onclick="findRestStops()"><img src="img/icons/pit stop.png" loading="eager" decoding="sync"><p>Pit Stop</p></div>  </div></div>
+<div class="navbar"><div class="nav-inner"><div class="logo"><img src="img/logo/Yathra Map Logo PNG.png" loading="eager" fetchpriority="high" decoding="sync"></div><div class="nav-center"><span>Home</span><span>Plan Your Trip</span><span>Explore</span><span onclick="openUploadPopup()">Upload</span><span onclick="openAboutPopup()">About</span></div><div class="search-icon" onclick="openSearchPopup()"><img src="img/icons/search.png" alt="Search" width="24" height="24" style="display:block;"></div></div></div><div class="hero">  <div class="hero-track" id="heroTrack">    <div class="hero-slide"><img src="img/hero1.jpg" fetchpriority="high" decoding="async" loading="eager" width="1200" height="450"></div>    <div class="hero-slide"><img data-src="img/hero6.jpg" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>    <div class="hero-slide"><img data-src="img/hero7.png" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>    <div class="hero-slide"><img data-src="img/hero9.jpg" src="" decoding="async" fetchpriority="low" width="1200" height="450" class="hero-lazy" alt=""></div>  </div>  <div class="hero-text">Discover Kerala with Yathra Map</div>  </div><div class="category">  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn"><img src="img/icons/beach.png" loading="eager" decoding="sync"><p>Beaches</p></div>    <div class="card-btn"><img src="img/icons/mountain.png" loading="eager" decoding="sync"><p>Mountains</p></div>    <div class="card-btn"><img src="img/icons/backwater.png" loading="eager" decoding="sync"><p>Backwater</p></div>    <div class="card-btn"><img src="img/icons/wildlife.png" loading="eager" decoding="sync"><p>Wildlife</p></div>    <div class="card-btn"><img src="img/icons/adventure.png" loading="eager" decoding="sync"><p>Adventure</p></div>    <div class="card-btn"><img src="img/icons/waterfall.png" loading="eager" decoding="sync"><p>Waterfalls</p></div>    <div class="card-btn"><img src="img/icons/culture.png" loading="eager" decoding="sync"><p>Culture</p></div>  </div>  <div class="card-row">    <div class="scroll-indicator">›</div>    <div class="card-btn" onclick="openPopup()"><img src="img/icons/fuel.png" loading="eager" decoding="sync"><p>Fuel</p></div>    <div class="card-btn" onclick="openEmergencyPopup()"><img src="img/icons/emergency.png" loading="eager" decoding="sync"><p>Emergency</p></div>    <div class="card-btn" onclick="findRestStops()"><img src="img/icons/pit stop.png" loading="eager" decoding="sync"><p>Pit Stop</p></div>    <div class="card-btn" onclick="findFoodSpot()"><img src="img/icons/eat.png" loading="eager" decoding="sync"><p>Eat</p></div>    <div class="card-btn" onclick="findStaySpot()"><img src="img/icons/stay.png" loading="eager" decoding="sync"><p>Stay</p></div>    <div class="card-btn" onclick="openHelpPopup()"><img src="img/icons/help.png" loading="eager" decoding="sync"><p>Help</p></div>    <div class="card-btn" onclick="openTransportPopup()"><img src="img/icons/transport.png" loading="eager" decoding="sync"><p>Transport</p></div>  </div></div>
 
 <div class="internal-popup" id="metroTimingPopup" onclick="this.style.display='none'">
     <div class="internal-box" onclick="event.stopPropagation()">
@@ -713,7 +709,7 @@
 	<div class="transport-item" onclick="findNearby('ferry boat service')"><img src="img/icons/ferry and boat.png"><p>Ferry/Boat</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Tourist Bus', 'tourist bus service')"><img src="img/icons/tourist bus.png"><p>Tourist Bus</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Traveller', 'tempo traveller rental')"><img src="img/icons/traveller.png"><p>Traveller</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Mini Bus', 'mini bus rental')"><img src="img/icons/mini bus.png"><p>KSRTC Packages</p></div>
+	<div class="transport-item" onclick="openGenericProvider('Mini Bus', 'mini bus rental')"><img src="img/icons/mini bus.png"><p>Mini Bus</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Mini Goods', 'mini goods truck')"><img src="img/icons/mini goods.png"><p>Mini Goods</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img src="img/icons/bike rental.png"><p>Bike Rental</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img src="img/icons/car rental.png"><p>Car Rental</p></div>
@@ -769,8 +765,6 @@
 
 <div class="popup-overlay" id="popup" onclick="closePopup()">  <div class="popup-box" onclick="event.stopPropagation()">    <h3>Find Nearby</h3>    <div class="popup-grid">      <div class="popup-item" onclick="findNearby('petrol pumps')"><img src="img/icons/petrol.png"><p>Petrol</p></div>      <div class="popup-item" onclick="findNearby('EV charging')"><img src="img/icons/ev.png"><p>EV</p></div>      <div class="popup-item" onclick="findNearby('CNG stations')"><img src="img/icons/cng.png"><p>CNG</p></div>    </div>    <button class="popup-close" onclick="closePopup()">Close</button>  </div></div>
 
-<style>#epassPopup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}#epassBox{background:#fff;border-radius:18px;padding:18px 16px 14px;width:92%;max-width:340px;box-shadow:0 8px 32px rgba(0,0,0,0.18);animation:slideUp .25s ease;}#epassBox h3{text-align:center;font-size:14px;font-weight:700;color:#111;margin:0 0 2px;}#epassBox .ep-sub{text-align:center;font-size:10px;color:#aaa;margin:0 0 14px;}.ep-list{display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto;scrollbar-width:none;}.ep-list::-webkit-scrollbar{display:none;}.ep-btn{display:flex;align-items:center;justify-content:space-between;background:transparent;color:#007b7f;border:1.5px solid #007b7f;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .2s,color .2s;}.ep-btn:hover{background:#f0fafa;}.ep-btn span.ep-arr{font-size:14px;opacity:0.8;}.ep-close{width:100%;margin-top:12px;padding:10px;background:#f2f2f2;color:#555;border:none;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .2s;}.ep-close:hover{background:#e0e0e0;}</style><div id="epassPopup" onclick="closeEpassPopup()">  <div id="epassBox" onclick="event.stopPropagation()">    <h3>&#127807; ePass &amp; Entry Permit</h3>    <p class="ep-sub">Tap a place to book your ePass</p>    <div class="ep-list">      <button class="ep-btn" onclick="window.open('https://www.eravikulamnationalpark.in/landing/axRegister.php','_blank');closeEpassPopup()">Eravikulam NP <span class="ep-arr">&#8599;</span></button>      <button class="ep-btn" onclick="window.open('https://parambikulam.org/','_blank');closeEpassPopup()">Parambikulam TR <span class="ep-arr">&#8599;</span></button>      <button class="ep-btn" onclick="window.open('https://epass.tnega.org','_blank');closeEpassPopup()">Mudumalai TR <span class="ep-arr">&#8599;</span></button>      <button class="ep-btn" onclick="window.open('https://epass.tnega.org','_blank');closeEpassPopup()">Anamalai TR <span class="ep-arr">&#8599;</span></button>      <button class="ep-btn" onclick="window.open('https://kmtr.co.in','_blank');closeEpassPopup()">Kalakad KMTR <span class="ep-arr">&#8599;</span></button>      <button class="ep-btn" onclick="window.open('https://epass.tnega.org','_blank');closeEpassPopup()">Ooty (Nilgiris) <span class="ep-arr">&#8599;</span></button>      <button class="ep-btn" onclick="window.open('https://epass.tnega.org','_blank');closeEpassPopup()">Kodaikanal <span class="ep-arr">&#8599;</span></button>      <button class="ep-btn" onclick="window.open('https://tickets.nagaraholetigerreserve.com','_blank');closeEpassPopup()">Nagarhole KA <span class="ep-arr">&#8599;</span></button>    </div>    <button class="ep-close" onclick="closeEpassPopup()">Close</button>  </div></div>
-<style>#stayPopup{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:9999;}#stayBox{background:#fff;border-radius:18px;padding:20px 16px 16px;width:92%;max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,0.18);animation:slideUp .25s ease;}#stayBox h3{text-align:center;font-size:15px;font-weight:700;color:#111;margin:0 0 4px;}#stayBox .st-sub{text-align:center;font-size:10px;color:#aaa;margin:0 0 16px;}.st-btn-list{display:flex;flex-direction:column;gap:10px;}.st-btn{display:flex;align-items:center;justify-content:space-between;border-radius:11px;padding:12px 14px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .2s;width:100%;}.st-btn-dev{background:#f5f5f5;color:#bbb;border:1.5px solid #e0e0e0;cursor:default;}.st-btn-dev .st-tag{font-size:9px;background:#e0e0e0;color:#aaa;border-radius:5px;padding:2px 6px;font-weight:700;letter-spacing:.3px;}.st-btn-map{background:transparent;color:#007b7f;border:1.5px solid #007b7f;}.st-btn-map:hover{background:#f0fafa;}.st-btn-map .st-arr{font-size:14px;opacity:0.8;}.st-close{width:100%;margin-top:12px;padding:10px;background:#f2f2f2;color:#555;border:none;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;}.st-close:hover{background:#e0e0e0;}</style><div id="stayPopup" onclick="closeStayPopup()">  <div id="stayBox" onclick="event.stopPropagation()">    <h3>&#127968; Stay</h3>    <p class="st-sub">Find your perfect place to stay</p>    <div class="st-btn-list">      <button class="st-btn st-btn-dev" disabled>        <span>Book via App</span>        <span class="st-tag">Coming Soon</span>      </button>      <button class="st-btn st-btn-map" onclick="closeStayPopup();findStaySpot()">        <span>Search with Map</span>        <span class="st-arr">&#8599;</span>      </button>    </div>    <button class="st-close" onclick="closeStayPopup()">Close</button>  </div></div>
 <div class="emergency-popup" id="emergencyPopup" onclick="closeEmergencyPopup()">  <div class="emergency-box" onclick="event.stopPropagation()">    <div class="drag-bar"></div><h3 style="text-align:center;">Emergency Help</h3>    <div class="popup-content">      <div class="emergency-grid">        <div class="emergency-item" onclick="callNumber('102')"><img src="img/icons/ambulance.png"><p>Ambulance</p></div>        <div class="emergency-item" onclick="findNearbyHospital()"><img src="img/icons/hospital.png"><p>Hospital</p></div>        <div class="emergency-item" onclick="callNumber('100')"><img src="img/icons/police.png"><p>Police</p></div>        <div class="emergency-item" onclick="callNumber('101')"><img src="img/icons/fire.png"><p>Fire</p></div>        <div class="emergency-item" onclick="callNumber('1091')"><img src="img/icons/women.png"><p>Women Helpline</p></div>        <div class="emergency-item" onclick="callNumber('1098')"><img src="img/icons/child.png"><p>Child Helpline</p></div>        <div class="emergency-item" onclick="callNumber('108')"><img src="img/icons/disaster.png"><p>Disaster Mgmt</p></div>        <div class="emergency-item" onclick="callNumber('112')"><img src="img/icons/tourist police.png"><p>Tourist Police</p></div>        <div class="emergency-item" onclick="callNumber('1363')"><img src="img/icons/tourism helpline.png"><p>Tourism Helpline</p></div>        <div class="emergency-item" onclick="callNumber('0471-2518255')"><img src="img/icons/health.png"><p>Health Helpline</p></div>        <div class="emergency-item" onclick="callNumber('91 8589 0404 94')"><img src="img/icons/blood.png"><p>Blood Donors</p></div>        <div class="emergency-item" onclick="callNumber('98461 00100')"><img src="img/icons/highway.png"><p>Highway Alert</p></div>      </div>      <div class="tips-slider">        <div class="tips-track" id="tipsTrack">          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/health tips.png" style="height: 12px; width: 12px;"> Health Tips</h4><p>Drink bottled or purified water. Carry ORS and essential medicines. Use mosquito repellent in monsoon. Wear light cotton clothing. Ensure travel insurance coverage.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/car taxi.png" style="height: 15px; width: 15px;"> Travel Safety</h4><p>Use ride apps or prepaid taxis. Always wear helmets and seatbelts. Avoid isolated places at night. Check weather alerts during monsoon. Follow beach & backwater safety rules.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/nature.png" style="height: 12px; width: 12px;"> Natural Safety</h4><p>Swim only in lifeguard zones. Beware of strong currents in rivers and backwaters. Avoid trekking during heavy rain. Stay away from cliff edges. Carry flashlight during forest or night trips.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/pharmacies.png" style="height: 12px; width: 12px;"> Pharmacies & First Aid</h4><p>Locate nearest pharmacies using maps. Carry basic first aid kit. Store medicines properly. Keep contact of local doctors & hospitals. Check expiry dates before use.</p></div></div>        </div>      </div>    </div>    <button class="close-btn" onclick="closeEmergencyPopup()">Close</button>  </div></div>
 
 <div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="eager" fetchpriority="auto" decoding="async" onload="this.classList.add('img-loaded')"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="eager" fetchpriority="auto" decoding="async" onload="this.classList.add('img-loaded')"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img src="img/handpicked/varkala.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Varkala</p></div>  </div>  </div>  </div></div>
@@ -884,7 +878,7 @@
 			<div class="tool-btn" onclick="openClickMyTripPopup()"><img src="img/icons/click my trip.png" loading="lazy" decoding="async"><p>Click My Trip</p></div>
             <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img src="img/icons/tour guide.png" loading="lazy" decoding="async"><p>Guides</p></div>
             <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="img/icons/camps.png" loading="lazy" decoding="async"><p>Camps</p></div>
-            <div class="tool-btn" onclick="openEpassPopup()"><img src="img/icons/e-pass.png" loading="lazy" decoding="async"><p>ePass</p></div>
+            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="img/icons/e-pass.png" loading="lazy" decoding="async"><p>ePass</p></div>
 			<div class="tool-btn" onclick="openFuelPopup()"><img src="img/icons/fual cost.png" loading="lazy" decoding="async"><p>Fuel Cost</p></div>
 			<div class="tool-btn" onclick="openCalendarPopup()"><img src="img/icons/calender.png" loading="lazy" decoding="async"><p>Calendar</p></div>
 			<div class="tool-btn" onclick="openTranslatePopup()"><img src="img/icons/translate.png" loading="lazy" decoding="async"><p>Translate</p></div>
@@ -1030,7 +1024,7 @@
 <div class="bottom-nav">
     <img src="img/icons/home.png" alt="Home" loading="eager" decoding="async" onclick="window.scrollTo({top:0,behavior:'smooth'});" style="cursor:pointer;">
 	<img src="img/icons/search.png" alt="Search" loading="eager" decoding="async" onclick="openSearchPopup();" style="cursor:pointer;">
-    <img src="img/icons/upload.png" alt="Explore" loading="eager" decoding="async">
+    <img src="img/icons/upload.png" alt="Upload" loading="eager" decoding="async" onclick="openUploadPopup();" style="cursor:pointer;">
     <img src="img/icons/gallery.png" alt="Gallery" loading="eager" decoding="async" onclick="window.open('https://www.instagram.com/yathramap','_blank');" style="cursor:pointer;">
     <img src="img/icons/about.png" alt="About" loading="eager" decoding="async" onclick="openAboutPopup();" style="cursor:pointer;width: 27px; height: 25px;">
 </div>
@@ -1915,8 +1909,6 @@ document.getElementById("popup").addEventListener("click", closePopup);
 
 function openEmergencyPopup(){document.getElementById("emergencyPopup").style.display="flex";}
 function closeEmergencyPopup(){document.getElementById("emergencyPopup").style.display="none";}
-function openEpassPopup(){document.getElementById("epassPopup").style.display="flex";}
-function closeEpassPopup(){document.getElementById("epassPopup").style.display="none";}
 function openHelpPopup(){document.getElementById("helpPopup").style.display="flex";}
 function closeHelpPopup(){document.getElementById("helpPopup").style.display="none";}
 function openTransportPopup(){document.getElementById("transportPopup").style.display="flex";}
@@ -2031,8 +2023,6 @@ function findFoodSpot(){
         try { win.location.href = 'https://www.google.com/maps/search/restaurant/@'+lat+','+lng+',14z'; } catch(e){}
     }, null, { timeout: 5000, maximumAge: 300000 }); 
 }
-function openStayPopup(){document.getElementById("stayPopup").style.display="flex";}
-function closeStayPopup(){document.getElementById("stayPopup").style.display="none";}
 function findStaySpot(){ 
     var mapsUrl = 'https://www.google.com/maps/search/hotel';
     var win = window.open(mapsUrl);
@@ -2689,9 +2679,8 @@ var escPageStart = 0;
     }
   }
 
-  // When denied: show "Allow Location" prompt — never wipe already-rendered cards
+  // When denied: keep shimmer running, show "Allow Location" prompt — no dummy cards
   function nyHandleDenied() {
-    if (_nyLoaded) return;
     nyShowShimmer();
     nySetLabel('Allow Location', false);
     document.getElementById('nearyouSubtext').textContent = 'Allow location to see nearest places';
@@ -2701,9 +2690,9 @@ var escPageStart = 0;
   // Android Chrome, Firefox, Samsung Internet, etc.
   // Uses watchPosition with a short timeout to work around iOS quirks.
   var _nyWatcher = null;
-  var _nyInFlight = false;
   function nyGetPosition(onSuccess, onFail) {
     var opts = { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 };
+    // iOS Safari: getCurrentPosition can silently hang — use watchPosition + clear
     if (_nyWatcher !== null) {
       try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
       _nyWatcher = null;
@@ -2712,7 +2701,6 @@ var escPageStart = 0;
     var failTimer = setTimeout(function() {
       if (!done) {
         done = true;
-        _nyInFlight = false;
         try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
         _nyWatcher = null;
         onFail({ code: 3, message: 'Timeout' });
@@ -2722,7 +2710,6 @@ var escPageStart = 0;
       function(pos) {
         if (done) return;
         done = true;
-        _nyInFlight = false;
         clearTimeout(failTimer);
         try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
         _nyWatcher = null;
@@ -2731,7 +2718,6 @@ var escPageStart = 0;
       function(err) {
         if (done) return;
         done = true;
-        _nyInFlight = false;
         clearTimeout(failTimer);
         try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
         _nyWatcher = null;
@@ -2742,9 +2728,7 @@ var escPageStart = 0;
   }
 
   function nyTriggerLocation() {
-    if (_nyLoaded) return;
-    if (_nyInFlight) return;
-    _nyInFlight = true;
+    if (_nyLoaded) return;   // cards already rendered — never wipe them
     nyShowShimmer();
     document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
     nySetLabel('Locating…', false);
@@ -2797,8 +2781,7 @@ var escPageStart = 0;
 
   window.nyRequestLocation = function() {
     if (!navigator.geolocation) return;
-    if (_nyLoaded) return;
-    if (_nyInFlight) return;
+    // If permissions API available, check if already hard-denied
     if (navigator.permissions && navigator.permissions.query) {
       navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
         if (result.state === 'denied') {
@@ -2810,6 +2793,7 @@ var escPageStart = 0;
         nyTriggerLocation();
       });
     } else {
+      // iOS Safari — just re-trigger; iOS will show the prompt again if needed
       nyTriggerLocation();
     }
   };
@@ -5721,4 +5705,175 @@ window.closeCsPopup = function(){
 
 })();
 </script>
+<!-- ── UPLOAD POPUP ──────────────────────────────────────────── -->
+<div id="uploadPopupOverlay" style="display:none;position:fixed;inset:0;z-index:20001;background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeUploadPopup()">
+  <div id="uploadPopupBox" style="width:100%;max-width:520px;background:#fff;border-radius:22px;padding:20px 16px 28px;display:flex;flex-direction:column;gap:0;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);max-height:88vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <!-- Handle -->
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 14px;"></div>
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:#111;">List Your Service</div>
+        <div style="font-size:11px;color:#999;margin-top:2px;">Choose a category to submit your listing</div>
+      </div>
+      <button onclick="closeUploadPopup()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#999;line-height:1;padding:4px;">✕</button>
+    </div>
+    <!-- Form (shown after category pick) -->
+    <div id="uploadFormArea" style="overflow-y:auto;flex:1;padding-right:2px;">
+      <div id="uploadCategoryView">
+        <!-- Categories -->
+        <div style="font-size:10.5px;font-weight:700;color:#aaa;letter-spacing:0.5px;text-transform:uppercase;margin:12px 0 8px;">Places & Stay</div>
+        <div class="upl-grid">
+          <div class="upl-cat" onclick="openUploadForm('Tourist Place')">🏞️<span>Tourist Place</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Stay / Hotel')">🏨<span>Stay / Hotel</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Houseboat')">🛶<span>Houseboat</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Camps')">⛺<span>Camps</span></div>
+        </div>
+        <div style="font-size:10.5px;font-weight:700;color:#aaa;letter-spacing:0.5px;text-transform:uppercase;margin:14px 0 8px;">Transport</div>
+        <div class="upl-grid">
+          <div class="upl-cat" onclick="openUploadForm('Local Cabs')">🚖<span>Local Cabs</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Driver')">🧑‍✈️<span>Driver</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Auto')">🛺<span>Auto</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Tourist Bus')">🚌<span>Tourist Bus</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Traveller')">🚐<span>Traveller</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Mini Goods')">🚚<span>Mini Goods</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Bike Rental')">🏍️<span>Bike Rental</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Car Rental')">🚗<span>Car Rental</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Helicopter')">🚁<span>Helicopter</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Ferry / Boat')">⛵<span>Ferry / Boat</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Parking')">🅿️<span>Parking</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Luggage Service')">🧳<span>Luggage</span></div>
+        </div>
+        <div style="font-size:10.5px;font-weight:700;color:#aaa;letter-spacing:0.5px;text-transform:uppercase;margin:14px 0 8px;">Food & Drinks</div>
+        <div class="upl-grid">
+          <div class="upl-cat" onclick="openUploadForm('Restaurant')">🍽️<span>Restaurant</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Café / Hotel')">☕<span>Café / Hotel</span></div>
+        </div>
+        <div style="font-size:10.5px;font-weight:700;color:#aaa;letter-spacing:0.5px;text-transform:uppercase;margin:14px 0 8px;">Experiences</div>
+        <div class="upl-grid">
+          <div class="upl-cat" onclick="openUploadForm('Guide')">🧭<span>Guide</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Photographer')">📸<span>Photographer</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Camera Rent')">🎥<span>Camera Rent</span></div>
+          <div class="upl-cat" onclick="openUploadForm('Video Editor')">🎬<span>Video Editor</span></div>
+        </div>
+        <div style="background:#f0f9ff;border-radius:12px;padding:10px 12px;margin-top:16px;font-size:10.5px;color:#555;line-height:1.6;">
+          ℹ️ Your submission will be reviewed by our team before being listed. We'll contact you via WhatsApp or email.
+        </div>
+      </div>
+      <!-- Form view (shown after category click) -->
+      <div id="uploadFormView" style="display:none;">
+        <button onclick="showUploadCategories()" style="background:none;border:none;color:#007b7f;font-size:12px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">‹ Back</button>
+        <div id="uplFormCategoryTitle" style="font-size:14px;font-weight:700;color:#111;margin-bottom:14px;"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div><label style="font-size:11px;font-weight:600;color:#555;display:block;margin-bottom:4px;">Your Name *</label><input id="uplName" class="upl-input" placeholder="e.g. Rajan K." maxlength="60"></div>
+          <div><label style="font-size:11px;font-weight:600;color:#555;display:block;margin-bottom:4px;">Business / Service Name *</label><input id="uplBusiness" class="upl-input" placeholder="e.g. Kerala Tours & Travels" maxlength="80"></div>
+          <div><label style="font-size:11px;font-weight:600;color:#555;display:block;margin-bottom:4px;">Location / District *</label><input id="uplLocation" class="upl-input" placeholder="e.g. Munnar, Idukki" maxlength="80"></div>
+          <div><label style="font-size:11px;font-weight:600;color:#555;display:block;margin-bottom:4px;">WhatsApp Number *</label><input id="uplPhone" class="upl-input" type="tel" placeholder="+91 XXXXX XXXXX" maxlength="20"></div>
+          <div><label style="font-size:11px;font-weight:600;color:#555;display:block;margin-bottom:4px;">Email (optional)</label><input id="uplEmail" class="upl-input" type="email" placeholder="you@example.com" maxlength="80"></div>
+          <div><label style="font-size:11px;font-weight:600;color:#555;display:block;margin-bottom:4px;">Description *</label><textarea id="uplDesc" class="upl-input" style="height:80px;resize:none;" placeholder="Tell us about your service, pricing, availability..." maxlength="400"></textarea></div>
+          <div id="uplFormErr" style="font-size:11px;color:#e53935;display:none;"></div>
+          <button id="uplSubmitBtn" onclick="submitUploadForm()" style="background:#007b7f;color:#fff;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;margin-top:4px;">Submit for Review ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.upl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+@media(max-width:360px){.upl-grid{grid-template-columns:repeat(3,1fr);}}
+.upl-cat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#f7f8fa;border-radius:12px;padding:10px 4px;cursor:pointer;transition:background .18s,transform .18s;font-size:20px;border:1.5px solid transparent;}
+.upl-cat:hover{background:#e6f4f4;border-color:#007b7f;transform:translateY(-2px);}
+.upl-cat:active{transform:scale(0.95);}
+.upl-cat span{font-size:9.5px;font-weight:600;color:#333;text-align:center;line-height:1.3;}
+.upl-input{width:100%;border:1.5px solid #e5e5e5;border-radius:10px;padding:10px 12px;font-size:12px;font-family:'Poppins',sans-serif;outline:none;box-sizing:border-box;transition:border-color .2s;}
+.upl-input:focus{border-color:#007b7f;}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  // Google Sheet Web App URL — replace with your published Apps Script URL
+  const SHEET_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+  let _uplCategory = '';
+
+  window.openUploadPopup = function() {
+    showUploadCategories();
+    const o = document.getElementById('uploadPopupOverlay');
+    o.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeUploadPopup = function() {
+    document.getElementById('uploadPopupOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+  };
+
+  window.openUploadForm = function(category) {
+    _uplCategory = category;
+    document.getElementById('uplFormCategoryTitle').textContent = '📋 ' + category;
+    document.getElementById('uploadCategoryView').style.display = 'none';
+    document.getElementById('uploadFormView').style.display = 'block';
+    // Clear previous values
+    ['uplName','uplBusiness','uplLocation','uplPhone','uplEmail','uplDesc'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+    document.getElementById('uplFormErr').style.display = 'none';
+    document.getElementById('uplSubmitBtn').disabled = false;
+    document.getElementById('uplSubmitBtn').textContent = 'Submit for Review ✓';
+  };
+
+  window.showUploadCategories = function() {
+    document.getElementById('uploadCategoryView').style.display = 'block';
+    document.getElementById('uploadFormView').style.display = 'none';
+  };
+
+  window.submitUploadForm = function() {
+    const name     = (document.getElementById('uplName').value||'').trim();
+    const business = (document.getElementById('uplBusiness').value||'').trim();
+    const location = (document.getElementById('uplLocation').value||'').trim();
+    const phone    = (document.getElementById('uplPhone').value||'').trim();
+    const email    = (document.getElementById('uplEmail').value||'').trim();
+    const desc     = (document.getElementById('uplDesc').value||'').trim();
+    const errEl    = document.getElementById('uplFormErr');
+
+    // Validate
+    if (!name || name.length < 2)         { showUplErr('Please enter your name.'); return; }
+    if (!business || business.length < 2) { showUplErr('Please enter your business/service name.'); return; }
+    if (!location || location.length < 2) { showUplErr('Please enter your location.'); return; }
+    if (!phone || !/^\+?[\d\s\-]{7,20}$/.test(phone)) { showUplErr('Please enter a valid WhatsApp number.'); return; }
+    if (!desc || desc.length < 10)        { showUplErr('Please add a short description (min 10 chars).'); return; }
+
+    errEl.style.display = 'none';
+    const btn = document.getElementById('uplSubmitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    // Send to Google Sheet via Apps Script
+    const payload = { category: _uplCategory, name, business, location, phone, email, desc, ts: new Date().toISOString() };
+
+    fetch(SHEET_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' }, // text/plain avoids CORS preflight
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.text(); })
+    .then(function(t){
+      btn.textContent = '✅ Submitted! We\'ll contact you soon.';
+      btn.style.background = '#2e7d32';
+      setTimeout(function(){ closeUploadPopup(); }, 2500);
+    })
+    .catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Submit for Review ✓';
+      showUplErr('Submission failed. Please try again or contact us on WhatsApp.');
+    });
+  };
+
+  function showUplErr(msg) {
+    const el = document.getElementById('uplFormErr');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+})();
+</script>
+
 </body></html>
