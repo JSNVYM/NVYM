@@ -5826,7 +5826,7 @@ window.closeCsPopup = function(){
 <script>
 (function(){
   'use strict';
-  const SHEET_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+  const UPLOAD_ENDPOINT = 'https://yathra-backend.onrender.com/api/upload/submit';
   let _uplCategory = '';
   let _uplImageFiles = [];
 
@@ -5928,9 +5928,9 @@ window.closeCsPopup = function(){
           images: images,
           ts: new Date().toISOString()
         };
-        return fetch(SHEET_URL, {
+        return fetch(UPLOAD_ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
       })
