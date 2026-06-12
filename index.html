@@ -5934,16 +5934,31 @@ window.closeCsPopup = function(){
           body: JSON.stringify(payload)
         });
       })
-      .then(function(r) { return r.text(); })
-      .then(function() {
-        btn.textContent = '✅ Submitted! We\'ll contact you soon.';
-        btn.style.background = '#2e7d32';
-        setTimeout(function() { closeUploadPopup(); }, 2500);
+      .then(function(r) {
+        return r.json().then(function(json) {
+          return { status: r.status, json: json };
+        });
       })
-      .catch(function() {
+      .then(function(result) {
+        if (result.json.ok) {
+          btn.textContent = '✅ Submitted! We\'ll contact you soon.';
+          btn.style.background = '#2e7d32';
+          setTimeout(function() { closeUploadPopup(); }, 2500);
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Submit for Review ✓';
+          btn.style.background = '#007b7f';
+          const errMsg = result.json.errors
+            ? result.json.errors.join(' ')
+            : (result.json.error || 'Submission failed. Please try again.');
+          showUplErr(errMsg);
+        }
+      })
+      .catch(function(err) {
         btn.disabled = false;
         btn.textContent = 'Submit for Review ✓';
         btn.style.background = '#007b7f';
+        console.error('[upload error]', err);
         showUplErr('Submission failed. Check your connection and try again.');
       });
   };
