@@ -878,7 +878,7 @@
 			<div class="tool-btn" onclick="openClickMyTripPopup()"><img src="img/icons/click my trip.png" loading="lazy" decoding="async"><p>Click My Trip</p></div>
             <div class="tool-btn" onclick="openComingSoonPopup('Guides')"><img src="img/icons/tour guide.png" loading="lazy" decoding="async"><p>Guides</p></div>
             <div class="tool-btn" onclick="findNearby('camping sites Kerala')"><img src="img/icons/camps.png" loading="lazy" decoding="async"><p>Camps</p></div>
-            <div class="tool-btn" onclick="window.open('https://keralaforest.org/epass')"><img src="img/icons/e-pass.png" loading="lazy" decoding="async"><p>ePass</p></div>
+            <div class="tool-btn" onclick="openEpassPopup()"><img src="img/icons/e-pass.png" loading="lazy" decoding="async"><p>ePass</p></div>
 			<div class="tool-btn" onclick="openFuelPopup()"><img src="img/icons/fual cost.png" loading="lazy" decoding="async"><p>Fuel Cost</p></div>
 			<div class="tool-btn" onclick="openCalendarPopup()"><img src="img/icons/calender.png" loading="lazy" decoding="async"><p>Calendar</p></div>
 			<div class="tool-btn" onclick="openTranslatePopup()"><img src="img/icons/translate.png" loading="lazy" decoding="async"><p>Translate</p></div>
@@ -888,8 +888,7 @@
             <div class="tool-btn" onclick="findNearby('Banks')"><img src="img/icons/bank.png" loading="lazy" decoding="async"><p>Banks</p></div>
             <div class="tool-btn" onclick="openComingSoonPopup('Track Wildlife')"><img src="img/icons/track wildlife.png" loading="lazy" decoding="async"><p>Track Wildlife</p></div>
             <div class="tool-btn" onclick="window.open('https://indianvisaonline.gov.in/evisa/tvoa.html','_blank')"><img src="img/icons/visa requirements.png" loading="lazy" decoding="async"><p>Visa Requirements</p></div>
-			<div class="tool-btn" onclick="openComingSoonPopup('Bike Riders')"><img src="img/icons/bike rental.png" loading="lazy" decoding="async"><p>Bike Riders</p></div>
-            <div class="tool-btn" onclick="openComingSoonPopup('4x4 Offroad')"><img src="img/icons/four wheeler.png" loading="lazy" decoding="async"><p>4x4 Offroad</p></div>
+			<div class="tool-btn" onclick="openRidingClubsPopup()"><img src="img/icons/bike rental.png" loading="lazy" decoding="async"><p>Riding Clubs</p></div>
             <div class="tool-btn" onclick="openComingSoonPopup('Movies')"><img src="img/icons/movies.png" loading="lazy" decoding="async"><p>Movies</p></div>
         </div>
     </div>
@@ -6351,6 +6350,93 @@ window.closeCsPopup = function(){
 (function(){
   window.openStayPopup  = function(){ document.getElementById('stayPopup').style.display='flex'; document.body.style.overflow='hidden'; };
   window.closeStayPopup = function(){ document.getElementById('stayPopup').style.display='none'; document.body.style.overflow=''; };
+})();
+</script>
+
+<!-- ── EPASS POPUP ─────────────────────────────────────────────── -->
+<div id="epassPopup" style="display:none;position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeEpassPopup()">
+  <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);max-height:88vh;display:flex;flex-direction:column;">
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:#111;">Kerala Forest ePass</div>
+        <div style="font-size:11px;color:#999;margin-top:2px;">Online permit required for these places</div>
+      </div>
+      <button onclick="closeEpassPopup()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+    </div>
+    <div style="overflow-y:auto;flex:1;margin-top:12px;">
+      <!-- Places list -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <!-- each place card -->
+        <style>
+          .ep-card{display:flex;align-items:center;justify-content:space-between;background:#f8fafb;border:1.5px solid #e8f0f0;border-radius:14px;padding:12px 14px;gap:10px;}
+          .ep-name{font-size:12.5px;font-weight:600;color:#111;flex:1;}
+          .ep-dist{font-size:10px;color:#888;margin-top:2px;}
+          .ep-book{background:#007b7f;color:#fff !important;border:none;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Poppins',sans-serif;transition:background .2s;flex-shrink:0;}
+          .ep-book:hover{background:#005f61;}
+        </style>
+        <div class="ep-card"><div><div class="ep-name">🌿 Silent Valley National Park</div><div class="ep-dist">Palakkad</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🐘 Wayanad Wildlife Sanctuary</div><div class="ep-dist">Wayanad</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🦁 Periyar Tiger Reserve</div><div class="ep-dist">Idukki</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🌲 Eravikulam National Park</div><div class="ep-dist">Idukki</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🏔️ Chembra Peak</div><div class="ep-dist">Wayanad</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🌊 Aralam Wildlife Sanctuary</div><div class="ep-dist">Kannur</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🦋 Chinnar Wildlife Sanctuary</div><div class="ep-dist">Idukki</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🌴 Parambikulam Tiger Reserve</div><div class="ep-dist">Palakkad</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🐆 Neyyar Wildlife Sanctuary</div><div class="ep-dist">Thiruvananthapuram</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🌿 Peppara Wildlife Sanctuary</div><div class="ep-dist">Thiruvananthapuram</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🦅 Shendurney Wildlife Sanctuary</div><div class="ep-dist">Kollam</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+        <div class="ep-card"><div><div class="ep-name">🌲 Mathikettan Shola National Park</div><div class="ep-dist">Idukki</div></div><button class="ep-book" onclick="window.open('https://keralaforest.org/epass','_blank')">Book ePass</button></div>
+      </div>
+      <div style="background:#fff8e1;border-radius:12px;padding:10px 12px;margin-top:14px;font-size:10.5px;color:#7a5f00;line-height:1.6;">
+        ⚠️ ePass is mandatory for entry to Kerala forest areas. Book at least 24 hours before your visit. Entry is subject to availability.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── RIDING CLUBS POPUP ──────────────────────────────────────── -->
+<div id="ridingClubsPopup" style="display:none;position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeRidingClubsPopup()">
+  <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div>
+        <div style="font-size:16px;font-weight:700;color:#111;">Riding Clubs</div>
+        <div style="font-size:11px;color:#999;margin-top:2px;">Bike riders & 4x4 offroad clubs</div>
+      </div>
+      <button onclick="closeRidingClubsPopup()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+    </div>
+    <!-- Bike Riders -->
+    <div style="background:#f0fafa;border:1.5px solid #b2e0e0;border-radius:16px;padding:16px 18px;margin-bottom:12px;cursor:pointer;transition:background .2s;" onclick="closeRidingClubsPopup();openComingSoonPopup('Bike Riders')">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:30px;">🏍️</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;color:#007b7f;">Bike Riders</div>
+          <div style="font-size:11px;color:#888;margin-top:2px;">Connect with bikers, group rides & Kerala moto clubs</div>
+        </div>
+        <span style="background:#e0f4f4;color:#007b7f;font-size:9.5px;font-weight:700;border-radius:20px;padding:3px 10px;">Coming Soon</span>
+      </div>
+    </div>
+    <!-- 4x4 Offroad -->
+    <div style="background:#f0fafa;border:1.5px solid #b2e0e0;border-radius:16px;padding:16px 18px;cursor:pointer;transition:background .2s;" onclick="closeRidingClubsPopup();openComingSoonPopup('4x4 Offroad')">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:30px;">🚙</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;color:#007b7f;">4x4 Offroad</div>
+          <div style="font-size:11px;color:#888;margin-top:2px;">Offroad clubs, trails & 4WD adventure groups in Kerala</div>
+        </div>
+        <span style="background:#e0f4f4;color:#007b7f;font-size:9.5px;font-weight:700;border-radius:20px;padding:3px 10px;">Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  window.openEpassPopup        = function(){ document.getElementById('epassPopup').style.display='flex'; document.body.style.overflow='hidden'; };
+  window.closeEpassPopup       = function(){ document.getElementById('epassPopup').style.display='none'; document.body.style.overflow=''; };
+  window.openRidingClubsPopup  = function(){ document.getElementById('ridingClubsPopup').style.display='flex'; document.body.style.overflow='hidden'; };
+  window.closeRidingClubsPopup = function(){ document.getElementById('ridingClubsPopup').style.display='none'; document.body.style.overflow=''; };
 })();
 </script>
 
