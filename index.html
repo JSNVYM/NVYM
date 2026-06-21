@@ -6319,12 +6319,10 @@ window.closeCsPopup = function(){
 <div id="stayPopup" style="display:none;position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeStayPopup()">
   <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);">
     <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-      <div>
+    <div style="position:relative;text-align:center;margin-bottom:20px;">
         <div style="font-size:16px;font-weight:700;color:#111;">Find a Stay</div>
         <div style="font-size:11px;color:#999;margin-top:2px;">Hotels, homestays, resorts & more</div>
-      </div>
-      <button onclick="closeStayPopup()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+      <button onclick="closeStayPopup()" style="position:absolute;top:-4px;right:0;background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
     </div>
     <!-- Search with Map -->
     <button onclick="closeStayPopup();findStaySpot();" style="width:100%;display:flex;align-items:center;gap:14px;background:#f0fafa;border:1.5px solid #b2e0e0;border-radius:16px;padding:16px 18px;cursor:pointer;margin-bottom:12px;text-align:left;transition:background .2s;">
@@ -6357,12 +6355,10 @@ window.closeCsPopup = function(){
 <div id="epassPopup" style="display:none;position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeEpassPopup()">
   <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);max-height:88vh;display:flex;flex-direction:column;">
     <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-      <div>
+    <div style="position:relative;text-align:center;margin-bottom:6px;">
         <div style="font-size:16px;font-weight:700;color:#111;">Kerala Forest ePass</div>
         <div style="font-size:11px;color:#999;margin-top:2px;">Online permit required for these places</div>
-      </div>
-      <button onclick="closeEpassPopup()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+      <button onclick="closeEpassPopup()" style="position:absolute;top:-4px;right:0;background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
     </div>
     <div style="overflow-y:auto;flex:1;margin-top:12px;">
       <!-- Places list -->
@@ -6399,12 +6395,10 @@ window.closeCsPopup = function(){
 <div id="ridingClubsPopup" style="display:none;position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeRidingClubsPopup()">
   <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);">
     <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-      <div>
+    <div style="position:relative;text-align:center;margin-bottom:20px;">
         <div style="font-size:16px;font-weight:700;color:#111;">Riding Clubs</div>
         <div style="font-size:11px;color:#999;margin-top:2px;">Bike riders & 4x4 offroad clubs</div>
-      </div>
-      <button onclick="closeRidingClubsPopup()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+      <button onclick="closeRidingClubsPopup()" style="position:absolute;top:-4px;right:0;background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
     </div>
     <!-- Bike Riders -->
     <div style="background:#f0fafa;border:1.5px solid #b2e0e0;border-radius:16px;padding:16px 18px;margin-bottom:12px;cursor:pointer;transition:background .2s;" onclick="closeRidingClubsPopup();openComingSoonPopup('Bike Riders')">
