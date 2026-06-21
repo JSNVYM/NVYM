@@ -6231,23 +6231,53 @@ window.closeCsPopup = function(){
         // Build clean payload for backend
         const payload = {
           category:  _uplCategory,
-          name:      data.uplName      || data.uplBusiness || _uplCategory,
-          business:  data.uplBusiness  || data.uplName     || _uplCategory,
-          location:  data.uplLocation  || '',
-          maplink:   data.uplMapLink   || '',
-          phone:     data.uplPhone     || '',
-          email:     data.uplEmail     || '',
-          desc:      data.uplDesc      || '',
-          // All extra category-specific fields as JSON string
-          extra: JSON.stringify(
-            Object.fromEntries(
-              Object.entries(data).filter(function(e){
-                return !['category','uplName','uplBusiness','uplLocation',
-                         'uplMapLink','uplPhone','uplEmail','uplDesc'].includes(e[0])
-                        && e[1]; // only non-empty values
-              })
-            )
-          ),
+          name:      data.uplName        || '',
+          business:  data.uplBusiness    || '',
+          location:  data.uplLocation    || '',
+          maplink:   data.uplMapLink     || '',
+          phone:     data.uplPhone       || '',
+          email:     data.uplEmail       || '',
+          desc:      data.uplDesc        || '',
+          // Category-specific fields — empty string if not in this schema
+          district:    data.uplDistrict    || '',
+          placeType:   data.uplPlaceType   || '',
+          entryFee:    data.uplEntryFee    || '',
+          timing:      data.uplTiming      || '',
+          stayType:    data.uplStayType    || '',
+          rate:        data.uplRate        || '',
+          rooms:       data.uplRooms       || '',
+          amenities:   data.uplAmenities   || '',
+          boatType:    data.uplBoatType    || '',
+          capacity:    data.uplCapacity    || '',
+          campType:    data.uplCampType    || '',
+          activities:  data.uplActivities  || '',
+          lang:        data.uplLang        || '',
+          guideType:   data.uplGuideType   || '',
+          exp:         data.uplExp         || '',
+          cert:        data.uplCert        || '',
+          photoType:   data.uplPhotoType   || '',
+          portfolio:   data.uplPortfolio   || '',
+          equipment:   data.uplEquipment   || '',
+          deposit:     data.uplDeposit     || '',
+          editType:    data.uplEditType    || '',
+          software:    data.uplSoftware    || '',
+          vehicle:     data.uplVehicle     || '',
+          minFare:     data.uplMinFare     || '',
+          license:     data.uplLicense     || '',
+          busType:     data.uplBusType     || '',
+          bikeType:    data.uplBikeType    || '',
+          cars:        data.uplCars        || '',
+          fuelPolicy:  data.uplFuelPolicy  || '',
+          heliType:    data.uplHeliType    || '',
+          route:       data.uplRoute       || '',
+          parkType:    data.uplParkType    || '',
+          vehicles:    data.uplVehicles    || '',
+          serviceType: data.uplServiceType || '',
+          cuisine:     data.uplCuisine     || '',
+          foodType:    data.uplFoodType    || '',
+          avgCost:     data.uplAvgCost     || '',
+          cafeType:    data.uplCafeType    || '',
+          speciality:  data.uplSpeciality  || '',
           images: images,
           ts: new Date().toISOString()
         };
