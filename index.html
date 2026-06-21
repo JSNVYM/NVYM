@@ -5818,6 +5818,8 @@ window.closeCsPopup = function(){
       f('uplPlaceType', 'Place Type *',           'select',   '',                               true, ['Trekking Spot','Waterfall','Beach','Backwater','Wildlife','Heritage Site','Viewpoint','Temple / Church / Mosque','Cave','Dam','Garden','Other']),
       f('uplEntryFee',  'Entry Fee (₹)',          'text',     'e.g. Free / ₹50 per person',     false),
       f('uplTiming',    'Timings',                'text',     'e.g. 6AM – 6PM, Closed Monday',  false),
+      f('uplPhone',     'Your WhatsApp Number *', 'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
       f('uplMapLink',   'Google Maps Link',       'url',      'Paste Google Maps URL here',     false),
       f('uplDesc',      'Description *',          'textarea', 'Describe the place, best time to visit, how to reach...', true),
     ],
@@ -6181,9 +6183,9 @@ window.closeCsPopup = function(){
       data[fld.id] = val;
     }
 
-    // Phone validation
+    // Phone validation (always required if present)
     const phone = data.uplPhone || '';
-    if (phone && !/^\+?[\d\s\-]{7,20}$/.test(phone)) {
+    if (!phone || !/^\+?[\d\s\-]{7,20}$/.test(phone)) {
       showUplErr('Please enter a valid WhatsApp number.');
       return;
     }
@@ -6191,8 +6193,18 @@ window.closeCsPopup = function(){
     // Map link validation
     const maplink = data.uplMapLink || '';
     if (maplink && !maplink.startsWith('https://')) {
-      showUplErr('Map link must start with https://');
+      showUplErr('Map link must start with https://  (copy directly from Google Maps)');
       return;
+    }
+
+    // Description min length only if it's a required field
+    const descField = _currentSchema.find(function(s){ return s.id === 'uplDesc'; });
+    if (descField && descField.required) {
+      const desc = data.uplDesc || '';
+      if (desc.length < 10) {
+        showUplErr('Please add a description (min 10 characters).');
+        return;
+      }
     }
 
     document.getElementById('uplFormErr').style.display = 'none';
@@ -6220,17 +6232,19 @@ window.closeCsPopup = function(){
         const payload = {
           category:  _uplCategory,
           name:      data.uplName      || data.uplBusiness || _uplCategory,
-          business:  data.uplBusiness  || data.uplName || _uplCategory,
+          business:  data.uplBusiness  || data.uplName     || _uplCategory,
           location:  data.uplLocation  || '',
           maplink:   data.uplMapLink   || '',
           phone:     data.uplPhone     || '',
           email:     data.uplEmail     || '',
           desc:      data.uplDesc      || '',
-          // Extra category-specific fields as JSON string
-          extra:     JSON.stringify(
+          // All extra category-specific fields as JSON string
+          extra: JSON.stringify(
             Object.fromEntries(
               Object.entries(data).filter(function(e){
-                return !['category','uplName','uplBusiness','uplLocation','uplMapLink','uplPhone','uplEmail','uplDesc'].includes(e[0]);
+                return !['category','uplName','uplBusiness','uplLocation',
+                         'uplMapLink','uplPhone','uplEmail','uplDesc'].includes(e[0])
+                        && e[1]; // only non-empty values
               })
             )
           ),
