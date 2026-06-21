@@ -3894,7 +3894,7 @@ var escPageStart = 0;
     </div>
     <p class="cmt-subtitle">What are you looking for?</p>
     <div class="cmt-options">
-      <div class="cmt-option-card" onclick="openComingSoonPopup('Photographers')">
+      <div class="cmt-option-card" onclick="openCmtPhotographersPopup()">
         <div class="cmt-option-icon">
           <img src="img/icons/photographer.png" alt="Photographers" width="32" height="32">
         </div>
@@ -3904,7 +3904,7 @@ var escPageStart = 0;
         </div>
         <span class="cmt-option-arrow">›</span>
       </div>
-      <div class="cmt-option-card" onclick="openComingSoonPopup('Camera Rent')">
+      <div class="cmt-option-card" onclick="openCmtCameraPopup()">
         <div class="cmt-option-icon">
           <img src="img/icons/camera rent.png" alt="Camera Rent" width="32" height="32">
         </div>
@@ -3914,7 +3914,7 @@ var escPageStart = 0;
         </div>
         <span class="cmt-option-arrow">›</span>
       </div>
-      <div class="cmt-option-card" onclick="openComingSoonPopup('Editors')">
+      <div class="cmt-option-card" onclick="openCmtEditorsPopup()">
         <div class="cmt-option-icon">
           <img src="img/icons/video editors.png" alt="Editors" width="32" height="32">
         </div>
@@ -6526,6 +6526,80 @@ window.closeCsPopup = function(){
   window.closeGuidesPopup= function(){ document.getElementById('guidesPopup').style.display='none'; document.body.style.overflow=''; };
   window.openCampsPopup  = function(){ document.getElementById('campsPopup').style.display='flex';  document.body.style.overflow='hidden'; };
   window.closeCampsPopup = function(){ document.getElementById('campsPopup').style.display='none';  document.body.style.overflow=''; };
+})();
+</script>
+
+<!-- ── CMT PHOTOGRAPHERS POPUP ────────────────────────────────── -->
+<div id="cmtPhotographersPopup" style="display:none;position:fixed;inset:0;z-index:12001;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeCmtPhotographersPopup()">
+  <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
+    <div style="position:relative;text-align:center;margin-bottom:20px;">
+      <div style="font-size:16px;font-weight:700;color:#111;">Photographers</div>
+      <div style="font-size:11px;color:#999;margin-top:2px;">Professional trip photographers near you</div>
+      <button onclick="closeCmtPhotographersPopup()" style="position:absolute;top:-4px;right:0;background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+    </div>
+    <div style="background:#f0fafa;border:1.5px solid #b2e0e0;border-radius:16px;padding:22px 18px;text-align:center;margin-bottom:12px;">
+      <div style="font-size:36px;margin-bottom:10px;">📸</div>
+      <div style="font-size:13px;font-weight:700;color:#007b7f;margin-bottom:6px;">Find a Photographer</div>
+      <div style="font-size:11px;color:#888;line-height:1.6;margin-bottom:16px;">Browse and book local travel photographers for your Kerala trip — portraits, landscapes, reels & more.</div>
+      <div style="background:#e0f4f4;border-radius:20px;padding:8px 20px;display:inline-block;font-size:11px;font-weight:700;color:#007b7f;">🚧 Coming Soon</div>
+    </div>
+    <div style="background:#f8f8f8;border-radius:12px;padding:11px 14px;font-size:10.5px;color:#888;line-height:1.6;text-align:center;">
+      Are you a photographer? <span onclick="closeCmtPhotographersPopup();openUploadPopup();" style="color:#007b7f;font-weight:600;cursor:pointer;">Submit your profile →</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── CMT CAMERA RENT POPUP ──────────────────────────────────── -->
+<div id="cmtCameraPopup" style="display:none;position:fixed;inset:0;z-index:12001;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeCmtCameraPopup()">
+  <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
+    <div style="position:relative;text-align:center;margin-bottom:20px;">
+      <div style="font-size:16px;font-weight:700;color:#111;">Camera Rent</div>
+      <div style="font-size:11px;color:#999;margin-top:2px;">Rent cameras & gear for your journey</div>
+      <button onclick="closeCmtCameraPopup()" style="position:absolute;top:-4px;right:0;background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+    </div>
+    <div style="background:#f0fafa;border:1.5px solid #b2e0e0;border-radius:16px;padding:22px 18px;text-align:center;margin-bottom:12px;">
+      <div style="font-size:36px;margin-bottom:10px;">🎥</div>
+      <div style="font-size:13px;font-weight:700;color:#007b7f;margin-bottom:6px;">Rent Camera Gear</div>
+      <div style="font-size:11px;color:#888;line-height:1.6;margin-bottom:16px;">DSLRs, GoPros, drones, lenses & more — rent gear from trusted local shops for your Kerala adventure.</div>
+      <div style="background:#e0f4f4;border-radius:20px;padding:8px 20px;display:inline-block;font-size:11px;font-weight:700;color:#007b7f;">🚧 Coming Soon</div>
+    </div>
+    <div style="background:#f8f8f8;border-radius:12px;padding:11px 14px;font-size:10.5px;color:#888;line-height:1.6;text-align:center;">
+      Own a camera rental shop? <span onclick="closeCmtCameraPopup();openUploadPopup();" style="color:#007b7f;font-weight:600;cursor:pointer;">List your gear →</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── CMT EDITORS POPUP ──────────────────────────────────────── -->
+<div id="cmtEditorsPopup" style="display:none;position:fixed;inset:0;z-index:12001;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeCmtEditorsPopup()">
+  <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
+    <div style="position:relative;text-align:center;margin-bottom:20px;">
+      <div style="font-size:16px;font-weight:700;color:#111;">Editors</div>
+      <div style="font-size:11px;color:#999;margin-top:2px;">Photo & video editors for your trip memories</div>
+      <button onclick="closeCmtEditorsPopup()" style="position:absolute;top:-4px;right:0;background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+    </div>
+    <div style="background:#f0fafa;border:1.5px solid #b2e0e0;border-radius:16px;padding:22px 18px;text-align:center;margin-bottom:12px;">
+      <div style="font-size:36px;margin-bottom:10px;">🎬</div>
+      <div style="font-size:13px;font-weight:700;color:#007b7f;margin-bottom:6px;">Find an Editor</div>
+      <div style="font-size:11px;color:#888;line-height:1.6;margin-bottom:16px;">Turn your raw trip footage into cinematic reels, travel vlogs & highlight videos with expert editors.</div>
+      <div style="background:#e0f4f4;border-radius:20px;padding:8px 20px;display:inline-block;font-size:11px;font-weight:700;color:#007b7f;">🚧 Coming Soon</div>
+    </div>
+    <div style="background:#f8f8f8;border-radius:12px;padding:11px 14px;font-size:10.5px;color:#888;line-height:1.6;text-align:center;">
+      Are you a video editor? <span onclick="closeCmtEditorsPopup();openUploadPopup();" style="color:#007b7f;font-weight:600;cursor:pointer;">Submit your profile →</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  window.openCmtPhotographersPopup  = function(){ document.getElementById('cmtPhotographersPopup').style.display='flex';  document.body.style.overflow='hidden'; };
+  window.closeCmtPhotographersPopup = function(){ document.getElementById('cmtPhotographersPopup').style.display='none';  document.body.style.overflow=''; };
+  window.openCmtCameraPopup         = function(){ document.getElementById('cmtCameraPopup').style.display='flex';         document.body.style.overflow='hidden'; };
+  window.closeCmtCameraPopup        = function(){ document.getElementById('cmtCameraPopup').style.display='none';         document.body.style.overflow=''; };
+  window.openCmtEditorsPopup        = function(){ document.getElementById('cmtEditorsPopup').style.display='flex';        document.body.style.overflow='hidden'; };
+  window.closeCmtEditorsPopup       = function(){ document.getElementById('cmtEditorsPopup').style.display='none';        document.body.style.overflow=''; };
 })();
 </script>
 
