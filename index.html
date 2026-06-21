@@ -5763,43 +5763,16 @@ window.closeCsPopup = function(){
       <div id="uploadFormView" style="display:none;">
         <button onclick="showUploadCategories()" style="background:none;border:none;color:#007b7f;font-size:12px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">‹ Back</button>
         <div id="uplFormCategoryTitle" style="font-size:14px;font-weight:700;color:#111;margin-bottom:14px;"></div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-
-          <!-- Your Name -->
-          <div><label class="upl-label">Your Name *</label><input id="uplName" class="upl-input" placeholder="e.g. Rajan K." maxlength="60"></div>
-
-          <!-- Business name — hidden for Tourist Place -->
-          <div id="uplBusinessRow"><label class="upl-label">Business / Service Name *</label><input id="uplBusiness" class="upl-input" placeholder="e.g. Kerala Tours & Travels" maxlength="80"></div>
-
-          <!-- Location -->
-          <div><label class="upl-label">Location / District *</label><input id="uplLocation" class="upl-input" placeholder="e.g. Munnar, Idukki" maxlength="80"></div>
-
-          <!-- Google Maps link -->
-          <div><label class="upl-label">Google Maps Link <span style="color:#aaa;font-weight:400;">(optional)</span></label><input id="uplMapLink" class="upl-input" placeholder="Paste Google Maps URL here" maxlength="500"></div>
-
-          <!-- WhatsApp -->
-          <div><label class="upl-label">WhatsApp Number *</label><input id="uplPhone" class="upl-input" type="tel" placeholder="+91 XXXXX XXXXX" maxlength="20"></div>
-
-          <!-- Email -->
-          <div><label class="upl-label">Email <span style="color:#aaa;font-weight:400;">(optional)</span></label><input id="uplEmail" class="upl-input" type="email" placeholder="you@example.com" maxlength="80"></div>
-
-          <!-- Description -->
-          <div><label class="upl-label">Description *</label><textarea id="uplDesc" class="upl-input" style="height:80px;resize:none;" placeholder="Tell us about your service, pricing, availability..." maxlength="400"></textarea></div>
-
-          <!-- Image upload -->
-          <div>
-            <label class="upl-label">Photos <span style="color:#aaa;font-weight:400;">(optional, max 3)</span></label>
-            <label class="upl-img-label" for="uplImages">
-              <span id="uplImgBtnText">📷 Choose Photos</span>
-            </label>
-            <input id="uplImages" type="file" accept="image/*" multiple style="display:none;" onchange="uplHandleImages(this)">
-            <div id="uplImgPreview" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;"></div>
-            <div id="uplImgNote" style="font-size:9.5px;color:#aaa;margin-top:4px;">Photos upload directly to our Drive. Max 3 photos, each under 5MB.</div>
-          </div>
-
-          <div id="uplFormErr" style="font-size:11px;color:#e53935;display:none;"></div>
-          <button id="uplSubmitBtn" onclick="submitUploadForm()" style="background:#007b7f;color:#fff;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;margin-top:4px;">Submit for Review ✓</button>
+        <div id="uplDynamicFields" style="display:flex;flex-direction:column;gap:10px;"></div>
+        <div style="margin-top:10px;">
+          <label class="upl-label">Photos <span style="color:#aaa;font-weight:400;">(optional, max 3)</span></label>
+          <label class="upl-img-label" for="uplImages"><span id="uplImgBtnText">📷 Choose Photos</span></label>
+          <input id="uplImages" type="file" accept="image/*" multiple style="display:none;" onchange="uplHandleImages(this)">
+          <div id="uplImgPreview" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;"></div>
+          <div style="font-size:9.5px;color:#aaa;margin-top:4px;">Max 3 photos, each under 5MB.</div>
         </div>
+        <div id="uplFormErr" style="font-size:11px;color:#e53935;display:none;margin-top:6px;"></div>
+        <button id="uplSubmitBtn" onclick="submitUploadForm()" style="background:#007b7f;color:#fff;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;margin-top:12px;width:100%;">Submit for Review ✓</button>
       </div>
 
     </div>
@@ -5830,6 +5803,345 @@ window.closeCsPopup = function(){
   let _uplCategory = '';
   let _uplImageFiles = [];
 
+  // ── Field helpers ────────────────────────────────────────────────
+  function f(id, label, type, placeholder, required, opts) {
+    return { id, label, type: type||'text', placeholder: placeholder||'', required: !!required, opts: opts||null };
+  }
+  // type: text | tel | email | textarea | select | number | url
+
+  // ── Category-specific field schemas ──────────────────────────────
+  const SCHEMAS = {
+    'Tourist Place': [
+      f('uplName',      'Place Name *',           'text',     'e.g. Chembra Peak',              true),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Kalpetta, Wayanad',         true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplPlaceType', 'Place Type *',           'select',   '',                               true, ['Trekking Spot','Waterfall','Beach','Backwater','Wildlife','Heritage Site','Viewpoint','Temple / Church / Mosque','Cave','Dam','Garden','Other']),
+      f('uplEntryFee',  'Entry Fee (₹)',          'text',     'e.g. Free / ₹50 per person',     false),
+      f('uplTiming',    'Timings',                'text',     'e.g. 6AM – 6PM, Closed Monday',  false),
+      f('uplMapLink',   'Google Maps Link',       'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Describe the place, best time to visit, how to reach...', true),
+    ],
+    'Stay / Hotel': [
+      f('uplName',      'Your Name *',            'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Hotel / Stay Name *',    'text',     'e.g. Green Valley Resort',       true),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Munnar Town',               true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplStayType',  'Stay Type *',            'select',   '',                               true, ['Hotel','Homestay','Resort','Hostel','Treehouse','Tent / Camp','Houseboat','Villa','Other']),
+      f('uplRate',      'Rate per Night (₹) *',   'text',     'e.g. ₹1500 – ₹3000',            true),
+      f('uplRooms',     'No. of Rooms',           'number',   'e.g. 10',                        false),
+      f('uplAmenities', 'Amenities',              'text',     'e.g. AC, Pool, Parking, WiFi',   false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplMapLink',   'Google Maps Link',       'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Describe your property, facilities, nearby attractions...', true),
+    ],
+    'Houseboat': [
+      f('uplName',      'Your Name *',            'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Houseboat Name *',       'text',     'e.g. Kerala Queen Houseboat',    true),
+      f('uplLocation',  'Starting Point *',       'text',     'e.g. Alleppey Boat Jetty',       true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Alappuzha','Kottayam','Ernakulam','Thrissur','Kollam']),
+      f('uplBoatType',  'Houseboat Type *',       'select',   '',                               true, ['1 Bedroom','2 Bedroom','3 Bedroom','Premium','Deluxe','Budget']),
+      f('uplRate',      'Rate per Night (₹) *',   'text',     'e.g. ₹8000 per night',           true),
+      f('uplCapacity',  'Guest Capacity',         'number',   'e.g. 4',                         false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplMapLink',   'Google Maps / Jetty Link','url',     'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Describe your houseboat, meals included, amenities...', true),
+    ],
+    'Camps': [
+      f('uplName',      'Your Name *',            'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Camp Name *',            'text',     'e.g. Wayanad Wild Camp',         true),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Meppadi, Wayanad',          true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplCampType',  'Camp Type *',            'select',   '',                               true, ['Tent Camp','Treehouse','Bamboo Hut','Eco Camp','Adventure Camp','Other']),
+      f('uplRate',      'Rate per Person (₹) *',  'text',     'e.g. ₹1200 per person',          true),
+      f('uplActivities','Activities Offered',     'text',     'e.g. Trekking, Bonfire, Kayaking',false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplMapLink',   'Google Maps Link',       'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Describe your camp, what\'s included, activities...', true),
+    ],
+    'Guide': [
+      f('uplName',      'Your Name *',            'text',     'e.g. Rajan K.',                  true),
+      f('uplLocation',  'Area You Cover *',       'text',     'e.g. Munnar, Thekkady',          true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplLang',      'Languages Spoken *',     'text',     'e.g. Malayalam, English, Hindi', true),
+      f('uplGuideType', 'Guide Type *',           'select',   '',                               true, ['Trekking Guide','Wildlife Guide','Heritage / Cultural Guide','Backwater Guide','General Tourist Guide']),
+      f('uplRate',      'Rate per Day (₹) *',     'text',     'e.g. ₹800 per day',              true),
+      f('uplExp',       'Years of Experience',    'number',   'e.g. 5',                         false),
+      f('uplCert',      'Certifications',         'text',     'e.g. Kerala Tourism Licensed',   false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplDesc',      'About Yourself *',       'textarea', 'Describe your experience, speciality, places you cover...', true),
+    ],
+    'Photographer': [
+      f('uplName',      'Your Name *',            'text',     'e.g. Arun Nair',                 true),
+      f('uplBusiness',  'Studio / Brand Name',    'text',     'e.g. Arun Clicks',               false),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Kochi, Ernakulam',          true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplPhotoType', 'Photography Type *',     'select',   '',                               true, ['Travel / Landscape','Wildlife','Wedding','Portrait','Aerial / Drone','Event','Other']),
+      f('uplRate',      'Starting Rate (₹) *',    'text',     'e.g. ₹3000 per day',             true),
+      f('uplPortfolio', 'Portfolio / Instagram Link','url',   'e.g. instagram.com/yourpage',    false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplDesc',      'About Your Work *',      'textarea', 'Describe your style, packages, equipment used...', true),
+    ],
+    'Camera Rent': [
+      f('uplName',      'Your Name *',            'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Shop / Service Name *',  'text',     'e.g. Kerala Camera Hub',         true),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Kottayam Town',             true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplEquipment', 'Equipment Available *',  'text',     'e.g. DSLR, GoPro, Drone, Lens', true),
+      f('uplRate',      'Rate per Day (₹) *',     'text',     'e.g. ₹500 per day',              true),
+      f('uplDeposit',   'Security Deposit (₹)',   'text',     'e.g. ₹5000 refundable',          false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Google Maps / Shop Link','url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Describe available gear, rental terms, delivery options...', true),
+    ],
+    'Video Editor': [
+      f('uplName',      'Your Name *',            'text',     'e.g. Arun Nair',                 true),
+      f('uplLocation',  'Location *',             'text',     'e.g. Thrissur / Remote',         true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod','Works Remotely']),
+      f('uplEditType',  'Edit Type *',            'select',   '',                               true, ['Travel Reels','Wedding Film','Short Film','YouTube Videos','Social Media Content','Drone Footage Edit','Other']),
+      f('uplRate',      'Rate (₹) *',             'text',     'e.g. ₹1500 per minute of video', true),
+      f('uplSoftware',  'Software Used',          'text',     'e.g. Premiere Pro, DaVinci',     false),
+      f('uplPortfolio', 'Portfolio / YouTube Link','url',     'e.g. youtube.com/yourpage',      false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplDesc',      'About Your Work *',      'textarea', 'Describe your editing style, turnaround time, packages...', true),
+    ],
+    'Local Cabs': [
+      f('uplName',      'Driver / Owner Name *',  'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Business Name',          'text',     'e.g. Rajan Travels',             false),
+      f('uplLocation',  'Taxi Stand / Area *',    'text',     'e.g. Munnar Town Taxi Stand',    true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplVehicle',   'Vehicle Type *',         'select',   '',                               true, ['Sedan','SUV','Tempo Traveller','Mini Van','Luxury Car','Other']),
+      f('uplRate',      'Rate per KM (₹) *',      'text',     'e.g. ₹14 per km',               true),
+      f('uplMinFare',   'Minimum Fare (₹)',        'text',     'e.g. ₹300 minimum',              false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Taxi Stand / Maps Link', 'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Routes covered, AC/non-AC, outstation available...', true),
+    ],
+    'Driver': [
+      f('uplName',      'Driver Name *',          'text',     'e.g. Rajan K.',                  true),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Kochi, Ernakulam',          true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplLicense',   'License Type *',         'select',   '',                               true, ['LMV (Light Motor Vehicle)','HMV (Heavy Motor Vehicle)','Tourist Vehicle License','Other']),
+      f('uplExp',       'Years of Experience *',  'number',   'e.g. 8',                         true),
+      f('uplLang',      'Languages Known',        'text',     'e.g. Malayalam, English, Hindi', false),
+      f('uplRate',      'Rate per Day (₹) *',     'text',     'e.g. ₹800 per day',              true),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplDesc',      'Description *',          'textarea', 'Routes comfortable with, vehicle types driven, any speciality...', true),
+    ],
+    'Auto': [
+      f('uplName',      'Driver Name *',          'text',     'e.g. Rajan K.',                  true),
+      f('uplLocation',  'Stand / Area *',         'text',     'e.g. Thrissur Round, Chalakudy', true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplRate',      'Rate per KM (₹) *',      'text',     'e.g. ₹12 per km / meter',        true),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Auto Stand Maps Link',   'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description',            'textarea', 'Area covered, timing, any special service...', false),
+    ],
+    'Tourist Bus': [
+      f('uplName',      'Owner / Contact Name *', 'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Bus Service Name *',     'text',     'e.g. Kerala Tourist Lines',      true),
+      f('uplLocation',  'Starting Point *',       'text',     'e.g. Thrissur KSRTC Stand',      true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplBusType',   'Bus Type *',             'select',   '',                               true, ['AC Sleeper','AC Seater','Non-AC','Luxury Coach','Mini Bus','Other']),
+      f('uplCapacity',  'Seating Capacity *',     'number',   'e.g. 45',                        true),
+      f('uplRate',      'Rate per Day (₹) *',     'text',     'e.g. ₹8000 per day',             true),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplMapLink',   'Google Maps Link',       'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Routes covered, facilities, driver included...', true),
+    ],
+    'Traveller': [
+      f('uplName',      'Owner / Driver Name *',  'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Service Name',           'text',     'e.g. Rajan Travels',             false),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Kottayam Town',             true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplCapacity',  'Seating Capacity *',     'select',   '',                               true, ['9 Seater','12 Seater','15 Seater','17 Seater']),
+      f('uplRate',      'Rate per Day (₹) *',     'text',     'e.g. ₹3500 per day',             true),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Google Maps Link',       'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'AC/non-AC, routes, driver included, outstation...', true),
+    ],
+    'Mini Goods': [
+      f('uplName',      'Driver / Owner Name *',  'text',     'e.g. Rajan K.',                  true),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Ernakulam',                 true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplVehicle',   'Vehicle Type *',         'select',   '',                               true, ['Tata Ace','Mahindra Pickup','Mini Truck','Tempo','Other']),
+      f('uplCapacity',  'Load Capacity',          'text',     'e.g. 1 Ton',                     false),
+      f('uplRate',      'Rate (₹) *',             'text',     'e.g. ₹1200 per trip / ₹15 per km',true),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplDesc',      'Description *',          'textarea', 'Routes covered, items transported, availability...', true),
+    ],
+    'Bike Rental': [
+      f('uplName',      'Owner Name *',           'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Shop Name *',            'text',     'e.g. Munnar Bike Rentals',       true),
+      f('uplLocation',  'Shop Location *',        'text',     'e.g. Munnar Town',               true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplBikeType',  'Bikes Available *',      'text',     'e.g. Royal Enfield, Activa, KTM',true),
+      f('uplRate',      'Rate per Day (₹) *',     'text',     'e.g. ₹600–₹1200 per day',        true),
+      f('uplDeposit',   'Security Deposit (₹)',   'text',     'e.g. ₹2000 refundable',          false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Shop Maps Link',         'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Documents required, helmet included, delivery available...', true),
+    ],
+    'Car Rental': [
+      f('uplName',      'Owner Name *',           'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Agency Name *',          'text',     'e.g. Kerala Car Rentals',        true),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Trivandrum City',           true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplCars',      'Cars Available *',       'text',     'e.g. Swift, Innova, Fortuner',   true),
+      f('uplRate',      'Rate per Day (₹) *',     'text',     'e.g. ₹1500–₹4000 per day',       true),
+      f('uplFuelPolicy','Fuel Policy',            'select',   '',                               false, ['Included','Excluded','Pay at Pump']),
+      f('uplDeposit',   'Security Deposit (₹)',   'text',     'e.g. ₹5000 refundable',          false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplMapLink',   'Google Maps Link',       'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Self-drive or with driver, outstation, documents required...', true),
+    ],
+    'Helicopter': [
+      f('uplName',      'Contact Name *',         'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Company Name *',         'text',     'e.g. Kerala Heli Tours',         true),
+      f('uplLocation',  'Helipad Location *',     'text',     'e.g. Munnar Helipad',            true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplHeliType',  'Service Type *',         'select',   '',                               true, ['Sightseeing / Joy Ride','Charter / Point to Point','Pilgrim Service','Cargo','Emergency Medical']),
+      f('uplCapacity',  'Passenger Capacity *',   'number',   'e.g. 5',                         true),
+      f('uplRate',      'Rate (₹) *',             'text',     'e.g. ₹5000 per person / ₹50000 per hour',true),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email *',                'email',    'you@example.com',                true),
+      f('uplMapLink',   'Helipad Maps Link',      'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Routes, booking process, availability...', true),
+    ],
+    'Ferry / Boat': [
+      f('uplName',      'Owner / Contact Name *', 'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Service Name *',         'text',     'e.g. Alleppey Ferry Service',    true),
+      f('uplLocation',  'Departure Point *',      'text',     'e.g. Alleppey Boat Jetty',       true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Alappuzha','Kottayam','Ernakulam','Thrissur','Kollam','Kozhikode','Kannur','Kasaragod']),
+      f('uplBoatType',  'Boat Type *',            'select',   '',                               true, ['Country Boat','Speed Boat','Ferry','Shikara','Pontoon','Other']),
+      f('uplRoute',     'Route *',                'text',     'e.g. Alleppey → Kumarakom',      true),
+      f('uplRate',      'Rate (₹) *',             'text',     'e.g. ₹500 per person',           true),
+      f('uplCapacity',  'Capacity',               'number',   'e.g. 20 passengers',             false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Jetty Maps Link',        'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description *',          'textarea', 'Schedule, stops, booking process...', true),
+    ],
+    'Parking': [
+      f('uplName',      'Owner Name *',           'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Parking Name',           'text',     'e.g. Munnar Central Parking',    false),
+      f('uplLocation',  'Location / Address *',   'text',     'e.g. Near Munnar Town Bus Stand',true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplParkType',  'Parking Type *',         'select',   '',                               true, ['Open Parking','Covered Parking','Multi-level','Basement','Roadside']),
+      f('uplCapacity',  'Vehicle Capacity',       'number',   'e.g. 50 vehicles',               false),
+      f('uplRate',      'Rate (₹) *',             'text',     'e.g. ₹30 per hour / ₹100 per day',true),
+      f('uplVehicles',  'Vehicles Accepted',      'text',     'e.g. Car, Bike, Bus, Auto',      false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Google Maps Link *',     'url',      'Paste Google Maps URL here',     true),
+      f('uplDesc',      'Description',            'textarea', 'Security, CCTV, timing, other details...', false),
+    ],
+    'Luggage Service': [
+      f('uplName',      'Owner Name *',           'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Service Name *',         'text',     'e.g. Quick Luggage Storage',     true),
+      f('uplLocation',  'Location / Area *',      'text',     'e.g. Near Munnar Bus Stand',     true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplServiceType','Service Type *',        'select',   '',                               true, ['Storage','Delivery','Both Storage & Delivery']),
+      f('uplRate',      'Rate (₹) *',             'text',     'e.g. ₹50 per bag per day',       true),
+      f('uplTiming',    'Working Hours',          'text',     'e.g. 7AM – 9PM',                 false),
+      f('uplPhone',     'WhatsApp Number *',      'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Google Maps Link',       'url',      'Paste Google Maps URL here',     false),
+      f('uplDesc',      'Description',            'textarea', 'Security, insurance, pickup/drop available...', false),
+    ],
+    'Restaurant': [
+      f('uplName',      'Owner Name *',           'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Restaurant Name *',      'text',     'e.g. Spice Garden Restaurant',   true),
+      f('uplLocation',  'Location / Address *',   'text',     'e.g. Thekkady Main Road',        true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplCuisine',   'Cuisine Type *',         'select',   '',                               true, ['Kerala Traditional','North Indian','South Indian','Chinese','Continental','Seafood','Vegan / Vegetarian','Multi Cuisine','Other']),
+      f('uplFoodType',  'Food Type *',            'select',   '',                               true, ['Pure Veg','Non-Veg','Both Veg & Non-Veg']),
+      f('uplAvgCost',   'Avg Cost for Two (₹)',   'text',     'e.g. ₹400 – ₹600',              false),
+      f('uplTiming',    'Timings *',              'text',     'e.g. 7AM – 10PM',                true),
+      f('uplPhone',     'WhatsApp / Phone *',     'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplEmail',     'Email',                  'email',    'you@example.com',                false),
+      f('uplMapLink',   'Google Maps Link *',     'url',      'Paste Google Maps URL here',     true),
+      f('uplDesc',      'Description *',          'textarea', 'Speciality dishes, ambiance, takeaway/delivery available...', true),
+    ],
+    'Café / Hotel': [
+      f('uplName',      'Owner Name *',           'text',     'e.g. Rajan K.',                  true),
+      f('uplBusiness',  'Café / Hotel Name *',    'text',     'e.g. Misty Mountain Café',       true),
+      f('uplLocation',  'Location / Address *',   'text',     'e.g. Munnar Town',               true),
+      f('uplDistrict',  'District *',             'select',   '',                               true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplCafeType',  'Type *',                 'select',   '',                               true, ['Café','Tea Shop','Juice Bar','Bakery','Hotel (Meals)','Rooftop Café','Other']),
+      f('uplSpeciality','Speciality Items',       'text',     'e.g. Kerala Tea, Banana Chips, Parotta', false),
+      f('uplTiming',    'Timings *',              'text',     'e.g. 8AM – 9PM',                 true),
+      f('uplPhone',     'WhatsApp / Phone *',     'tel',      '+91 XXXXX XXXXX',                true),
+      f('uplMapLink',   'Google Maps Link *',     'url',      'Paste Google Maps URL here',     true),
+      f('uplDesc',      'Description *',          'textarea', 'Ambiance, speciality, delivery, seating capacity...', true),
+    ],
+  };
+
+  // ── Build HTML for a field ────────────────────────────────────────
+  function buildField(fld) {
+    const req = fld.required ? ' *' : '';
+    const optLabel = fld.required ? '' : ' <span style="color:#aaa;font-weight:400;">(optional)</span>';
+    let input = '';
+    if (fld.type === 'textarea') {
+      input = `<textarea id="${fld.id}" class="upl-input" style="height:80px;resize:none;" placeholder="${fld.placeholder}" maxlength="400"></textarea>`;
+    } else if (fld.type === 'select' && fld.opts) {
+      const options = fld.opts.map(o => `<option value="${o}">${o}</option>`).join('');
+      input = `<select id="${fld.id}" class="upl-input"><option value="">— Select —</option>${options}</select>`;
+    } else {
+      const t = fld.type === 'url' ? 'text' : fld.type;
+      input = `<input id="${fld.id}" class="upl-input" type="${t}" placeholder="${fld.placeholder}" maxlength="${fld.type==='textarea'?400:120}">`;
+    }
+    return `<div><label class="upl-label">${fld.label.replace(' *', req)}${optLabel}</label>${input}</div>`;
+  }
+
+  // ── Render dynamic fields ─────────────────────────────────────────
+  window.openUploadForm = function(category) {
+    _uplCategory = category;
+    _uplImageFiles = [];
+
+    const schema = SCHEMAS[category] || [
+      f('uplName',     'Your Name *',         'text',     'e.g. Rajan K.',       true),
+      f('uplBusiness', 'Business Name *',     'text',     'e.g. My Service',     true),
+      f('uplLocation', 'Location *',          'text',     'e.g. Munnar, Idukki', true),
+      f('uplDistrict', 'District *',          'select',   '',                    true, ['Thiruvananthapuram','Kollam','Pathanamthitta','Alappuzha','Kottayam','Idukki','Ernakulam','Thrissur','Palakkad','Malappuram','Kozhikode','Wayanad','Kannur','Kasaragod']),
+      f('uplPhone',    'WhatsApp Number *',   'tel',      '+91 XXXXX XXXXX',     true),
+      f('uplEmail',    'Email',               'email',    'you@example.com',     false),
+      f('uplMapLink',  'Google Maps Link',    'url',      'Paste Maps URL',      false),
+      f('uplDesc',     'Description *',       'textarea', 'Tell us about your service...', true),
+    ];
+
+    document.getElementById('uplFormCategoryTitle').textContent = '📋 ' + category;
+    document.getElementById('uploadCategoryView').style.display = 'none';
+    document.getElementById('uploadFormView').style.display = 'block';
+
+    // Build fields
+    document.getElementById('uplDynamicFields').innerHTML = schema.map(buildField).join('');
+
+    // Reset image UI
+    document.getElementById('uplImages').value = '';
+    document.getElementById('uplImgPreview').innerHTML = '';
+    document.getElementById('uplImgBtnText').textContent = '📷 Choose Photos';
+    document.getElementById('uplFormErr').style.display = 'none';
+    const btn = document.getElementById('uplSubmitBtn');
+    btn.disabled = false;
+    btn.textContent = 'Submit for Review ✓';
+    btn.style.background = '#007b7f';
+
+    // Store schema for submit
+    _currentSchema = schema;
+  };
+
+  let _currentSchema = [];
+
+  window.showUploadCategories = function() {
+    document.getElementById('uploadCategoryView').style.display = 'block';
+    document.getElementById('uploadFormView').style.display = 'none';
+  };
+
   window.openUploadPopup = function() {
     showUploadCategories();
     document.getElementById('uploadPopupOverlay').style.display = 'flex';
@@ -5839,36 +6151,6 @@ window.closeCsPopup = function(){
   window.closeUploadPopup = function() {
     document.getElementById('uploadPopupOverlay').style.display = 'none';
     document.body.style.overflow = '';
-  };
-
-  window.openUploadForm = function(category) {
-    _uplCategory = category;
-    _uplImageFiles = [];
-    document.getElementById('uplFormCategoryTitle').textContent = '📋 ' + category;
-    document.getElementById('uploadCategoryView').style.display = 'none';
-    document.getElementById('uploadFormView').style.display = 'block';
-
-    // Hide Business/Service Name for Tourist Place
-    const bizRow = document.getElementById('uplBusinessRow');
-    bizRow.style.display = (category === 'Tourist Place') ? 'none' : 'block';
-
-    // Clear all fields
-    ['uplName','uplBusiness','uplLocation','uplMapLink','uplPhone','uplEmail','uplDesc'].forEach(function(id){
-      var el = document.getElementById(id); if(el) el.value = '';
-    });
-    document.getElementById('uplImages').value = '';
-    document.getElementById('uplImgPreview').innerHTML = '';
-    document.getElementById('uplImgBtnText').textContent = '📷 Choose Photos';
-    document.getElementById('uplFormErr').style.display = 'none';
-    const btn = document.getElementById('uplSubmitBtn');
-    btn.disabled = false;
-    btn.textContent = 'Submit for Review ✓';
-    btn.style.background = '#007b7f';
-  };
-
-  window.showUploadCategories = function() {
-    document.getElementById('uploadCategoryView').style.display = 'block';
-    document.getElementById('uploadFormView').style.display = 'none';
   };
 
   window.uplHandleImages = function(input) {
@@ -5886,32 +6168,44 @@ window.closeCsPopup = function(){
   };
 
   window.submitUploadForm = function() {
-    const name     = (document.getElementById('uplName').value||'').trim();
-    const bizRow   = document.getElementById('uplBusinessRow');
-    const business = bizRow.style.display === 'none' ? _uplCategory : (document.getElementById('uplBusiness').value||'').trim();
-    const location = (document.getElementById('uplLocation').value||'').trim();
-    const maplink  = (document.getElementById('uplMapLink').value||'').trim();
-    const phone    = (document.getElementById('uplPhone').value||'').trim();
-    const email    = (document.getElementById('uplEmail').value||'').trim();
-    const desc     = (document.getElementById('uplDesc').value||'').trim();
+    // Collect all field values from current schema
+    const data = { category: _uplCategory };
+    for (const fld of _currentSchema) {
+      const el = document.getElementById(fld.id);
+      const val = el ? (el.value || '').trim() : '';
+      if (fld.required && !val) {
+        showUplErr('Please fill in: ' + fld.label.replace(' *',''));
+        if (el) el.focus();
+        return;
+      }
+      data[fld.id] = val;
+    }
 
-    if (!name || name.length < 2)                               { showUplErr('Please enter your name.'); return; }
-    if (bizRow.style.display !== 'none' && business.length < 2) { showUplErr('Please enter your business/service name.'); return; }
-    if (!location || location.length < 2)                       { showUplErr('Please enter your location.'); return; }
-    if (!phone || !/^\+?[\d\s\-]{7,20}$/.test(phone))           { showUplErr('Please enter a valid WhatsApp number.'); return; }
-    if (!desc || desc.length < 10)                              { showUplErr('Please add a short description (min 10 chars).'); return; }
+    // Phone validation
+    const phone = data.uplPhone || '';
+    if (phone && !/^\+?[\d\s\-]{7,20}$/.test(phone)) {
+      showUplErr('Please enter a valid WhatsApp number.');
+      return;
+    }
+
+    // Map link validation
+    const maplink = data.uplMapLink || '';
+    if (maplink && !maplink.startsWith('https://')) {
+      showUplErr('Map link must start with https://');
+      return;
+    }
 
     document.getElementById('uplFormErr').style.display = 'none';
     const btn = document.getElementById('uplSubmitBtn');
     btn.disabled = true;
     btn.textContent = 'Uploading…';
 
-    // Convert image files to base64 then submit
+    // Convert images to base64
     const toBase64 = function(file) {
       return new Promise(function(resolve, reject) {
         const reader = new FileReader();
-        reader.onload  = function(e) {
-          const b64 = e.target.result.split(',')[1]; // strip data:...;base64,
+        reader.onload = function(e) {
+          const b64 = e.target.result.split(',')[1];
           const ext = file.name.split('.').pop().toLowerCase() || 'jpg';
           resolve({ data: b64, type: file.type, ext: ext });
         };
@@ -5922,9 +6216,24 @@ window.closeCsPopup = function(){
 
     Promise.all(_uplImageFiles.map(toBase64))
       .then(function(images) {
+        // Build clean payload for backend
         const payload = {
-          category: _uplCategory, name, business, location,
-          maplink, phone, email, desc,
+          category:  _uplCategory,
+          name:      data.uplName      || data.uplBusiness || _uplCategory,
+          business:  data.uplBusiness  || data.uplName || _uplCategory,
+          location:  data.uplLocation  || '',
+          maplink:   data.uplMapLink   || '',
+          phone:     data.uplPhone     || '',
+          email:     data.uplEmail     || '',
+          desc:      data.uplDesc      || '',
+          // Extra category-specific fields as JSON string
+          extra:     JSON.stringify(
+            Object.fromEntries(
+              Object.entries(data).filter(function(e){
+                return !['category','uplName','uplBusiness','uplLocation','uplMapLink','uplPhone','uplEmail','uplDesc'].includes(e[0]);
+              })
+            )
+          ),
           images: images,
           ts: new Date().toISOString()
         };
@@ -5934,11 +6243,7 @@ window.closeCsPopup = function(){
           body: JSON.stringify(payload)
         });
       })
-      .then(function(r) {
-        return r.json().then(function(json) {
-          return { status: r.status, json: json };
-        });
-      })
+      .then(function(r) { return r.json().then(function(json){ return { status: r.status, json: json }; }); })
       .then(function(result) {
         if (result.json.ok) {
           btn.textContent = '✅ Submitted! We\'ll contact you soon.';
@@ -5948,10 +6253,7 @@ window.closeCsPopup = function(){
           btn.disabled = false;
           btn.textContent = 'Submit for Review ✓';
           btn.style.background = '#007b7f';
-          const errMsg = result.json.errors
-            ? result.json.errors.join(' ')
-            : (result.json.error || 'Submission failed. Please try again.');
-          showUplErr(errMsg);
+          showUplErr(result.json.errors ? result.json.errors.join(' ') : (result.json.error || 'Submission failed.'));
         }
       })
       .catch(function(err) {
