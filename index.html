@@ -6609,4 +6609,147 @@ window.closeCsPopup = function(){
 })();
 </script>
 
+<!-- ── UNIVERSAL SWIPE TO CLOSE ───────────────────────────────── -->
+<script>
+(function(){
+  'use strict';
+
+  // Map each popup inner box selector → its close function name
+  var POPUP_MAP = [
+    // New bottom-sheet popups (inner div is first child of overlay)
+    { overlay: 'stayPopup',             close: 'closeStayPopup' },
+    { overlay: 'epassPopup',            close: 'closeEpassPopup' },
+    { overlay: 'ridingClubsPopup',      close: 'closeRidingClubsPopup' },
+    { overlay: 'eatPopup',              close: 'closeEatPopup' },
+    { overlay: 'guidesPopup',           close: 'closeGuidesPopup' },
+    { overlay: 'campsPopup',            close: 'closeCampsPopup' },
+    { overlay: 'cmtPhotographersPopup', close: 'closeCmtPhotographersPopup' },
+    { overlay: 'cmtCameraPopup',        close: 'closeCmtCameraPopup' },
+    { overlay: 'cmtEditorsPopup',       close: 'closeCmtEditorsPopup' },
+    // Travel partner overlays
+    { overlay: 'tpMainPopup',           close: 'closeTravelPartnerPopup' },
+    { overlay: 'tpSubPopup',            close: 'closeTravelPartnerPopup' },
+    { overlay: 'tpActionPopup',         close: 'closeTpAction' },
+    { overlay: 'tpDetailPopup',         close: 'closeTpDetail' },
+    { overlay: 'tpChatPopup',           close: 'closeTpChat' },
+    { overlay: 'uploadPopupOverlay',    close: 'closeUploadPopup' },
+    // Existing popups with .close-btn
+    { overlay: 'emergencyPopup',        close: 'closeEmergencyPopup' },
+    { overlay: 'transportPopup',        close: 'closeTransportPopup' },
+    { overlay: 'helpPopup',             close: 'closeHelpPopup' },
+    { overlay: 'fuelPopup',             close: 'closeFuelPopup' },
+    { overlay: 'cmtPopup',              close: 'closeCmtPopup' },
+    { overlay: 'csPopup',               close: 'closeCsPopup' },
+    { overlay: 'trPopup',               close: 'closeTrPopup' },
+    { overlay: 'tzPopup',               close: 'closeTzPopup' },
+    { overlay: 'currencyPopup',         close: 'closeCurrencyPopup' },
+    { overlay: 'hpSeeAllPopup',         close: 'closeHpSeeAll' },
+    { overlay: 'railwayPopup',          close: 'closeRailwayPopup' },
+  ];
+
+  var SWIPE_THRESHOLD    = 80;  // px horizontal swipe needed to trigger close
+  var SWIPE_MAX_VERTICAL = 60;  // px max vertical drift allowed (keeps it horizontal)
+
+  function attachSwipe(overlayEl, closeFn) {
+    // Find the inner box (first focusable child div)
+    var box = overlayEl.querySelector(
+      '.emergency-box,.transport-box,.help-box,.fuel-box,.cmt-box,.cs-box,' +
+      '.tr-box,.tz-box,.currency-box,.hp-seeall-box,.railway-box,[onclick="event.stopPropagation()"],' +
+      'div[style*="border-radius:22px"],div[style*="border-radius: 22px"],' +
+      '.drag-bar'
+    );
+    // Fall back to first child div if no match
+    if (!box) box = overlayEl.firstElementChild;
+    if (!box) box = overlayEl;
+
+    // Use the actual panel element (parent of drag-bar if drag-bar was matched)
+    if (box.classList && box.classList.contains('drag-bar')) box = box.parentElement;
+
+    var startX = 0, startY = 0, startTime = 0;
+    var isDragging = false;
+    var origTransform = '';
+
+    function onTouchStart(e) {
+      if (e.touches.length !== 1) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      startTime = Date.now();
+      isDragging = true;
+      origTransform = box.style.transform || '';
+      box.style.transition = 'none';
+    }
+
+    function onTouchMove(e) {
+      if (!isDragging || e.touches.length !== 1) return;
+      var dx = e.touches[0].clientX - startX;
+      var dy = Math.abs(e.touches[0].clientY - startY);
+      // Only track horizontal swipes
+      if (dy > SWIPE_MAX_VERTICAL) { isDragging = false; resetBox(); return; }
+      if (Math.abs(dx) > 10) e.preventDefault(); // prevent page scroll
+      // Translate box with resistance
+      var resistance = 0.4;
+      box.style.transform = 'translateX(' + (dx * resistance) + 'px)';
+    }
+
+    function onTouchEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      var dx = (e.changedTouches[0] ? e.changedTouches[0].clientX : startX) - startX;
+      var elapsed = Date.now() - startTime;
+      var isFlick = Math.abs(dx) > 30 && elapsed < 250;
+
+      box.style.transition = 'transform .25s cubic-bezier(.25,.8,.25,1)';
+
+      if (Math.abs(dx) >= SWIPE_THRESHOLD || isFlick) {
+        // Animate off screen then close
+        box.style.transform = 'translateX(' + (dx > 0 ? '100%' : '-100%') + ')';
+        setTimeout(function() {
+          resetBox();
+          if (typeof window[closeFn] === 'function') window[closeFn]();
+        }, 220);
+      } else {
+        resetBox();
+      }
+    }
+
+    function resetBox() {
+      box.style.transition = 'transform .25s cubic-bezier(.25,.8,.25,1)';
+      box.style.transform = origTransform || '';
+    }
+
+    box.addEventListener('touchstart', onTouchStart, { passive: true });
+    box.addEventListener('touchmove',  onTouchMove,  { passive: false });
+    box.addEventListener('touchend',   onTouchEnd,   { passive: true });
+  }
+
+  // Attach to all popups — retry after DOM is ready
+  function init() {
+    POPUP_MAP.forEach(function(item) {
+      var el = document.getElementById(item.overlay);
+      if (el) attachSwipe(el, item.close);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Also attach to Travel Partner overlays when they open (dynamic content)
+  var _origShow = window.show;
+  if (typeof _origShow === 'function') {
+    window.show = function(id) {
+      _origShow(id);
+      var el = document.getElementById(id);
+      var entry = POPUP_MAP.find(function(p){ return p.overlay === id; });
+      if (el && entry && !el._swipeAttached) {
+        attachSwipe(el, entry.close);
+        el._swipeAttached = true;
+      }
+    };
+  }
+})();
+</script>
+
 </body></html>
