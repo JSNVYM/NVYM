@@ -6759,7 +6759,7 @@ window.closeCsPopup = function(){
   bottom:calc(70px + var(--gap,12px) * 2 + 8px);
   right:calc(var(--gap,12px) + 4px);
   z-index:1000;
-  width:60px;height:60px;
+  width:36px;height:36px;  /* small by default */
   background:none;
   border-radius:0;
   box-shadow:none;
@@ -6771,33 +6771,35 @@ window.closeCsPopup = function(){
   user-select:none;
   -webkit-user-select:none;
   padding:0;
-  transition:opacity .3s,transform .3s;
+  /* size + visibility transitions */
+  transition:opacity .35s,transform .35s,width .35s cubic-bezier(.34,1.56,.64,1),height .35s cubic-bezier(.34,1.56,.64,1);
   opacity:1;
   pointer-events:auto;
 }
+/* large state — after tap */
+#compassFab.compass-large{
+  width:72px;height:72px;
+}
+/* hidden state */
 #compassFab.fab-hidden{
   opacity:0;
   pointer-events:none;
-  transform:translateY(12px) scale(0.9);
+  transform:translateY(10px) scale(0.85);
 }
-#compassFab:active{transform:scale(0.93);}
-#compassFab.active-ring svg circle.compass-outer-ring{
-  stroke:#007b7f;
-  stroke-width:2;
-}
+#compassFab:active{ transform:scale(0.92); }
 
-/* compass SVG — no separate label span needed */
+/* SVG fills the button */
 #compassRose{
-  width:60px;height:60px;
+  width:100%;height:100%;
   display:block;
-  transition:transform .3s cubic-bezier(.25,.8,.25,1);
-  filter:drop-shadow(0 2px 6px rgba(0,0,0,0.22));
+  transition:transform .35s cubic-bezier(.25,.8,.25,1);
+  filter:drop-shadow(0 1px 4px rgba(0,0,0,0.20));
 }
 
 /* toast */
 #compassToast{
   position:fixed;
-  bottom:calc(70px + var(--gap,12px)*2 + 78px);
+  bottom:calc(70px + var(--gap,12px)*2 + 88px);
   right:calc(var(--gap,12px) + 4px);
   z-index:1001;
   background:rgba(0,0,0,0.72);
@@ -6822,28 +6824,36 @@ window.closeCsPopup = function(){
 <button id="compassFab" title="Compass" onclick="compassTap()">
   <svg id="compassRose" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
     <!-- outer ring -->
-    <circle class="compass-outer-ring" cx="30" cy="30" r="28" fill="rgba(255,255,255,0.82)" stroke="#ccc" stroke-width="1.2"/>
-    <!-- degree markers (subtle ticks every 30°) -->
-    <line x1="30" y1="3"  x2="30" y2="7"  stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
-    <line x1="30" y1="53" x2="30" y2="57" stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
-    <line x1="3"  y1="30" x2="7"  y2="30" stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
-    <line x1="53" y1="30" x2="57" y2="30" stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
+    <circle class="compass-outer-ring" cx="30" cy="30" r="28" fill="rgba(255,255,255,0.85)" stroke="#ccc" stroke-width="1.2"/>
+    <!-- cardinal ticks -->
+    <line x1="30" y1="3"  x2="30" y2="8"  stroke="#bbb" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="30" y1="52" x2="30" y2="57" stroke="#bbb" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="3"  y1="30" x2="8"  y2="30" stroke="#bbb" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="52" y1="30" x2="57" y2="30" stroke="#bbb" stroke-width="1.2" stroke-linecap="round"/>
     <!-- N arrow (red) -->
-    <polygon points="30,6 27,30 30,25 33,30" fill="#e53935"/>
+    <polygon points="30,8 27.5,30 30,26 32.5,30" fill="#e53935"/>
     <!-- S arrow (grey) -->
-    <polygon points="30,54 33,30 30,35 27,30" fill="#bbb"/>
-    <!-- N label -->
-    <text x="30" y="20" text-anchor="middle" font-size="7" font-weight="800" fill="#e53935" font-family="Poppins,sans-serif">N</text>
-    <!-- E / W labels -->
-    <text x="50" y="33" text-anchor="middle" font-size="5.5" font-weight="700" fill="#888" font-family="Poppins,sans-serif">E</text>
-    <text x="10" y="33" text-anchor="middle" font-size="5.5" font-weight="700" fill="#888" font-family="Poppins,sans-serif">W</text>
+    <polygon points="30,52 32.5,30 30,34 27.5,30" fill="#bbb"/>
+    <!-- N label — top, clear of arrow -->
+    <text x="30" y="17" text-anchor="middle" font-size="6.5" font-weight="800"
+          fill="#e53935" font-family="Poppins,sans-serif" letter-spacing="0.2">N</text>
+    <!-- E label -->
+    <text x="50" y="32.5" text-anchor="middle" font-size="5" font-weight="700"
+          fill="#999" font-family="Poppins,sans-serif">E</text>
+    <!-- W label -->
+    <text x="10" y="32.5" text-anchor="middle" font-size="5" font-weight="700"
+          fill="#999" font-family="Poppins,sans-serif">W</text>
+    <!-- S label — bottom, clear of arrow and degree text -->
+    <text x="30" y="56" text-anchor="middle" font-size="5" font-weight="700"
+          fill="#bbb" font-family="Poppins,sans-serif">S</text>
     <!-- centre dot -->
-    <circle cx="30" cy="30" r="2.5" fill="#007b7f"/>
-    <!-- degree text inside — updated by JS -->
-    <text id="compassDegText" x="30" y="44" text-anchor="middle" font-size="7" font-weight="700" fill="#007b7f" font-family="Poppins,sans-serif">---°</text>
+    <circle cx="30" cy="30" r="2.8" fill="#007b7f"/>
+    <!-- degree text — centred below middle, inside ring, with gap from centre -->
+    <text id="compassDegText" x="30" y="43" text-anchor="middle" font-size="6.5" font-weight="700"
+          fill="#007b7f" font-family="Poppins,sans-serif">---°</text>
   </svg>
 </button>
-<div id="compassToast">Compass active 🧭</div>
+<div id="compassToast">Tap to start compass 🧭</div>
 
 <script>
 (function(){
@@ -6854,36 +6864,42 @@ window.closeCsPopup = function(){
   var _lastScrollY   = window.scrollY || 0;
   var _scrollTimer   = null;
   var _fabHidden     = false;
+  var _autoHideTimer = null;
+
+  var fab = null;
+  function getFab(){ return fab || (fab = document.getElementById('compassFab')); }
+
+  /* ── auto-hide after 7s on page load ─────────────────────── */
+  _autoHideTimer = setTimeout(function(){
+    var f = getFab();
+    if (f && !_compassActive) {
+      _fabHidden = true;
+      f.classList.add('fab-hidden');
+    }
+  }, 7000);
 
   /* ── scroll show / hide ───────────────────────────────────── */
   function onScroll() {
-    var fab = document.getElementById('compassFab');
-    if (!fab) return;
+    var f = getFab();
+    if (!f) return;
     var currentY = window.scrollY || window.pageYOffset || 0;
     var diff = currentY - _lastScrollY;
     _lastScrollY = currentY;
 
     clearTimeout(_scrollTimer);
     if (diff > 4 && currentY > 80) {
-      // scrolling DOWN — hide
-      if (!_fabHidden) {
+      // scrolling DOWN — hide (only if not active)
+      if (!_fabHidden && !_compassActive) {
         _fabHidden = true;
-        fab.classList.add('fab-hidden');
+        f.classList.add('fab-hidden');
       }
     } else if (diff < -4) {
-      // scrolling UP — show
+      // scrolling UP — always show
       if (_fabHidden) {
         _fabHidden = false;
-        fab.classList.remove('fab-hidden');
+        f.classList.remove('fab-hidden');
       }
     }
-    // Also show after scroll stops for 1.5s
-    _scrollTimer = setTimeout(function(){
-      if (_fabHidden) {
-        _fabHidden = false;
-        fab.classList.remove('fab-hidden');
-      }
-    }, 1500);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -6891,6 +6907,7 @@ window.closeCsPopup = function(){
   /* ── toast ────────────────────────────────────────────────── */
   function showToast(msg, ms) {
     var t = document.getElementById('compassToast');
+    if (!t) return;
     t.textContent = msg;
     t.classList.add('show');
     clearTimeout(_toastTimer);
@@ -6900,14 +6917,14 @@ window.closeCsPopup = function(){
   /* ── compass needle update ────────────────────────────────── */
   function updateCompass(deg) {
     var rose  = document.getElementById('compassRose');
-    var label = document.getElementById('compassLabel');
-    rose.style.transform = 'rotate(' + (-deg) + 'deg)';
+    var label = document.getElementById('compassDegText');
+    if (rose)  rose.style.transform = 'rotate(' + (-deg) + 'deg)';
     var dirs = ['N','NE','E','SE','S','SW','W','NW'];
     var card = dirs[Math.round(deg / 45) % 8];
-    label.textContent = Math.round(deg) + '° ' + card;
+    if (label) label.textContent = Math.round(deg) + '° ' + card;
   }
 
-  /* ── start / stop ─────────────────────────────────────────── */
+  /* ── start / stop orientation ─────────────────────────────── */
   function startCompass() {
     if (typeof DeviceOrientationEvent === 'undefined') {
       showToast('Not supported on this device', 3000); return;
@@ -6934,27 +6951,37 @@ window.closeCsPopup = function(){
   function detachOrientation() {
     window.removeEventListener('deviceorientationabsolute', onOrient, true);
     window.removeEventListener('deviceorientation', onOrient, true);
-    document.getElementById('compassRose').style.transform = 'rotate(0deg)';
-    document.getElementById('compassLabel').textContent = '---°';
+    var rose  = document.getElementById('compassRose');
+    var label = document.getElementById('compassDegText');
+    if (rose)  rose.style.transform = 'rotate(0deg)';
+    if (label) label.textContent = '---°';
   }
 
   function onOrient(e) {
     var h = null;
-    if (e.absolute && e.alpha != null)                                   h = 360 - e.alpha;
-    else if (e.webkitCompassHeading != null)                              h = e.webkitCompassHeading;
-    else if (e.alpha != null)                                             h = 360 - e.alpha;
+    if      (e.absolute && e.alpha != null)    h = 360 - e.alpha;
+    else if (e.webkitCompassHeading != null)   h = e.webkitCompassHeading;
+    else if (e.alpha != null)                  h = 360 - e.alpha;
     if (h !== null) updateCompass((h + 360) % 360);
   }
 
-  /* ── tap handler ──────────────────────────────────────────── */
+  /* ── tap: toggle small→large + start/stop ─────────────────── */
   window.compassTap = function() {
+    var f = getFab();
     _compassActive = !_compassActive;
-    var fab = document.getElementById('compassFab');
+
+    // Cancel auto-hide if user tapped
+    clearTimeout(_autoHideTimer);
+
     if (_compassActive) {
-      fab.classList.add('active-ring');
+      // Expand to large, start compass
+      f.classList.add('compass-large');
+      f.classList.remove('fab-hidden');
+      _fabHidden = false;
       startCompass();
     } else {
-      fab.classList.remove('active-ring');
+      // Shrink to small, stop compass
+      f.classList.remove('compass-large');
       detachOrientation();
       showToast('Compass off', 1800);
     }
