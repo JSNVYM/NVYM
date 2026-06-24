@@ -6752,275 +6752,141 @@ window.closeCsPopup = function(){
 })();
 </script>
 
-<!-- ── COMPASS FAB ─────────────────────────────────────────────── -->
+<!-- ── COMPASS POPUP ──────────────────────────────────────────── -->
 <style>
-/* ── FAB shell ── */
-#compassFab {
-  position: fixed;
-  bottom: calc(70px + var(--gap,12px) * 2 + 10px);
-  right:   calc(var(--gap,12px) + 4px);
-  z-index: 1000;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  /* default: small */
-  opacity: 1;
-  pointer-events: auto;
-  transition: opacity .35s, transform .35s;
+.compass-overlay{
+  display:none;position:fixed;inset:0;z-index:12000;
+  background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+  align-items:flex-end;justify-content:center;
+  padding:0 12px 12px;
 }
-#compassFab.fab-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(14px) scale(0.85);
+.compass-box{
+  width:100%;max-width:480px;background:#fff;
+  border-radius:22px;padding:20px 18px 28px;
+  animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);
+  box-shadow:0 20px 60px rgba(0,0,0,0.25);
 }
-#compassFab:active { transform: scale(0.93); }
-
-/* ── SVG rose ── */
-#compassRose {
-  display: block;
-  /* small size default */
-  width: 44px;
-  height: 44px;
-  transition: width .35s cubic-bezier(.25,.8,.25,1),
-              height .35s cubic-bezier(.25,.8,.25,1),
-              transform .3s cubic-bezier(.25,.8,.25,1);
-  filter: drop-shadow(0 2px 7px rgba(0,0,0,0.18));
+#compassRose{
+  display:block;
+  transition:transform .12s linear;
+  filter:drop-shadow(0 3px 10px rgba(0,0,0,0.12));
 }
-/* expanded size */
-#compassFab.expanded #compassRose {
-  width: 130px;
-  height: 130px;
-}
-
-/* ── degree + cardinal text (hidden when small) ── */
-#compassInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  opacity: 0;
-  pointer-events: none;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity .3s, max-height .35s;
-}
-#compassFab.expanded #compassInfo {
-  opacity: 1;
-  max-height: 60px;
-}
-#compassDegText {
-  font-size: 18px;
-  font-weight: 800;
-  color: #007b7f;
-  font-family: 'Poppins', sans-serif;
-  line-height: 1;
-  letter-spacing: -0.5px;
-}
-#compassCardText {
-  font-size: 10px;
-  font-weight: 600;
-  color: #888;
-  font-family: 'Poppins', sans-serif;
-  line-height: 1;
-}
-
-/* ── toast ── */
-#compassToast {
-  position: fixed;
-  bottom: calc(70px + var(--gap,12px)*2 + 60px);
-  right:   calc(var(--gap,12px) + 4px);
-  z-index: 1001;
-  background: rgba(0,0,0,0.72);
-  color: #fff;
-  font-size: 10.5px;
-  font-weight: 500;
-  border-radius: 10px;
-  padding: 7px 12px;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity .25s, transform .25s;
-  font-family: 'Poppins', sans-serif;
-}
-#compassToast.show { opacity: 1; transform: translateY(0); }
-
-/* hide on desktop */
-@media(min-width:1025px) { #compassFab, #compassToast { display:none; } }
 </style>
 
-<button id="compassFab" title="Compass" onclick="compassTap()">
-  <svg id="compassRose" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-    <!-- outer ring -->
-    <circle cx="60" cy="60" r="57" fill="rgba(255,255,255,0.88)" stroke="#ddd" stroke-width="1.5"/>
-    <!-- inner ring -->
-    <circle cx="60" cy="60" r="47" fill="none" stroke="#eee" stroke-width="1"/>
-    <!-- cardinal ticks -->
-    <line x1="60" y1="5"   x2="60" y2="15"  stroke="#ccc" stroke-width="2"   stroke-linecap="round"/>
-    <line x1="60" y1="105" x2="60" y2="115" stroke="#ccc" stroke-width="2"   stroke-linecap="round"/>
-    <line x1="5"  y1="60"  x2="15" y2="60"  stroke="#ccc" stroke-width="2"   stroke-linecap="round"/>
-    <line x1="105" y1="60" x2="115" y2="60" stroke="#ccc" stroke-width="2"   stroke-linecap="round"/>
-    <!-- intercardinal ticks -->
-    <line x1="19" y1="19" x2="25" y2="25" stroke="#e0e0e0" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="101" y1="19" x2="95" y2="25" stroke="#e0e0e0" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="19" y1="101" x2="25" y2="95" stroke="#e0e0e0" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="101" y1="101" x2="95" y2="95" stroke="#e0e0e0" stroke-width="1.2" stroke-linecap="round"/>
-    <!-- N arrow (red) -->
-    <polygon points="60,12 55,60 60,50 65,60" fill="#e53935"/>
-    <!-- S arrow (grey) -->
-    <polygon points="60,108 65,60 60,70 55,60" fill="#bbb"/>
-    <!-- N label -->
-    <text x="60" y="35" text-anchor="middle" font-size="14" font-weight="800" fill="#e53935"   font-family="Poppins,sans-serif">N</text>
-    <!-- S label -->
-    <text x="60" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#bbb"    font-family="Poppins,sans-serif">S</text>
-    <!-- E label -->
-    <text x="101" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#999"   font-family="Poppins,sans-serif">E</text>
-    <!-- W label -->
-    <text x="19"  y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#999"   font-family="Poppins,sans-serif">W</text>
-    <!-- centre dot -->
-    <circle cx="60" cy="60" r="5.5" fill="#007b7f"/>
-    <circle cx="60" cy="60" r="2.5" fill="#fff"/>
-  </svg>
-  <!-- degree info shown only when expanded -->
-  <div id="compassInfo">
-    <div id="compassDegText">---°</div>
-    <div id="compassCardText">Tap to start</div>
+<div class="compass-overlay" id="compassPopup" onclick="if(event.target===this)compassClose()">
+  <div class="compass-box">
+    <!-- handle -->
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
+    <!-- header -->
+    <div style="position:relative;text-align:center;margin-bottom:20px;">
+      <div style="font-size:16px;font-weight:700;color:#111;">Compass</div>
+      <div style="font-size:11px;color:#999;margin-top:2px;">Hold your phone flat and steady</div>
+      <button onclick="compassClose()" style="position:absolute;top:-4px;right:0;background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+    </div>
+    <!-- rose -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <svg id="compassRose" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+        <!-- outer ring -->
+        <circle cx="100" cy="100" r="96" fill="#f8fafb" stroke="#ddd" stroke-width="2"/>
+        <!-- inner ring -->
+        <circle cx="100" cy="100" r="80" fill="none" stroke="#eee" stroke-width="1.5"/>
+        <!-- degree ring marks every 10° -->
+        <g stroke="#e0e0e0" stroke-width="1" stroke-linecap="round">
+          <line x1="100" y1="6"   x2="100" y2="14"/>
+          <line x1="100" y1="186" x2="100" y2="194"/>
+          <line x1="6"   y1="100" x2="14"  y2="100"/>
+          <line x1="186" y1="100" x2="194" y2="100"/>
+          <!-- NE/NW/SE/SW 45° -->
+          <line x1="32"  y1="32"  x2="38"  y2="38"/>
+          <line x1="168" y1="32"  x2="162" y2="38"/>
+          <line x1="32"  y1="168" x2="38"  y2="162"/>
+          <line x1="168" y1="168" x2="162" y2="162"/>
+        </g>
+        <!-- N arrow (red, pointing up) -->
+        <polygon points="100,20 93,100 100,86 107,100" fill="#e53935"/>
+        <!-- S arrow (grey, pointing down) -->
+        <polygon points="100,180 107,100 100,114 93,100" fill="#ccc"/>
+        <!-- Cardinal labels -->
+        <text x="100" y="58"  text-anchor="middle" font-size="18" font-weight="800" fill="#e53935" font-family="Poppins,sans-serif">N</text>
+        <text x="100" y="176" text-anchor="middle" font-size="15" font-weight="700" fill="#bbb"    font-family="Poppins,sans-serif">S</text>
+        <text x="162" y="106" text-anchor="middle" font-size="15" font-weight="700" fill="#aaa"    font-family="Poppins,sans-serif">E</text>
+        <text x="38"  y="106" text-anchor="middle" font-size="15" font-weight="700" fill="#aaa"    font-family="Poppins,sans-serif">W</text>
+        <!-- intercardinal labels -->
+        <text x="148" y="60"  text-anchor="middle" font-size="11" font-weight="600" fill="#ccc" font-family="Poppins,sans-serif">NE</text>
+        <text x="52"  y="60"  text-anchor="middle" font-size="11" font-weight="600" fill="#ccc" font-family="Poppins,sans-serif">NW</text>
+        <text x="148" y="152" text-anchor="middle" font-size="11" font-weight="600" fill="#ccc" font-family="Poppins,sans-serif">SE</text>
+        <text x="52"  y="152" text-anchor="middle" font-size="11" font-weight="600" fill="#ccc" font-family="Poppins,sans-serif">SW</text>
+        <!-- centre pivot -->
+        <circle cx="100" cy="100" r="7" fill="#007b7f"/>
+        <circle cx="100" cy="100" r="3.5" fill="#fff"/>
+      </svg>
+      <!-- degree + direction display -->
+      <div style="text-align:center;display:flex;flex-direction:column;gap:6px;">
+        <div id="compassDegText" style="font-size:36px;font-weight:800;color:#007b7f;font-family:'Poppins',sans-serif;line-height:1;letter-spacing:-1px;">---°</div>
+        <div id="compassCardText" style="font-size:14px;font-weight:600;color:#555;font-family:'Poppins',sans-serif;">Calibrating…</div>
+      </div>
+      <!-- accuracy hint -->
+      <div id="compassHint" style="font-size:10px;color:#bbb;text-align:center;font-family:'Poppins',sans-serif;line-height:1.5;padding:0 10px;">
+        For best accuracy: hold phone flat, away from metal objects
+      </div>
+    </div>
   </div>
-</button>
-<div id="compassToast"></div>
+</div>
 
 <script>
 (function(){
   'use strict';
-  var _expanded   = false;
-  var _running    = false;
-  var _permAsked  = false;
-  var _toastTimer = null;
-  var _autoHideTimer = null;
-  var _lastScrollY   = window.scrollY || 0;
-  var _scrollTimer   = null;
-  var _fabHidden     = false;
+  var _running  = false;
+  var _permAsked= false;
+  var _lastH    = null;
 
-  var fab  = null;
-  var rose = null;
-
-  function init() {
-    fab  = document.getElementById('compassFab');
-    rose = document.getElementById('compassRose');
-    // auto-hide after 7 seconds
-    _autoHideTimer = setTimeout(function(){
-      hideFab();
-    }, 7000);
-  }
-
-  /* ── show / hide FAB ── */
-  function hideFab() {
-    if (!fab) return;
-    _fabHidden = true;
-    fab.classList.add('fab-hidden');
-  }
-  function showFab() {
-    if (!fab) return;
-    _fabHidden = false;
-    fab.classList.remove('fab-hidden');
-    // reset auto-hide if compass not active
-    clearTimeout(_autoHideTimer);
-  }
-
-  /* ── scroll handler ── */
-  function onScroll() {
-    var currentY = window.scrollY || window.pageYOffset || 0;
-    var diff = currentY - _lastScrollY;
-    _lastScrollY = currentY;
-    clearTimeout(_scrollTimer);
-    if (diff > 4 && currentY > 80 && !_expanded) {
-      hideFab();
-    } else if (diff < -4) {
-      showFab();
-    }
-    // show after scroll stops 1.5s
-    _scrollTimer = setTimeout(function(){
-      if (_fabHidden && !_expanded) showFab();
-    }, 1500);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  /* ── toast ── */
-  function showToast(msg, ms) {
-    var t = document.getElementById('compassToast');
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(_toastTimer);
-    _toastTimer = setTimeout(function(){ t.classList.remove('show'); }, ms || 2200);
-  }
-
-  /* ── tap: small → big + start; big → small + stop ── */
   window.compassTap = function() {
-    if (!fab) fab = document.getElementById('compassFab');
-    if (!rose) rose = document.getElementById('compassRose');
-    clearTimeout(_autoHideTimer);
-
-    if (!_expanded) {
-      // expand
-      _expanded = true;
-      fab.classList.add('expanded');
-      showFab();
-      startCompass();
-    } else {
-      // collapse
-      _expanded = false;
-      fab.classList.remove('expanded');
-      stopCompass();
-      // restart auto-hide after collapse
-      _autoHideTimer = setTimeout(hideFab, 5000);
-    }
+    document.getElementById('compassPopup').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    startCompass();
   };
 
-  /* ── compass start / stop ── */
+  window.compassClose = function() {
+    document.getElementById('compassPopup').style.display = 'none';
+    document.body.style.overflow = '';
+    stopCompass();
+  };
+
   function startCompass() {
+    if (_running) return;
     if (typeof DeviceOrientationEvent === 'undefined') {
-      setCard('Not supported'); return;
+      setText('---°','Not supported on this device'); return;
     }
     if (typeof DeviceOrientationEvent.requestPermission === 'function' && !_permAsked) {
       _permAsked = true;
       DeviceOrientationEvent.requestPermission()
         .then(function(r){
-          if (r === 'granted') { attach(); _running = true; showToast('Compass active 🧭'); }
-          else { setCard('Permission denied'); }
+          if (r === 'granted') { attach(); }
+          else { setText('---°','Permission denied'); }
         })
-        .catch(function(){ setCard('Permission error'); });
+        .catch(function(){ setText('---°','Permission error'); });
     } else {
       attach();
-      _running = true;
-      showToast('Compass active 🧭');
     }
   }
 
   function stopCompass() {
     detach();
     _running = false;
+    _lastH   = null;
+    setText('---°','Calibrating…');
+    var rose = document.getElementById('compassRose');
     if (rose) rose.style.transform = 'rotate(0deg)';
-    document.getElementById('compassDegText').textContent  = '---°';
-    document.getElementById('compassCardText').textContent = 'Tap to start';
-    showToast('Compass off', 1800);
-  }
-
-  function setCard(txt) {
-    var el = document.getElementById('compassCardText');
-    if (el) el.textContent = txt;
   }
 
   function attach() {
+    _running = true;
+    // prefer absolute, fall back to deviceorientation (iOS uses webkitCompassHeading)
     window.addEventListener('deviceorientationabsolute', onOrient, true);
     window.addEventListener('deviceorientation',         onOrient, true);
   }
+
   function detach() {
     window.removeEventListener('deviceorientationabsolute', onOrient, true);
     window.removeEventListener('deviceorientation',         onOrient, true);
@@ -7028,22 +6894,47 @@ window.closeCsPopup = function(){
 
   function onOrient(e) {
     var h = null;
-    if      (e.absolute && e.alpha != null)  h = 360 - e.alpha;
-    else if (e.webkitCompassHeading != null) h = e.webkitCompassHeading;
-    else if (e.alpha != null)                h = 360 - e.alpha;
+
+    // Priority 1: absolute event (most accurate on Android)
+    if (e.type === 'deviceorientationabsolute' && e.absolute && e.alpha != null) {
+      h = (360 - e.alpha + 360) % 360;
+    }
+    // Priority 2: iOS Safari webkitCompassHeading (true north, already corrected)
+    else if (e.webkitCompassHeading != null && e.webkitCompassHeading >= 0) {
+      h = e.webkitCompassHeading;
+    }
+    // Priority 3: relative deviceorientation fallback
+    else if (e.alpha != null) {
+      h = (360 - e.alpha + 360) % 360;
+    }
+
     if (h === null) return;
-    h = (h + 360) % 360;
-    var dirs = ['N','NE','E','SE','S','SW','W','NW'];
-    var card = dirs[Math.round(h / 45) % 8];
-    if (rose) rose.style.transform = 'rotate(' + (-h) + 'deg)';
-    document.getElementById('compassDegText').textContent  = Math.round(h) + '°';
-    document.getElementById('compassCardText').textContent = card;
+
+    // Smooth: low-pass filter to avoid jitter
+    if (_lastH === null) {
+      _lastH = h;
+    } else {
+      var diff = h - _lastH;
+      // handle 360→0 wrap
+      if (diff >  180) diff -= 360;
+      if (diff < -180) diff += 360;
+      _lastH = (_lastH + diff * 0.25 + 360) % 360;
+    }
+
+    var heading = _lastH;
+    var dirs    = ['N','NE','E','SE','S','SW','W','NW'];
+    var card    = dirs[Math.round(heading / 45) % 8];
+
+    var rose = document.getElementById('compassRose');
+    if (rose) rose.style.transform = 'rotate(' + (-heading) + 'deg)';
+    setText(Math.round(heading) + '°', card);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  function setText(deg, card) {
+    var d = document.getElementById('compassDegText');
+    var c = document.getElementById('compassCardText');
+    if (d) d.textContent = deg;
+    if (c) c.textContent = card;
   }
 })();
 </script>
