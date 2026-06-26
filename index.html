@@ -2662,12 +2662,15 @@ var escPageStart = 0;
   var _nyLoaded = false;
 
   async function nyHandlePosition(pos) {
-    if (_nyLoaded) return;          // already rendered — ignore any further position callbacks
+    if (_nyLoaded) return;
     _nyLoaded = true;
     try {
       var lat = pos.coords.latitude, lng = pos.coords.longitude;
       var places = await nyFetchPlaces();
-      if (!places.length) return;
+      if (!places.length) {
+        document.getElementById('nearyouSubtext').textContent = 'No places data found';
+        return;
+      }
       nyRender(places, lat, lng);
       nySetLabel('Your Location', true);
       nyReverseGeocode(lat, lng, function(label) {
@@ -2678,25 +2681,63 @@ var escPageStart = 0;
     }
   }
 
-  // When denied: keep shimmer running, show "Allow Location" prompt — no dummy cards
-  function nyHandleDenied() {
-    nyShowShimmer();
+  // When denied or timed out: show allow-location prompt with retry button
+  function nyHandleDenied(err) {
+    var isTimeout = err && (err.code === 3 || err.message === 'Timeout');
     nySetLabel('Allow Location', false);
-    document.getElementById('nearyouSubtext').textContent = 'Allow location to see nearest places';
+    var msg = isTimeout
+      ? 'Location request timed out. '
+      : 'Allow location to see nearest places. ';
+    var subEl = document.getElementById('nearyouSubtext');
+    if (subEl) subEl.textContent = msg;
+    // Show retry button inside shimmer area
+    var grid = document.getElementById('nearyouGrid');
+    if (grid) {
+      grid.innerHTML =
+        '<div style="grid-column:1/-1;display:flex;flex-direction:column;align-items:center;' +
+        'justify-content:center;gap:12px;padding:28px 16px;text-align:center;">' +
+        '<div style="font-size:32px;">📍</div>' +
+        '<div style="font-size:13px;font-weight:600;color:#333;">' +
+          (isTimeout ? 'Location timed out' : 'Location access needed') +
+        '</div>' +
+        '<div style="font-size:11px;color:#999;max-width:240px;line-height:1.5;">' +
+          (isTimeout
+            ? 'Could not get your location. Please check your GPS and try again.'
+            : 'Allow location permission to find places near you.') +
+        '</div>' +
+        '<button onclick="nyRetry()" style="background:#007b7f;color:#fff;border:none;' +
+        'border-radius:12px;padding:10px 24px;font-size:12px;font-weight:700;' +
+        'font-family:\'Poppins\',sans-serif;cursor:pointer;margin-top:4px;">' +
+          (isTimeout ? 'Try Again' : 'Allow Location') +
+        '</button>' +
+        '</div>';
+    }
   }
 
-  // Cross-browser position fetch: handles iOS Safari (no navigator.permissions),
-  // Android Chrome, Firefox, Samsung Internet, etc.
-  // Uses watchPosition with a short timeout to work around iOS quirks.
+  // Retry — fully reset and try again
+  window.nyRetry = function() {
+    _nyLoaded   = false;
+    _nyInitDone = false;
+    nyShowShimmer();
+    document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
+    nySetLabel('Locating…', false);
+    nyGetPosition(nyHandlePosition, nyHandleDenied);
+  };
+
+  // Cross-browser position fetch
   var _nyWatcher = null;
   function nyGetPosition(onSuccess, onFail) {
-    var opts = { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 };
-    // iOS Safari: getCurrentPosition can silently hang — use watchPosition + clear
+    // High accuracy for best results; short maximumAge so we don't use stale cache
+    var opts = { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 };
+
     if (_nyWatcher !== null) {
       try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
       _nyWatcher = null;
     }
+
     var done = false;
+
+    // Hard timeout fallback — fires if watchPosition never responds
     var failTimer = setTimeout(function() {
       if (!done) {
         done = true;
@@ -2704,7 +2745,40 @@ var escPageStart = 0;
         _nyWatcher = null;
         onFail({ code: 3, message: 'Timeout' });
       }
-    }, 14000);
+    }, 16000);
+
+    // Try getCurrentPosition first (faster on Android)
+    // then watchPosition as iOS fallback
+    var triedGet = false;
+    try {
+      navigator.geolocation.getCurrentPosition(
+        function(pos) {
+          if (done) return;
+          done = true;
+          clearTimeout(failTimer);
+          try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
+          _nyWatcher = null;
+          onSuccess(pos);
+        },
+        function(err) {
+          // getCurrentPosition failed — fall through to watchPosition
+          if (done || triedGet) return;
+          triedGet = true;
+          // only fall through for timeout (code 3), not for denied (code 1)
+          if (err.code === 1) {
+            done = true;
+            clearTimeout(failTimer);
+            try { navigator.geolocation.clearWatch(_nyWatcher); } catch(e) {}
+            _nyWatcher = null;
+            onFail(err);
+          }
+          // else: watchPosition will handle it
+        },
+        opts
+      );
+    } catch(e) {}
+
+    // watchPosition as parallel / fallback (especially for iOS Safari)
     _nyWatcher = navigator.geolocation.watchPosition(
       function(pos) {
         if (done) return;
@@ -2727,91 +2801,82 @@ var escPageStart = 0;
   }
 
   function nyTriggerLocation() {
-    if (_nyLoaded) return;   // cards already rendered — never wipe them
+    if (_nyLoaded) return;
     nyShowShimmer();
     document.getElementById('nearyouSubtext').textContent = 'Finding places around you…';
     nySetLabel('Locating…', false);
     nyGetPosition(nyHandlePosition, nyHandleDenied);
   }
 
-  // Guard: nyInit must only ever run once per page load
+  // Guard: nyInit must only run once
   var _nyInitDone = false;
 
   function nyInit() {
     if (_nyInitDone) return;
     _nyInitDone = true;
 
-    // Keep shimmer showing — do NOT load dummy cards; wait for permission
     if (!navigator.geolocation) {
       nySetLabel('Not supported', false);
       document.getElementById('nearyouSubtext').textContent = 'Geolocation not supported on this browser';
       return;
     }
 
-    // navigator.permissions is NOT available on iOS Safari — always fall through to else
     if (navigator.permissions && navigator.permissions.query) {
       navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
         if (result.state === 'granted') {
           nyTriggerLocation();
         } else if (result.state === 'denied') {
-          nyHandleDenied();
+          nyHandleDenied({ code: 1 });
         } else {
-          // 'prompt' — trigger once; browser will show native dialog
+          // 'prompt' state — ask immediately
           nyTriggerLocation();
         }
-        // React to live permission changes (e.g. user enables location mid-session)
         result.addEventListener('change', function() {
           if (_nyLoaded) return;
           if (result.state === 'granted') {
-            nyTriggerLocation();
+            nyRetry();
           } else if (result.state === 'denied') {
-            nyHandleDenied();
+            nyHandleDenied({ code: 1 });
           }
         });
       }).catch(function() {
-        // permissions API failed — fall back to direct request
         nyTriggerLocation();
       });
     } else {
-      // iOS Safari, older browsers: just call geolocation directly once
+      // iOS Safari — call directly, browser shows native prompt
       nyTriggerLocation();
     }
   }
 
   window.nyRequestLocation = function() {
     if (!navigator.geolocation) return;
-    // If permissions API available, check if already hard-denied
     if (navigator.permissions && navigator.permissions.query) {
       navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
         if (result.state === 'denied') {
-          alert('Location is blocked.\n\nTo enable:\n• iPhone/iPad: Settings → Safari → Location → Allow\n• Android Chrome: tap the lock icon in the address bar → Site settings → Location → Allow\n• Then refresh this page.');
+          alert('Location is blocked.\n\nTo enable:\n• iPhone/iPad: Settings → Safari → Location → Allow\n• Android Chrome: tap the lock icon → Site settings → Location → Allow\n• Then refresh this page.');
         } else {
-          nyTriggerLocation();
+          nyRetry();
         }
-      }).catch(function() {
-        nyTriggerLocation();
-      });
+      }).catch(function() { nyRetry(); });
     } else {
-      // iOS Safari — just re-trigger; iOS will show the prompt again if needed
-      nyTriggerLocation();
+      nyRetry();
     }
   };
 
-  // Trigger nyInit once — via IntersectionObserver if available, else after short delay.
-  // Never call nyInit more than once (guard flag above ensures this).
+  // Trigger nyInit — immediately on page load, not waiting for scroll
   (function() {
     function scheduleInit() {
-      var nySection = document.querySelector('.nearyou-section');
-      if ('IntersectionObserver' in window && nySection) {
-        var nyInitObs = new IntersectionObserver(function(e) {
-          if (e[0].isIntersecting) { nyInitObs.disconnect(); nyInit(); }
-        }, { rootMargin: '200px 0px' });
-        nyInitObs.observe(nySection);
-        // Fallback only if section never intersects (e.g. hidden by CSS)
-        // Use a long timeout — nyInit guard means it's safe even if both fire
-        setTimeout(function() { nyInitObs.disconnect(); nyInit(); }, 5000);
-      } else {
-        setTimeout(nyInit, 600);
+      // Try immediately first
+      nyInit();
+      // Also observe section in case init ran before geolocation prompt resolved
+      if ('IntersectionObserver' in window) {
+        var nySection = document.querySelector('.nearyou-section');
+        if (nySection) {
+          var obs = new IntersectionObserver(function(e) {
+            if (e[0].isIntersecting) { obs.disconnect(); nyInit(); }
+          }, { rootMargin: '300px 0px' });
+          obs.observe(nySection);
+        }
       }
     }
     if (document.readyState === 'loading') {
