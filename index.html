@@ -707,10 +707,10 @@
 	<div class="transport-item" onclick="openRailwayPopup()"><img src="img/icons/train.png"><p>Train</p></div>
 	<div class="transport-item" onclick="findNearby('airport')"><img src="img/icons/airport.png"><p>Airport</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Helicopter', 'helicopter service')"><img src="img/icons/helicopter.png"><p>Helicopter</p></div>
-	<div class="transport-item" onclick="findNearby('ferry boat service')"><img src="img/icons/ferry and boat.png"><p>Ferry/Boat</p></div>
+	<div class="transport-item" onclick="openDriverPopup()"><img src="img/icons/bus ticket.png"><p>Bus Ticket</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Tourist Bus', 'tourist bus service')"><img src="img/icons/tourist bus.png"><p>Tourist Bus</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Traveller', 'tempo traveller rental')"><img src="img/icons/traveller.png"><p>Traveller</p></div>
-	<div class="transport-item" onclick="openGenericProvider('Mini Bus', 'mini bus rental')"><img src="img/icons/mini bus.png"><p>Mini Bus</p></div>
+	<div class="transport-item" onclick="openGenericProvider('KSRTC Tourism', 'KSRTC tourism bus Kerala')"><img src="img/icons/mini bus.png"><p>KSRTC Tourism</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Mini Goods', 'mini goods truck')"><img src="img/icons/mini goods.png"><p>Mini Goods</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img src="img/icons/bike rental.png"><p>Bike Rental</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img src="img/icons/car rental.png"><p>Car Rental</p></div>
@@ -719,7 +719,7 @@
 	
 	<div class="transport-item" onclick="openGenericProvider('Backwater', 'shikara backwater transport')"><img src="img/icons/house boat.png"><p>Houseboat</p></div>
 	
-	<div class="transport-item" onclick="openDriverPopup()"><img src="img/icons/bus ticket.png"><p>Bus Ticket</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img src="img/icons/fastag.png"><p>FASTag</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img src="img/icons/parking.png"><p>Parking</p></div>        </div>        <div style="background:#f8f8f8;border-radius:12px;padding:11px 14px;margin:12px 0 4px;font-size:10.5px;color:#888;line-height:1.6;text-align:center;">Offer transport services? <span onclick="closeTransportPopup();openUploadPopup();" style="color:#007b7f;font-weight:600;cursor:pointer;">List your service →</span></div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
+	<div class="transport-item" onclick="findNearby('ferry boat service')"><img src="img/icons/ferry and boat.png"><p>Ferry/Boat</p></div>                                                                                                                                                                                    <div class="transport-item" onclick="findNearby('railway station')"><img src="img/icons/fastag.png"><p>FASTag</p></div>                                                            <div class="transport-item" onclick="openGenericProvider('Parking', 'parking space')"><img src="img/icons/parking.png"><p>Parking</p></div>        </div>        <div style="background:#f8f8f8;border-radius:12px;padding:11px 14px;margin:12px 0 4px;font-size:10.5px;color:#888;line-height:1.6;text-align:center;">Offer transport services? <span onclick="closeTransportPopup();openUploadPopup();" style="color:#007b7f;font-weight:600;cursor:pointer;">List your service →</span></div>        <button class="close-btn" onclick="closeTransportPopup()">Close</button>    </div></div>
 
 <div class="provider-popup" id="bikeProviderPopup" onclick="closeBikeProvider()">    <div class="provider-card" onclick="event.stopPropagation()">        <h3 id="provTitle" style="font-size:20px;">Book Ride</h3>        <div class="provider-options">            <button id="uberBtn" class="btn-uber"><span>Uber</span></button>            <button id="rapidoBtn" class="btn-rapido"><span>Rapido</span></button>            <button id="localBtn" class="btn-local"><span>Local Cabs</span></button>            <button id="mapBtn" class="btn-map" style="display:none;"><span>Search with Map</span></button>        </div>        <span class="close-link" onclick="closeBikeProvider()">Maybe Later</span>    </div></div>
 
@@ -1628,31 +1628,78 @@ window.closeAboutPopup = function() {
     if (!SpeechRec) { alert('Voice search is not supported in this browser. Please use Chrome.'); return; }
     if (_voiceActive) { stopVoice(); return; }
 
+    // Destroy previous instance cleanly
+    if (_recognition) {
+      try { _recognition.abort(); } catch(e) {}
+      _recognition = null;
+    }
+
     _recognition = new SpeechRec();
     _recognition.lang = 'en-IN';
     _recognition.interimResults = false;
     _recognition.maxAlternatives = 1;
+    _recognition.continuous = false;
 
+    var _gotResult  = false;  // true after onresult fires
+    var _audioStarted = false; // true after mic actually opens
+
+    // Show UI immediately so user knows to speak
     _voiceActive = true;
     var vs = document.getElementById('ktpVoiceStatus');
-    vs.style.display = 'block';
+    if (vs) vs.style.display = 'block';
     var vb = document.getElementById('ktpVoiceBtn');
-    vb.querySelector('svg').style.stroke = '#e63946';
+    if (vb) vb.querySelector('svg').style.stroke = '#e63946';
+
+    // Mic physically opened — recording confirmed
+    _recognition.onaudiostart = function() {
+      _audioStarted = true;
+    };
 
     _recognition.onresult = function(e) {
+      _gotResult = true;
       var transcript = e.results[0][0].transcript;
       var inp = document.getElementById('ktpSearchInput');
-      inp.value = transcript;
-      document.getElementById('ktpSearchClearBtn').style.display = 'block';
+      if (inp) inp.value = transcript;
+      var clr = document.getElementById('ktpSearchClearBtn');
+      if (clr) clr.style.display = 'block';
       ktpSearchOnInput(transcript);
       stopVoice();
     };
+
     _recognition.onerror = function(e) {
-      stopVoice();
-      if (e.error !== 'no-speech') alert('Voice search error: ' + e.error);
+      // 'not-allowed' = permission denied on first ask
+      // don't alert for 'no-speech' or 'aborted'
+      if (e.error === 'not-allowed') {
+        stopVoice();
+        alert('Microphone permission denied. Please allow microphone access and try again.');
+      } else if (e.error !== 'no-speech' && e.error !== 'aborted') {
+        stopVoice();
+      } else {
+        stopVoice();
+      }
     };
-    _recognition.onend = function() { stopVoice(); };
-    _recognition.start();
+
+    // onend fires in two cases:
+    // 1. Permission prompt dismissed / first-time — audio never started → retry automatically
+    // 2. Normal end after recording
+    _recognition.onend = function() {
+      if (!_gotResult && !_audioStarted && _voiceActive) {
+        // Permission was just granted but recognition ended before audio started
+        // Auto-restart once so user doesn't need to tap again
+        _voiceActive = false;
+        setTimeout(function() {
+          window.ktpVoiceSearch();
+        }, 300);
+      } else {
+        stopVoice();
+      }
+    };
+
+    try {
+      _recognition.start();
+    } catch(e) {
+      stopVoice();
+    }
   };
 })();
 </script>
