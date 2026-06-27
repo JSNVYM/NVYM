@@ -255,6 +255,7 @@
         .nearyou-track::-webkit-scrollbar { display: none; }
         .ny-card img { background: #e8e8e8; }
         .ny-card { flex: 0 0 calc((100% - 9px*6) / 7); min-width: 82px; max-width: 115px; border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; scroll-snap-align: start; background: #ccc; aspect-ratio: 3/4; box-shadow: 0 2px 8px rgba(0,0,0,0.13); transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), box-shadow 0.28s ease; }
+        @media (max-width: 1024px) { .ny-card { min-width: 110px; max-width: 150px; } }
         .ny-card:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 10px 22px rgba(0,0,0,0.18); }
         .ny-card:active { transform: scale(0.97); }
         .ny-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
