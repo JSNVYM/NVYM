@@ -710,7 +710,7 @@
 	<div class="transport-item" onclick="openDriverPopup()"><img src="img/icons/bus ticket.png"><p>Bus Ticket</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Tourist Bus', 'tourist bus service')"><img src="img/icons/tourist bus.png"><p>Tourist Bus</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Traveller', 'tempo traveller rental')"><img src="img/icons/traveller.png"><p>Traveller</p></div>
-	<div class="transport-item" onclick="openGenericProvider('KSRTC Tourism', 'KSRTC tourism bus Kerala')"><img src="img/icons/mini bus.png"><p>KSRTC Tourism</p></div>
+	<div class="transport-item" onclick="openKsrtcPopup()"><img src="img/icons/mini bus.png"><p>KSRTC Tourism</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Mini Goods', 'mini goods truck')"><img src="img/icons/mini goods.png"><p>Mini Goods</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Bike Rental', 'bike rental')"><img src="img/icons/bike rental.png"><p>Bike Rental</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Car Rental', 'car rental')"><img src="img/icons/car rental.png"><p>Car Rental</p></div>
@@ -7061,6 +7061,50 @@ window.closeCsPopup = function(){
     if (d) d.textContent = deg;
     if (c) c.textContent = card;
   }
+})();
+</script>
+
+<!-- ── KSRTC TOURISM POPUP ─────────────────────────────────────── -->
+<div id="ksrtcPopup" style="display:none;position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,0.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:flex-end;justify-content:center;padding:0 12px 12px;" onclick="if(event.target===this)closeKsrtcPopup()">
+  <div style="width:100%;max-width:480px;background:#fff;border-radius:22px;padding:20px 18px 28px;animation:slideUp .3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <div style="width:40px;height:4px;background:#e0e0e0;border-radius:10px;margin:0 auto 16px;"></div>
+    <div style="position:relative;text-align:center;margin-bottom:20px;">
+      <div style="font-size:16px;font-weight:700;color:#111;">KSRTC Tourism</div>
+      <div style="font-size:11px;color:#999;margin-top:2px;">Kerala State Road Transport Corporation</div>
+      <button onclick="closeKsrtcPopup()" style="position:absolute;top:-4px;right:0;background:none;border:none;font-size:20px;cursor:pointer;color:#999;padding:4px;">✕</button>
+    </div>
+    <!-- info card -->
+    <div style="background:#f0fafa;border:1.5px solid #b2e0e0;border-radius:16px;padding:18px;margin-bottom:12px;text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">🚌</div>
+      <div style="font-size:13px;font-weight:700;color:#007b7f;margin-bottom:6px;">Budget Tourism Packages</div>
+      <div style="font-size:11px;color:#666;line-height:1.6;margin-bottom:16px;">Explore Kerala affordably with KSRTC's official budget tourism packages — hill stations, backwaters, pilgrim tours & more.</div>
+      <button onclick="window.open('https://road2kerala.com/en/budget-tourism','_blank');closeKsrtcPopup();" style="background:#007b7f;color:#fff;border:none;border-radius:12px;padding:11px 28px;font-size:13px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;width:100%;transition:background .2s;">View Packages →</button>
+    </div>
+    <!-- quick links -->
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div onclick="window.open('https://road2kerala.com/en/budget-tourism','_blank');closeKsrtcPopup();" style="display:flex;align-items:center;gap:12px;background:#f8f9fa;border:1.5px solid #eee;border-radius:14px;padding:13px 14px;cursor:pointer;">
+        <span style="font-size:22px;">🏔️</span>
+        <div><div style="font-size:12px;font-weight:700;color:#111;">Hill Station Tours</div><div style="font-size:10.5px;color:#999;margin-top:2px;">Munnar, Wayanad, Ooty & more</div></div>
+        <span style="margin-left:auto;color:#007b7f;font-size:16px;">›</span>
+      </div>
+      <div onclick="window.open('https://road2kerala.com/en/budget-tourism','_blank');closeKsrtcPopup();" style="display:flex;align-items:center;gap:12px;background:#f8f9fa;border:1.5px solid #eee;border-radius:14px;padding:13px 14px;cursor:pointer;">
+        <span style="font-size:22px;">🛶</span>
+        <div><div style="font-size:12px;font-weight:700;color:#111;">Backwater Tours</div><div style="font-size:10.5px;color:#999;margin-top:2px;">Alleppey, Kumarakom & more</div></div>
+        <span style="margin-left:auto;color:#007b7f;font-size:16px;">›</span>
+      </div>
+      <div onclick="window.open('https://road2kerala.com/en/budget-tourism','_blank');closeKsrtcPopup();" style="display:flex;align-items:center;gap:12px;background:#f8f9fa;border:1.5px solid #eee;border-radius:14px;padding:13px 14px;cursor:pointer;">
+        <span style="font-size:22px;">🙏</span>
+        <div><div style="font-size:12px;font-weight:700;color:#111;">Pilgrim Tours</div><div style="font-size:10.5px;color:#999;margin-top:2px;">Sabarimala, Guruvayur & more</div></div>
+        <span style="margin-left:auto;color:#007b7f;font-size:16px;">›</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  window.openKsrtcPopup  = function(){ document.getElementById('ksrtcPopup').style.display='flex'; document.body.style.overflow='hidden'; };
+  window.closeKsrtcPopup = function(){ document.getElementById('ksrtcPopup').style.display='none'; document.body.style.overflow=''; };
 })();
 </script>
 
