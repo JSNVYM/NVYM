@@ -698,7 +698,31 @@
     </div>
 </div>
 
-<div class="transport-popup" id="transportPopup" onclick="closeTransportPopup()">    <div class="transport-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Transport & Parking</h3>        <div class="transport-grid">            <div class="transport-item" onclick="openBikeProvider()"><img src="img/icons/bike taxi.png"><p>Bike Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Car Taxi')"><img src="img/icons/car taxi.png"><p>Car Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Auto')"><img src="img/icons/auto.png"><p>Auto</p></div>
+<div class="transport-popup" id="transportPopup" onclick="closeTransportPopup()">    <div class="transport-box" onclick="event.stopPropagation()">        <div class="drag-bar"></div><h3 style="text-align:center; margin-top:12px; margin-bottom:12px;">Transport & Parking</h3>
+        <!-- Ticket Booking Section -->
+        <div style="margin-bottom:14px;">
+          <div style="font-size:10.5px;font-weight:700;color:#aaa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px;padding:0 2px;">🎫 Ticket Booking</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+            <div class="transport-item" onclick="openDriverPopup()" style="background:#e8f5e9;border:1.5px solid #c8e6c9;">
+              <img src="img/icons/bus ticket.png" style="width:28px;height:28px;margin-bottom:5px;">
+              <p style="color:#2e7d32;font-weight:700;">Bus</p>
+            </div>
+            <div class="transport-item" onclick="openAirportPopup()" style="background:#e3f2fd;border:1.5px solid #bbdefb;">
+              <img src="img/icons/airport.png" style="width:28px;height:28px;margin-bottom:5px;">
+              <p style="color:#1565c0;font-weight:700;">Flight</p>
+            </div>
+            <div class="transport-item" onclick="openRailwayPopup()" style="background:#fff3e0;border:1.5px solid #ffe0b2;">
+              <img src="img/icons/train.png" style="width:28px;height:28px;margin-bottom:5px;">
+              <p style="color:#e65100;font-weight:700;">Train</p>
+            </div>
+            <div class="transport-item" onclick="openMetroPopup('Metro')" style="background:#f3e5f5;border:1.5px solid #e1bee7;">
+              <img src="img/icons/metro.png" style="width:28px;height:28px;margin-bottom:5px;">
+              <p style="color:#6a1b9a;font-weight:700;">Metro</p>
+            </div>
+          </div>
+        </div>
+        <div style="height:1px;background:#f0f0f0;margin-bottom:12px;"></div>
+        <div class="transport-grid">            <div class="transport-item" onclick="openBikeProvider()"><img src="img/icons/bike taxi.png"><p>Bike Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Car Taxi')"><img src="img/icons/car taxi.png"><p>Car Taxi</p></div>            <div class="transport-item" onclick="openCarAutoProvider('Auto')"><img src="img/icons/auto.png"><p>Auto</p></div>
 	<div class="transport-item" onclick="openGenericProvider('Drivers', 'hire driver service')"><img src="img/icons/drivers.png"><p>Drivers</p></div>
 	<div class="transport-item" onclick="findNearby('bus stop')"><img src="img/icons/bus stops.png"><p>Bus Stops</p></div>
 	<div class="transport-item" onclick="findNearby('bus stand')"><img src="img/icons/bus stand.png"><p>Bus Stand</p></div>
