@@ -792,6 +792,237 @@
 
 <div class="emergency-popup" id="emergencyPopup" onclick="closeEmergencyPopup()">  <div class="emergency-box" onclick="event.stopPropagation()">    <div class="drag-bar"></div><h3 style="text-align:center;">Emergency Help</h3>    <div class="popup-content">      <div class="emergency-grid">        <div class="emergency-item" onclick="callNumber('102')"><img src="img/icons/ambulance.png"><p>Ambulance</p></div>        <div class="emergency-item" onclick="findNearbyHospital()"><img src="img/icons/hospital.png"><p>Hospital</p></div>        <div class="emergency-item" onclick="callNumber('100')"><img src="img/icons/police.png"><p>Police</p></div>        <div class="emergency-item" onclick="callNumber('101')"><img src="img/icons/fire.png"><p>Fire</p></div>        <div class="emergency-item" onclick="callNumber('1091')"><img src="img/icons/women.png"><p>Women Helpline</p></div>        <div class="emergency-item" onclick="callNumber('1098')"><img src="img/icons/child.png"><p>Child Helpline</p></div>        <div class="emergency-item" onclick="callNumber('108')"><img src="img/icons/disaster.png"><p>Disaster Mgmt</p></div>        <div class="emergency-item" onclick="callNumber('112')"><img src="img/icons/tourist police.png"><p>Tourist Police</p></div>        <div class="emergency-item" onclick="callNumber('1363')"><img src="img/icons/tourism helpline.png"><p>Tourism Helpline</p></div>        <div class="emergency-item" onclick="callNumber('0471-2518255')"><img src="img/icons/health.png"><p>Health Helpline</p></div>        <div class="emergency-item" onclick="callNumber('91 8589 0404 94')"><img src="img/icons/blood.png"><p>Blood Donors</p></div>        <div class="emergency-item" onclick="callNumber('98461 00100')"><img src="img/icons/highway.png"><p>Highway Alert</p></div>      </div>      <div class="tips-slider">        <div class="tips-track" id="tipsTrack">          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/health tips.png" style="height: 12px; width: 12px;"> Health Tips</h4><p>Drink bottled or purified water. Carry ORS and essential medicines. Use mosquito repellent in monsoon. Wear light cotton clothing. Ensure travel insurance coverage.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/car taxi.png" style="height: 15px; width: 15px;"> Travel Safety</h4><p>Use ride apps or prepaid taxis. Always wear helmets and seatbelts. Avoid isolated places at night. Check weather alerts during monsoon. Follow beach & backwater safety rules.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/nature.png" style="height: 12px; width: 12px;"> Natural Safety</h4><p>Swim only in lifeguard zones. Beware of strong currents in rivers and backwaters. Avoid trekking during heavy rain. Stay away from cliff edges. Carry flashlight during forest or night trips.</p></div></div>          <div class="tip-card"><div class="tip-inner"><h4><img src="img/icons/pharmacies.png" style="height: 12px; width: 12px;"> Pharmacies & First Aid</h4><p>Locate nearest pharmacies using maps. Carry basic first aid kit. Store medicines properly. Keep contact of local doctors & hospitals. Check expiry dates before use.</p></div></div>        </div>      </div>    </div>    <button class="close-btn" onclick="closeEmergencyPopup()">Close</button>  </div></div>
 
+<!-- ── BOOKING SECTION ─────────────────────────────────────────── -->
+<div id="bookingSection" style="margin:16px var(--side-space,14px) 0;">
+  <div style="background:#fff;border-radius:20px;box-shadow:0 4px 24px rgba(0,0,0,0.09),0 1px 4px rgba(0,0,0,0.05);padding:16px;">
+    <!-- Tabs -->
+    <div id="bookingTabs" style="display:flex;gap:0;overflow-x:auto;border-bottom:2px solid #f0f0f0;margin-bottom:14px;-ms-overflow-style:none;scrollbar-width:none;">
+      <style>#bookingTabs::-webkit-scrollbar{display:none;}
+      .bk-tab{flex:0 0 auto;display:flex;align-items:center;gap:5px;padding:8px 13px;font-size:11.5px;font-weight:600;color:#888;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:color .2s;}
+      .bk-tab.active{color:#007b7f;border-bottom-color:#007b7f;}
+      .bk-tab svg,.bk-tab img{width:15px;height:15px;flex-shrink:0;}
+      .bk-panel{display:none;}.bk-panel.active{display:block;}
+      .bk-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
+      .bk-field{display:flex;flex-direction:column;flex:1;min-width:130px;}
+      .bk-label{font-size:9.5px;font-weight:700;color:#aaa;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:4px;}
+      .bk-input{border:1.5px solid #e8e8e8;border-radius:10px;padding:9px 11px;font-size:12px;font-family:'Poppins',sans-serif;outline:none;background:#f8f9fa;color:#111;width:100%;box-sizing:border-box;transition:border-color .2s;}
+      .bk-input:focus{border-color:#007b7f;background:#fff;}
+      .bk-select{border:1.5px solid #e8e8e8;border-radius:10px;padding:9px 11px;font-size:12px;font-family:'Poppins',sans-serif;outline:none;background:#f8f9fa;color:#111;width:100%;box-sizing:border-box;appearance:none;-webkit-appearance:none;}
+      .bk-search{width:100%;background:#007b7f;color:#fff;border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;margin-top:4px;}
+      .bk-search:hover{background:#005f61;}
+      .bk-toggle{display:flex;gap:0;background:#f0f0f0;border-radius:8px;padding:3px;margin-bottom:12px;width:fit-content;}
+      .bk-toggle-btn{padding:5px 14px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;color:#888;transition:all .2s;}
+      .bk-toggle-btn.active{background:#fff;color:#007b7f;box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+      @media(max-width:400px){.bk-field{min-width:100%;}.bk-tab{padding:7px 10px;font-size:10.5px;}}
+      @media(min-width:700px){.bk-row{flex-wrap:nowrap;}.bk-field{min-width:0;}}
+      </style>
+
+      <div class="bk-tab active" onclick="bkSwitch('flight')">✈️ Flight</div>
+      <div class="bk-tab" onclick="bkSwitch('bus')">🚌 Bus</div>
+      <div class="bk-tab" onclick="bkSwitch('train')">🚆 Train</div>
+      <div class="bk-tab" onclick="bkSwitch('metro')">🚇 Metro</div>
+      <div class="bk-tab" onclick="bkSwitch('watermetro')">🛥️ Water Metro</div>
+      <div class="bk-tab" onclick="bkSwitch('houseboat')">🛶 Houseboat</div>
+      <div class="bk-tab" onclick="bkSwitch('cruise')">🚢 Cruise</div>
+      <div class="bk-tab" onclick="bkSwitch('biketaxi')">🏍️ Bike Taxi</div>
+      <div class="bk-tab" onclick="bkSwitch('cartaxi')">🚖 Car Taxi</div>
+      <div class="bk-tab" onclick="bkSwitch('auto')">🛺 Auto</div>
+      <div class="bk-tab" onclick="bkSwitch('insurance')">🛡️ Travel Insurance</div>
+    </div>
+
+    <!-- Flight -->
+    <div class="bk-panel active" id="bk-flight">
+      <div class="bk-toggle"><div class="bk-toggle-btn active" id="fl-ow" onclick="bkFlToggle('ow')">One-way</div><div class="bk-toggle-btn" id="fl-rt" onclick="bkFlToggle('rt')">Round-trip</div></div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">From</div><input class="bk-input" id="fl-from" placeholder="Kochi (COK)"></div>
+        <div class="bk-field"><div class="bk-label">To</div><input class="bk-input" id="fl-to" placeholder="Delhi (DEL)"></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Departure</div><input class="bk-input" id="fl-dep" type="date"></div>
+        <div class="bk-field" id="fl-ret-field" style="display:none;"><div class="bk-label">Return</div><input class="bk-input" id="fl-ret" type="date"></div>
+        <div class="bk-field"><div class="bk-label">Passengers</div><select class="bk-input bk-select" id="fl-pax"><option>1 Adult</option><option>2 Adults</option><option>3 Adults</option><option>4 Adults</option><option>2 Adults + 1 Child</option><option>2 Adults + 2 Children</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('flight')">🔍 Search Flights</button>
+    </div>
+
+    <!-- Bus -->
+    <div class="bk-panel" id="bk-bus">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">From</div><input class="bk-input" id="bus-from" placeholder="e.g. Kochi"></div>
+        <div class="bk-field"><div class="bk-label">To</div><input class="bk-input" id="bus-to" placeholder="e.g. Trivandrum"></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Date</div><input class="bk-input" id="bus-date" type="date"></div>
+        <div class="bk-field"><div class="bk-label">Bus Type</div><select class="bk-input bk-select" id="bus-type"><option>Any</option><option>KSRTC</option><option>Sleeper</option><option>AC Sleeper</option><option>Seater</option><option>AC Seater</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('bus')">🔍 Search Buses</button>
+    </div>
+
+    <!-- Train -->
+    <div class="bk-panel" id="bk-train">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">From Station</div><input class="bk-input" id="tr-from" placeholder="e.g. Ernakulam Jn (ERS)"></div>
+        <div class="bk-field"><div class="bk-label">To Station</div><input class="bk-input" id="tr-to" placeholder="e.g. Trivandrum (TVC)"></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Date</div><input class="bk-input" id="tr-date" type="date"></div>
+        <div class="bk-field"><div class="bk-label">Class</div><select class="bk-input bk-select" id="tr-class"><option>Any</option><option>Sleeper (SL)</option><option>AC 3 Tier (3A)</option><option>AC 2 Tier (2A)</option><option>AC First (1A)</option><option>Chair Car (CC)</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('train')">🔍 Search Trains</button>
+    </div>
+
+    <!-- Metro -->
+    <div class="bk-panel" id="bk-metro">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">From Station</div><input class="bk-input" id="mt-from" placeholder="e.g. Aluva"></div>
+        <div class="bk-field"><div class="bk-label">To Station</div><input class="bk-input" id="mt-to" placeholder="e.g. Pettah"></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Metro Line</div><select class="bk-input bk-select" id="mt-line"><option>Kochi Metro (Blue Line)</option><option>Kochi Metro (Orange Line)</option></select></div>
+        <div class="bk-field"><div class="bk-label">Ticket Type</div><select class="bk-input bk-select"><option>Single Journey</option><option>Return</option><option>Day Pass</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('metro')">🔍 Check Fare & Route</button>
+    </div>
+
+    <!-- Water Metro -->
+    <div class="bk-panel" id="bk-watermetro">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">From Terminal</div><select class="bk-input bk-select" id="wm-from"><option>High Court</option><option>Vytilla</option><option>Kakkanad</option><option>Vyttila Hub</option><option>Cheranalloor</option><option>Fort Kochi</option><option>Bolgatty</option><option>Mulavukad</option></select></div>
+        <div class="bk-field"><div class="bk-label">To Terminal</div><select class="bk-input bk-select" id="wm-to"><option>Vyttila Hub</option><option>High Court</option><option>Cheranalloor</option><option>Kakkanad</option><option>Fort Kochi</option><option>Bolgatty</option><option>Mulavukad</option></select></div>
+      </div>
+      <div style="background:#e0f7fa;border-radius:10px;padding:10px 12px;font-size:10.5px;color:#00695c;line-height:1.6;margin-bottom:10px;">🚢 Kochi Water Metro fare starts at ₹20 · AC boats · Runs 7AM–10PM daily</div>
+      <button class="bk-search" onclick="bkSearch('watermetro')">🔍 Check Schedule</button>
+    </div>
+
+    <!-- Houseboat -->
+    <div class="bk-panel" id="bk-houseboat">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Location</div><select class="bk-input bk-select" id="hb-loc"><option>Alappuzha (Alleppey)</option><option>Kumarakom</option><option>Kollam</option><option>Kasargod</option></select></div>
+        <div class="bk-field"><div class="bk-label">Houseboat Type</div><select class="bk-input bk-select" id="hb-type"><option>1 Bedroom</option><option>2 Bedroom</option><option>3 Bedroom</option><option>Premium / Luxury</option></select></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Check-in</div><input class="bk-input" id="hb-cin" type="date"></div>
+        <div class="bk-field"><div class="bk-label">Guests</div><select class="bk-input bk-select" id="hb-guests"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('houseboat')">🔍 Find Houseboats</button>
+    </div>
+
+    <!-- Cruise -->
+    <div class="bk-panel" id="bk-cruise">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Cruise Type</div><select class="bk-input bk-select" id="cr-type"><option>Backwater Cruise</option><option>Sea Cruise</option><option>Sunset Cruise</option><option>Island Trip</option></select></div>
+        <div class="bk-field"><div class="bk-label">From</div><select class="bk-input bk-select" id="cr-from"><option>Alappuzha</option><option>Kollam</option><option>Kochi</option><option>Bekal</option></select></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Date</div><input class="bk-input" id="cr-date" type="date"></div>
+        <div class="bk-field"><div class="bk-label">Passengers</div><select class="bk-input bk-select" id="cr-pax"><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('cruise')">🔍 Find Cruises</button>
+    </div>
+
+    <!-- Bike Taxi -->
+    <div class="bk-panel" id="bk-biketaxi">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Pickup Location</div><input class="bk-input" id="bkt-from" placeholder="Enter pickup point"></div>
+        <div class="bk-field"><div class="bk-label">Drop Location</div><input class="bk-input" id="bkt-to" placeholder="Enter drop point"></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">City</div><select class="bk-input bk-select" id="bkt-city"><option>Kochi</option><option>Trivandrum</option><option>Kozhikode</option><option>Thrissur</option><option>Kannur</option></select></div>
+        <div class="bk-field"><div class="bk-label">Service</div><select class="bk-input bk-select"><option>Rapido</option><option>Ola Bike</option><option>Local</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('biketaxi')">🔍 Book Bike Taxi</button>
+    </div>
+
+    <!-- Car Taxi -->
+    <div class="bk-panel" id="bk-cartaxi">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Pickup Location</div><input class="bk-input" id="ct-from" placeholder="Enter pickup point"></div>
+        <div class="bk-field"><div class="bk-label">Drop Location</div><input class="bk-input" id="ct-to" placeholder="Enter drop point"></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Car Type</div><select class="bk-input bk-select"><option>Any</option><option>Mini (Hatchback)</option><option>Sedan</option><option>SUV</option><option>Prime</option></select></div>
+        <div class="bk-field"><div class="bk-label">Service</div><select class="bk-input bk-select"><option>Ola</option><option>Uber</option><option>Local Cab</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('cartaxi')">🔍 Book Car Taxi</button>
+    </div>
+
+    <!-- Auto -->
+    <div class="bk-panel" id="bk-auto">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Pickup Location</div><input class="bk-input" id="au-from" placeholder="Enter pickup point"></div>
+        <div class="bk-field"><div class="bk-label">Drop Location</div><input class="bk-input" id="au-to" placeholder="Enter drop point"></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">City</div><select class="bk-input bk-select" id="au-city"><option>Kochi</option><option>Trivandrum</option><option>Kozhikode</option><option>Thrissur</option><option>Alappuzha</option></select></div>
+        <div class="bk-field"><div class="bk-label">Service</div><select class="bk-input bk-select"><option>Ola Auto</option><option>Rapido Auto</option><option>Local Auto</option></select></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('auto')">🔍 Book Auto</button>
+    </div>
+
+    <!-- Travel Insurance -->
+    <div class="bk-panel" id="bk-insurance">
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Trip Type</div><select class="bk-input bk-select"><option>Domestic</option><option>International</option></select></div>
+        <div class="bk-field"><div class="bk-label">Plan Type</div><select class="bk-input bk-select"><option>Individual</option><option>Family</option><option>Senior Citizen</option></select></div>
+      </div>
+      <div class="bk-row">
+        <div class="bk-field"><div class="bk-label">Travel From</div><input class="bk-input" id="ins-from" type="date"></div>
+        <div class="bk-field"><div class="bk-label">Travel To</div><input class="bk-input" id="ins-to" type="date"></div>
+      </div>
+      <button class="bk-search" onclick="bkSearch('insurance')">🔍 Compare Plans</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  // Tab switch
+  window.bkSwitch = function(tab) {
+    document.querySelectorAll('.bk-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.bk-panel').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelector('#bk-' + tab).classList.add('active');
+    var tabs = document.querySelectorAll('.bk-tab');
+    var labels = ['flight','bus','train','metro','watermetro','houseboat','cruise','biketaxi','cartaxi','auto','insurance'];
+    var idx = labels.indexOf(tab);
+    if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
+  };
+
+  // Flight one-way / round-trip toggle
+  window.bkFlToggle = function(type) {
+    document.getElementById('fl-ow').classList.toggle('active', type === 'ow');
+    document.getElementById('fl-rt').classList.toggle('active', type === 'rt');
+    document.getElementById('fl-ret-field').style.display = (type === 'rt') ? 'flex' : 'none';
+  };
+
+  // Set today as default date for all date inputs
+  var today = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('.bk-input[type="date"]').forEach(function(el){ el.value = today; });
+
+  // Search handler — opens relevant booking partner
+  var SEARCH_URLS = {
+    flight:     function(){ var f=v('fl-from'),t=v('fl-to'),d=v('fl-dep'); return 'https://www.makemytrip.com/flight/search?itinerary='+encodeURIComponent(f)+'-'+encodeURIComponent(t)+'-'+d+'&tripType=O&paxType=A-1_C-0_I-0'; },
+    bus:        function(){ var f=v('bus-from'),t=v('bus-to'),d=v('bus-date'); return 'https://www.redbus.in/bus-tickets/'+encodeURIComponent(f)+'-to-'+encodeURIComponent(t)+'?doj='+d; },
+    train:      function(){ var f=v('tr-from'),t=v('tr-to'),d=v('tr-date'); return 'https://www.irctc.co.in/nget/train-search?from='+encodeURIComponent(f)+'&to='+encodeURIComponent(t)+'&date='+d; },
+    metro:      function(){ return 'https://kochimetro.org/fares/'; },
+    watermetro: function(){ return 'https://www.kochiwatermetro.in/'; },
+    houseboat:  function(){ var l=v('hb-loc'); return 'https://www.makemytrip.com/hotels/hotel-listing/?checkin='+v('hb-cin')+'&city='+encodeURIComponent(l)+'&roomStayQualifier=2e0e&country=IN&searchText=houseboat'; },
+    cruise:     function(){ var l=v('cr-from'); return 'https://www.makemytrip.com/activities/kerala-'+encodeURIComponent(l.toLowerCase())+'-cruise'; },
+    biketaxi:   function(){ return 'https://www.rapido.bike/'; },
+    cartaxi:    function(){ return 'https://www.olacabs.com/'; },
+    auto:       function(){ return 'https://www.olacabs.com/'; },
+    insurance:  function(){ return 'https://www.policybazaar.com/travel-insurance/'; }
+  };
+
+  function v(id){ var el=document.getElementById(id); return el ? el.value : ''; }
+
+  window.bkSearch = function(type) {
+    var url = SEARCH_URLS[type] ? SEARCH_URLS[type]() : '#';
+    if (url && url !== '#') window.open(url, '_blank');
+  };
+})();
+</script>
+
 <div class="handpicked">  <div class="handpicked-inner">  <div class="handpicked-header"><div class="handpicked-header-left"><h2>Popular Places</h2><p>Must-visit spots across Kerala</p></div><a class="handpicked-see-all" onclick="openHpSeeAll()">See All</a></div>  <div class="handpicked-slider-wrap">  <div class="handpicked-cards" id="handpickedCards">    <div class="handpicked-card"><img src="img/handpicked/munnar.jpg" loading="eager" fetchpriority="auto" decoding="async" onload="this.classList.add('img-loaded')"><p>Munnar</p></div>    <div class="handpicked-card"><img src="img/handpicked/periyar Wildlife Sanctuary.jpg" loading="eager" fetchpriority="auto" decoding="async" onload="this.classList.add('img-loaded')"><p>Periyar Wildlife</p></div>    <div class="handpicked-card"><img src="img/handpicked/chembra peak.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Chembra Peak</p></div>    <div class="handpicked-card"><img src="img/handpicked/alappuzha.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Alappuzha</p></div>    <div class="handpicked-card"><img src="img/handpicked/fort kochi.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Fort Kochi</p></div>    <div class="handpicked-card"><img src="img/handpicked/varkala.jpg" loading="lazy" fetchpriority="low" decoding="async" onload="this.classList.add('img-loaded')"><p>Varkala</p></div>  </div>  </div>  </div></div>
 
 <!-- SEE ALL POPUP -->
